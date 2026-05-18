@@ -8,7 +8,8 @@
 
 ## Live Site
 
-🌐 **[twiztedjourneysorganization.com](https://twiztedjourneysorganization.com)**
+🌐 **[twiztedjourneys.org](https://www.twiztedjourneys.org)** — current site (Webador)  
+🔧 Public domain configuration for GitHub Pages deployment pending Tonya's approval
 
 ---
 
@@ -113,7 +114,7 @@ TJ_Website_Local/
 1. Push this folder as the root of a GitHub Pages repo
 2. Enable Pages in repo Settings → Pages → Source: `main` branch, `/(root)`
 3. Verify all relative image paths work at `https://[username].github.io/[repo]/`
-4. Add custom domain in Pages settings if using `twiztedjourneysorganization.com`
+4. Add custom domain in Pages settings once domain configuration is finalized
 
 ---
 
