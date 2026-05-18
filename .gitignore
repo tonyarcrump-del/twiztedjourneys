@@ -1,0 +1,48 @@
+﻿# =============================================================
+# Twizted Journeys Website — .gitignore
+# Repo root: TJ_Website_Local/
+# This repo contains ONLY the public-facing TJ static website.
+# All other projects in C:\Twisted Journeys\ (hope-signal-ai,
+# TJ_Story_System, TJ_Event_Agent, etc.) are separate and are
+# NOT part of this repository — they live outside this folder.
+# =============================================================
+
+# ----- Node / Next.js artifacts (should never appear here) ---
+# (This is a static HTML site — no Node build. Rules kept as
+#  a safeguard in case any tooling is added later.)
+node_modules/
+.next/
+.env
+.env.local
+.env.*.local
+
+# ----- OS and editor artifacts ----------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+*.swp
+*.swo
+
+# ----- Local backups and legacy archives ------------------
+# These are working copies and drafts — not for deployment.
+website-backups/
+_archive/
+
+# Temp and scratch files
+*.bak
+*.tmp
+*.log
+dev.log
+
+# ----- Large image originals ------------------------------
+# Full-resolution source files — web-optimized copies are at
+# images/ root and are committed. Originals stay local only.
+images/originals/
+images/_legacy-image-folder/
+
+# ----- Private admin files --------------------------------
+# donation-tracking/ contains financial records — never publish.
+# google-workspace/ contains account credentials — never publish.
+admin-assets/donation-tracking/
+admin-assets/google-workspace/
