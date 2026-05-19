@@ -14,27 +14,31 @@
   <style>
     /* ── Homepage-only additions ──────────────────────────────────── */
     /* ── Parallax / fixed-background hero ─────────────────────────── */
+    /* contain = show full artwork; dark bg fills gaps left/right      */
     .hero-parallax {
       background-image: url("images/what-comes-after-the-pause-promo.png");
       background-attachment: fixed;
-      background-size: cover;
-      background-position: center;
+      background-size: contain;
+      background-position: center top;
       background-repeat: no-repeat;
-      min-height: 85vh;
+      background-color: #09090d;       /* near-black behind contain gaps */
+      min-height: 92vh;
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       align-items: center;
     }
+    /* Overlay: only a thin bottom fade so buttons sit on a readable surface;
+       the rest of the artwork is left fully visible */
     .hero-overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(11,11,15,0.08) 0%,
-        rgba(11,11,15,0.45) 65%,
-        rgba(11,11,15,0.82) 100%
+        transparent 0%,
+        transparent 72%,
+        rgba(9,9,13,0.78) 100%
       );
       pointer-events: none;
       z-index: 1;
@@ -43,17 +47,10 @@
       position: relative;
       z-index: 2;
       text-align: center;
-      padding: 0 20px 52px;
+      padding: 0 20px 44px;
       width: 100%;
     }
-    .hero-cta-area > p {
-      color: rgba(248,251,255,0.92);
-      font-size: 1.06rem;
-      max-width: 600px;
-      margin: 0 auto 24px;
-      line-height: 1.7;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.65);
-    }
+    /* No paragraph text inside hero — image already contains the message */
     .hero-cta-area .cta-row {
       display: flex;
       gap: 16px;
@@ -61,6 +58,10 @@
       flex-wrap: wrap;
     }
     /* .hero-cta-bar removed — CTAs now live inside .hero-parallax */
+    /* ── Pillar card visual accent ────────────────────────────────── */
+    .pillar-card {
+      border-top: 3px solid var(--teal, #56E0D2);
+    }
     .mission-card {
       background: var(--surface, #13131f);
       border-left: 4px solid var(--teal, #56E0D2);
@@ -127,9 +128,11 @@
     @media (max-width: 640px) {
       .hero-parallax {
         background-attachment: scroll;   /* fixed causes glitches on iOS */
-        min-height: 62vh;
+        background-size: contain;
+        background-position: center top;
+        min-height: 90vw;               /* proportional to portrait artwork */
       }
-      .hero-cta-area { padding-bottom: 36px; }
+      .hero-cta-area { padding-bottom: 28px; }
       .impact-row { gap: 22px; }
       .mission-card { padding: 22px 18px; }
       .qr-card { padding: 24px 18px; }
@@ -183,9 +186,8 @@
       <!-- Gradient overlay — keeps bottom readable without hiding the artwork -->
       <div class="hero-overlay" aria-hidden="true"></div>
 
-      <!-- CTAs anchored to hero bottom -->
+      <!-- CTAs only — no overlay text; artwork contains the message -->
       <div class="hero-cta-area">
-        <p>A free, open community for anyone processing grief, loss, or life&#8217;s hardest chapters &#8212; in Shelby County and beyond.</p>
         <div class="cta-row">
           <a href="https://www.twiztedjourneys.org/donations-matter"
              class="btn btn-primary" target="_blank" rel="noopener">Donate</a>
@@ -198,6 +200,9 @@
     <section class="section-dark" aria-labelledby="mission-heading" style="padding:64px 0;">
       <div class="container">
         <p class="section-label">Who We Are</p>
+        <p style="color:var(--muted);font-size:1.02rem;max-width:640px;margin:6px auto 0;line-height:1.65;">
+          A free, open community for anyone carrying grief, loss, or the weight of life&#8217;s hardest chapters &#8212; in Shelby County and beyond.
+        </p>
         <h2 class="section-title" id="mission-heading">Built by Loss. Driven by Hope.</h2>
         <div class="mission-card">
           <p>

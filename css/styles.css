@@ -1,4 +1,4 @@
-﻿/* ═══════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
    Twizted Journeys — Main Stylesheet
    Brand Colors:
      Twizted Purple  : #8A2BEF
@@ -78,8 +78,10 @@ a:hover { color: var(--cyan); }
   z-index: 100;
   background: rgba(11,11,15,0.96);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
-  padding: 12px 0;
+  padding: 10px 0;
+  overflow: visible;           /* prevent backdrop-filter from clipping children */
 }
 
 .nav-inner {
@@ -87,6 +89,7 @@ a:hover { color: var(--cyan); }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  min-height: 56px;            /* prevent nav from collapsing and clipping logo */
 }
 
 .nav-logo {
@@ -94,11 +97,16 @@ a:hover { color: var(--cyan); }
   align-items: center;
   gap: 10px;
   text-decoration: none;
+  overflow: visible;           /* ensure logo is never clipped */
+  flex-shrink: 0;
 }
 
 .nav-logo img {
-  height: 44px;
+  display: block;
+  height: 42px;
   width: auto;
+  flex-shrink: 0;
+  object-fit: contain;         /* never distort or clip the logo */
 }
 
 .nav-logo-text {
