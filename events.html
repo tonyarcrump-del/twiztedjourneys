@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -6,6 +6,27 @@
   <meta name="description" content="Upcoming Twizted Journeys events — awareness rides, walks, and community gatherings in Shelbyville, Indiana." />
   <title>Events — Twizted Journeys</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .event-promo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+      margin: 32px 0;
+    }
+    .vendor-promo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+    @media (max-width: 680px) {
+      .event-promo-grid,
+      .vendor-promo-grid { grid-template-columns: 1fr; }
+      .event-promo-grid img,
+      .vendor-promo-grid img { order: -1; }
+    }
+  </style>
 </head>
 <body>
 
@@ -51,6 +72,26 @@
       <p class="section-label">Upcoming · 2026</p>
       <h2 id="upcoming-heading">September — What Comes After the Pause</h2>
       <p class="events-intro">Two days at the Shelby County Fairgrounds in Shelbyville, Indiana.</p>
+      <!-- Event promo artwork -->
+      <div class="event-promo-grid">
+        <div>
+          <img src="images/what-comes-after-the-pause-logo.png"
+               alt="What Comes After the Pause — event identity"
+               style="max-width:220px;margin-bottom:16px;display:block;"
+               loading="lazy">
+          <p style="font-size:1.05rem;line-height:1.75;margin:0;">
+            Join us <strong>September 12–13, 2026</strong> at the Shelby County Fairgrounds for two days of awareness, community, and healing.
+            Riders, walkers, families, and friends — everyone is welcome. Wear purple and teal.
+          </p>
+        </div>
+        <div>
+          <img src="images/what-comes-after-the-pause-promo.png"
+               alt="What Comes After the Pause — September 2026 event promo art"
+               style="width:100%;border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,0.45);"
+               loading="lazy">
+        </div>
+      </div>
+
 
       <div class="event-card">
         <div class="event-date-badge" aria-label="September 12, 2026">
@@ -99,10 +140,20 @@
       </div>
 
       <!-- Vendor callout -->
-      <div style="margin-top:32px;padding:24px 28px;background:var(--surface-raised, #1e1e2e);border:1px solid var(--border, #333);border-radius:10px;max-width:640px;">
-        <p style="margin:0 0 12px;font-weight:600;">Interested in vending?</p>
-        <p style="margin:0 0 16px;">Vendor spaces available both days — $50/day. Makers, food vendors, resource tables, and awareness organizations welcome.</p>
-        <a class="btn btn-secondary" href="mailto:info@twiztedjourneys.org">Email to Reserve Your Space</a>
+      <div style="margin-top:32px;padding:28px;background:var(--surface-raised, #1e1e2e);border:1px solid var(--border, #333);border-radius:10px;">
+        <div class="vendor-promo-grid">
+          <div>
+            <p style="margin:0 0 10px;font-weight:700;font-size:1.05rem;">Interested in vending?</p>
+            <p style="margin:0 0 18px;">Vendor spaces are available <strong>both days — $50/day</strong>. Makers, food vendors, resource tables, and awareness organizations are welcome. Reserve your spot early.</p>
+            <a class="btn btn-secondary" href="mailto:info@twiztedjourneys.org?subject=Vendor%20Signup%20-%20September%202026">Email to Reserve Your Space</a>
+          </div>
+          <div>
+            <img src="images/vendor-event-flyer.png"
+                 alt="Twizted Journeys vendor event flyer — September 2026"
+                 style="width:100%;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.45);"
+                 loading="lazy">
+          </div>
+        </div>
       </div>
     </div>
   </section>
