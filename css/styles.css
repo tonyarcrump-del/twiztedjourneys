@@ -1,4 +1,4 @@
-/* ═══════════════════════════════════════════════════════════════
+﻿/* ═══════════════════════════════════════════════════════════════
    Twizted Journeys — Main Stylesheet
    Brand Colors:
      Twizted Purple  : #8A2BEF
@@ -685,18 +685,17 @@ section {
 
 /* ── 988 / Crisis Footer Band ──────────────────────────────────── */
 .crisis-band {
-  background: linear-gradient(90deg, rgba(138,43,239,0.15), rgba(86,224,210,0.08), rgba(138,43,239,0.15));
+  background: var(--midnight-2);
   border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 20px 0;
+  padding: 12px 0;
   text-align: center;
 }
 
 .crisis-band p {
-  font-size: 0.95rem;
-  color: var(--white);
-  line-height: 1.7;
-  max-width: 740px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+  max-width: 680px;
   margin: 0 auto;
 }
 
@@ -707,11 +706,10 @@ section {
 
 .crisis-band strong {
   color: var(--white);
-  font-size: 1.05rem;
 }
 
 .crisis-number {
-  font-size: 1.4rem;
+  font-size: 1.0rem;
   font-weight: 800;
   color: var(--teal);
 }
