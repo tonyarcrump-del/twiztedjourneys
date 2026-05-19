@@ -1,36 +1,41 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Everyone Fidgets — Twizted Journeys</title>
   <meta name="description" content="Everyone Fidgets — Twizted Journeys' initiative around fidget tools, sensory items, and simple coping tools for mental health and anxiety. Because movement is medicine.">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<div class="crisis-bar">
-  💙 You are not alone. If you need support right now —
-  <a href="https://988lifeline.org" target="_blank">Call or text <strong>988</strong></a> &nbsp;|&nbsp;
-  Crisis Text Line: text <strong>HOME to 741741</strong>
-</div>
 
-<nav class="site-nav">
-  <div class="nav-inner">
-    <div class="nav-brand">Tw<span style="color:var(--purple-lt)">;</span>zted Journeys</div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="events.html">Events</a></li>
-      <li><a href="merch.html">Merch</a></li>
-      <li><a href="stories.html">Journeys</a></li>
-      <li><a href="memorial.html">Memorial</a></li>
-      <li><a href="three-rs.html">3 R's</a></li>
-      <li><a href="suicide-awareness.html">Suicide Awareness</a></li>
-      <li><a href="mental-health.html">Mental Health</a></li>
-      <li><a href="everyone-fidgets.html" class="active">Everyone Fidgets</a></li>
-    </ul>
-  </div>
-</nav>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <img src="images/web-optimized/twizted-journeys-banner.jpg" alt="Twizted Journeys logo" style="height:44px;width:auto;border-radius:6px;" />
+          <span class="nav-logo-text">Tw<span class="semicolon-accent">;</span>zted Journeys</span>
+        </a>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">&#9776;</button>
+        <ul class="nav-links" id="nav-links" role="list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="merch.html">Merch</a></li>
+          <li><a href="stories.html">Share Your Story</a></li>
+          <li><a href="memorial.html">Memorial</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="podcast.html">Podcast</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="https://www.twiztedjourneys.org/donations-matter" class="btn btn-primary nav-donate">Donate</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
 
 <section class="hero-section" style="text-align:center;">
   <div style="max-width:160px; margin:0 auto 24px;">
@@ -188,71 +193,33 @@
 
 <!-- TODO: Add additional sections from live everyone-fidgets page (product listings, articles, event tie-ins) if present -->
 
-<!-- CRISIS -->
-<section class="crisis-section">
-  <div class="crisis-911">988</div>
-  <p>Call or text <strong>988</strong> — available 24/7, free &amp; confidential.</p>
-  <a href="https://988lifeline.org" target="_blank" class="btn btn-teal">988lifeline.org</a>
-</section>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="brand-name">Tw;zted Journeys</div>
-        <div class="footer-tagline">Give tomorrow a chance.</div>
-        <p>An Indiana nonprofit promoting mental health awareness, suicide prevention, and healing after loss.</p>
-        <div class="social-row">
-          <a href="https://www.facebook.com/groups/560290368564902/" target="_blank" class="social-btn">📘 Facebook Group</a>
-          <a href="https://instagram.com/twiztedjourneys" target="_blank" class="social-btn">📸 Instagram</a>
-          <a href="https://tiktok.com/@twiztedjourneys" target="_blank" class="social-btn">🎵 TikTok</a>
-        </div>
-        <div class="footer-501c3">✓ IRS-recognized 501(c)(3) public charity</div>
-      </div>
-      <div class="footer-col">
-        <h4>Pages</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="events.html">Events</a></li>
-          <li><a href="stories.html">Journeys</a></li>
-          <li><a href="memorial.html">Memorial</a></li>
-          <li><a href="merch.html">Merch</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Resources</h4>
-        <ul>
-          <li><a href="three-rs.html">3 R's</a></li>
-          <li><a href="suicide-awareness.html">Suicide Awareness</a></li>
-          <li><a href="mental-health.html">Mental Health</a></li>
-          <li><a href="everyone-fidgets.html">Everyone Fidgets</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Connect</h4>
-        <ul>
-          <li><a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></li>
-          <li><a href="https://988lifeline.org" target="_blank">988 Crisis Lifeline</a></li>
-          <li><a href="https://afsp.org" target="_blank">AFSP</a></li>
-          <li><a href="https://nami.org" target="_blank">NAMI</a></li>
-          <li><a href="https://overdoselifeline.org" target="_blank">Overdose Lifeline</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="not-hotline">
-      ⚠️ <strong>Twizted Journeys is NOT a hotline or counseling service.</strong>
-      If you are in crisis, please call or text <strong>988</strong>, or text HOME to <strong>741741</strong>.
-    </div>
-    <div class="footer-bottom">
-      <div>
-        <strong>Tonya Crump</strong> — Founder &amp; CEO &nbsp;·&nbsp;
-        <strong>Tia Weaver</strong> — Co-Founder<br>
-        © 2022–2026 Twizted Journeys, Inc. &nbsp;·&nbsp; 501(c)(3) Public Charity
-      </div>
-      <div><em>Give tomorrow a chance.</em></div>
+
+
+  </main>
+
+  <div class="crisis-band">
+    <div class="container">
+      <p>
+        <strong>If you are in crisis:</strong> Call or text <span class="crisis-number">988</span> &mdash; free, 24/7.<br />
+        Crisis Text Line: text <strong>HOME</strong> to <strong>741741</strong>
+      </p>
     </div>
   </div>
-</footer>
 
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2022&ndash;2026 Twizted Journeys, Inc. All rights reserved. &middot; 501(c)(3) nonprofit</p>
+        <p>
+          <a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a>
+          &nbsp;&middot;&nbsp;
+          <a href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Join the Facebook Group</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
