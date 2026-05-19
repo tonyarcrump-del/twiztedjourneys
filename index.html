@@ -1,19 +1,117 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Twizted Journeys — Every Journey Matters</title>
-  <meta name="description" content="Twizted Journeys is an Indiana nonprofit offering free peer support, suicide loss survivor groups, awareness events, and community connection in Shelby County and surrounding areas." />
-  <meta property="og:title" content="Twizted Journeys — Every Journey Matters" />
-  <meta property="og:description" content="A safe, welcoming space for anyone carrying grief, loss, or the weight of life's hardest chapters. Free peer support. No cost, ever." />
-  <meta property="og:image" content="images/web-optimized/twizted-journeys-banner.jpg" />
+  <title>Twizted Journeys &#8212; Every Journey Matters</title>
+  <meta name="description" content="Twizted Journeys is an Indiana 501(c)(3) nonprofit offering free peer support, suicide loss survivor groups, awareness events, and community connection in Shelby County and surrounding areas." />
+  <meta property="og:title" content="Twizted Journeys &#8212; Every Journey Matters" />
+  <meta property="og:description" content="A free, welcoming community for anyone carrying grief, loss, or the weight of life's hardest chapters. Shelbyville, Indiana." />
+  <meta property="og:image" content="images/what-comes-after-the-pause-promo.png" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.twiztedjourneys.org/" />
   <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ── Homepage-only additions ──────────────────────────────────── */
+    .hero-img-full {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 680px;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .hero-cta-bar {
+      background: var(--midnight-2, #0f0f17);
+      padding: 32px 20px;
+      text-align: center;
+      border-bottom: 1px solid var(--border, #222);
+    }
+    .hero-cta-bar > p {
+      color: var(--muted, #a0a0b8);
+      font-size: 1.02rem;
+      max-width: 600px;
+      margin: 0 auto 22px;
+      line-height: 1.65;
+    }
+    .hero-cta-bar .cta-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .mission-card {
+      background: var(--surface, #13131f);
+      border-left: 4px solid var(--teal, #56E0D2);
+      padding: 32px 30px;
+      border-radius: 0 10px 10px 0;
+      max-width: 720px;
+      margin: 32px auto 0;
+    }
+    .mission-card p {
+      font-size: 1.06rem;
+      line-height: 1.85;
+      color: var(--text, #e4e4f0);
+      margin: 0;
+    }
+    .impact-row {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 48px;
+    }
+    .impact-stat { text-align: center; }
+    .impact-stat .num {
+      display: block;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--teal, #56E0D2);
+      line-height: 1;
+    }
+    .impact-stat .lbl {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--muted, #a0a0b8);
+      margin-top: 6px;
+    }
+    .qr-card {
+      background: var(--surface, #13131f);
+      border: 1px solid var(--border, #2a2a3a);
+      border-radius: 10px;
+      padding: 36px 32px;
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .qr-card > p { color: var(--muted, #a0a0b8); line-height: 1.7; margin: 0; }
+    .podcast-mini {
+      background: var(--midnight-2, #0f0f17);
+      padding: 36px 20px;
+      text-align: center;
+      border-top: 1px solid var(--border, #222);
+    }
+    .podcast-mini h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white, #F8FBFF);
+      margin: 4px 0 10px;
+    }
+    .podcast-mini p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 18px;
+    }
+    @media (max-width: 640px) {
+      .hero-img-full { max-height: 300px; }
+      .impact-row { gap: 22px; }
+      .mission-card { padding: 22px 18px; }
+      .qr-card { padding: 24px 18px; }
+    }
+  </style>
 </head>
 <body>
-
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <nav class="site-nav" aria-label="Main navigation">
@@ -23,7 +121,7 @@
           <img src="images/web-optimized/twizted-journeys-banner.jpg" alt="Twizted Journeys logo" style="height:44px;width:auto;border-radius:6px;" />
           <span class="nav-logo-text">Tw<span class="semicolon-accent">;</span>zted Journeys</span>
         </a>
-        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">☰</button>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">&#9776;</button>
         <ul class="nav-links" id="nav-links" role="list">
           <li><a href="index.html" class="active">Home</a></li>
           <li><a href="events.html">Events</a></li>
@@ -33,7 +131,7 @@
           <li><a href="resources.html">Resources</a></li>
           <li><a href="podcast.html">Podcast</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="https://www.twiztedjourneys.org/donations-matter" class="btn btn-primary nav-donate">Donate</a></li>
+          <li><a href="https://www.twiztedjourneys.org/donations-matter" class="btn btn-primary nav-donate" target="_blank" rel="noopener">Donate</a></li>
         </ul>
       </div>
     </div>
@@ -41,30 +139,59 @@
 
   <main id="main-content">
 
-    <!-- HERO -->
-    <section class="hero" aria-label="Welcome">
+    <!-- ═══ HERO ═══════════════════════════════════════════════════
+         Tonya's Canva hero image — contains text/message in the image.
+         No large HTML headline stacked on top (would create clutter).
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="hero" aria-label="Twizted Journeys">
       <div class="hero-banner">
-        <img src="images/web-optimized/twizted-journeys-banner.jpg" alt="Twizted Journeys community gathering" />
-      </div>
-      <div class="container">
-        <h1>Every Journey Matters.</h1>
-        <p class="hero-tagline">A safe, welcoming space for anyone carrying grief, loss, or the weight of life's hardest chapters.</p>
-        <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:28px;">
-          <a href="events.html" class="btn btn-primary">See Upcoming Events</a>
-          <a href="about.html" class="btn btn-secondary">Get Involved</a>
-        </div>
+        <img src="images/what-comes-after-the-pause-promo.png"
+             alt="Twizted Journeys — Every journey matters. Indiana nonprofit for suicide loss survivors, grief support, and mental health community."
+             class="hero-img-full"
+             loading="eager" />
       </div>
     </section>
 
-    <!-- SAFE PLACE BANNER -->
-    <div class="safe-place-banner" role="note">
-      <div class="container">
-        <p>Twizted Journeys is a safe place for everyone. You do not have to be okay to be here.</p>
+    <!-- CTA bar: sits flush below hero image, no duplicate headline -->
+    <div class="hero-cta-bar">
+      <p>A free, open community for anyone processing grief, loss, or life&#8217;s hardest chapters &#8212; in Shelby County and beyond.</p>
+      <div class="cta-row">
+        <a href="https://www.twiztedjourneys.org/donations-matter"
+           class="btn btn-primary" target="_blank" rel="noopener">Donate</a>
+        <a href="events.html" class="btn btn-secondary">Upcoming Events</a>
       </div>
     </div>
-
-    <!-- WHAT WE DO -->
-    <section class="section-dark" aria-labelledby="pillars-heading">
+    <!-- ═══ MISSION ════════════════════════════════════════════════ -->
+    <section class="section-dark" aria-labelledby="mission-heading" style="padding:64px 0;">
+      <div class="container">
+        <p class="section-label">Who We Are</p>
+        <h2 class="section-title" id="mission-heading">Built by Loss. Driven by Hope.</h2>
+        <div class="mission-card">
+          <p>
+            Twizted Journeys is a <strong>501(c)(3) nonprofit</strong> founded in Shelbyville, Indiana by
+            Tonya Crump and Tia Weaver &#8212; two women who turned personal loss into a lifeline for their community.
+            We exist to make sure no one has to carry the weight of grief, suicide loss, or mental health struggle alone.
+            Every program we offer is <strong>completely free</strong>. No membership, no cost, ever.
+          </p>
+        </div>
+        <div class="impact-row" role="list" aria-label="Impact">
+          <div class="impact-stat" role="listitem">
+            <span class="num">5+</span>
+            <span class="lbl">Years in the community</span>
+          </div>
+          <div class="impact-stat" role="listitem">
+            <span class="num">Free</span>
+            <span class="lbl">Every program, every time</span>
+          </div>
+          <div class="impact-stat" role="listitem">
+            <span class="num">6</span>
+            <span class="lbl">Indiana counties served</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ═══ WHAT WE DO ═════════════════════════════════════════════ -->
+    <section aria-labelledby="pillars-heading" style="padding:64px 0;">
       <div class="container">
         <p class="section-label">What We Do</p>
         <h2 class="section-title" id="pillars-heading">How We Show Up for Our Community</h2>
@@ -72,67 +199,68 @@
         <div class="pillars-grid">
 
           <div class="pillar-card">
-            <div class="pillar-icon" aria-hidden="true">💜</div>
+            <div class="pillar-icon" aria-hidden="true">&#128156;</div>
             <h3>Finding Forward</h3>
-            <p>A free, peer-led Tuesday evening support group in Shelbyville for suicide loss survivors and anyone processing grief, trauma, or mental health struggles. Adults 18+. No cost, ever.</p>
-            <a href="mailto:info@twiztedjourneys.org" class="btn btn-ghost">Email for details &rarr;</a>
+            <p>A free, peer-led support group meeting every Tuesday evening in Shelbyville &#8212; for suicide loss survivors and anyone processing grief, trauma, or mental health struggles. Adults 18+.</p>
+            <a href="mailto:info@twiztedjourneys.org?subject=Finding%20Forward%20Info" class="btn btn-ghost">Email for details &rarr;</a>
           </div>
 
           <div class="pillar-card">
-            <div class="pillar-icon" aria-hidden="true">🌟</div>
+            <div class="pillar-icon" aria-hidden="true">&#127775;</div>
             <h3>S.A.F.E. Events &amp; Awareness</h3>
-            <p>We host Suicide Awareness For Everyone events, rides, walks, and community gatherings. Free and open to all.</p>
+            <p>We host Suicide Awareness For Everyone events &#8212; awareness rides, community walks, and gatherings. Free and open to all. Come as you are.</p>
             <a href="events.html" class="btn btn-ghost">See events &rarr;</a>
           </div>
 
           <div class="pillar-card">
-            <div class="pillar-icon" aria-hidden="true">🕊️</div>
+            <div class="pillar-icon" aria-hidden="true">&#128330;&#65039;</div>
             <h3>Memorial &amp; Stories</h3>
-            <p>Honor someone you've lost. Share your own journey in a space that holds your story with care and zero judgment.</p>
+            <p>Honor someone you&#8217;ve lost. Share your own journey in a space that holds your story with care and zero judgment. Your words matter here.</p>
             <a href="memorial.html" class="btn btn-ghost">Visit memorial &rarr;</a>
           </div>
 
         </div>
       </div>
     </section>
-
-    <!-- UPCOMING EVENTS -->
-    <section class="events-section" aria-labelledby="events-heading">
+    <!-- ═══ UPCOMING EVENT ══════════════════════════════════════════ -->
+    <section class="section-dark" aria-labelledby="events-heading" style="padding:64px 0;">
       <div class="container">
-        <p class="section-label">Community Events</p>
-        <h2 class="section-title" id="events-heading">What's Coming Up</h2>
-        <p class="events-intro">Mark your calendar — two powerful days in Shelby County this September.</p>
-        <div style="margin:28px 0 0;text-align:center;">
+        <p class="section-label">Community Events &middot; September 2026</p>
+        <h2 class="section-title" id="events-heading">What Comes After the Pause</h2>
+        <p class="events-intro">Two powerful days at the Shelby County Fairgrounds &#8212; awareness ride, community walk, vendors, and community.</p>
+
+        <div style="margin:32px 0;text-align:center;">
           <img src="images/what-comes-after-the-pause-promo-2.png"
-               alt="What Comes After the Pause — September 12–13, 2026 event art"
-               style="max-width:560px;width:100%;border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,0.4);"
+               alt="What Comes After the Pause &#8212; September 12&#8211;13, 2026 event art"
+               style="max-width:540px;width:100%;border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,0.45);"
                loading="lazy">
         </div>
 
-
-        <div style="display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:32px;">
+        <div style="display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:8px;">
 
           <div class="event-card">
-            <div class="event-date-badge" aria-label="September 12">
+            <div class="event-date-badge" aria-label="September 12, 2026">
               <span class="month">Sept</span>
               <span class="day">12</span>
+              <span class="year">2026</span>
             </div>
             <div class="event-info">
-              <span class="event-tag">Motorcycle Ride</span>
-              <h3>Light Up the Night — Awareness Motorcycle Ride</h3>
+              <span class="event-tag">&#127949; Motorcycle Ride &middot; Day One</span>
+              <h3>Light Up the Night</h3>
               <p><strong>Shelby County Fairgrounds, Shelbyville IN</strong><br />Registration 11AM</p>
               <p>Riders, supporters, and families welcome. Wear purple and teal.</p>
             </div>
           </div>
 
           <div class="event-card">
-            <div class="event-date-badge" aria-label="September 13">
+            <div class="event-date-badge" aria-label="September 13, 2026">
               <span class="month">Sept</span>
               <span class="day">13</span>
+              <span class="year">2026</span>
             </div>
             <div class="event-info">
-              <span class="event-tag">Awareness Walk</span>
-              <h3>The Cause — Awareness Walk</h3>
+              <span class="event-tag">&#128694; Awareness Walk &middot; Day Two</span>
+              <h3>The Cause &#8212; Awareness Walk</h3>
               <p><strong>Shelby County Fairgrounds, Shelbyville IN</strong><br />Registration 11AM</p>
               <p>Walk in memory and in hope. All ages, all backgrounds.</p>
             </div>
@@ -140,59 +268,99 @@
 
         </div>
 
-        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:32px;">
-          <a href="events.html" class="btn btn-primary">View Full Event Details &rarr;</a>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;">
+          <a href="events.html" class="btn btn-primary">Full Event Details &rarr;</a>
           <a href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener" class="btn btn-secondary">Join the Facebook Group &rarr;</a>
         </div>
       </div>
     </section>
-
-    <!-- PODCAST COMING SOON -->
-    <section class="section-dark" aria-labelledby="podcast-heading">
-      <div class="container" style="text-align:center;">
-        <p class="section-label">Coming Soon</p>
-        <h2 class="section-title" id="podcast-heading">The Twizted Journeys Podcast</h2>
-        <p class="section-intro">Real stories. Real journeys. Real hope &mdash; told by the people who lived them.</p>
-        <a href="podcast.html" class="btn btn-primary" style="margin-top:20px;">Learn More &amp; Express Interest &rarr;</a>
-      </div>
-    </section>
-
-    <!-- DONATE -->
-    <section id="donate" aria-labelledby="donate-heading">
-      <div class="container" style="text-align:center;padding:64px 20px;">
+    <!-- ═══ DONATE ═════════════════════════════════════════════════ -->
+    <section id="donate" aria-labelledby="donate-heading" style="padding:72px 0;">
+      <div class="container" style="max-width:640px;margin:0 auto;text-align:center;">
         <p class="section-label">Support the Mission</p>
-        <h2 class="section-title" id="donate-heading">Help Us Keep Going</h2>
-        <p class="section-intro" style="max-width:580px;margin:0 auto 32px;">Twizted Journeys is a 501(c)(3) nonprofit. Every dollar goes toward events, peer support, and keeping all our programs free.</p>
-        <a href="https://www.twiztedjourneys.org/donations-matter" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:1.05rem;">Donate Now &rarr;</a>
-        <div style="margin-top:20px;color:var(--muted);font-size:0.92rem;line-height:2;">
-          <p>Cash App: <strong>$twiztedjourneys</strong></p>
-          <p>PayPal: <strong>tonyarcrump@gmail.com</strong></p>
-          <p style="font-size:0.82rem;margin-top:4px;">More ways to give on the <a href="https://www.twiztedjourneys.org/donations-matter" target="_blank" rel="noopener">donations page</a>.</p>
-        </div>
-        
-        <p style="margin-top:12px;font-size:0.9rem;">More ways to give are listed on the <a href="https://www.twiztedjourneys.org/donations-matter" target="_blank" rel="noopener">live donations page</a>.</p>
-        <p style="margin-top:16px;font-size:0.82rem;color:var(--muted);">Twizted Journeys, Inc. is a 501(c)(3) nonprofit. Donations are tax-deductible as allowed by law.</p>
+        <h2 class="section-title" id="donate-heading">Help Us Keep Every Program Free</h2>
+        <p class="section-intro">Twizted Journeys is a registered 501(c)(3) nonprofit. Every dollar goes toward events, peer support, and keeping our community open to anyone who needs us.</p>
+        <a href="https://www.twiztedjourneys.org/donations-matter"
+           target="_blank" rel="noopener"
+           class="btn btn-primary"
+           style="font-size:1.08rem;padding:15px 38px;">Donate Now &rarr;</a>
+        <p style="margin-top:20px;color:var(--muted);font-size:0.88rem;line-height:2.0;">
+          Cash App: <strong>$twiztedjourneys</strong> &nbsp;&middot;&nbsp; PayPal: <strong>tonyarcrump@gmail.com</strong>
+        </p>
+        <p style="margin-top:4px;font-size:0.8rem;color:var(--muted);">
+          More ways to give on the <a href="https://www.twiztedjourneys.org/donations-matter" target="_blank" rel="noopener">donations page</a>.
+          Donations are tax-deductible as allowed by law.
+        </p>
       </div>
     </section>
+    <!-- ═══ RESOURCES / 988 ════════════════════════════════════════ -->
+    <section class="section-dark" aria-labelledby="resources-heading" style="padding:56px 0;">
+      <div class="container" style="text-align:center;">
+        <p class="section-label">Need Help Now?</p>
+        <h2 class="section-title" id="resources-heading">Resources Are Here</h2>
+        <p class="section-intro" style="max-width:580px;margin:0 auto 28px;">
+          If you or someone you know is in crisis, call or text
+          <strong style="color:var(--teal, #56E0D2);font-size:1.1em;">988</strong>
+          &#8212; free, confidential, 24/7.
+          We also maintain a library of local and national mental health resources.
+        </p>
+        <a href="resources.html" class="btn btn-secondary">Browse All Resources &rarr;</a>
+      </div>
+    </section>
+    <!-- ═══ SHARE YOUR JOURNEY ═════════════════════════════════════ -->
+    <section aria-labelledby="stories-heading" style="padding:56px 0;">
+      <div class="container" style="text-align:center;">
+        <p class="section-label">Your Story Matters</p>
+        <h2 class="section-title" id="stories-heading">Share Your Journey</h2>
+        <p class="section-intro" style="max-width:580px;margin:0 auto 28px;">
+          Whether you&#8217;ve lost someone, are finding your footing, or just need to say it out loud &#8212;
+          this community holds your story with care and zero judgment.
+        </p>
+        <a href="stories.html" class="btn btn-primary">Share Your Story &rarr;</a>
+      </div>
+    </section>
+    <!-- ═══ SCAN & SHARE ════════════════════════════════════════════
+         QR placeholder only — do not generate real QR codes yet.
+         TODO: Add QR code images once URLs are confirmed and codes generated.
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="section-dark" aria-labelledby="qr-heading" style="padding:56px 0;">
+      <div class="container">
+        <p class="section-label">Scan &amp; Share</p>
+        <h2 class="section-title" id="qr-heading">Carry Twizted Journeys With You</h2>
+        <div class="qr-card">
+          <p>
+            Branded QR cards make it easy for anyone to connect with donations, events, stories,
+            merch, and the Facebook Group &#8212; shareable anywhere, any time.
+          </p>
+          <p style="margin-top:14px;padding:12px 20px;border:1px dashed var(--border, #444);border-radius:8px;font-size:0.85rem;color:var(--muted);display:inline-block;">
+            &#128247;&nbsp; Printable QR cards coming soon &#8212; ask about bulk cards for events and outreach.
+          </p>
+          <div style="margin-top:22px;">
+            <a href="mailto:info@twiztedjourneys.org?subject=QR%20Cards%20Request" class="btn btn-ghost">
+              Request QR Cards &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ═══ PODCAST (secondary / small) ════════════════════════════ -->
+    <div class="podcast-mini">
+      <p class="section-label" style="margin-bottom:4px;">Coming Soon</p>
+      <h2>The Twizted Journeys Podcast</h2>
+      <p>Real stories. Real journeys. Real hope &#8212; told by the people who lived them.</p>
+      <a href="podcast.html" class="btn btn-ghost">Learn More &rarr;</a>
+    </div>
 
   </main>
 
   <div class="crisis-band" role="complementary" aria-label="Crisis support information">
     <div class="container">
       <p>
-        <strong>If you are in crisis or need immediate help:</strong><br />
-        Call or text <span class="crisis-number">988</span> &mdash; the Suicide &amp; Crisis Lifeline &mdash; free, 24/7, confidential.<br />
-        Visit <a href="https://988lifeline.org" target="_blank" rel="noopener">988lifeline.org</a> &nbsp;|&nbsp;
-        Crisis Text Line: text <strong>HOME</strong> to <strong>741741</strong> &nbsp;|&nbsp;
-        Visit <a href="https://crisistextline.org" target="_blank" rel="noopener">crisistextline.org</a>
-      </p>
-      <p style="font-size:0.8rem;color:var(--muted);margin-top:8px;">
-        Twizted Journeys is not a hotline, therapy provider, or emergency service.
-        In an emergency, call 911.
+        <strong>If you are in crisis:</strong> Call or text <span class="crisis-number">988</span> &mdash; free, 24/7, confidential.<br />
+        Crisis Text Line: text <strong>HOME</strong> to <strong>741741</strong>
       </p>
     </div>
   </div>
-
   <footer class="site-footer" aria-label="Site footer">
     <div class="container">
       <div class="footer-grid">
@@ -235,7 +403,7 @@
         If you are in crisis, please call 911 or contact the 988 Suicide &amp; Crisis Lifeline.
       </p>
       <div class="footer-bottom">
-        <p>&copy; 2022&ndash;2026 Twizted Journeys, Inc. All rights reserved.</p>
+        <p>&copy; 2022&ndash;2026 Twizted Journeys, Inc. All rights reserved. &middot; 501(c)(3) nonprofit</p>
         <p>Founders: Tonya Crump &amp; Tia Weaver &nbsp;|&nbsp; <a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
       </div>
     </div>

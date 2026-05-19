@@ -25,6 +25,19 @@
       .vendor-promo-grid { grid-template-columns: 1fr; }
       .event-promo-grid img,
       .vendor-promo-grid img { order: -1; }
+      .event-card-img { order: -1; width: 100%; max-width: 100%; }
+    }
+    /* Image panel inside event cards */
+    .event-card-img {
+      flex: 0 0 240px;
+      max-width: 240px;
+      align-self: flex-start;
+    }
+    .event-card-img img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.42);
+      display: block;
     }
   </style>
 </head>
@@ -114,6 +127,11 @@
             <a class="btn btn-ghost" href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Facebook Page</a>
           </div>
         </div>
+        <div class="event-card-img">
+          <img src="images/what-comes-after-the-pause-promo.png"
+               alt="Light Up the Night awareness ride flyer"
+               loading="lazy">
+        </div>
       </div>
 
       <div class="event-card">
@@ -136,6 +154,11 @@
             <a class="btn btn-secondary" href="mailto:info@twiztedjourneys.org?subject=Vendor%20Signup">Vendor Signup ($50/day)</a>
             <a class="btn btn-ghost" href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Facebook Page</a>
           </div>
+        </div>
+        <div class="event-card-img">
+          <img src="images/what-comes-after-the-pause-promo-2.png"
+               alt="The Cause awareness walk flyer"
+               loading="lazy">
         </div>
       </div>
 
