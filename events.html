@@ -1,420 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Upcoming Twizted Journeys events — awareness rides, walks, and community gatherings in Shelbyville, Indiana." />
   <title>Events — Twizted Journeys</title>
-  <meta name="description" content="Discover upcoming Twizted Journeys events dedicated to mental health awareness, addiction recovery, and suicide prevention.">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
-<div class="crisis-bar">
-  💙 You are not alone. If you need support right now —
-  <a href="https://988lifeline.org" target="_blank">Call or text <strong>988</strong></a> &nbsp;|&nbsp;
-  Crisis Text Line: text <strong>HOME to 741741</strong>
-</div>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
-<nav class="site-nav">
-  <div class="nav-inner">
-    <div class="nav-brand">Tw<span style="color:var(--purple-lt)">;</span>zted Journeys</div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="events.html" class="active">Events</a></li>
-      <li><a href="merch.html">Merch</a></li>
-      <li><a href="stories.html">Journeys</a></li>
-      <li><a href="memorial.html">Memorial</a></li>
-      <li><a href="three-rs.html">3 R's</a></li>
-      <li><a href="suicide-awareness.html">Suicide Awareness</a></li>
-      <li><a href="mental-health.html">Mental Health</a></li>
-      <li><a href="everyone-fidgets.html">Everyone Fidgets</a></li>
-    </ul>
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Twizted Journeys home">
+        <img src="images/web-optimized/twizted-journeys-banner.jpg" alt="Twizted Journeys" style="height:44px;width:auto;border-radius:6px;" />
+        <span class="nav-logo-text">Tw<span class="semicolon-accent">;</span>zted Journeys</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">☰</button>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li><a href="stories.html">Share Your Story</a></li>
+        <li><a href="memorial.html">Memorial</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="podcast.html">Podcast</a></li>
+        <li><a href="merch.html">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="index.html#donate" class="btn btn-primary nav-donate">Donate</a></li>
+      </ul>
+    </div>
   </div>
 </nav>
 
-<!-- HERO — page title from live site ("Where we've been and what's next") -->
-<section class="hero-section" style="text-align:center;">
-  <div class="hero-eyebrow">Events</div>
-  <h1>Where we've been<br>and <em>what's next</em></h1>
-  <p class="hero-sub">If you have events you'd like to share with us, please let us know.</p>
-  <div class="hero-actions">
-    <a href="#upcoming-2026" class="btn btn-primary">🗓 2026 Events</a>
-    <a href="mailto:info@twiztedjourneys.org" class="btn btn-ghost">Share an Event</a>
-  </div>
-</section>
+<main id="main-content">
 
-<!-- ═══════════════════════════════════════════════════
-     2026 UPCOMING EVENTS — NEW (event data from content kit)
-     ═══════════════════════════════════════════════════ -->
-<section class="section" id="upcoming-2026">
-  <div class="container">
-    <div style="display:flex; align-items:center; gap:16px; margin-bottom:8px;">
-      <h2 class="section-title" style="margin-bottom:0;">A Sneak Peek of 2026</h2>
-      <span class="tag">Upcoming</span>
+  <!-- Hero -->
+  <section class="section-dark" style="padding:64px 0 48px;">
+    <div class="container">
+      <p class="section-label">Community Events</p>
+      <h1 class="section-title">Where We've Been — <em>And What's Next</em></h1>
+      <p class="section-intro">Our events are free, open to the community, and built around awareness, healing, and hope.</p>
     </div>
-    <p class="section-sub">"What Comes After the Pause" — Two days at the Shelby County Fairgrounds.</p>
+  </section>
 
-    <!-- Event hero artwork -->
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:900px; margin:0 auto 36px; align-items:start;">
-      <div class="event-flyer-img" style="max-width:100%;">
-        <img src="images/what-comes-after-the-pause-promo.png"
-             alt="What Comes After the Pause — Twizted Journeys 2026 event artwork"
-             loading="lazy">
-      </div>
-      <div class="event-flyer-img" style="max-width:100%;">
-        <img src="images/vendor-event-flyer.png"
-             alt="Vendor Needed — September 12 and 13, 2026 — Twizted Journeys event flyer"
-             loading="lazy">
-      </div>
-    </div>
-    <p class="image-caption" style="margin-bottom:24px;">Artwork by Tonya Crump · Twizted Journeys 2026</p>
+  <!-- 2026 Upcoming Events -->
+  <section class="events-section" id="upcoming" aria-labelledby="upcoming-heading">
+    <div class="container">
+      <p class="section-label">Upcoming · 2026</p>
+      <h2 id="upcoming-heading">September — What Comes After the Pause</h2>
+      <p class="events-intro">Two days at the Shelby County Fairgrounds in Shelbyville, Indiana.</p>
 
-    <div style="display:grid; gap:20px; max-width:800px; margin:0 auto;">
-
-      <!-- Day 1 -->
       <div class="event-card">
-        <div class="event-date-col">
-          <span class="event-month">Sept</span>
-          <span class="event-day">12</span>
-          <span class="event-year">2026</span>
+        <div class="event-date-badge" aria-label="September 12, 2026">
+          <span class="month">Sept</span>
+          <span class="day">12</span>
+          <span class="year">2026</span>
         </div>
-        <div class="event-body">
-          <div class="event-type">🏍 Awareness Ride · Day One</div>
+        <div class="event-info">
+          <p class="event-tag">🏍 Awareness Ride · Day One</p>
           <h3>Light Up the Night</h3>
-          <div class="event-meta">
-            <span>📍 Shelby County Fairgrounds</span>
-            <span>🕚 Registration 11AM</span>
-            <span>📬 100 Prairie Ave, Shelbyville, IN</span>
-          </div>
           <p>
-            Our annual awareness motorcycle ride. Riders, supporters, families, and friends are all welcome.
-            Wear your purple and teal — shine a light in the dark. Vendors welcome at $50/day.
+            📍 Shelby County Fairgrounds, Shelbyville IN &nbsp;|&nbsp;
+            🕚 Registration 11AM &nbsp;|&nbsp;
+            📬 100 Prairie Ave
           </p>
-          <div class="event-actions">
-            <a href="mailto:info@twiztedjourneys.org?subject=RSVP%20-%20Ride%20Registration" class="btn btn-sm btn-primary">🏍 RSVP — Ride Registration</a>
-            <a href="mailto:info@twiztedjourneys.org?subject=Vendor%20Signup%20-%20Bike%20Ride%20Day" class="btn btn-sm btn-ghost">🛍 Vendor Signup ($50/day)</a>
-            <a href="https://www.facebook.com/twiztedjourneys" target="_blank" class="btn btn-sm btn-outline">📘 Facebook Page</a>
+          <p>Our annual awareness motorcycle ride. Riders, supporters, families, and friends are all welcome. Wear purple and teal. Vendors welcome at $50/day.</p>
+          <div class="event-actions" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;">
+            <a class="btn btn-primary" href="mailto:info@twiztedjourneys.org?subject=RSVP%20-%20Ride%20Registration">RSVP — Ride Registration</a>
+            <a class="btn btn-secondary" href="mailto:info@twiztedjourneys.org?subject=Vendor%20Signup">Vendor Signup ($50/day)</a>
+            <a class="btn btn-ghost" href="https://facebook.com/TwiztedJourneys" target="_blank" rel="noopener">Facebook Page</a>
           </div>
-          <!-- TODO: Replace mailto RSVP links with live form URL and specific Facebook Event link when posted -->
         </div>
       </div>
 
-      <!-- Day 2 -->
       <div class="event-card">
-        <div class="event-date-col">
-          <span class="event-month">Sept</span>
-          <span class="event-day">13</span>
-          <span class="event-year">2026</span>
+        <div class="event-date-badge" aria-label="September 13, 2026">
+          <span class="month">Sept</span>
+          <span class="day">13</span>
+          <span class="year">2026</span>
         </div>
-        <div class="event-body">
-          <div class="event-type">🚶 Awareness Walk · Day Two</div>
+        <div class="event-info">
+          <p class="event-tag">🚶 Awareness Walk · Day Two</p>
           <h3>The Cause — Awareness Walk</h3>
-          <div class="event-meta">
-            <span>📍 Shelby County Fairgrounds</span>
-            <span>🕚 Registration 11AM</span>
-            <span>📬 100 Prairie Ave, Shelbyville, IN</span>
-          </div>
           <p>
-            Community walk in memory of the lives we've lost and in support of those still fighting.
-            All ages, all backgrounds, all journeys. Bring a photo of your loved one to carry with you.
+            📍 Shelby County Fairgrounds &nbsp;|&nbsp;
+            🕚 Registration 11AM &nbsp;|&nbsp;
+            📬 100 Prairie Ave
           </p>
-          <div class="event-actions">
-            <a href="mailto:info@twiztedjourneys.org?subject=RSVP%20-%20Walk%20Registration" class="btn btn-sm btn-primary">🚶 RSVP — Walk Registration</a>
-            <a href="mailto:info@twiztedjourneys.org?subject=Vendor%20Signup%20-%20Awareness%20Walk%20Day" class="btn btn-sm btn-ghost">🛍 Vendor Signup ($50/day)</a>
-            <a href="https://www.facebook.com/twiztedjourneys" target="_blank" class="btn btn-sm btn-outline">📘 Facebook Page</a>
+          <p>Community walk in memory of the lives we've lost and in support of those still fighting. All ages, all backgrounds. Bring a photo of your loved one to carry with you.</p>
+          <div class="event-actions" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;">
+            <a class="btn btn-primary" href="mailto:info@twiztedjourneys.org?subject=RSVP%20-%20Walk%20Registration">RSVP — Walk Registration</a>
+            <a class="btn btn-secondary" href="mailto:info@twiztedjourneys.org?subject=Vendor%20Signup">Vendor Signup ($50/day)</a>
+            <a class="btn btn-ghost" href="https://facebook.com/TwiztedJourneys" target="_blank" rel="noopener">Facebook Page</a>
           </div>
-          <!-- TODO: Replace mailto RSVP links with live form URL and specific Facebook Event link when posted -->
         </div>
       </div>
 
-    </div><!-- /grid -->
-
-    <!-- Vendor info callout -->
-    <div class="card" style="max-width:800px; margin:24px auto 0; background:rgba(13,148,136,0.08); border-color:rgba(13,148,136,0.3);">
-      <h3 style="color:var(--teal-lt); margin-bottom:8px;">🛍 Vendor Information</h3>
-      <p style="color:var(--muted); font-size:0.9rem; margin-bottom:14px;">
-        Vendor spaces are available for both days at <strong>$50/day</strong>. We welcome makers, food vendors,
-        resource tables, and awareness organizations. Contact us to reserve your spot.
-      </p>
-      <a href="mailto:info@twiztedjourneys.org" class="btn btn-sm btn-teal">Email to Reserve Your Space</a>
-    </div>
-  </div>
-</section>
-
-<hr class="divider">
-
-<!-- ═══════════════════════════════════════════════════
-     2025 EVENTS — FROM LIVE SITE
-     ═══════════════════════════════════════════════════ -->
-<section class="section" id="past-2025">
-  <div class="container">
-    <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
-      <h2 class="section-title" style="margin-bottom:0;">2025</h2>
-      <span class="tag" style="background:var(--card2); color:var(--muted);">Past Events</span>
-    </div>
-
-    <!-- Light Up the Night 2025 — FROM LIVE SITE -->
-    <div class="card" style="max-width:800px; margin-bottom:24px;">
-      <h3 style="color:var(--purple-lt); margin-bottom:6px;">"Light Up the Night" hosted by Twizted Journeys</h3>
-      <p style="color:var(--muted); font-size:0.9rem; line-height:1.7;">
-        Our 2025 Light Up the Night event brought together riders, walkers, and community members for a powerful
-        night of awareness. Volunteers including Katrina and Tina helped make the event possible — and their
-        memory is now part of the Twizted Journeys family forever.
-      </p>
-    </div>
-
-    <!-- 2025 event awareness graphic -->
-    <div style="max-width:680px; margin-bottom:24px;">
-      <img src="images/awareness-post-mar2025.jpg"
-           alt="Twizted Journeys 2025 awareness event graphic"
-           style="width:100%; border-radius:12px; display:block;">
-    </div>
-    <div style="max-width:680px; margin-bottom:24px;">
-      <img src="images/merch-item-6174.png"
-           alt="Twizted Journeys 2025 Light Up the Night awareness graphic"
-           style="width:100%; border-radius:12px; display:block;">
-    </div>
-
-    <!-- Photo gallery — 2025 Light Up the Night event photos (from live Webador site) -->
-    <h3 style="font-size:1rem; margin-bottom:14px; color:var(--muted);">📸 Event Photos — 2025</h3>
-    <div class="photo-grid" style="max-width:800px;">
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-community-2.jpg" alt="Twizted Journeys Light Up the Night 2025 community photo" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-community-6.jpg" alt="Twizted Journeys community event 2025" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-community-4.jpg" alt="Twizted Journeys community gathering 2025" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-community-5.jpg" alt="Twizted Journeys event attendees 2025" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-community-7.jpg" alt="Twizted Journeys awareness walk 2025" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-community-3.jpg" alt="Twizted Journeys community support 2025" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-community-8.jpg" alt="Twizted Journeys event photo 2025" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-community-9.jpg" alt="Twizted Journeys Light Up the Night participants" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-community-10.jpg" alt="Twizted Journeys community event photo" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-community-11.jpg" alt="Twizted Journeys awareness event attendees" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-collage-apr2024.jpg" alt="Twizted Journeys April 2024 event collage" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-received-2.jpg" alt="Twizted Journeys event community photo" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <!-- Vendor callout -->
+      <div style="margin-top:32px;padding:24px 28px;background:var(--surface-raised, #1e1e2e);border:1px solid var(--border, #333);border-radius:10px;max-width:640px;">
+        <p style="margin:0 0 12px;font-weight:600;">Interested in vending?</p>
+        <p style="margin:0 0 16px;">Vendor spaces available both days — $50/day. Makers, food vendors, resource tables, and awareness organizations welcome.</p>
+        <a class="btn btn-secondary" href="mailto:info@twiztedjourneys.org">Email to Reserve Your Space</a>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<hr class="divider">
+  <!-- Past Events -->
+  <section class="section-dark" id="history" aria-labelledby="history-heading" style="padding:56px 0;">
+    <div class="container">
+      <p class="section-label">Our History</p>
+      <h2 id="history-heading">Where We've Been</h2>
+      <p class="section-intro">Since 2021, Twizted Journeys has hosted awareness rides, community walks, vendor events, and peer gatherings across Shelbyville and surrounding counties. Every year has brought more community, more healing, and more hope.</p>
 
-<!-- 2022 — FROM LIVE SITE -->
-<section class="section" id="past-2022">
-  <div class="container">
-    <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
-      <h2 class="section-title" style="margin-bottom:0;">2022</h2>
-      <span class="tag" style="background:var(--card2); color:var(--muted);">Past Events</span>
-    </div>
-    <div class="card" style="max-width:800px; margin-bottom:20px;">
-      <p style="color:var(--muted); font-style:italic; line-height:1.75;">
-        2022 brought about <strong style="color:var(--text)">"A Journey to be Stigma Free"</strong> — this was a
-        huge 2-day event that had our second annual benefit ride and our 1st annual awareness walk.
-      </p>
-    </div>
-    <div class="photo-grid" style="max-width:800px;">
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-collage-aug2022-1.jpg" alt="Twizted Journeys August 2022 event collage" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-collage-aug2022-2.jpg" alt="Twizted Journeys A Journey to be Stigma Free 2022" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-collage-aug2022-3.jpg" alt="Twizted Journeys benefit ride awareness walk 2022" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-aug2022-2.jpg" alt="Twizted Journeys August 2022 event photo" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-aug2022-3.jpg" alt="Twizted Journeys August 2022 community gathering" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-sep2022-1.jpg" alt="Twizted Journeys September 2022 event" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-sep2022-2.jpg" alt="Twizted Journeys September 2022 awareness event" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-sep2022-3.jpg" alt="Twizted Journeys September 2022 community" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-collage-may2022-3.jpg" alt="Twizted Journeys May 2022 event collage" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-collage-may2022-4.jpg" alt="Twizted Journeys May 2022 community event" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-collage-may2022-5.jpg" alt="Twizted Journeys May 2022 awareness gathering" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-collage-apr2022.jpg" alt="Twizted Journeys April 2022 event collage" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-received-1.jpg" alt="Twizted Journeys 2022 community photo" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-collage-jun2022-1.jpg" alt="Twizted Journeys June 2022 event collage" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-    </div>
-  </div>
-</section>
+      <div style="margin-top:36px;display:flex;flex-direction:column;gap:28px;max-width:680px;">
 
-<hr class="divider">
-
-<!-- 2021 — FROM LIVE SITE -->
-<section class="section" id="past-2021">
-  <div class="container">
-    <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
-      <h2 class="section-title" style="margin-bottom:0;">2021</h2>
-      <span class="tag" style="background:var(--card2); color:var(--muted);">Past Events</span>
-    </div>
-    <div class="card" style="max-width:800px; margin-bottom:20px;">
-      <p style="color:var(--muted); line-height:1.75;">
-        2021 was the year it all began. Driven by personal loss, Tonya and her daughter launched what became
-        Twizted Journeys — starting with awareness events and the first peer connections.
-      </p>
-    </div>
-    <div class="photo-grid" style="max-width:800px;">
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-collage-mar2022-1.jpg" alt="Twizted Journeys early 2022 founding event" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-collage-mar2022-2.jpg" alt="Twizted Journeys March 2022 community gathering" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-collage-mar2022-3.jpg" alt="Twizted Journeys March 2022 awareness event" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-collage-mar2022-5.jpg" alt="Twizted Journeys March 2022 founding collage" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/event-photo-apr2022.jpg" alt="Twizted Journeys April 2022 event" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-      <div class="photo-cell" style="aspect-ratio:1; overflow:hidden;">
-        <img src="images/social-graphic-unknown.png" alt="Twizted Journeys early community support" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SUPPORT & DONATE — new addition per audit -->
-<section class="section" style="background:var(--card2);">
-  <div class="container" style="max-width:800px;">
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:20px;">
-
-      <div class="card" style="text-align:center;">
-        <div class="card-icon">💚</div>
-        <h3>Support the Mission</h3>
-        <p style="margin-bottom:20px;">
-          Every dollar goes directly toward events, awareness materials, and peer support programs.
-          Twizted Journeys is a 501(c)(3) — donations are tax-deductible.
-        </p>
-        <a href="#" class="btn btn-teal" style="width:100%; justify-content:center;">Donate to Twizted Journeys</a>
-        <div class="placeholder-note mt-16" style="font-size:0.8rem;">
-          <strong>📌</strong> Replace # with real donate link (PayPal, Venmo, GoFundMe, or Stripe).
+        <div>
+          <p style="font-weight:700;font-size:1.05rem;margin:0 0 6px;">2025 — Light Up the Night</p>
+          <p style="margin:0;">Our 2025 awareness event brought together riders, walkers, and community members for a powerful night of awareness.</p>
         </div>
-      </div>
 
-      <div class="card" style="text-align:center;">
-        <div class="card-icon">🛍</div>
-        <h3>Wear the Message</h3>
-        <p style="margin-bottom:20px;">
-          Semicolon charms, awareness shirts, and handmade items by Tonya.
-          Every purchase supports the mission — and carries the conversation forward.
-        </p>
-        <a href="merch.html" class="btn btn-primary" style="width:100%; justify-content:center;">Shop Twizted Merch</a>
-      </div>
+        <div>
+          <p style="font-weight:700;font-size:1.05rem;margin:0 0 6px;">2022 — A Journey to Be Stigma Free</p>
+          <p style="margin:0;">A landmark two-day event — our second annual benefit ride and first annual awareness walk.</p>
+        </div>
 
+        <div>
+          <p style="font-weight:700;font-size:1.05rem;margin:0 0 6px;">2021 — The Beginning</p>
+          <p style="margin:0;">Driven by personal loss, Tonya and her daughter launched what would become Twizted Journeys.</p>
+        </div>
+
+      </div>
     </div>
+  </section>
+
+  <!-- Finding Forward callout -->
+  <section style="padding:56px 0;" aria-labelledby="ff-heading">
+    <div class="container">
+      <div style="max-width:640px;margin:0 auto;text-align:center;">
+        <p class="section-label">Peer Support</p>
+        <h2 id="ff-heading">Finding Forward</h2>
+        <p style="margin:16px 0 24px;">Finding Forward meets every Tuesday evening in Shelbyville — a free peer support group for anyone processing grief, loss, or mental health struggles. Adults 18+.</p>
+        <a class="btn btn-primary" href="mailto:info@twiztedjourneys.org">Email for Details</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="crisis-band" role="complementary" aria-label="Crisis support information">
+  <div class="container">
+    <p>
+      <strong>If you are in crisis or need immediate help:</strong><br />
+      Call or text <span class="crisis-number">988</span> — the Suicide &amp; Crisis Lifeline — free, 24/7, confidential.<br />
+      Visit <a href="https://988lifeline.org" target="_blank" rel="noopener">988lifeline.org</a> &nbsp;|&nbsp;
+      Crisis Text Line: text <strong>HOME</strong> to <strong>741741</strong> &nbsp;|&nbsp;
+      Visit <a href="https://crisistextline.org" target="_blank" rel="noopener">crisistextline.org</a>
+    </p>
+    <p style="font-size:0.8rem;color:var(--muted);margin-top:8px;">
+      Twizted Journeys is not a hotline, therapy provider, or emergency service.
+      In an emergency, call 911.
+    </p>
   </div>
-</section>
+</div>
 
-<!-- CRISIS FOOTER -->
-<section class="crisis-section">
-  <div class="crisis-911">988</div>
-  <p>Call or text <strong>988</strong> — available 24/7, free &amp; confidential.</p>
-  <a href="https://988lifeline.org" target="_blank" class="btn btn-teal">988lifeline.org</a>
-</section>
-
-<footer class="site-footer">
-  <div class="footer-inner">
+<footer class="site-footer" aria-label="Site footer">
+  <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="brand-name">Tw;zted Journeys</div>
-        <div class="footer-tagline">Give tomorrow a chance.</div>
-        <p>An Indiana nonprofit promoting mental health awareness, suicide prevention, and healing after loss.</p>
-        <div class="social-row">
-          <a href="https://facebook.com/twiztedjourneys" target="_blank" class="social-btn">📘 Facebook</a>
-          <a href="https://instagram.com/twiztedjourneys" target="_blank" class="social-btn">📸 Instagram</a>
-          <a href="https://tiktok.com/@twiztedjourneys" target="_blank" class="social-btn">🎵 TikTok</a>
-        </div>
-        <div class="footer-501c3">✓ IRS-recognized 501(c)(3) public charity</div>
+        <h2>Tw<span>;</span>zted Journeys</h2>
+        <p>A safe place for every journey. Indiana nonprofit serving Shelby, Johnson, Bartholomew, Hancock, Decatur, and Rush counties.</p>
+        <p style="margin-top:10px;"><a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
       </div>
       <div class="footer-col">
-        <h4>Pages</h4>
+        <h3>Navigate</h3>
         <ul>
-          <li><a href="index.html">Home</a></li>
           <li><a href="events.html">Events</a></li>
-          <li><a href="stories.html">Journeys</a></li>
+          <li><a href="stories.html">Share Your Story</a></li>
           <li><a href="memorial.html">Memorial</a></li>
-          <li><a href="merch.html">Merch</a></li>
+          <li><a href="podcast.html">Podcast</a></li>
+          <li><a href="merch.html">Shop</a></li>
+          <li><a href="about.html">About Us</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Resources</h4>
+        <h3>Resources</h3>
         <ul>
-          <li><a href="three-rs.html">3 R's</a></li>
-          <li><a href="suicide-awareness.html">Suicide Awareness</a></li>
-          <li><a href="mental-health.html">Mental Health</a></li>
-          <li><a href="everyone-fidgets.html">Everyone Fidgets</a></li>
+          <li><a href="https://988lifeline.org" target="_blank" rel="noopener">988 Crisis Lifeline</a></li>
+          <li><a href="https://crisistextline.org" target="_blank" rel="noopener">Crisis Text Line</a></li>
+          <li><a href="https://afsp.org" target="_blank" rel="noopener">AFSP</a></li>
+          <li><a href="https://nami.org" target="_blank" rel="noopener">NAMI</a></li>
+          <li><a href="https://overdoselifeline.org" target="_blank" rel="noopener">Overdose Lifeline</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Connect</h4>
-        <ul>
-          <li><a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></li>
-          <li><a href="https://988lifeline.org" target="_blank">988 Crisis Lifeline</a></li>
-          <li><a href="https://afsp.org" target="_blank">AFSP</a></li>
-          <li><a href="https://nami.org" target="_blank">NAMI</a></li>
-          <li><a href="https://overdoselifeline.org" target="_blank">Overdose Lifeline</a></li>
-        </ul>
+        <h3>Connect</h3>
+        <div class="social-links">
+          <a class="social-link" href="https://facebook.com/TwiztedJourneys" target="_blank" rel="noopener">Facebook</a>
+          <a class="social-link" href="https://instagram.com/TwiztedJourneys" target="_blank" rel="noopener">Instagram</a>
+          <a class="social-link" href="https://tiktok.com/@twiztedjourneys" target="_blank" rel="noopener">TikTok</a>
+        </div>
       </div>
     </div>
-    <div class="not-hotline">
-      ⚠️ <strong>Twizted Journeys is NOT a hotline or counseling service.</strong>
-      If you are in crisis, please call or text <strong>988</strong>, or text HOME to <strong>741741</strong>.
-    </div>
+    <p class="footer-disclaimer">
+      Twizted Journeys, Inc. is a 501(c)(3) public charity. Donations are tax-deductible as allowed by law.
+      We are not a crisis hotline, counseling service, therapy provider, medical provider, or emergency response service.
+      If you are in crisis, please call 911 or contact the 988 Suicide &amp; Crisis Lifeline.
+    </p>
     <div class="footer-bottom">
-      <div>
-        <strong>Tonya Crump</strong> — Founder &amp; CEO &nbsp;·&nbsp;
-        <strong>Tia Weaver</strong> — Co-Founder<br>
-        © 2022–2026 Twizted Journeys, Inc. &nbsp;·&nbsp; 501(c)(3) Public Charity
-      </div>
-      <div><em>Give tomorrow a chance.</em></div>
+      <p>© 2022–2026 Twizted Journeys, Inc. All rights reserved.</p>
+      <p>Founders: Tonya Crump &amp; Tia Weaver &nbsp;|&nbsp; <a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
     </div>
   </div>
 </footer>
+<script src="js/main.js"></script>
 
 </body>
 </html>

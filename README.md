@@ -22,7 +22,7 @@ twizted-journeys/
 ├── index.html                  ← Homepage
 ├── events.html                 ← Events page
 ├── stories.html                ← Story submission and sharing
-├── memorials.html              ← Memorial wall
+├── memorial.html               ← Memorial wall
 ├── resources.html              ← Crisis/support resources
 ├── podcast.html                ← Podcast (coming soon)
 ├── merch.html                  ← Shop
@@ -113,14 +113,14 @@ If pointing twiztedjourneys.org to GitHub Pages:
 
 ## Safety & Content Rules (Permanent)
 
-- ❌ Do NOT use "nothing is too taboo"
-- ❌ Do NOT use "IRS approved"
-- ❌ Do NOT present as crisis hotline, therapy, or medical service
-- ✅ 988 crisis language MUST appear — currently in footer crisis band
-- ✅ Story/podcast disclosure MUST appear on story and podcast pages
-- ✅ Under-18 guardrail MUST appear on story submission and podcast pages
-- ✅ "Every Journey Matters" — keep this wording
-- ✅ Donations are tax-deductible (501c3) — say this, not "IRS approved"
+- Avoid overly casual language around sensitive topics
+- Avoid unsupported nonprofit approval claims
+- Do NOT present as crisis hotline, therapy, or medical service
+- 988 crisis language MUST appear — currently in footer crisis band
+- Story/podcast disclosure MUST appear on story and podcast pages
+- Under-18 guardrail MUST appear on story submission and podcast pages
+- "Every Journey Matters" — keep this wording
+- Use proper nonprofit donation wording, e.g. "501(c)(3) nonprofit — donations may be tax-deductible as allowed by law"
 
 ---
 
