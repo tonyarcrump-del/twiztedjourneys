@@ -1,49 +1,53 @@
-﻿# Twizted Journeys — Website Project
+# Twizted Journeys — Website Project
 
-**Twizted Journeys** is a nonprofit mental health awareness and community support organization built around the twisted semicolon identity — a symbol of continuing the story, even through the hardest moments.
-
-> *"The journey isn't always straight. It's Twizted. And that's okay."*
-
----
-
-## Live Site
-
-🌐 **[twiztedjourneys.org](https://www.twiztedjourneys.org)** — current site (Webador)  
-🔧 Public domain configuration for GitHub Pages deployment pending Tonya's approval
+**Organization:** Twizted Journeys, Inc.  
+**Website:** twiztedjourneys.org  
+**Mission:** Peer support, suicide loss survivor community, mental health awareness, and hope.  
+**Location:** Shelbyville, Indiana (serving Shelby, Johnson, Bartholomew, Hancock, Decatur, Rush counties)  
+**Founded:** 2021 | **Status:** 501(c)(3) Nonprofit  
+**Founders:** Tonya Crump (CEO) & Tia Weaver (Co-Founder)
 
 ---
 
-## Project Structure
+## Project Status
+
+Migrating from Webador to GitHub Pages. This is a static HTML/CSS/JS site with no server-side dependencies.
+
+---
+
+## Folder Structure
 
 ```
-TJ_Website_Local/
-├── index.html               # Homepage (hero, mission, events teaser)
-├── events.html              # Community events listing
-├── memorial.html            # Memorial tribute page
-├── mental-health.html       # Mental health resources
-├── merch.html               # Merch store
-├── shoe-drive.html          # Shoe drive campaign
-├── stories.html             # Community stories
-├── suicide-awareness.html   # Awareness resources
-├── three-rs.html            # The Three Rs page
-├── everyone-fidgets.html    # Everyone Fidgets program
-├── style.css                # Global stylesheet (purple/teal/black branding)
-├── _nav.html                # Shared navigation include
+twizted-journeys/
+├── index.html                  ← Homepage
+├── events.html                 ← Events page
+├── stories.html                ← Story submission and sharing
+├── memorials.html              ← Memorial wall
+├── resources.html              ← Crisis/support resources
+├── podcast.html                ← Podcast (coming soon)
+├── merch.html                  ← Shop
+├── about.html                  ← About Us
 │
-├── images/                  # All project images
-│   ├── logos/               # Brand logos (neon, brush, cursive, handlettered)
-│   ├── events/              # Event photos and collages
-│   ├── flyers/              # Printable event flyers
-│   ├── merch/               # Merch product photos
-│   ├── memorials/           # Memorial imagery
-│   ├── awareness-graphics/  # Awareness campaign visuals
-│   ├── hero-backgrounds/    # Full-width hero/banner images
-│   ├── social-assets/       # Social media graphics and screenshots
-│   ├── qr-graphics/         # QR code artwork and display graphics
-│   ├── originals/           # Full-resolution originals (not deployed)
-│   └── web-optimized/       # Compressed web-ready versions
+├── css/
+│   └── styles.css              ← All site styles (brand colors, layout)
 │
-├── qr-codes/                # QR code library (organized by purpose)
+├── js/
+│   └── main.js                 ← Mobile nav, active link logic
+│
+├── images/
+│   ├── originals/              ← Full-res originals — DO NOT delete
+│   │   └── twizted-journeys-logo-original.png
+│   └── web-optimized/         ← Compressed versions for web use
+│       ├── twizted-journeys-banner.jpg       (1500×500, 262KB)
+│       ├── twizted-journeys-banner-mobile.jpg (768×256, 78KB)
+│       └── hero-canva.jpg                    ← ⚠ PLACEHOLDER — see below
+│
+├── events/                     ← Event flyer images and assets
+├── merch/                      ← Merch product photos
+├── memorials/                  ← Memorial photos and assets
+├── resources/                  ← Downloadable resource documents
+├── downloads/                  ← Public downloadable files
+├── qr-codes/
 │   ├── website/
 │   ├── events/
 │   ├── donations/
@@ -51,90 +55,90 @@ TJ_Website_Local/
 │   ├── merch/
 │   ├── memorials/
 │   └── future-campaigns/
-│
-├── forms/                   # Form exports and templates
-├── docs/                    # Internal documentation
-├── resources/               # Public downloadable resources
-├── downloads/               # Files served as public downloads
-│
-├── admin-assets/            # Admin system placeholders
-│   ├── google-workspace/
-│   ├── event-registration/
-│   ├── donation-tracking/
-│   ├── volunteer-forms/
-│   ├── sponsor-info/
-│   └── dashboard/
-│
-├── _archive/                # Archived/legacy files (not deployed)
-└── website-backups/         # Pre-reorganization backups
+├── social-assets/              ← Logos, graphics for social media use
+├── forms/                      ← Google Forms exports, spreadsheets
+├── docs/                       ← Internal documents and guides
+├── admin-assets/               ← Admin/dashboard references
+└── website-backups/            ← Copies before major changes
 ```
 
 ---
 
-## Branding
+## ⚠ Action Items Before GitHub Launch
 
-| Element | Value |
-|---|---|
-| Primary color | Purple `#8A2BEF` |
-| Accent color | Teal `#00C9B1` |
-| Background | Near-black `#0D0D0D` |
-| Identity mark | Twisted semicolon |
-| Tone | Cinematic, warm, community-centered |
+### 1. Hero Image — REQUIRED
+Tonya's Canva-edited hero image needs to replace the current placeholder.
+
+- Export from Canva at **1500×500px** minimum (wider is fine)
+- Save as: `images/web-optimized/hero-canva.jpg`
+- Then in `index.html`, find the comment block that says `IMAGE PLACEHOLDER — ACTION NEEDED`
+- Replace the `<img src="images/web-optimized/twizted-journeys-banner.jpg" ...>` line with:
+  ```html
+  <img src="images/web-optimized/hero-canva.jpg"
+       alt="Twizted Journeys — Every Journey Matters"
+       class="hero-banner" />
+  ```
+
+### 2. Donate Button — REQUIRED
+Set up online donations (PayPal Giving Fund or Zeffy — both free for nonprofits).
+
+- In `index.html`, find the comment `DONATE BUTTON — ACTION NEEDED`
+- Replace `href="mailto:..."` with your actual donation link
+
+### 3. Fix Social Media URLs
+Update footer social links to use correct profile URLs (no spaces):
+- Facebook: confirm the correct page URL
+- Instagram: confirm @TwiztedJourneys handle
+
+### 4. Events Page
+Add real upcoming 2026 event details to `events.html` and `index.html`.
+
+### 5. CNAME File (for GitHub Pages custom domain)
+If pointing twiztedjourneys.org to GitHub Pages:
+- Create a file named `CNAME` in this folder containing only: `twiztedjourneys.org`
 
 ---
 
-## Pages
+## Brand Colors
 
-| Page | Purpose |
-|---|---|
-| `index.html` | Homepage — hero, mission statement, events teaser, CTA |
-| `events.html` | Upcoming and past community events |
-| `memorial.html` | Memorial tribute wall |
-| `mental-health.html` | Mental health resources and support |
-| `merch.html` | Awareness merch store |
-| `shoe-drive.html` | Shoe drive campaign info |
-| `stories.html` | Community story submissions |
-| `suicide-awareness.html` | Suicide prevention resources |
-| `three-rs.html` | The Three Rs program |
-| `everyone-fidgets.html` | Everyone Fidgets sensory program |
+| Name | Hex |
+|------|-----|
+| Twizted Purple | `#8A2BEF` |
+| Journey Teal | `#56E0D2` |
+| Glow Cyan Accent | `#9EF3F7` |
+| Midnight BG | `#0B0B0F` |
+| Soft Glow White | `#F8FBFF` |
 
 ---
 
-## Missing Assets (Pre-GitHub Checklist)
+## Safety & Content Rules (Permanent)
 
-- [ ] `images/rule62.jpg` — Artwork needed for three-rs.html (see placeholder note in that file)
-- [ ] QR codes not yet generated — add to `/qr-codes/` subfolders
-- [ ] Web-optimized image versions — compress originals and add to `images/web-optimized/`
-- [ ] `favicon.ico` — Add brand favicon before deployment
+- ❌ Do NOT use "nothing is too taboo"
+- ❌ Do NOT use "IRS approved"
+- ❌ Do NOT present as crisis hotline, therapy, or medical service
+- ✅ 988 crisis language MUST appear — currently in footer crisis band
+- ✅ Story/podcast disclosure MUST appear on story and podcast pages
+- ✅ Under-18 guardrail MUST appear on story submission and podcast pages
+- ✅ "Every Journey Matters" — keep this wording
+- ✅ Donations are tax-deductible (501c3) — say this, not "IRS approved"
 
 ---
 
 ## GitHub Pages Deployment
 
-1. Push this folder as the root of a GitHub Pages repo
-2. Enable Pages in repo Settings → Pages → Source: `main` branch, `/(root)`
-3. Verify all relative image paths work at `https://[username].github.io/[repo]/`
-4. Add custom domain in Pages settings once domain configuration is finalized
+1. Push this folder to a GitHub repository named `twiztedjourneys` (or `twiztedjourneys.github.io`)
+2. Go to Settings → Pages → Source: Deploy from branch → `main` → `/ (root)`
+3. Add CNAME record in your domain registrar pointing to `twiztedjourneys.github.io`
+4. Add the `CNAME` file to this folder with content: `twiztedjourneys.org`
 
 ---
 
-## Future Systems
+## Contact
 
-- **Story Submission System** — TJ Story System (separate repo, Netlify + Supabase) — links stories to handmade TJ items via QR tags
-- **Event Registration** — Google Forms → Google Sheets integration
-- **Admin Dashboard** — `/admin-assets/dashboard/` (future development)
-- **QR Analytics** — Tracking clicks per QR campaign
-- **Donation Platform** — PayPal Giving Fund, GoFundMe, or Stripe (to replace current mailto fallback)
+- **Email:** info@twiztedjourneys.org
+- **WhatsApp:** (317) 604-3642
+- **Facebook:** facebook.com/TwiztedJourneys
 
 ---
 
-## Organization
-
-🎗️ **Twizted Journeys** | Mental Health Awareness Nonprofit  
-📧 Contact: info@twiztedjourneys.org  
-📘 Facebook: [Twizted Journeys](https://www.facebook.com/twiztedjourneys)  
-🌐 Live site: [twiztedjourneys.org](https://www.twiztedjourneys.org)
-
----
-
-*This README was generated as part of GitHub deployment preparation — May 2026*
+*Built with care for Twizted Journeys, Inc. — Every Journey Matters.*
