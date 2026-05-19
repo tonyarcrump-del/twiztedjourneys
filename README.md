@@ -1,4 +1,4 @@
-# Twizted Journeys — Website Project
+﻿# Twizted Journeys — Website Project
 
 **Organization:** Twizted Journeys, Inc.  
 **Website:** twiztedjourneys.org  
@@ -137,7 +137,7 @@ If pointing twiztedjourneys.org to GitHub Pages:
 
 - **Email:** info@twiztedjourneys.org
 - **WhatsApp:** (317) 604-3642
-- **Facebook:** facebook.com/TwiztedJourneys
+- **Facebook:** facebook.com/groups/560290368564902/
 
 ---
 
