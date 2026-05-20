@@ -6,8 +6,7 @@
   <title>Admin Login — Twizted Journeys</title>
   <meta name="robots" content="noindex, nofollow" />
   <link rel="stylesheet" href="../css/styles.css" />
-  <!-- Netlify Identity Widget -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     body { background: var(--midnight, #0B0B0F); }
     .login-wrap {
@@ -22,7 +21,7 @@
       border: 1px solid var(--card-border, #222235);
       border-radius: 16px;
       padding: 48px 40px;
-      max-width: 440px;
+      max-width: 420px;
       width: 100%;
       text-align: center;
     }
@@ -30,15 +29,42 @@
       font-size: 2rem;
       font-weight: 900;
       color: var(--white, #F8FBFF);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .login-logo span { color: var(--teal, #56E0D2); }
-    .login-sub {
-      font-size: 0.88rem;
+    .login-label {
+      font-size: 0.82rem;
+      font-weight: 700;
       color: var(--muted, #7A8FA6);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       margin-bottom: 32px;
     }
-    #netlify-identity-btn {
+    .form-field { margin-bottom: 14px; text-align: left; }
+    .form-field label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+    .form-field input {
+      width: 100%;
+      background: rgba(11,11,15,0.7);
+      border: 1px solid var(--card-border, #222235);
+      border-radius: 8px;
+      padding: 11px 14px;
+      color: var(--white, #F8FBFF);
+      font-size: 0.92rem;
+      font-family: inherit;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+    .form-field input:focus {
+      outline: none;
+      border-color: var(--purple, #8A2BEF);
+    }
+    .login-btn {
       width: 100%;
       background: var(--purple, #8A2BEF);
       color: #fff;
@@ -49,23 +75,42 @@
       font-weight: 700;
       cursor: pointer;
       font-family: inherit;
+      margin-top: 6px;
       transition: background 0.2s;
     }
-    #netlify-identity-btn:hover { background: #7a1edf; }
+    .login-btn:hover { background: #7a1edf; }
+    .login-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .error-msg {
+      background: rgba(239,68,68,0.12);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #f87171;
+      font-size: 0.85rem;
+      margin-top: 14px;
+      display: none;
+    }
     .admin-guard {
       margin-top: 24px;
       padding: 14px;
       background: rgba(86,224,210,0.06);
       border: 1px solid rgba(86,224,210,0.2);
       border-radius: 8px;
-      font-size: 0.82rem;
-      color: var(--muted, #7A8FA6);
+      font-size: 0.8rem;
+      color: var(--muted);
       line-height: 1.6;
     }
-    #login-status {
-      margin-top: 16px;
-      font-size: 0.9rem;
-      color: var(--muted);
+    .setup-banner {
+      background: rgba(251,191,36,0.08);
+      border: 1px solid rgba(251,191,36,0.3);
+      border-radius: 8px;
+      padding: 14px;
+      color: #fbbf24;
+      font-size: 0.82rem;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      display: none;
+      text-align: left;
     }
   </style>
 </head>
@@ -73,42 +118,74 @@
   <div class="login-wrap">
     <div class="login-card">
       <div class="login-logo">Tw<span>;</span>zted</div>
-      <div class="login-logo" style="font-size:1.1rem;margin-bottom:4px;">Admin Panel</div>
-      <p class="login-sub">Invite-only access. Contact Nate to request access.</p>
+      <div class="login-label">Admin Panel</div>
 
-      <button id="netlify-identity-btn">Sign In with Netlify Identity</button>
-      <div id="login-status"></div>
+      <div class="setup-banner" id="setup-banner">
+        &#9888; Supabase is not configured yet.<br/>
+        Edit <code>admin/config.js</code> and add your Project URL and anon key,
+        then commit and refresh.
+      </div>
+
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="form-field">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" autocomplete="email" required placeholder="tonya@twiztedjourneys.org" />
+        </div>
+        <div class="form-field">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" autocomplete="current-password" required placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
+        </div>
+        <button type="submit" class="login-btn" id="login-btn">Sign In</button>
+        <div class="error-msg" id="error-msg"></div>
+      </form>
 
       <div class="admin-guard">
-        &#128274; This area is restricted to authorized Twizted Journeys staff only.
-        Access is managed via invite. If you need access, contact
-        <a href="mailto:natewhittaker91@gmail.com" style="color:var(--teal);">natewhittaker91@gmail.com</a>.
+        &#128274; Invite-only access. Contact Nate to request an account.
       </div>
     </div>
   </div>
 
   <script src="config.js"></script>
   <script>
-    // Netlify Identity widget init
-    netlifyIdentity.on('init', user => {
-      if (user) {
-        // Already logged in — go to dashboard
-        window.location.href = '/admin/dashboard.html';
+    const cfg = window.TJ_CONFIG;
+    let db = null;
+
+    if (!cfg || cfg.supabaseUrl === 'SUPABASE_URL_HERE') {
+      document.getElementById('setup-banner').style.display = 'block';
+    } else {
+      db = supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+
+      // If already logged in, go straight to dashboard
+      db.auth.getSession().then(({ data: { session } }) => {
+        if (session) window.location.href = '/admin/dashboard.html';
+      });
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      if (!db) return;
+
+      const btn = document.getElementById('login-btn');
+      const err = document.getElementById('error-msg');
+      btn.disabled = true;
+      btn.textContent = 'Signing in…';
+      err.style.display = 'none';
+
+      const email    = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+
+      const { error } = await db.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        err.textContent = error.message;
+        err.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+        return;
       }
-    });
 
-    netlifyIdentity.on('login', user => {
-      netlifyIdentity.close();
       window.location.href = '/admin/dashboard.html';
-    });
-
-    netlifyIdentity.on('error', err => {
-      document.getElementById('login-status').textContent = 'Login error: ' + err.message;
-    });
-
-    document.getElementById('netlify-identity-btn').addEventListener('click', () => {
-      netlifyIdentity.open('login');
-    });
+    }
   </script>
 </body>
 </html>

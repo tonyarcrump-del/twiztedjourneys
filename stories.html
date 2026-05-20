@@ -246,10 +246,7 @@
 
  <div class="card">
  <h3 style="margin-bottom:20px;">Send Us Your Story</h3>
- <form name="story-submission" method="POST" netlify netlify-honeypot="bot-field" action="/story-thanks.html">
-            <input type="hidden" name="form-name" value="story-submission" />
-            <p style="display:none;"><label>Skip this field: <input name="bot-field" /></label></p>
- <div style="margin-bottom:16px;">
+ <form onsubmit="handleStorySubmit(event)"-honeypot="bot-field"><div style="margin-bottom:16px;">
  <label style="display:block; font-size:0.85rem; margin-bottom:6px; color:var(--muted);">Name *</label>
  <input type="text" name="name" required style="width:100%; background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:11px 14px; color:var(--text); font-size:0.9rem; font-family:inherit;" />
  </div>
@@ -342,5 +339,7 @@
  </div>
  </footer>
  <script src="js/main.js"></script>
+  <script src="js/tj-public-config.js"></script>
+  <script src="js/tj-forms.js"></script>
 </body>
 </html>

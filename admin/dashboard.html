@@ -6,8 +6,8 @@
   <title>Admin Dashboard — Twizted Journeys</title>
   <meta name="robots" content="noindex, nofollow" />
   <link rel="stylesheet" href="../css/styles.css" />
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  
   <style>
     body { background: var(--midnight, #0B0B0F); }
     .admin-shell { display: flex; min-height: 100vh; }
@@ -179,6 +179,7 @@
       .admin-main { padding: 20px; }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -293,72 +294,35 @@
 </div>
 
 <script src="config.js"></script>
+<script src="auth.js"></script>
 <script>
-  // Auth guard — redirect to login if not authenticated
-  netlifyIdentity.on('init', user => {
-    if (!user) {
-      window.location.href = '/admin/index.html';
-      return;
-    }
-    document.getElementById('user-email').textContent = user.email || 'Admin';
-    loadStats(user);
-  });
-
-  function signOut() {
-    netlifyIdentity.logout();
-    window.location.href = '/admin/index.html';
-  }
-
-  netlifyIdentity.on('logout', () => {
-    window.location.href = '/admin/index.html';
-  });
-
-  async function loadStats(user) {
+  initAdmin(async function(user, db) {
     const cfg = window.TJ_CONFIG;
     if (!cfg || cfg.supabaseUrl === 'SUPABASE_URL_HERE') {
       document.getElementById('setup-alert').style.display = 'block';
-      ['stat-pending','stat-rsvps','stat-products','stat-merch'].forEach(id => {
-        document.getElementById(id).textContent = 'N/A';
-      });
+      ['stat-pending','stat-rsvps','stat-products','stat-merch'].forEach(id => { document.getElementById(id).textContent = 'N/A'; });
       document.getElementById('badge-pending').textContent = '?';
       return;
     }
-
     try {
-      const token = user.token?.access_token;
-      const headers = {
-        'apikey': cfg.supabaseAnonKey,
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      };
-      const base = cfg.supabaseUrl + '/rest/v1';
-
-      // Pending submissions
-      const [memR, storyR, rsvpR, prodR, merchR] = await Promise.all([
-        fetch(`${base}/memorial_submissions?select=id&status=eq.pending&limit=1`, {headers}),
-        fetch(`${base}/story_submissions?select=id&status=eq.pending&limit=1`, {headers}),
-        fetch(`${base}/event_registrations?select=id`, {headers}),
-        fetch(`${base}/shop_products?select=id&is_hidden=eq.false`, {headers}),
-        fetch(`${base}/merch_items?select=id`, {headers})
+      const [memRes, storyRes, rsvpRes, prodRes, merchRes] = await Promise.all([
+        db.from('memorial_submissions').select('id', { count: 'exact', head: true }).eq('status','pending'),
+        db.from('story_submissions').select('id', { count: 'exact', head: true }).eq('status','pending'),
+        db.from('event_registrations').select('id', { count: 'exact', head: true }),
+        db.from('shop_products').select('id', { count: 'exact', head: true }).eq('is_hidden', false),
+        db.from('merch_items').select('id', { count: 'exact', head: true })
       ]);
-
-      const countHeader = r => parseInt(r.headers.get('Content-Range')?.split('/')?.[1] ?? '0');
-
-      const pending = countHeader(memR) + countHeader(storyR);
+      const pending = (memRes.count || 0) + (storyRes.count || 0);
       document.getElementById('stat-pending').textContent = pending;
-      document.getElementById('badge-pending').textContent = pending > 0 ? pending : '0';
+      document.getElementById('badge-pending').textContent = pending;
       if (pending > 0) document.getElementById('badge-pending').classList.add('badge-pending');
-
-      document.getElementById('stat-rsvps').textContent = countHeader(rsvpR);
-      document.getElementById('stat-products').textContent = countHeader(prodR);
-      document.getElementById('stat-merch').textContent = countHeader(merchR);
-
-    } catch(e) {
-      console.warn('Stats load error:', e);
-    }
-
+      document.getElementById('stat-rsvps').textContent = rsvpRes.count || 0;
+      document.getElementById('stat-products').textContent = prodRes.count || 0;
+      document.getElementById('stat-merch').textContent = merchRes.count || 0;
+    } catch(e) { console.warn('Stats error:', e); }
     document.getElementById('last-refresh').textContent = 'Refreshed ' + new Date().toLocaleTimeString();
-  }
+  });
+  function signOut() { adminSignOut(); }
 </script>
 </body>
 </html>

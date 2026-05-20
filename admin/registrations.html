@@ -6,8 +6,7 @@
   <title>Event RSVPs — Twizted Journeys Admin</title>
   <meta name="robots" content="noindex, nofollow" />
   <link rel="stylesheet" href="../css/styles.css" />
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     body { background: var(--midnight, #0B0B0F); }
     .admin-shell { display: flex; min-height: 100vh; }
@@ -156,55 +155,30 @@
 </div>
 
 <script src="config.js"></script>
+<script src="auth.js"></script>
 <script>
   let allRsvps = [];
-  let supabase = null;
+  let _db = null;
 
-  netlifyIdentity.on('init', async user => {
-    if (!user) { window.location.href = '/admin/index.html'; return; }
-    document.getElementById('user-email').textContent = user.email || 'Admin';
-
-    const cfg = window.TJ_CONFIG;
-    if (cfg && cfg.supabaseUrl !== 'SUPABASE_URL_HERE') {
-      supabase = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {
-        global: { headers: { Authorization: 'Bearer ' + user.token?.access_token } }
-      });
-      await loadRsvps();
-    } else {
-      renderNoSupabase();
-    }
+  initAdmin(async function(user, db) {
+    _db = db;
+    await loadRsvps();
   });
 
-  function signOut() { netlifyIdentity.logout(); window.location.href = '/admin/index.html'; }
+  function signOut() { adminSignOut(); }
 
   async function loadRsvps() {
-    if (!supabase) return;
-    const { data, error } = await supabase
-      .from('event_registrations')
-      .select('*')
-      .order('created_at', { ascending: false });
+    if (!_db) return;
+    const { data } = await _db.from('event_registrations').select('*').order('created_at', { ascending: false });
     allRsvps = data || [];
     updateSummary();
     renderTable();
   }
 
-  function renderNoSupabase() {
-    document.getElementById('rsvp-tbody').innerHTML = `
-      <tr><td colspan="8">
-        <div class="netlify-note" style="margin:0;border:none;">
-          Supabase not connected. RSVPs are being collected via Netlify Forms and emailed to you.
-          Connect Supabase to see them here. See <code>docs/ADMIN_SYSTEM_PLAN.md</code>.
-        </div>
-      </td></tr>`;
-    ['sum-total','sum-attendee','sum-rider','sum-walker','sum-vendor','sum-volunteer'].forEach(id => {
-      document.getElementById(id).textContent = 'N/A';
-    });
-  }
-
   function updateSummary() {
     document.getElementById('sum-total').textContent = allRsvps.length;
-    ['attendee','rider','walker','vendor','volunteer'].forEach(t => {
-      document.getElementById('sum-' + t).textContent = allRsvps.filter(r => r.registration_type === t).length;
+    ['attendee','rider','walker','vendor','volunteer'].forEach(function(t) {
+      document.getElementById('sum-' + t).textContent = allRsvps.filter(function(r){ return r.registration_type === t; }).length;
     });
   }
 
@@ -212,52 +186,44 @@
     const typeF = document.getElementById('type-filter').value;
     const dayF  = document.getElementById('day-filter').value;
     const q     = document.getElementById('search-input').value.toLowerCase();
-
-    const filtered = allRsvps.filter(r => {
+    const filtered = allRsvps.filter(function(r) {
       if (typeF !== 'all' && r.registration_type !== typeF) return false;
       if (dayF === 'day1' && !r.day1) return false;
       if (dayF === 'day2' && !r.day2) return false;
       if (q && !((r.name||'').toLowerCase().includes(q) || (r.email||'').toLowerCase().includes(q))) return false;
       return true;
     });
-
     if (!filtered.length) {
-      document.getElementById('rsvp-tbody').innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="icon">&#128197;</div><p>No RSVPs match the current filters.</p></div></td></tr>`;
+      document.getElementById('rsvp-tbody').innerHTML = '<tr><td colspan="8"><div class="empty-state"><div class="icon">&#128197;</div><p>No RSVPs match the current filters.</p></div></td></tr>';
       return;
     }
-
-    document.getElementById('rsvp-tbody').innerHTML = filtered.map(r => {
-      const days = [r.day1 ? 'Sept 12' : '', r.day2 ? 'Sept 13' : ''].filter(Boolean).join(', ') || '—';
-      const type = r.registration_type || 'attendee';
-      return `<tr>
-        <td class="name">${esc(r.name||'')}</td>
-        <td><a href="mailto:${esc(r.email||'')}" style="color:var(--teal);">${esc(r.email||'')}</a></td>
-        <td>${esc(r.phone||'—')}</td>
-        <td><span class="type-badge type-${type}">${type}</span></td>
-        <td>${esc(r.guests||'1')}</td>
-        <td>${days}</td>
-        <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${esc(r.notes||'')}">${esc(r.notes||'—')}</td>
-        <td>${r.created_at ? new Date(r.created_at).toLocaleDateString() : '—'}</td>
-      </tr>`;
+    document.getElementById('rsvp-tbody').innerHTML = filtered.map(function(r) {
+      var days = [r.day1?'Sept 12':'', r.day2?'Sept 13':''].filter(Boolean).join(', ') || '--';
+      var type = r.registration_type || 'attendee';
+      return '<tr><td class="name">'+esc(r.name||'')+'</td>' +
+        '<td><a href="mailto:'+esc(r.email||'')+'" style="color:var(--teal);">'+esc(r.email||'')+'</a></td>' +
+        '<td>'+esc(r.phone||'--')+'</td>' +
+        '<td><span class="type-badge type-'+type+'">'+type+'</span></td>' +
+        '<td>'+esc(r.guests||'1')+'</td>' +
+        '<td>'+days+'</td>' +
+        '<td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="'+esc(r.notes||'')+'">'+esc(r.notes||'--')+'</td>' +
+        '<td>'+(r.created_at?new Date(r.created_at).toLocaleDateString():'--')+'</td></tr>';
     }).join('');
   }
 
   function exportCSV() {
-    const rows = [['Name','Email','Phone','Type','Guests','Day1','Day2','Notes','Registered']];
-    allRsvps.forEach(r => {
+    var rows = [['Name','Email','Phone','Type','Guests','Day1','Day2','Notes','Registered']];
+    allRsvps.forEach(function(r) {
       rows.push([r.name||'', r.email||'', r.phone||'', r.registration_type||'', r.guests||'', r.day1?'Yes':'No', r.day2?'Yes':'No', r.notes||'', r.created_at||'']);
     });
-    const csv = rows.map(r => r.map(v => '"' + String(v).replace(/"/g,'""') + '"').join(',')).join('\n');
-    const blob = new Blob([csv], {type:'text/csv'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'twizted-journeys-rsvps-' + new Date().toISOString().slice(0,10) + '.csv';
+    var csv = rows.map(function(r){ return r.map(function(v){ return '"'+String(v).replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+    a.download = 'tj-rsvps-' + new Date().toISOString().slice(0,10) + '.csv';
     a.click();
   }
 
-  function esc(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
+  function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 </script>
 </body>
 </html>

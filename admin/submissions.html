@@ -6,8 +6,7 @@
   <title>Submissions — Twizted Journeys Admin</title>
   <meta name="robots" content="noindex, nofollow" />
   <link rel="stylesheet" href="../css/styles.css" />
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     body { background: var(--midnight, #0B0B0F); }
     .admin-shell { display: flex; min-height: 100vh; }
@@ -166,32 +165,19 @@
 </div>
 
 <script src="config.js"></script>
+<script src="auth.js"></script>
 <script>
   let currentTab = 'memorial';
   let allData = { memorial: [], stories: [] };
-  let supabase = null;
+  let _db = null;
   let currentUser = null;
 
-  netlifyIdentity.on('init', async user => {
-    if (!user) { window.location.href = '/admin/index.html'; return; }
-    currentUser = user;
-    document.getElementById('user-email').textContent = user.email || 'Admin';
-
-    const cfg = window.TJ_CONFIG;
-    if (cfg && cfg.supabaseUrl !== 'SUPABASE_URL_HERE') {
-      supabase = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {
-        global: { headers: { Authorization: 'Bearer ' + user.token?.access_token } }
-      });
-      await loadAll();
-    } else {
-      renderNoSupabase();
-    }
+  initAdmin(async function(user, db) {
+    currentUser = user; _db = db;
+    await loadAll();
   });
 
-  function signOut() {
-    netlifyIdentity.logout();
-    window.location.href = '/admin/index.html';
-  }
+  function signOut() { adminSignOut(); }
 
   function switchTab(tab, btn) {
     currentTab = tab;
@@ -201,18 +187,14 @@
   }
 
   async function loadAll() {
-    if (!supabase) return;
+    if (!_db) return;
     document.getElementById('sub-list').innerHTML = '<div class="empty-state"><div class="icon">&#9203;</div><p>Loading&hellip;</p></div>';
-    try {
-      const [memRes, storyRes] = await Promise.all([
-        supabase.from('memorial_submissions').select('*').order('created_at', { ascending: false }),
-        supabase.from('story_submissions').select('*').order('created_at', { ascending: false })
-      ]);
-      allData.memorial = memRes.data || [];
-      allData.stories  = storyRes.data || [];
-    } catch(e) {
-      allData.memorial = []; allData.stories = [];
-    }
+    const [memRes, storyRes] = await Promise.all([
+      _db.from('memorial_submissions').select('*').order('created_at', { ascending: false }),
+      _db.from('story_submissions').select('*').order('created_at', { ascending: false })
+    ]);
+    allData.memorial = memRes.data || [];
+    allData.stories  = storyRes.data || [];
     renderList();
   }
 
@@ -222,74 +204,40 @@
     const filter = document.getElementById('status-filter').value;
     const data = currentTab === 'memorial' ? allData.memorial : allData.stories;
     const filtered = filter === 'all' ? data : data.filter(r => r.status === filter);
-    document.getElementById('count-label').textContent = `${filtered.length} submission${filtered.length !== 1 ? 's' : ''}`;
-
+    document.getElementById('count-label').textContent = filtered.length + ' submission' + (filtered.length !== 1 ? 's' : '');
     if (!filtered.length) {
-      document.getElementById('sub-list').innerHTML = `
-        <div class="empty-state">
-          <div class="icon">${filter === 'pending' ? '&#10003;' : '&#128330;&#65039;'}</div>
-          <p>${filter === 'pending' ? 'No pending submissions — you\'re all caught up!' : 'No submissions in this category yet.'}</p>
-        </div>`;
+      document.getElementById('sub-list').innerHTML = '<div class="empty-state"><div class="icon">' + (filter === 'pending' ? '&#10003;' : '&#128330;') + '</div><p>' + (filter === 'pending' ? 'No pending submissions.' : 'No submissions here yet.') + '</p></div>';
       return;
     }
-
-    document.getElementById('sub-list').innerHTML = filtered.map(s => `
-      <div class="sub-card ${s.status || 'pending'}" id="card-${s.id}">
-        <div class="sub-meta">
-          <span class="sub-name">${esc(s.name || s.submitter_name || 'Anonymous')}</span>
-          <span class="badge badge-${s.status || 'pending'}">${s.status || 'pending'}</span>
-          <span class="sub-email">${esc(s.email || '')}</span>
-          <span class="sub-date">${s.created_at ? new Date(s.created_at).toLocaleDateString() : ''}</span>
-        </div>
-        ${currentTab === 'memorial' && s.loved_one_name ? `<div style="font-size:0.85rem;color:var(--white);font-weight:700;margin-bottom:8px;">&#128337; ${esc(s.loved_one_name)}</div>` : ''}
-        <div class="sub-body" id="body-${s.id}">${esc(s.message || s.story || '')}</div>
-        <div class="sub-actions">
-          ${s.status !== 'approved' ? `<button class="action-btn btn-approve" onclick="updateStatus('${s.id}','approved')">&#10003; Approve</button>` : ''}
-          ${s.status !== 'rejected' ? `<button class="action-btn btn-reject"  onclick="updateStatus('${s.id}','rejected')">&#10005; Reject</button>` : ''}
-          <button class="action-btn btn-expand" onclick="toggleExpand('${s.id}')">Show more</button>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  function renderNoSupabase() {
-    document.getElementById('sub-list').innerHTML = `
-      <div class="netlify-note" style="margin:0;">
-        <strong style="color:var(--white);">Supabase not connected yet.</strong><br/>
-        Until Supabase is configured, all submissions arrive via email and the Netlify Forms dashboard.
-        <br/><br/>
-        To connect: edit <code>admin/config.js</code>, add your Supabase URL and anon key,
-        run the schema SQL, and redeploy.<br/>
-        Full instructions in <code>docs/ADMIN_SYSTEM_PLAN.md</code>.
-      </div>`;
+    document.getElementById('sub-list').innerHTML = filtered.map(function(s) {
+      return '<div class="sub-card ' + (s.status||'pending') + '" id="card-' + s.id + '">' +
+        '<div class="sub-meta"><span class="sub-name">' + esc(s.name||'Anonymous') + '</span>' +
+        '<span class="badge badge-' + (s.status||'pending') + '">' + (s.status||'pending') + '</span>' +
+        '<span class="sub-email">' + esc(s.email||'') + '</span>' +
+        '<span class="sub-date">' + (s.created_at ? new Date(s.created_at).toLocaleDateString() : '') + '</span></div>' +
+        (currentTab === 'memorial' && s.loved_one_name ? '<div style="font-size:0.85rem;color:var(--white);font-weight:700;margin-bottom:8px;">&#128337; ' + esc(s.loved_one_name) + '</div>' : '') +
+        '<div class="sub-body" id="body-' + s.id + '">' + esc(s.message||s.story||'') + '</div>' +
+        '<div class="sub-actions">' +
+        (s.status !== 'approved' ? '<button class="action-btn btn-approve" onclick="updateStatus(\'' + s.id + '\',\'approved\')">&#10003; Approve</button>' : '') +
+        (s.status !== 'rejected' ? '<button class="action-btn btn-reject" onclick="updateStatus(\'' + s.id + '\',\'rejected\')">&#10005; Reject</button>' : '') +
+        '<button class="action-btn btn-expand" onclick="toggleExpand(\'' + s.id + '\')">Show more</button></div></div>';
+    }).join('');
   }
 
   async function updateStatus(id, status) {
-    if (!supabase) return;
+    if (!_db) return;
     const table = currentTab === 'memorial' ? 'memorial_submissions' : 'story_submissions';
-    const { error } = await supabase.from(table).update({ status, reviewed_at: new Date().toISOString(), reviewed_by: currentUser?.email }).eq('id', id);
-    if (!error) {
-      const card = document.getElementById('card-' + id);
-      if (card) { card.className = 'sub-card ' + status; }
-      await loadAll();
-    } else {
-      alert('Update failed: ' + error.message);
-    }
+    const { error } = await _db.from(table).update({ status: status, reviewed_at: new Date().toISOString(), reviewed_by: currentUser?.email }).eq('id', id);
+    if (!error) { await loadAll(); } else { alert('Update failed: ' + error.message); }
   }
 
   function toggleExpand(id) {
     const el = document.getElementById('body-' + id);
     const btn = el.nextElementSibling?.querySelector('.btn-expand');
-    if (el.classList.toggle('expanded')) {
-      if (btn) btn.textContent = 'Show less';
-    } else {
-      if (btn) btn.textContent = 'Show more';
-    }
+    if (el.classList.toggle('expanded')) { if (btn) btn.textContent = 'Show less'; } else { if (btn) btn.textContent = 'Show more'; }
   }
 
-  function esc(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
+  function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 </script>
 </body>
 </html>

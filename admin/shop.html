@@ -6,8 +6,7 @@
   <title>Shop Inventory — Twizted Journeys Admin</title>
   <meta name="robots" content="noindex, nofollow" />
   <link rel="stylesheet" href="../css/styles.css" />
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     body { background: var(--midnight, #0B0B0F); }
     .admin-shell { display: flex; min-height: 100vh; }
@@ -180,122 +179,90 @@
 </div>
 
 <script src="config.js"></script>
+<script src="auth.js"></script>
 <script>
   let products = [];
-  let supabase = null;
+  let _db = null;
 
-  netlifyIdentity.on('init', async user => {
-    if (!user) { window.location.href = '/admin/index.html'; return; }
-    document.getElementById('user-email').textContent = user.email || 'Admin';
-
-    const cfg = window.TJ_CONFIG;
-    if (cfg && cfg.supabaseUrl !== 'SUPABASE_URL_HERE') {
-      supabase = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {
-        global: { headers: { Authorization: 'Bearer ' + user.token?.access_token } }
-      });
-      await loadProducts();
-    } else {
-      renderNoSupabase();
-    }
+  initAdmin(async function(user, db) {
+    _db = db;
+    await loadProducts();
   });
 
-  function signOut() { netlifyIdentity.logout(); window.location.href = '/admin/index.html'; }
+  function signOut() { adminSignOut(); }
+
   function toggleAddForm() {
-    const f = document.getElementById('add-form');
+    var f = document.getElementById('add-form');
     f.style.display = f.style.display === 'none' ? 'block' : 'none';
-    document.getElementById('add-btn').textContent = f.style.display === 'none' ? '+ Add Product' : '✕ Cancel';
+    document.getElementById('add-btn').textContent = f.style.display === 'none' ? '+ Add Product' : 'Cancel';
   }
 
   async function loadProducts() {
-    if (!supabase) return;
-    const { data } = await supabase.from('shop_products').select('*').order('name');
-    products = data || [];
+    if (!_db) return;
+    var res = await _db.from('shop_products').select('*').order('name');
+    products = res.data || [];
     renderProducts();
-  }
-
-  function renderNoSupabase() {
-    document.getElementById('product-grid').innerHTML = `
-      <div style="grid-column:1/-1;" class="netlify-note">
-        <strong style="color:var(--white);">Supabase not connected.</strong><br/>
-        Products are managed here once Supabase is set up. Edit <code>admin/config.js</code>,
-        run the shop_products table SQL from <code>docs/ADMIN_SYSTEM_PLAN.md</code>, and redeploy.
-      </div>`;
   }
 
   function renderProducts() {
     if (!products.length) {
-      document.getElementById('product-grid').innerHTML = `
-        <div class="empty-state" style="grid-column:1/-1;">
-          <div class="icon">&#128247;</div>
-          <p>No products yet. Click <strong>+ Add Product</strong> to add your first listing.</p>
-        </div>`;
+      document.getElementById('product-grid').innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><div class="icon">&#128247;</div><p>No products yet. Click + Add Product to add your first listing.</p></div>';
       return;
     }
-    document.getElementById('product-grid').innerHTML = products.map(p => {
-      const avail = p.quantity_total - (p.quantity_sold||0) - (p.quantity_held||0);
-      const availClass = avail <= 0 ? 'out' : avail <= 3 ? 'low' : '';
-      const price = p.price_cents ? '$' + (p.price_cents / 100).toFixed(2) : 'Free';
-      return `
-      <div class="product-card ${p.is_hidden ? 'hidden' : ''}" id="pc-${p.id}">
-        <div class="product-img">
-          ${p.image_url ? `<img src="${esc(p.image_url)}" alt="${esc(p.name)}" />` : '&#128247;'}
-        </div>
-        <div class="product-body">
-          <div class="product-name">${esc(p.name)}</div>
-          <div class="product-sku">SKU: ${esc(p.sku)}</div>
-          <div class="product-price">${price}</div>
-          <div class="product-stock">
-            Available: <span class="avail ${availClass}">${avail}</span>
-            &nbsp;&middot;&nbsp; Total: ${p.quantity_total} &nbsp;&middot;&nbsp; Sold: ${p.quantity_sold||0}
-            ${p.is_hidden ? ' &nbsp;&middot;&nbsp; <em style="color:#fbbf24;">Hidden</em>' : ''}
-            ${p.is_sold_out ? ' &nbsp;&middot;&nbsp; <em style="color:#f87171;">Sold Out</em>' : ''}
-          </div>
-          <div class="product-actions">
-            ${p.webador_url ? `<a href="${esc(p.webador_url)}" target="_blank" class="action-btn btn-edit" style="text-decoration:none;">&#127760; Webador</a>` : ''}
-            <button class="action-btn btn-toggle" onclick="toggleVisibility('${p.id}',${p.is_hidden})">${p.is_hidden ? '&#128065; Show' : '&#128065; Hide'}</button>
-            <button class="action-btn btn-delete" onclick="deleteProduct('${p.id}','${esc(p.name)}')">&#10005; Delete</button>
-          </div>
-        </div>
-      </div>`;
+    document.getElementById('product-grid').innerHTML = products.map(function(p) {
+      var avail = p.quantity_total - (p.quantity_sold||0) - (p.quantity_held||0);
+      var ac = avail <= 0 ? 'out' : avail <= 3 ? 'low' : '';
+      var price = p.price_cents ? '
+</html>
++(p.price_cents/100).toFixed(2) : 'Free';
+      return '<div class="product-card'+(p.is_hidden?' hidden':'')+'">'+
+        '<div class="product-img">'+(p.image_url?'<img src="'+esc(p.image_url)+'" alt="'+esc(p.name)+'" />':'&#128247;')+'</div>'+
+        '<div class="product-body">'+
+        '<div class="product-name">'+esc(p.name)+'</div>'+
+        '<div class="product-sku">SKU: '+esc(p.sku)+'</div>'+
+        '<div class="product-price">'+price+'</div>'+
+        '<div class="product-stock">Available: <span class="avail '+ac+'">'+avail+'</span> &middot; Total: '+p.quantity_total+' &middot; Sold: '+(p.quantity_sold||0)+(p.is_hidden?' &middot; <em style="color:#fbbf24;">Hidden</em>':'')+'</div>'+
+        '<div class="product-actions">'+
+        (p.webador_url?'<a href="'+esc(p.webador_url)+'" target="_blank" class="action-btn btn-edit" style="text-decoration:none;">&#127760; Webador</a>':'')+
+        '<button class="action-btn btn-toggle" onclick="toggleVis(\''+p.id+'\','+p.is_hidden+')">'+(p.is_hidden?'&#128065; Show':'&#128065; Hide')+'</button>'+
+        '<button class="action-btn btn-delete" onclick="delProduct(\''+p.id+'\',\''+esc(p.name)+'\')">&#10005; Delete</button>'+
+        '</div></div></div>';
     }).join('');
   }
 
   async function saveProduct() {
-    if (!supabase) return;
-    const name = document.getElementById('p-name').value.trim();
-    const sku  = document.getElementById('p-sku').value.trim();
+    if (!_db) return;
+    var name = document.getElementById('p-name').value.trim();
+    var sku  = document.getElementById('p-sku').value.trim();
     if (!name || !sku) { alert('Name and SKU are required.'); return; }
-    const payload = {
-      name, sku,
+    var payload = {
+      name: name, sku: sku,
       category:       document.getElementById('p-category').value,
       description:    document.getElementById('p-desc').value.trim() || null,
       price_cents:    parseInt(document.getElementById('p-price').value) || 0,
       quantity_total: parseInt(document.getElementById('p-qty').value) || 0,
       webador_url:    document.getElementById('p-webador-url').value.trim() || null,
       image_url:      document.getElementById('p-img').value.trim() || null,
-      is_hidden:      false, is_sold_out: false, quantity_sold: 0, quantity_held: 0
+      is_hidden: false, is_sold_out: false, quantity_sold: 0, quantity_held: 0
     };
-    const { error } = await supabase.from('shop_products').insert(payload);
-    if (error) { alert('Save failed: ' + error.message); return; }
+    var res = await _db.from('shop_products').insert(payload);
+    if (res.error) { alert('Save failed: ' + res.error.message); return; }
     toggleAddForm();
     await loadProducts();
   }
 
-  async function toggleVisibility(id, currentlyHidden) {
-    if (!supabase) return;
-    await supabase.from('shop_products').update({ is_hidden: !currentlyHidden }).eq('id', id);
+  async function toggleVis(id, hidden) {
+    await _db.from('shop_products').update({ is_hidden: !hidden }).eq('id', id);
     await loadProducts();
   }
 
-  async function deleteProduct(id, name) {
-    if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
-    await supabase.from('shop_products').delete().eq('id', id);
+  async function delProduct(id, name) {
+    if (!confirm('Delete "'+name+'"? Cannot be undone.')) return;
+    await _db.from('shop_products').delete().eq('id', id);
     await loadProducts();
   }
 
-  function esc(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
+  function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 </script>
 </body>
 </html>

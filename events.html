@@ -179,12 +179,8 @@
         <p class="section-label">RSVP &amp; Contact</p>
         <h2 class="section-title" id="contact-heading">Get in <em>Touch</em></h2>
         <p style="color:var(--muted);font-size:1rem;line-height:1.75;margin-bottom:28px;">Questions about events, vendor spaces, or registration? Reach out &mdash; we&rsquo;re real people and we always respond.</p>
-                <!-- RSVP Form — powered by Netlify Forms -->
-        <form name="event-rsvp" method="POST" netlify netlify-honeypot="bot-field" action="/rsvp-thanks.html" style="margin-bottom:28px;">
-          <input type="hidden" name="form-name" value="event-rsvp" />
-          <p style="display:none;"><label>Skip: <input name="bot-field" /></label></p>
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+                <!-- RSVP Form — powered by Forms -->
+        <form onsubmit="handleRsvpSubmit(event)"-honeypot="bot-field" style="margin-bottom:28px;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
             <div>
               <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">Full Name *</label>
               <input type="text" name="name" required style="width:100%;background:var(--midnight-3,#1A1A28);border:1px solid var(--card-border);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.9rem;font-family:inherit;" />
@@ -325,5 +321,7 @@
 </footer>
 <script src="js/main.js"></script>
 
+  <script src="js/tj-public-config.js"></script>
+  <script src="js/tj-forms.js"></script>
 </body>
 </html>

@@ -166,10 +166,7 @@
           shared &mdash; or just their name. We will treat every submission with care.
         </p>
         <div class="card--calm">
-          <form name="memorial-submission" method="POST" netlify netlify-honeypot="bot-field" action="/memorial-thanks.html">
-            <input type="hidden" name="form-name" value="memorial-submission" />
-            <p style="display:none;"><label>Skip this field: <input name="bot-field" /></label></p>
-            <div class="form-field">
+          <form onsubmit="handleMemorialSubmit(event)"-honeypot="bot-field"><div class="form-field">
               <label>Your Name *</label>
               <input type="text" name="name" required>
             </div>
@@ -256,5 +253,7 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/tj-public-config.js"></script>
+  <script src="js/tj-forms.js"></script>
 </body>
 </html>

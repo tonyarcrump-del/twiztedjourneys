@@ -1,37 +1,21 @@
 /**
  * Twizted Journeys — Admin Config
  * ================================
- * Replace the PLACEHOLDER values below with your real Supabase credentials
- * BEFORE enabling admin access.
+ * Replace SUPABASE_URL_HERE and SUPABASE_ANON_KEY_HERE with your real values.
  *
- * How to get these:
- *  1. Create a Supabase project at https://supabase.com
- *  2. Go to Project Settings → API
- *  3. Copy "Project URL" → SUPABASE_URL
- *  4. Copy "anon public" key → SUPABASE_ANON_KEY
+ * Where to get them:
+ *   supabase.com → your project → Settings → API
+ *   Copy "Project URL" and "anon public" key.
  *
- * NEVER put the service_role key here. Only anon key is safe in client code.
- * Row-Level Security policies in Supabase control what anon users can see.
+ * NEVER use the service_role key here. Only the anon key.
+ * RLS policies in Supabase control what each user can read/write.
  *
- * Netlify Identity handles authentication separately.
- * Admin pages check for a logged-in Netlify Identity user before making any
- * Supabase request. Unauthenticated visitors cannot read or write admin data.
+ * This file is safe to commit to GitHub — the anon key is designed to be public.
  */
 
 const TJ_CONFIG = {
   supabaseUrl:     'SUPABASE_URL_HERE',
-  supabaseAnonKey: 'SUPABASE_ANON_KEY_HERE',
-
-  // Netlify Identity site URL (set to your Netlify subdomain or custom domain)
-  // Example: 'https://twiztedjourneys.netlify.app' or 'https://www.twiztedjourneys.org'
-  siteUrl: 'https://www.twiztedjourneys.org',
-
-  // Admin email addresses allowed to access this panel
-  // (Netlify Identity invite-only enforces this — this is an extra guard)
-  adminEmails: [
-    'tonyarcrump@gmail.com'
-  ]
+  supabaseAnonKey: 'SUPABASE_ANON_KEY_HERE'
 };
 
-// Expose for admin pages
 window.TJ_CONFIG = TJ_CONFIG;
