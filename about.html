@@ -1,116 +1,453 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <meta name="description" content="About Twizted Journeys — founded in 2021 by Tonya Crump and Tia Weaver after the loss of Jason. Indiana nonprofit for suicide awareness, grief support, and community healing." />
- <title>About Us — Twizted Journeys</title>
- <link rel="stylesheet" href="css/styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About Twizted Journeys — founded in 2021 by Tonya Crump and Tia Weaver after the loss of Jason. Indiana 501(c)(3) nonprofit for suicide awareness, grief support, Finding Forward peer group, and community healing." />
+  <title>About Us — Twizted Journeys</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .about-hero {
+      background: linear-gradient(160deg, #0d0015 0%, var(--midnight) 55%, #080820 100%);
+      border-bottom: 1px solid var(--card-border);
+      padding: 88px 0 72px;
+      text-align: center;
+    }
+    .about-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .about-hero h1 em {
+      font-style: normal;
+      color: var(--teal);
+    }
+    .founder-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .founder-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--teal));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .partner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(138,43,239,0.12);
+      border: 1px solid rgba(138,43,239,0.3);
+      border-radius: 24px;
+      padding: 8px 18px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--white);
+      margin: 4px;
+    }
+    .county-pill {
+      display: inline-block;
+      background: rgba(86,224,210,0.1);
+      border: 1px solid rgba(86,224,210,0.3);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.85rem;
+      color: var(--teal);
+      font-weight: 600;
+      margin: 4px;
+    }
+    .irs-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, rgba(86,224,210,0.12), rgba(138,43,239,0.08));
+      border: 1px solid rgba(86,224,210,0.35);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-top: 16px;
+    }
+  </style>
 </head>
 <body>
 
- <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
- <nav class="site-nav" aria-label="Main navigation">
- <div class="container">
- <div class="nav-inner">
- <a href="index.html" class="nav-logo">
- <img src="images/web-optimized/twizted-journeys-banner.jpg" alt="Twizted Journeys logo" style="height:44px;width:auto;border-radius:6px;" />
- <span class="nav-logo-text">Tw<span class="semicolon-accent">;</span>zted Journeys</span>
- </a>
- <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">☰</button>
- <ul class="nav-links" id="nav-links" role="list">
- <li><a href="index.html">Home</a></li>
- <li><a href="events.html">Events</a></li>
- <li><a href="merch.html">Merch</a></li>
- <li><a href="stories.html">Share Your Story</a></li>
- <li><a href="memorial.html">Memorial</a></li>
- <li><a href="resources.html">Resources</a></li>
- <li><a href="podcast.html">Podcast</a></li>
- <li><a href="about.html" class="active">About</a></li>
- <li><a href="twizted-qr-codes.html">QR Codes</a></li>
- <li><a href="https://www.twiztedjourneys.org/donations-matter" class="btn btn-primary nav-donate">Donate</a></li>
- </ul>
- </div>
- </div>
- </nav>
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <img src="images/web-optimized/twizted-journeys-banner.jpg" alt="Twizted Journeys logo" style="height:44px;width:auto;border-radius:6px;" />
+          <span class="nav-logo-text">Tw<span class="semicolon-accent">;</span>zted Journeys</span>
+        </a>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">&#9776;</button>
+        <ul class="nav-links" id="nav-links" role="list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="merch.html">Merch</a></li>
+          <li><a href="stories.html">Share Your Story</a></li>
+          <li><a href="memorial.html">Memorial</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="podcast.html">Podcast</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+          <li><a href="twizted-qr-codes.html">QR Codes</a></li>
+          <li><a href="https://www.twiztedjourneys.org/donations-matter" class="btn btn-primary nav-donate" target="_blank" rel="noopener">Donate</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
- <main id="main-content">
- <section>
- <div class="container">
- <div class="section-label">Our Story</div>
- <h1 class="section-title">About <em>Twizted Journeys</em></h1>
+  <main id="main-content">
 
- <div style="max-width:760px;">
- <p style="color:var(--muted);line-height:1.85;margin-bottom:20px;">
- In 2021, Tonya's nephew Jason decided his story didn't need to be written anymore.
- That loss was devastating — it changed what "normal" means for our family forever.
- It also made Tonya start thinking about her own past, and even her son.
- We have both been where Jason was. That dark cloud is very hard to crawl out from underneath.
- </p>
- <p style="color:var(--muted);line-height:1.85;margin-bottom:20px;">
- Tonya reached out blindly, not knowing where to turn, and found the American Foundation
- for Suicide Prevention. Since August 2021, she and her daughter have become advocates
- for AFSP, NAMI, and Overdose Lifeline.
- </p>
- <p style="color:var(--muted);line-height:1.85;margin-bottom:20px;">
- With the help of her daughter, Tonya founded "Jason's Journey" — to keep his story going
- and to help raise awareness for others who are suffering. We quickly realized it wasn't
- just Jason who had a twizted journey. Everyone has a journey, and every journey is
- twizted in its own way. So began Twizted Journeys.
- </p>
- <p style="color:var(--muted);line-height:1.85;margin-bottom:36px;">
- Twizted Journeys, Inc. is a 501(c)(3) nonprofit public charity. Donations are
- tax-deductible as allowed by law. We are proud advocates with AFSP and proud members
- of the Indiana Suicide Prevention Coalition.
- </p>
+    <!-- HERO -->
+    <header class="about-hero" aria-label="About Twizted Journeys">
+      <div class="container">
+        <p class="section-label">Indiana 501(c)(3) Nonprofit</p>
+        <h1>Our <em>Story</em></h1>
+        <p class="hero-sub" style="max-width:580px;margin:0 auto 32px;font-size:1.08rem;line-height:1.7;color:rgba(248,251,255,0.82);">
+          Founded in 2021 out of grief, love, and refusal to let one more person face the dark alone.
+          Every journey here starts with the same truth: you are not alone.
+        </p>
+        <div class="irs-badge">
+          <span style="font-size:1.6rem;" aria-hidden="true">&#127881;</span>
+          <div style="text-align:left;">
+            <div style="font-weight:800;color:var(--teal);font-size:0.95rem;">IRS-Recognized 501(c)(3) &mdash; 509(a)(2) Public Charity</div>
+            <div style="font-size:0.82rem;color:var(--muted);margin-top:2px;">Donations are tax-deductible as allowed by law.</div>
+          </div>
+        </div>
+      </div>
+    </header>
 
- <div style="display:flex;gap:24px;flex-wrap:wrap;margin-bottom:40px;">
- <div style="text-align:center;">
- <div style="font-size:1.8rem;font-weight:800;color:var(--purple);">Tonya Crump</div>
- <div style="color:var(--teal);font-size:0.9rem;font-weight:600;">Founder &amp; CEO</div>
- </div>
- <div style="text-align:center;">
- <div style="font-size:1.8rem;font-weight:800;color:var(--purple);">Tia Weaver</div>
- <div style="color:var(--teal);font-size:0.9rem;font-weight:600;">Co-Founder</div>
- </div>
- </div>
+    <!-- ORIGIN STORY -->
+    <section style="padding:80px 0;" aria-labelledby="origin-heading">
+      <div class="container" style="max-width:780px;">
+        <p class="section-label">How We Got Here</p>
+        <h2 class="section-title" id="origin-heading">Jason&rsquo;s Journey &mdash; Where It All Started</h2>
 
- <div class="safe-place-banner" style="text-align:left;">
- <p>
- <strong>Our commitment:</strong> Twizted Journeys is a safe, welcoming space for
- people carrying grief, loss, mental health struggles, addiction recovery stories,
- suicide loss, and the weight of life's hardest chapters. You do not have to be okay
- to be here. Every journey matters here.
- </p>
- </div>
+        <div style="line-height:1.9;color:var(--muted);font-size:1rem;">
+          <p style="margin-bottom:20px;">
+            In 2021, Tonya&rsquo;s nephew Jason decided his story didn&rsquo;t need to be written anymore.
+            That loss was devastating &mdash; it changed what &ldquo;normal&rdquo; means for the whole family, forever.
+            It made Tonya start thinking about her own past, and even her own son.
+            <strong style="color:var(--white);">We have both been where Jason was.</strong>
+            That dark cloud is very hard to crawl out from underneath.
+          </p>
+          <p style="margin-bottom:20px;">
+            The stigma that society puts on those of us who &ldquo;are not okay&rdquo; makes it even harder to reach out for help.
+            Usually it&rsquo;s easy to comfort someone else and talk them through devastating situations &mdash;
+            but when it was time to help her own family, Tonya found it was one of the hardest things she had ever done.
+            She reached out blindly, not knowing where to turn, and found the
+            <strong style="color:var(--white);">American Foundation for Suicide Prevention</strong>.
+          </p>
+          <p style="margin-bottom:20px;">
+            Since August 2021, Tonya and her daughter have become advocates for AFSP, NAMI, and Overdose Lifeline.
+          </p>
+          <p style="margin-bottom:20px;">
+            In 2021, with the help of her daughter, Tonya founded <strong style="color:var(--teal);">&ldquo;Jason&rsquo;s Journey&rdquo;</strong>
+            &mdash; to keep his story going and to help raise awareness for others who are suffering.
+            They quickly realized it wasn&rsquo;t just Jason who had a twizted journey.
+            <em>Everyone</em> has a journey, and every journey is twizted in its own way.
+            So began Twizted Journeys.
+          </p>
+          <div class="safe-place-banner" style="text-align:left;margin-top:32px;">
+            <p>
+              <strong>Nothing is too taboo to discuss here and you will not face judgment.</strong>
+              Suicide and mental health are usually associated with pain, darkness, and despair.
+              It doesn&rsquo;t have to be &mdash; let&rsquo;s use peace, love, and maybe even some amusement as we
+              help one another remember: <em>it&rsquo;s okay not to be okay.</em>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
- <div style="margin-top:28px;">
- <a href="mailto:info@twiztedjourneys.org" class="btn btn-primary">Contact Us</a>
- </div>
- </div>
- </div>
- </section>
- </main>
+    <!-- FOUNDERS -->
+    <section class="section-dark" style="padding:72px 0;" aria-labelledby="founders-heading">
+      <div class="container" style="max-width:780px;">
+        <p class="section-label">Leadership</p>
+        <h2 class="section-title" id="founders-heading">The Founders</h2>
+        <div style="display:flex;flex-direction:column;gap:20px;margin-top:8px;">
 
- <div class="crisis-band">
- <div class="container">
- <p>
- <strong>If you are in crisis:</strong> Call or text <span class="crisis-number">988</span> — free, 24/7.<br />
- Crisis Text Line: text <strong>HOME</strong> to <strong>741741</strong>
- </p>
- </div>
- </div>
+          <div class="founder-card">
+            <div class="founder-avatar">TC</div>
+            <div>
+              <h3 style="font-size:1.1rem;font-weight:800;color:var(--white);margin-bottom:4px;">Tonya Crump</h3>
+              <div style="color:var(--teal);font-size:0.88rem;font-weight:700;margin-bottom:10px;">Founder &amp; CEO</div>
+              <p style="color:var(--muted);font-size:0.92rem;line-height:1.75;">
+                Tonya turned devastating personal loss into a lifeline for her community.
+                As a suicide loss survivor herself, she has become an advocate with AFSP, NAMI, and the Indiana
+                Suicide Prevention Coalition &mdash; and leads every Twizted Journeys program with fierce compassion.
+              </p>
+            </div>
+          </div>
 
- <footer class="site-footer">
- <div class="container">
- <div class="footer-bottom">
- <p>© 2022–2026 Twizted Journeys, Inc. All rights reserved.</p>
- <p><a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
- </div>
- </div>
- </footer>
+          <div class="founder-card">
+            <div class="founder-avatar" style="background:linear-gradient(135deg,var(--teal),var(--cyan));">TW</div>
+            <div>
+              <h3 style="font-size:1.1rem;font-weight:800;color:var(--white);margin-bottom:4px;">Tia Weaver</h3>
+              <div style="color:var(--teal);font-size:0.88rem;font-weight:700;margin-bottom:10px;">Co-Founder</div>
+              <p style="color:var(--muted);font-size:0.92rem;line-height:1.75;">
+                Tia helped build Twizted Journeys from the ground up, bringing her own lived experience to create
+                a space where everyone&rsquo;s journey is honored.
+              </p>
+            </div>
+          </div>
 
- <script src="js/main.js"></script>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINDING FORWARD -->
+    <section style="padding:80px 0;" aria-labelledby="finding-forward-heading">
+      <div class="container" style="max-width:780px;">
+        <p class="section-label">Peer Support Group</p>
+        <h2 class="section-title" id="finding-forward-heading">Finding <em>Forward</em></h2>
+        <p style="color:var(--muted);font-size:1rem;line-height:1.8;margin-bottom:28px;">
+          Finding Forward is a <strong style="color:var(--white);">free, peer-led support group</strong> meeting every
+          Tuesday evening in Shelbyville, Indiana. It&rsquo;s a safe, non-judgmental space for people carrying the weight of
+          suicide loss and mental health struggles.
+        </p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:32px;">
+          <div style="background:rgba(86,224,210,0.07);border:1px solid rgba(86,224,210,0.22);border-radius:10px;padding:20px;">
+            <div style="font-size:1.5rem;margin-bottom:8px;" aria-hidden="true">&#128197;</div>
+            <div style="font-weight:700;color:var(--white);margin-bottom:4px;">Every Tuesday Evening</div>
+            <div style="color:var(--muted);font-size:0.88rem;">Shelbyville, Indiana</div>
+          </div>
+          <div style="background:rgba(86,224,210,0.07);border:1px solid rgba(86,224,210,0.22);border-radius:10px;padding:20px;">
+            <div style="font-size:1.5rem;margin-bottom:8px;" aria-hidden="true">&#128100;</div>
+            <div style="font-weight:700;color:var(--white);margin-bottom:4px;">Adults 18+</div>
+            <div style="color:var(--muted);font-size:0.88rem;">All genders, identities, and backgrounds welcome</div>
+          </div>
+          <div style="background:rgba(86,224,210,0.07);border:1px solid rgba(86,224,210,0.22);border-radius:10px;padding:20px;">
+            <div style="font-size:1.5rem;margin-bottom:8px;" aria-hidden="true">&#128536;</div>
+            <div style="font-weight:700;color:var(--white);margin-bottom:4px;">Always Free</div>
+            <div style="color:var(--muted);font-size:0.88rem;">No fees, no membership, no barriers</div>
+          </div>
+        </div>
+
+        <div style="line-height:1.8;color:var(--muted);font-size:0.95rem;margin-bottom:24px;">
+          <p style="margin-bottom:12px;"><strong style="color:var(--white);">Who Finding Forward is for:</strong></p>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;padding:0;">
+            <li style="padding-left:20px;position:relative;">
+              <span style="position:absolute;left:0;color:var(--teal);">&#10003;</span>
+              Anyone who has lost a loved one to suicide
+            </li>
+            <li style="padding-left:20px;position:relative;">
+              <span style="position:absolute;left:0;color:var(--teal);">&#10003;</span>
+              Individuals coping with grief, trauma, or emotional stress
+            </li>
+            <li style="padding-left:20px;position:relative;">
+              <span style="position:absolute;left:0;color:var(--teal);">&#10003;</span>
+              People supporting a friend or family member with mental health struggles
+            </li>
+            <li style="padding-left:20px;position:relative;">
+              <span style="position:absolute;left:0;color:var(--teal);">&#10003;</span>
+              Community members seeking coping skills, connection, and resources
+            </li>
+            <li style="padding-left:20px;position:relative;">
+              <span style="position:absolute;left:0;color:var(--teal);">&#10003;</span>
+              Individuals with disabilities or sensory needs &mdash; inclusive and accessible
+            </li>
+          </ul>
+        </div>
+
+        <a href="mailto:info@twiztedjourneys.org?subject=Finding%20Forward%20Group%20Info" class="btn btn-primary">Email for Location &amp; Details &rarr;</a>
+      </div>
+    </section>
+
+    <!-- MISSION & 501(c)(3) -->
+    <section class="section-dark" style="padding:72px 0;" aria-labelledby="mission-heading">
+      <div class="container" style="max-width:780px;">
+        <p class="section-label">Our Mission</p>
+        <h2 class="section-title" id="mission-heading">What We Do &amp; Who We Serve</h2>
+
+        <div style="line-height:1.85;color:var(--muted);font-size:0.97rem;margin-bottom:32px;">
+          <p style="margin-bottom:16px;">
+            Twizted Journeys hosts <strong style="color:var(--white);">S.A.F.E.</strong> (Suicide Awareness For Everyone)
+            events, fundraisers, workshops, and support groups for mental health awareness and suicide prevention.
+            We also strive to bring unity, comfort, and acceptance to suicide loss survivors.
+          </p>
+          <p style="margin-bottom:16px;">
+            Our events allow people to share the journey of loved ones who have cut their story short,
+            and their own journey of continuing after a pause.
+            We believe <strong style="color:var(--white);">every program should be completely free</strong> &mdash;
+            no membership, no cost, ever.
+          </p>
+        </div>
+
+        <!-- 501(c)(3) callout -->
+        <div style="background:linear-gradient(135deg,rgba(86,224,210,0.08),rgba(138,43,239,0.06));border:1px solid rgba(86,224,210,0.3);border-radius:12px;padding:28px 24px;margin-bottom:32px;">
+          <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;">
+            <div style="font-size:2rem;flex-shrink:0;" aria-hidden="true">&#9989;</div>
+            <div>
+              <h3 style="font-size:1rem;font-weight:800;color:var(--teal);margin-bottom:8px;">
+                IRS-Approved 501(c)(3) Public Charity &mdash; 509(a)(2)
+              </h3>
+              <p style="color:var(--muted);font-size:0.9rem;line-height:1.75;margin:0;">
+                Twizted Journeys, Inc. is officially recognized by the IRS as a tax-exempt 501(c)(3) public charity.
+                Donations to Twizted Journeys are <strong style="color:var(--white);">tax-deductible</strong> as allowed by law.
+                We are proud advocates for suicide awareness with AFSP and proud members of the
+                Indiana Suicide Prevention Coalition.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partner organizations -->
+        <h3 style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:14px;">Our Partners &amp; Affiliations</h3>
+        <div style="margin-bottom:32px;">
+          <a class="partner-badge" href="https://afsp.org" target="_blank" rel="noopener">&#128156; AFSP &mdash; American Foundation for Suicide Prevention</a>
+          <a class="partner-badge" href="https://nami.org" target="_blank" rel="noopener">&#128156; NAMI &mdash; National Alliance on Mental Illness</a>
+          <a class="partner-badge" href="https://overdoselifeline.org" target="_blank" rel="noopener">&#128156; Overdose Lifeline Indiana</a>
+          <span class="partner-badge">&#128156; Indiana Suicide Prevention Coalition</span>
+        </div>
+
+        <!-- Counties served -->
+        <h3 style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:14px;">Where We Serve</h3>
+        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:12px;">
+          Shelbyville, Indiana and surrounding counties &mdash; with events, peer support, and community presence in:
+        </p>
+        <div>
+          <span class="county-pill">Shelby County</span>
+          <span class="county-pill">Johnson County</span>
+          <span class="county-pill">Bartholomew County</span>
+          <span class="county-pill">Hancock County</span>
+          <span class="county-pill">Decatur County</span>
+          <span class="county-pill">Rush County</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT YOU FIND HERE -->
+    <section style="padding:72px 0;" aria-labelledby="offerings-heading">
+      <div class="container" style="max-width:780px;">
+        <p class="section-label">What We Offer</p>
+        <h2 class="section-title" id="offerings-heading">What You Find Here</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:12px;">
+          <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:20px;">
+            <div style="font-size:1.4rem;margin-bottom:8px;" aria-hidden="true">&#128197;</div>
+            <div style="font-weight:700;color:var(--white);margin-bottom:6px;">Events &amp; Awareness</div>
+            <div style="color:var(--muted);font-size:0.88rem;line-height:1.65;">Annual awareness rides, community walks, and gatherings &mdash; free and open to all.</div>
+          </div>
+          <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:20px;">
+            <div style="font-size:1.4rem;margin-bottom:8px;" aria-hidden="true">&#128156;</div>
+            <div style="font-weight:700;color:var(--white);margin-bottom:6px;">Peer Support Group</div>
+            <div style="color:var(--muted);font-size:0.88rem;line-height:1.65;">Finding Forward &mdash; every Tuesday evening, free for adults 18+ in Shelbyville.</div>
+          </div>
+          <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:20px;">
+            <div style="font-size:1.4rem;margin-bottom:8px;" aria-hidden="true">&#128330;&#65039;</div>
+            <div style="font-weight:700;color:var(--white);margin-bottom:6px;">Memorial &amp; Stories</div>
+            <div style="color:var(--muted);font-size:0.88rem;line-height:1.65;">Honor loved ones. Share your journey. A space that holds every story with care.</div>
+          </div>
+          <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:20px;">
+            <div style="font-size:1.4rem;margin-bottom:8px;" aria-hidden="true">&#128247;</div>
+            <div style="font-weight:700;color:var(--white);margin-bottom:6px;">Merchandise &amp; Handmade Items</div>
+            <div style="color:var(--muted);font-size:0.88rem;line-height:1.65;">Handmade charms, awareness items, and apparel &mdash; every purchase supports the mission.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT CTA -->
+    <section class="section-dark" style="padding:60px 0 72px;" aria-labelledby="contact-heading">
+      <div class="container" style="max-width:580px;text-align:center;">
+        <h2 class="section-title" id="contact-heading">Get in Touch</h2>
+        <p style="color:var(--muted);line-height:1.75;margin-bottom:28px;">
+          Questions about Finding Forward, events, partnerships, or general information &mdash;
+          we are real people and we always respond.
+        </p>
+        <a href="mailto:info@twiztedjourneys.org" class="btn btn-primary" style="font-size:1rem;padding:14px 32px;">&#9993; info@twiztedjourneys.org</a>
+        <div style="margin-top:20px;">
+          <a href="https://www.twiztedjourneys.org/donations-matter" target="_blank" rel="noopener" class="btn btn-ghost">Support Our Mission &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="crisis-band" role="complementary" aria-label="Crisis support information">
+    <div class="container">
+      <p>
+        <strong>If you are in crisis or need immediate help:</strong><br />
+        Call or text <span class="crisis-number">988</span> &mdash; the Suicide &amp; Crisis Lifeline &mdash; free, 24/7, confidential.<br />
+        Visit <a href="https://988lifeline.org" target="_blank" rel="noopener">988lifeline.org</a> &nbsp;|&nbsp;
+        Crisis Text Line: text <strong>HOME</strong> to <strong>741741</strong>
+      </p>
+      <p style="font-size:0.8rem;color:var(--muted);margin-top:8px;">
+        Twizted Journeys is not a hotline, therapy provider, or emergency service. In an emergency, call 911.
+      </p>
+    </div>
+  </div>
+
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h2>Tw<span>;</span>zted Journeys</h2>
+          <p>A safe place for every journey. Indiana nonprofit serving Shelby, Johnson, Bartholomew, Hancock, Decatur, and Rush counties.</p>
+          <p style="margin-top:10px;"><a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
+        </div>
+        <div class="footer-col">
+          <h3>Navigate</h3>
+          <ul>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="stories.html">Share Your Story</a></li>
+            <li><a href="memorial.html">Memorial</a></li>
+            <li><a href="podcast.html">Podcast</a></li>
+            <li><a href="merch.html">Shop</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="twizted-qr-codes.html">QR Codes &amp; Links</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="https://988lifeline.org" target="_blank" rel="noopener">988 Crisis Lifeline</a></li>
+            <li><a href="https://crisistextline.org" target="_blank" rel="noopener">Crisis Text Line</a></li>
+            <li><a href="https://afsp.org" target="_blank" rel="noopener">AFSP</a></li>
+            <li><a href="https://nami.org" target="_blank" rel="noopener">NAMI</a></li>
+            <li><a href="https://overdoselifeline.org" target="_blank" rel="noopener">Overdose Lifeline</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Connect</h3>
+          <ul>
+            <li><a href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Facebook Community Group</a></li>
+            <li><a href="https://x.com/TonyaCrump14" target="_blank" rel="noopener">X (Twitter)</a></li>
+            <li><a href="https://www.pinterest.com/twiztedjourneys" target="_blank" rel="noopener">Pinterest</a></li>
+            <li><a href="https://www.tiktok.com/@twiztedjourneys" target="_blank" rel="noopener">TikTok</a></li>
+            <li><a href="https://twiztedjourneys71.tumblr.com/" target="_blank" rel="noopener">Tumblr</a></li>
+            <li><a href="https://api.whatsapp.com/send?phone=3176043642" target="_blank" rel="noopener">WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer-disclaimer">
+        Twizted Journeys, Inc. is a 501(c)(3) public charity. Donations are tax-deductible as allowed by law.
+        We are not a crisis hotline, counseling service, therapy provider, medical provider, or emergency response service.
+        If you are in crisis, please call 911 or contact the 988 Suicide &amp; Crisis Lifeline.
+      </p>
+      <div class="footer-bottom">
+        <p>&copy; 2022&ndash;2026 Twizted Journeys, Inc. All rights reserved. &middot; 501(c)(3) nonprofit</p>
+        <p>Founders: Tonya Crump &amp; Tia Weaver &nbsp;|&nbsp; <a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>

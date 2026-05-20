@@ -166,7 +166,9 @@
           shared &mdash; or just their name. We will treat every submission with care.
         </p>
         <div class="card--calm">
-          <form action="mailto:info@twiztedjourneys.org" method="post" enctype="text/plain">
+          <form name="memorial-submission" method="POST" netlify netlify-honeypot="bot-field" action="/memorial-thanks.html">
+            <input type="hidden" name="form-name" value="memorial-submission" />
+            <p style="display:none;"><label>Skip this field: <input name="bot-field" /></label></p>
             <div class="form-field">
               <label>Your Name *</label>
               <input type="text" name="name" required>
@@ -231,9 +233,14 @@
         </div>
         <div class="footer-col">
           <h3>Connect</h3>
-          <div class="social-links">
-            <a class="social-link" href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Join the Facebook Group</a>
-          </div>
+          <ul>
+            <li><a href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Facebook Community Group</a></li>
+            <li><a href="https://x.com/TonyaCrump14" target="_blank" rel="noopener">X (Twitter)</a></li>
+            <li><a href="https://www.pinterest.com/twiztedjourneys" target="_blank" rel="noopener">Pinterest</a></li>
+            <li><a href="https://www.tiktok.com/@twiztedjourneys" target="_blank" rel="noopener">TikTok</a></li>
+            <li><a href="https://twiztedjourneys71.tumblr.com/" target="_blank" rel="noopener">Tumblr</a></li>
+            <li><a href="https://api.whatsapp.com/send?phone=3176043642" target="_blank" rel="noopener">WhatsApp</a></li>
+          </ul>
         </div>
       </div>
       <p class="footer-disclaimer">

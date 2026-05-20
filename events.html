@@ -179,8 +179,73 @@
         <p class="section-label">RSVP &amp; Contact</p>
         <h2 class="section-title" id="contact-heading">Get in <em>Touch</em></h2>
         <p style="color:var(--muted);font-size:1rem;line-height:1.75;margin-bottom:28px;">Questions about events, vendor spaces, or registration? Reach out &mdash; we&rsquo;re real people and we always respond.</p>
+                <!-- RSVP Form — powered by Netlify Forms -->
+        <form name="event-rsvp" method="POST" netlify netlify-honeypot="bot-field" action="/rsvp-thanks.html" style="margin-bottom:28px;">
+          <input type="hidden" name="form-name" value="event-rsvp" />
+          <p style="display:none;"><label>Skip: <input name="bot-field" /></label></p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+            <div>
+              <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">Full Name *</label>
+              <input type="text" name="name" required style="width:100%;background:var(--midnight-3,#1A1A28);border:1px solid var(--card-border);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.9rem;font-family:inherit;" />
+            </div>
+            <div>
+              <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">Email *</label>
+              <input type="email" name="email" required style="width:100%;background:var(--midnight-3,#1A1A28);border:1px solid var(--card-border);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.9rem;font-family:inherit;" />
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+            <div>
+              <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">Phone (optional)</label>
+              <input type="tel" name="phone" style="width:100%;background:var(--midnight-3,#1A1A28);border:1px solid var(--card-border);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.9rem;font-family:inherit;" />
+            </div>
+            <div>
+              <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">Guest Count</label>
+              <select name="guests" style="width:100%;background:var(--midnight-3,#1A1A28);border:1px solid var(--card-border);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.9rem;font-family:inherit;">
+                <option value="1">Just me</option>
+                <option value="2">2 people</option>
+                <option value="3">3 people</option>
+                <option value="4">4 people</option>
+                <option value="5+">5 or more</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom:14px;">
+            <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">I am registering as *</label>
+            <select name="registration_type" required style="width:100%;background:var(--midnight-3,#1A1A28);border:1px solid var(--card-border);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.9rem;font-family:inherit;">
+              <option value="">-- Select your role --</option>
+              <option value="attendee">Attendee / Community Member</option>
+              <option value="rider">Motorcycle Rider (Day 1 - Light Up the Night)</option>
+              <option value="walker">Awareness Walker (Day 2 - The Cause)</option>
+              <option value="vendor">Vendor ($50/day)</option>
+              <option value="volunteer">Volunteer</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">Which day(s)?</label>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;">
+              <label style="display:flex;align-items:center;gap:6px;color:var(--muted);font-size:0.9rem;cursor:pointer;">
+                <input type="checkbox" name="day1" value="Sept 12 - Light Up the Night" style="accent-color:var(--purple);" /> Sept 12 - Light Up the Night
+              </label>
+              <label style="display:flex;align-items:center;gap:6px;color:var(--muted);font-size:0.9rem;cursor:pointer;">
+                <input type="checkbox" name="day2" value="Sept 13 - The Cause Walk" style="accent-color:var(--purple);" /> Sept 13 - The Cause Walk
+              </label>
+            </div>
+          </div>
+
+          <div style="margin-bottom:16px;">
+            <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">Notes or questions (optional)</label>
+            <textarea name="notes" rows="3" style="width:100%;background:var(--midnight-3,#1A1A28);border:1px solid var(--card-border);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.9rem;font-family:inherit;resize:vertical;"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;font-size:1rem;padding:13px;">Register for the Event</button>
+        </form>
+
         <div style="display:flex;flex-direction:column;gap:14px;">
-          <a href="mailto:info@twiztedjourneys.org" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;width:fit-content;">&#9993; info@twiztedjourneys.org</a>
+          <a href="mailto:info@twiztedjourneys.org" class="btn btn-ghost" style="display:inline-flex;align-items:center;gap:8px;width:fit-content;">&#9993; Prefer email? info@twiztedjourneys.org</a>
           <a href="https://www.facebook.com/groups/560290368564902/" class="btn btn-secondary" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;width:fit-content;">Join the Facebook Community Group</a>
         </div>
       </div>
@@ -237,9 +302,14 @@
       </div>
       <div class="footer-col">
         <h3>Connect</h3>
-        <div class="social-links">
-          <a class="social-link" href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Join the Facebook Group</a>
-        </div>
+        <ul>
+            <li><a href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Facebook Community Group</a></li>
+            <li><a href="https://x.com/TonyaCrump14" target="_blank" rel="noopener">X (Twitter)</a></li>
+            <li><a href="https://www.pinterest.com/twiztedjourneys" target="_blank" rel="noopener">Pinterest</a></li>
+            <li><a href="https://www.tiktok.com/@twiztedjourneys" target="_blank" rel="noopener">TikTok</a></li>
+            <li><a href="https://twiztedjourneys71.tumblr.com/" target="_blank" rel="noopener">Tumblr</a></li>
+            <li><a href="https://api.whatsapp.com/send?phone=3176043642" target="_blank" rel="noopener">WhatsApp</a></li>
+          </ul>
       </div>
     </div>
     <p class="footer-disclaimer">
