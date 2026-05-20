@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop Inventory — Twizted Journeys Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body { background: var(--midnight, #0B0B0F); }
+    .admin-shell { display: flex; min-height: 100vh; }
+    .admin-sidebar { width: 220px; flex-shrink: 0; background: #0a0a14; border-right: 1px solid var(--card-border, #222235); display: flex; flex-direction: column; padding: 24px 0; }
+    .admin-logo { padding: 0 20px 24px; border-bottom: 1px solid var(--card-border); margin-bottom: 16px; }
+    .admin-logo h1 { font-size: 1.1rem; font-weight: 900; color: var(--white); margin: 0 0 2px; }
+    .admin-logo h1 span { color: var(--teal); }
+    .admin-logo p { font-size: 0.75rem; color: var(--muted); margin: 0; }
+    .admin-nav { flex: 1; }
+    .admin-nav a { display: flex; align-items: center; gap: 10px; padding: 10px 20px; color: var(--muted); font-size: 0.88rem; font-weight: 600; text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; }
+    .admin-nav a:hover, .admin-nav a.active { color: var(--white); background: rgba(138,43,239,0.08); border-left-color: var(--purple); }
+    .admin-nav a .nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+    .admin-sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--card-border); }
+    .user-chip { font-size: 0.78rem; color: var(--muted); margin-bottom: 10px; word-break: break-all; }
+    .admin-main { flex: 1; padding: 32px; overflow-y: auto; }
+    .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+    .admin-header h2 { font-size: 1.5rem; font-weight: 800; color: var(--white); margin: 0; }
+
+    /* Product grid */
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .product-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 10px; overflow: hidden;
+    }
+    .product-card.hidden { opacity: 0.45; }
+    .product-img {
+      width: 100%; height: 160px; object-fit: cover;
+      background: rgba(138,43,239,0.08);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 2rem;
+    }
+    .product-img img { width: 100%; height: 100%; object-fit: cover; }
+    .product-body { padding: 16px; }
+    .product-name { font-size: 0.97rem; font-weight: 800; color: var(--white); margin-bottom: 4px; }
+    .product-sku { font-size: 0.72rem; color: var(--muted); margin-bottom: 8px; font-family: monospace; }
+    .product-price { font-size: 1.05rem; font-weight: 700; color: var(--teal); margin-bottom: 10px; }
+    .product-stock { font-size: 0.82rem; color: var(--muted); margin-bottom: 12px; }
+    .product-stock .avail { color: var(--white); font-weight: 700; }
+    .product-stock .avail.low { color: #fbbf24; }
+    .product-stock .avail.out { color: #f87171; }
+    .product-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .action-btn { padding: 7px 12px; border-radius: 6px; font-size: 0.78rem; font-weight: 700; cursor: pointer; border: none; font-family: inherit; transition: opacity 0.15s; }
+    .action-btn:hover { opacity: 0.8; }
+    .btn-edit   { background: rgba(138,43,239,0.15); color: #c084fc; }
+    .btn-toggle { background: rgba(251,191,36,0.12); color: #fbbf24; }
+    .btn-delete { background: rgba(239,68,68,0.1); color: #f87171; }
+
+    /* Add product form */
+    .add-panel {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 24px; margin-bottom: 28px;
+    }
+    .add-panel h3 { font-size: 1rem; font-weight: 800; color: var(--white); margin: 0 0 16px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group label { font-size: 0.78rem; color: var(--muted); font-weight: 700; }
+    .form-group input, .form-group select, .form-group textarea {
+      background: rgba(11,11,15,0.6); border: 1px solid var(--card-border);
+      border-radius: 6px; padding: 9px 12px; color: var(--white);
+      font-size: 0.88rem; font-family: inherit;
+    }
+    .form-group.full { grid-column: 1 / -1; }
+    .netlify-note { background: rgba(86,224,210,0.05); border: 1px solid rgba(86,224,210,0.18); border-radius: 10px; padding: 18px 20px; margin-bottom: 24px; font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 0.9rem; }
+    .empty-state .icon { font-size: 2.5rem; margin-bottom: 12px; }
+    @media (max-width: 768px) {
+      .admin-shell { flex-direction: column; }
+      .admin-sidebar { width: 100%; flex-direction: row; align-items: center; padding: 12px 16px; }
+      .admin-logo { padding: 0 16px 0 0; border-bottom: none; border-right: 1px solid var(--card-border); margin-bottom: 0; margin-right: 12px; }
+      .admin-nav { display: flex; flex-direction: row; overflow-x: auto; }
+      .admin-nav a { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; padding: 8px 14px; }
+      .admin-nav a.active { border-left-color: transparent; border-bottom-color: var(--purple); }
+      .admin-sidebar-footer { display: none; }
+      .admin-main { padding: 16px; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="admin-logo">
+      <h1>Tw<span>;</span>zted</h1>
+      <p>Admin Panel</p>
+    </div>
+    <nav class="admin-nav">
+      <a href="dashboard.html"><span class="nav-icon">&#9776;</span> Dashboard</a>
+      <a href="submissions.html"><span class="nav-icon">&#128330;&#65039;</span> Submissions</a>
+      <a href="registrations.html"><span class="nav-icon">&#128197;</span> Event RSVPs</a>
+      <a href="shop.html" class="active"><span class="nav-icon">&#128247;</span> Shop / Inventory</a>
+      <a href="../index.html" target="_blank" rel="noopener"><span class="nav-icon">&#127760;</span> View Public Site</a>
+    </nav>
+    <div class="admin-sidebar-footer">
+      <div class="user-chip" id="user-email">Loading...</div>
+      <button onclick="signOut()" style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:#f87171;border-radius:6px;padding:7px 14px;font-size:0.8rem;font-weight:700;cursor:pointer;width:100%;font-family:inherit;">Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-header">
+      <h2>Shop Inventory</h2>
+      <button onclick="toggleAddForm()" id="add-btn" style="background:var(--purple);border:none;color:#fff;border-radius:6px;padding:9px 16px;font-size:0.85rem;font-weight:700;cursor:pointer;font-family:inherit;">+ Add Product</button>
+    </div>
+
+    <div class="netlify-note">
+      &#9432; <strong style="color:var(--white);">Important:</strong> Products listed here control what shows on the public Shop page.
+      <strong>Webador handles all checkout and payments</strong> — this panel manages display only.
+      Tonya's artwork is always the primary product image. No AI-generated images.
+    </div>
+
+    <!-- Add product form (hidden by default) -->
+    <div class="add-panel" id="add-form" style="display:none;">
+      <h3>&#43; Add New Product</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Product Name *</label>
+          <input type="text" id="p-name" placeholder="12mm Semicolon Charm" />
+        </div>
+        <div class="form-group">
+          <label>SKU *</label>
+          <input type="text" id="p-sku" placeholder="CHARM-12MM-001" />
+        </div>
+        <div class="form-group">
+          <label>Category *</label>
+          <select id="p-category">
+            <option value="charm">Charm</option>
+            <option value="apparel">Apparel</option>
+            <option value="accessory">Accessory</option>
+            <option value="awareness">Awareness Item</option>
+            <option value="bundle">Bundle</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Price (cents — 1200 = $12.00)</label>
+          <input type="number" id="p-price" placeholder="1200" min="0" />
+        </div>
+        <div class="form-group">
+          <label>Webador Product URL</label>
+          <input type="url" id="p-webador-url" placeholder="https://www.twiztedjourneys.org/product/..." />
+        </div>
+        <div class="form-group">
+          <label>Quantity in Stock</label>
+          <input type="number" id="p-qty" placeholder="0" min="0" />
+        </div>
+        <div class="form-group full">
+          <label>Description</label>
+          <textarea id="p-desc" rows="2" placeholder="Short description for the shop listing..."></textarea>
+        </div>
+        <div class="form-group full">
+          <label>Image URL (Supabase Storage or external)</label>
+          <input type="url" id="p-img" placeholder="https://... or leave blank" />
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button onclick="saveProduct()" style="background:var(--purple);border:none;color:#fff;border-radius:6px;padding:10px 20px;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:inherit;">Save Product</button>
+        <button onclick="toggleAddForm()" style="background:transparent;border:1px solid var(--card-border);color:var(--muted);border-radius:6px;padding:10px 20px;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:inherit;">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Product grid -->
+    <div class="product-grid" id="product-grid">
+      <div class="empty-state" style="grid-column:1/-1;">
+        <div class="icon">&#9203;</div>
+        <p>Loading products&hellip;</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="config.js"></script>
+<script>
+  let products = [];
+  let supabase = null;
+
+  netlifyIdentity.on('init', async user => {
+    if (!user) { window.location.href = '/admin/index.html'; return; }
+    document.getElementById('user-email').textContent = user.email || 'Admin';
+
+    const cfg = window.TJ_CONFIG;
+    if (cfg && cfg.supabaseUrl !== 'SUPABASE_URL_HERE') {
+      supabase = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {
+        global: { headers: { Authorization: 'Bearer ' + user.token?.access_token } }
+      });
+      await loadProducts();
+    } else {
+      renderNoSupabase();
+    }
+  });
+
+  function signOut() { netlifyIdentity.logout(); window.location.href = '/admin/index.html'; }
+  function toggleAddForm() {
+    const f = document.getElementById('add-form');
+    f.style.display = f.style.display === 'none' ? 'block' : 'none';
+    document.getElementById('add-btn').textContent = f.style.display === 'none' ? '+ Add Product' : '✕ Cancel';
+  }
+
+  async function loadProducts() {
+    if (!supabase) return;
+    const { data } = await supabase.from('shop_products').select('*').order('name');
+    products = data || [];
+    renderProducts();
+  }
+
+  function renderNoSupabase() {
+    document.getElementById('product-grid').innerHTML = `
+      <div style="grid-column:1/-1;" class="netlify-note">
+        <strong style="color:var(--white);">Supabase not connected.</strong><br/>
+        Products are managed here once Supabase is set up. Edit <code>admin/config.js</code>,
+        run the shop_products table SQL from <code>docs/ADMIN_SYSTEM_PLAN.md</code>, and redeploy.
+      </div>`;
+  }
+
+  function renderProducts() {
+    if (!products.length) {
+      document.getElementById('product-grid').innerHTML = `
+        <div class="empty-state" style="grid-column:1/-1;">
+          <div class="icon">&#128247;</div>
+          <p>No products yet. Click <strong>+ Add Product</strong> to add your first listing.</p>
+        </div>`;
+      return;
+    }
+    document.getElementById('product-grid').innerHTML = products.map(p => {
+      const avail = p.quantity_total - (p.quantity_sold||0) - (p.quantity_held||0);
+      const availClass = avail <= 0 ? 'out' : avail <= 3 ? 'low' : '';
+      const price = p.price_cents ? '$' + (p.price_cents / 100).toFixed(2) : 'Free';
+      return `
+      <div class="product-card ${p.is_hidden ? 'hidden' : ''}" id="pc-${p.id}">
+        <div class="product-img">
+          ${p.image_url ? `<img src="${esc(p.image_url)}" alt="${esc(p.name)}" />` : '&#128247;'}
+        </div>
+        <div class="product-body">
+          <div class="product-name">${esc(p.name)}</div>
+          <div class="product-sku">SKU: ${esc(p.sku)}</div>
+          <div class="product-price">${price}</div>
+          <div class="product-stock">
+            Available: <span class="avail ${availClass}">${avail}</span>
+            &nbsp;&middot;&nbsp; Total: ${p.quantity_total} &nbsp;&middot;&nbsp; Sold: ${p.quantity_sold||0}
+            ${p.is_hidden ? ' &nbsp;&middot;&nbsp; <em style="color:#fbbf24;">Hidden</em>' : ''}
+            ${p.is_sold_out ? ' &nbsp;&middot;&nbsp; <em style="color:#f87171;">Sold Out</em>' : ''}
+          </div>
+          <div class="product-actions">
+            ${p.webador_url ? `<a href="${esc(p.webador_url)}" target="_blank" class="action-btn btn-edit" style="text-decoration:none;">&#127760; Webador</a>` : ''}
+            <button class="action-btn btn-toggle" onclick="toggleVisibility('${p.id}',${p.is_hidden})">${p.is_hidden ? '&#128065; Show' : '&#128065; Hide'}</button>
+            <button class="action-btn btn-delete" onclick="deleteProduct('${p.id}','${esc(p.name)}')">&#10005; Delete</button>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  async function saveProduct() {
+    if (!supabase) return;
+    const name = document.getElementById('p-name').value.trim();
+    const sku  = document.getElementById('p-sku').value.trim();
+    if (!name || !sku) { alert('Name and SKU are required.'); return; }
+    const payload = {
+      name, sku,
+      category:       document.getElementById('p-category').value,
+      description:    document.getElementById('p-desc').value.trim() || null,
+      price_cents:    parseInt(document.getElementById('p-price').value) || 0,
+      quantity_total: parseInt(document.getElementById('p-qty').value) || 0,
+      webador_url:    document.getElementById('p-webador-url').value.trim() || null,
+      image_url:      document.getElementById('p-img').value.trim() || null,
+      is_hidden:      false, is_sold_out: false, quantity_sold: 0, quantity_held: 0
+    };
+    const { error } = await supabase.from('shop_products').insert(payload);
+    if (error) { alert('Save failed: ' + error.message); return; }
+    toggleAddForm();
+    await loadProducts();
+  }
+
+  async function toggleVisibility(id, currentlyHidden) {
+    if (!supabase) return;
+    await supabase.from('shop_products').update({ is_hidden: !currentlyHidden }).eq('id', id);
+    await loadProducts();
+  }
+
+  async function deleteProduct(id, name) {
+    if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
+    await supabase.from('shop_products').delete().eq('id', id);
+    await loadProducts();
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+</script>
+</body>
+</html>

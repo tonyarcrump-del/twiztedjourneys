@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login — Twizted Journeys</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    body { background: var(--midnight, #0B0B0F); }
+    .login-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .login-card {
+      background: var(--card-bg, #111118);
+      border: 1px solid var(--card-border, #222235);
+      border-radius: 16px;
+      padding: 48px 40px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+    }
+    .login-logo {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--white, #F8FBFF);
+      margin-bottom: 6px;
+    }
+    .login-logo span { color: var(--teal, #56E0D2); }
+    .login-sub {
+      font-size: 0.88rem;
+      color: var(--muted, #7A8FA6);
+      margin-bottom: 32px;
+    }
+    #netlify-identity-btn {
+      width: 100%;
+      background: var(--purple, #8A2BEF);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 13px 20px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+    #netlify-identity-btn:hover { background: #7a1edf; }
+    .admin-guard {
+      margin-top: 24px;
+      padding: 14px;
+      background: rgba(86,224,210,0.06);
+      border: 1px solid rgba(86,224,210,0.2);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: var(--muted, #7A8FA6);
+      line-height: 1.6;
+    }
+    #login-status {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-logo">Tw<span>;</span>zted</div>
+      <div class="login-logo" style="font-size:1.1rem;margin-bottom:4px;">Admin Panel</div>
+      <p class="login-sub">Invite-only access. Contact Nate to request access.</p>
+
+      <button id="netlify-identity-btn">Sign In with Netlify Identity</button>
+      <div id="login-status"></div>
+
+      <div class="admin-guard">
+        &#128274; This area is restricted to authorized Twizted Journeys staff only.
+        Access is managed via invite. If you need access, contact
+        <a href="mailto:natewhittaker91@gmail.com" style="color:var(--teal);">natewhittaker91@gmail.com</a>.
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script>
+    // Netlify Identity widget init
+    netlifyIdentity.on('init', user => {
+      if (user) {
+        // Already logged in — go to dashboard
+        window.location.href = '/admin/dashboard.html';
+      }
+    });
+
+    netlifyIdentity.on('login', user => {
+      netlifyIdentity.close();
+      window.location.href = '/admin/dashboard.html';
+    });
+
+    netlifyIdentity.on('error', err => {
+      document.getElementById('login-status').textContent = 'Login error: ' + err.message;
+    });
+
+    document.getElementById('netlify-identity-btn').addEventListener('click', () => {
+      netlifyIdentity.open('login');
+    });
+  </script>
+</body>
+</html>

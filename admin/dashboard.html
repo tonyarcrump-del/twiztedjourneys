@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — Twizted Journeys</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body { background: var(--midnight, #0B0B0F); }
+    .admin-shell { display: flex; min-height: 100vh; }
+    /* Sidebar */
+    .admin-sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      background: #0a0a14;
+      border-right: 1px solid var(--card-border, #222235);
+      display: flex;
+      flex-direction: column;
+      padding: 24px 0;
+    }
+    .admin-logo {
+      padding: 0 20px 24px;
+      border-bottom: 1px solid var(--card-border, #222235);
+      margin-bottom: 16px;
+    }
+    .admin-logo h1 {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--white, #F8FBFF);
+      margin: 0 0 2px;
+    }
+    .admin-logo h1 span { color: var(--teal, #56E0D2); }
+    .admin-logo p { font-size: 0.75rem; color: var(--muted, #7A8FA6); margin: 0; }
+    .admin-nav { flex: 1; }
+    .admin-nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      color: var(--muted, #7A8FA6);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: all 0.15s;
+    }
+    .admin-nav a:hover, .admin-nav a.active {
+      color: var(--white, #F8FBFF);
+      background: rgba(138,43,239,0.08);
+      border-left-color: var(--purple, #8A2BEF);
+    }
+    .admin-nav a .nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+    .admin-sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--card-border, #222235);
+    }
+    .user-chip {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+      word-break: break-all;
+    }
+    /* Main area */
+    .admin-main {
+      flex: 1;
+      padding: 32px;
+      overflow-y: auto;
+    }
+    .admin-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .admin-header h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+      margin: 0;
+    }
+    /* Stat cards */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--card-bg, #111118);
+      border: 1px solid var(--card-border, #222235);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .stat-card .label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .stat-card .value {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--teal, #56E0D2);
+      line-height: 1;
+    }
+    .stat-card .sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    /* Quick action cards */
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .quick-card {
+      background: var(--card-bg, #111118);
+      border: 1px solid var(--card-border, #222235);
+      border-radius: 10px;
+      padding: 22px;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .quick-card:hover {
+      border-color: var(--purple, #8A2BEF);
+      background: rgba(138,43,239,0.06);
+    }
+    .quick-card .icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .quick-card h3 {
+      font-size: 0.97rem;
+      font-weight: 800;
+      color: var(--white);
+      margin: 0 0 6px;
+    }
+    .quick-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+    /* Badge */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+    .badge-pending { background: rgba(251,191,36,0.15); color: #fbbf24; }
+    .badge-ok { background: rgba(86,224,210,0.15); color: var(--teal); }
+    /* Alert banner */
+    .setup-alert {
+      background: rgba(251,191,36,0.08);
+      border: 1px solid rgba(251,191,36,0.3);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      font-size: 0.88rem;
+      color: #fbbf24;
+      line-height: 1.65;
+    }
+    @media (max-width: 768px) {
+      .admin-shell { flex-direction: column; }
+      .admin-sidebar { width: 100%; flex-direction: row; align-items: center; padding: 12px 16px; }
+      .admin-logo { padding: 0 16px 0 0; border-bottom: none; border-right: 1px solid var(--card-border); margin-bottom: 0; margin-right: 12px; }
+      .admin-nav { display: flex; flex-direction: row; overflow-x: auto; }
+      .admin-nav a { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; padding: 8px 14px; }
+      .admin-nav a:hover, .admin-nav a.active { border-left-color: transparent; border-bottom-color: var(--purple); }
+      .admin-sidebar-footer { display: none; }
+      .admin-main { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="admin-shell">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="admin-logo">
+      <h1>Tw<span>;</span>zted</h1>
+      <p>Admin Panel</p>
+    </div>
+    <nav class="admin-nav">
+      <a href="dashboard.html" class="active">
+        <span class="nav-icon">&#9776;</span> Dashboard
+      </a>
+      <a href="submissions.html">
+        <span class="nav-icon">&#128330;&#65039;</span> Submissions
+      </a>
+      <a href="registrations.html">
+        <span class="nav-icon">&#128197;</span> Event RSVPs
+      </a>
+      <a href="shop.html">
+        <span class="nav-icon">&#128247;</span> Shop / Inventory
+      </a>
+      <a href="../index.html" target="_blank" rel="noopener">
+        <span class="nav-icon">&#127760;</span> View Public Site
+      </a>
+    </nav>
+    <div class="admin-sidebar-footer">
+      <div class="user-chip" id="user-email">Loading...</div>
+      <button onclick="signOut()" style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:#f87171;border-radius:6px;padding:7px 14px;font-size:0.8rem;font-weight:700;cursor:pointer;width:100%;font-family:inherit;">Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="admin-main">
+    <div class="admin-header">
+      <h2>Dashboard</h2>
+      <span id="last-refresh" style="font-size:0.8rem;color:var(--muted);"></span>
+    </div>
+
+    <!-- Setup alert (shown when Supabase not configured) -->
+    <div class="setup-alert" id="setup-alert" style="display:none;">
+      &#9888; <strong>Setup required:</strong> Supabase credentials are not configured yet.
+      Edit <code>admin/config.js</code> and replace <code>SUPABASE_URL_HERE</code> and
+      <code>SUPABASE_ANON_KEY_HERE</code> with your real keys. Then run the schema SQL
+      in your Supabase SQL editor. See <code>docs/ADMIN_SYSTEM_PLAN.md</code> for the full setup guide.
+    </div>
+
+    <!-- Stat row -->
+    <div class="stat-grid" id="stat-grid">
+      <div class="stat-card">
+        <div class="label">Pending Submissions</div>
+        <div class="value" id="stat-pending">—</div>
+        <div class="sub">Memorial &amp; stories awaiting review</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Event RSVPs</div>
+        <div class="value" id="stat-rsvps">—</div>
+        <div class="sub">Registered for September 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Shop Products</div>
+        <div class="value" id="stat-products">—</div>
+        <div class="sub">Active listings</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Handmade Items</div>
+        <div class="value" id="stat-merch">—</div>
+        <div class="sub">In the story system</div>
+      </div>
+    </div>
+
+    <!-- Quick actions -->
+    <h3 style="font-size:1rem;font-weight:800;color:var(--white);margin:0 0 16px;">Quick Actions</h3>
+    <div class="quick-grid">
+      <a class="quick-card" href="submissions.html">
+        <div class="icon">&#128330;&#65039;</div>
+        <h3>Review Submissions <span class="badge badge-pending" id="badge-pending">...</span></h3>
+        <p>Memorial names and story submissions waiting for your review and approval.</p>
+      </a>
+      <a class="quick-card" href="registrations.html">
+        <div class="icon">&#128197;</div>
+        <h3>Event RSVPs</h3>
+        <p>View and export attendee, rider, walker, vendor, and volunteer registrations.</p>
+      </a>
+      <a class="quick-card" href="shop.html">
+        <div class="icon">&#128247;</div>
+        <h3>Shop Inventory</h3>
+        <p>Add products, update quantities, hide/show listings, manage the shop display.</p>
+      </a>
+      <a class="quick-card" href="../memorial.html" target="_blank" rel="noopener">
+        <div class="icon">&#128337;</div>
+        <h3>View Memorial Page</h3>
+        <p>See what visitors see on the public memorial page.</p>
+      </a>
+    </div>
+
+    <!-- Netlify Forms note -->
+    <div style="margin-top:32px;background:rgba(86,224,210,0.05);border:1px solid rgba(86,224,210,0.18);border-radius:10px;padding:20px;">
+      <h3 style="font-size:0.9rem;font-weight:800;color:var(--teal);margin:0 0 10px;">&#9432; About Form Submissions</h3>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.7;margin:0;">
+        Memorial submissions, story submissions, and event RSVPs are collected by Netlify Forms and sent to
+        <strong style="color:var(--white);">tonyarcrump@gmail.com</strong> automatically.
+        They also appear in your Netlify dashboard under <em>Forms</em>.
+        Once Supabase is connected, all new submissions will also be stored in the database and
+        appear in the Submissions panel above with approval/reject controls.
+      </p>
+    </div>
+  </main>
+
+</div>
+
+<script src="config.js"></script>
+<script>
+  // Auth guard — redirect to login if not authenticated
+  netlifyIdentity.on('init', user => {
+    if (!user) {
+      window.location.href = '/admin/index.html';
+      return;
+    }
+    document.getElementById('user-email').textContent = user.email || 'Admin';
+    loadStats(user);
+  });
+
+  function signOut() {
+    netlifyIdentity.logout();
+    window.location.href = '/admin/index.html';
+  }
+
+  netlifyIdentity.on('logout', () => {
+    window.location.href = '/admin/index.html';
+  });
+
+  async function loadStats(user) {
+    const cfg = window.TJ_CONFIG;
+    if (!cfg || cfg.supabaseUrl === 'SUPABASE_URL_HERE') {
+      document.getElementById('setup-alert').style.display = 'block';
+      ['stat-pending','stat-rsvps','stat-products','stat-merch'].forEach(id => {
+        document.getElementById(id).textContent = 'N/A';
+      });
+      document.getElementById('badge-pending').textContent = '?';
+      return;
+    }
+
+    try {
+      const token = user.token?.access_token;
+      const headers = {
+        'apikey': cfg.supabaseAnonKey,
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json'
+      };
+      const base = cfg.supabaseUrl + '/rest/v1';
+
+      // Pending submissions
+      const [memR, storyR, rsvpR, prodR, merchR] = await Promise.all([
+        fetch(`${base}/memorial_submissions?select=id&status=eq.pending&limit=1`, {headers}),
+        fetch(`${base}/story_submissions?select=id&status=eq.pending&limit=1`, {headers}),
+        fetch(`${base}/event_registrations?select=id`, {headers}),
+        fetch(`${base}/shop_products?select=id&is_hidden=eq.false`, {headers}),
+        fetch(`${base}/merch_items?select=id`, {headers})
+      ]);
+
+      const countHeader = r => parseInt(r.headers.get('Content-Range')?.split('/')?.[1] ?? '0');
+
+      const pending = countHeader(memR) + countHeader(storyR);
+      document.getElementById('stat-pending').textContent = pending;
+      document.getElementById('badge-pending').textContent = pending > 0 ? pending : '0';
+      if (pending > 0) document.getElementById('badge-pending').classList.add('badge-pending');
+
+      document.getElementById('stat-rsvps').textContent = countHeader(rsvpR);
+      document.getElementById('stat-products').textContent = countHeader(prodR);
+      document.getElementById('stat-merch').textContent = countHeader(merchR);
+
+    } catch(e) {
+      console.warn('Stats load error:', e);
+    }
+
+    document.getElementById('last-refresh').textContent = 'Refreshed ' + new Date().toLocaleTimeString();
+  }
+</script>
+</body>
+</html>

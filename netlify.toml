@@ -1,0 +1,52 @@
+# Twizted Journeys — Netlify Configuration
+# ==========================================
+# Deploy settings for twiztedjourneys.org hosted on Netlify.
+
+[build]
+  # No build step — pure static HTML site.
+  # Netlify will serve the repository root directly.
+  publish = "."
+
+# ── Netlify Identity ───────────────────────────────────────────────────
+# The admin panel at /admin/ uses Netlify Identity for authentication.
+# After deploying, enable Identity in the Netlify dashboard:
+#   Site Settings → Identity → Enable Identity
+#   Then: Registration → Invite only
+#   Then invite Tonya via email.
+
+# ── Forms ──────────────────────────────────────────────────────────────
+# Forms are auto-detected by Netlify from the 'netlify' attribute in HTML.
+# Active forms:
+#   - event-rsvp     (events.html)
+#   - memorial-submission (memorial.html)
+#   - story-submission    (stories.html)
+# Submission notifications go to the email configured in:
+#   Netlify dashboard → Forms → Notifications
+
+# ── Headers ───────────────────────────────────────────────────────────
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# ── Redirects ─────────────────────────────────────────────────────────
+# Route /admin to /admin/index.html
+[[redirects]]
+  from = "/admin"
+  to   = "/admin/index.html"
+  status = 200
+
+# Netlify Identity callback (required for widget)
+[[redirects]]
+  from = "/.netlify/identity"
+  to   = "/.netlify/identity"
+  status = 200
+  force = true
