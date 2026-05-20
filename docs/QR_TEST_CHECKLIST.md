@@ -1,4 +1,4 @@
-# Twizted Journeys — QR Code Test Checklist
+﻿# Twizted Journeys — QR Code Test Checklist
 
 **Created:** May 2026  
 **Maintained by:** Nate / Tonya  
@@ -32,7 +32,7 @@ npm start
 |---|---------|-----------------|------------------|------|--------|--------|-------|
 | 1 | Website | https://www.twiztedjourneys.org/ | twizted-qr-codes.html (card 1), homepage callout | `website-qr-2026.png` | ✅ Live URL | ⬜ No | Test with phone camera |
 | 2 | Facebook Group | https://www.facebook.com/groups/560290368564902/ | twizted-qr-codes.html (card 2), all page footers | `facebook-group-qr-2026.png` | ✅ Live URL | ⬜ No | Confirmed group ID |
-| 3 | Facebook Page | https://www.facebook.com/twiztedjourneys | twizted-qr-codes.html (card 3) | `facebook-page-qr-2026.png` | ✅ Live URL | ⬜ No | Found in backup HTML footers. Confirmed as the TJ Facebook Page. |
+| 3 | Facebook Page | ~~https://www.facebook.com/twiztedjourneys~~ | ~~twizted-qr-codes.html (card 3)~~ | `facebook-page-qr-2026.png` | ❌ Removed | — | Card removed from QR hub — URL unconfirmed (goes nowhere). Re-add when real Facebook Page URL is confirmed. |
 | 4 | Donate | https://www.twiztedjourneys.org/donations-matter | twizted-qr-codes.html (card 4), all page navs | `donate-qr-2026.png` | ✅ Live URL | ⬜ No | Test that donation page loads correctly |
 | 5 | Events / Registration | https://tonyarcrump-del.github.io/twiztedjourneys/events.html | twizted-qr-codes.html (card 5) | `events-qr-2026.png` | ⚠️ GitHub preview (temporary) | ⬜ No | Update to twiztedjourneys.org/our-journeys once live site redirects |
 | 6 | Shop / Merch | https://www.twiztedjourneys.org/twizted-merch | twizted-qr-codes.html (card 6), merch.html | `merch-qr-2026.png` | ✅ Live URL | ⬜ No | Test charm product page loads |
