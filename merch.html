@@ -3,9 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Twizted Journeys awareness merch — semicolon charms and handmade items supporting mental health awareness." />
-  <title>Shop — Twizted Journeys</title>
+  <meta name="description" content="Twizted Journeys awareness merch &mdash; semicolon charms and handmade items supporting mental health awareness." />
+  <title>Shop &mdash; Twizted Journeys</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .merch-hero {
+      background: linear-gradient(135deg, #0d0015 0%, var(--midnight) 60%, #080820 100%);
+      border-bottom: 1px solid var(--card-border);
+      padding: 72px 0 56px;
+    }
+    .merch-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .merch-hero-text .section-label { margin-bottom: 10px; }
+    .merch-hero-text h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .merch-hero-text h1 em { font-style: normal; color: var(--teal); }
+    .merch-hero-text p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .merch-hero-image {
+      display: flex;
+      justify-content: center;
+    }
+    .merch-hero-image img {
+      max-width: 280px;
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+    }
+    @media (max-width: 680px) {
+      .merch-hero-grid { grid-template-columns: 1fr; }
+      .merch-hero-image { order: -1; }
+      .merch-hero-image img { max-width: 200px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -18,108 +61,117 @@
         <img src="images/web-optimized/twizted-journeys-banner.jpg" alt="Twizted Journeys logo" style="height:44px;width:auto;border-radius:6px;" />
         <span class="nav-logo-text">Tw<span class="semicolon-accent">;</span>zted Journeys</span>
       </a>
-      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">☰</button>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">&#9776;</button>
       <ul class="nav-links" id="nav-links" role="list">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="events.html">Events</a></li>
-          <li><a href="merch.html" class="active">Merch</a></li>
-          <li><a href="stories.html">Share Your Story</a></li>
-          <li><a href="memorial.html">Memorial</a></li>
-          <li><a href="resources.html">Resources</a></li>
-          <li><a href="podcast.html">Podcast</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="twizted-qr-codes.html">QR Codes</a></li>
-          <li><a href="https://www.twiztedjourneys.org/donations-matter" class="btn btn-primary nav-donate">Donate</a></li>
-        </ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="merch.html" class="active">Merch</a></li>
+        <li><a href="stories.html">Share Your Story</a></li>
+        <li><a href="memorial.html">Memorial</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="podcast.html">Podcast</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="twizted-qr-codes.html">QR Codes</a></li>
+        <li><a href="https://www.twiztedjourneys.org/donations-matter" class="btn btn-primary nav-donate">Donate</a></li>
+      </ul>
     </div>
   </div>
 </nav>
 
 <main id="main-content">
 
-  <!-- Hero -->
-  <section class="section-dark" style="padding:64px 0 48px;">
+  <!-- Hero — 2-col: text left, product image right -->
+  <header class="merch-hero" aria-label="Shop hero">
     <div class="container">
-      <p class="section-label">Twizted Treasures</p>
-      <h1 class="section-title">Wear the <em>Message</em></h1>
-      <p class="section-intro">Every purchase supports mental health awareness, suicide prevention, and community outreach.</p>
+      <div class="merch-hero-grid">
+        <div class="merch-hero-text">
+          <p class="section-label">Twizted Treasures</p>
+          <h1>Wear the <em>Message</em></h1>
+          <p>Every purchase supports mental health awareness, suicide prevention, and community outreach. Handmade with intention &mdash; each piece carries a story.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <a href="https://www.twiztedjourneys.org/twizted-merch" class="btn btn-primary" target="_blank" rel="noopener">Visit the Full Store &rarr;</a>
+            <a href="https://www.twiztedjourneys.org/product/14056229/12mm-semicolon-charm" class="btn btn-secondary" target="_blank" rel="noopener">Order Semicolon Charm</a>
+          </div>
+        </div>
+        <div class="merch-hero-image">
+          <img src="images/merch/charm-semicolon-product.png"
+               alt="Twizted Journeys 12mm stainless steel semicolon charm &mdash; awareness jewelry"
+               loading="eager">
+        </div>
+      </div>
     </div>
-  </section>
+  </header>
 
-  <!-- Shop Status -->
-  <section style="padding:64px 0;" aria-labelledby="shop-status-heading">
+  <!-- Available Now -->
+  <section style="padding:80px 0;" aria-labelledby="shop-status-heading">
     <div class="container">
       <div style="max-width:620px;margin:0 auto;text-align:center;">
+        <p class="section-label">Available Now</p>
+        <h2 class="section-title" id="shop-status-heading">Semicolon <em>Charm</em></h2>
+        <p style="color:var(--muted);font-size:1rem;line-height:1.75;margin-bottom:24px;">
+          Our signature 12mm stainless steel semicolon charm. <em>Pause but continue. Tomorrow needs you.</em>
+        </p>
 
-        <div style="padding:36px 32px;background:var(--surface-raised, #1e1e2e);border:1px solid var(--border, #333);border-radius:12px;">
-
-          <h2 id="shop-status-heading" style="margin-top:0;">Our Shop Is Being Updated</h2>
-          <p>Tonya is adding new items, finishing product photos, and setting up shipping. New pieces will be available soon — handmade with care and purpose.</p>
-
-          <hr style="border:none;border-top:1px solid var(--border, #333);margin:28px 0;" />
-
-          <h3 style="margin-top:0;">Available Now — Semicolon Charm</h3>
-          <img src="images/charm-semicolon-product.png"
-               alt="Twizted Journeys 12mm stainless steel semicolon charm — awareness jewelry made by Tonya"
-               style="max-width:160px;width:100%;display:block;margin:20px auto 24px;border-radius:10px;border:1px solid var(--border, #333);"
-               loading="lazy">
-          <p>Our signature 12mm stainless steel semicolon charm is available now on the Twizted Journeys store. <em>Pause but continue. Tomorrow needs you.</em></p>
-
-          <p style="font-weight:600;margin:20px 0 8px;">
-            1 for $5 &nbsp;&middot;&nbsp; 3 for $12 &nbsp;&middot;&nbsp; 10 for $30
-          </p>
-
-          <a
-            class="btn btn-primary"
-            href="https://www.twiztedjourneys.org/product/14056229/12mm-semicolon-charm"
-            target="_blank"
-            rel="noopener"
-            style="display:inline-block;margin-top:8px;"
-          >Order on Webador Store &rarr;</a>
-
-          <p style="margin-top:20px;font-size:0.9rem;">
-            Visiting the full store:
-            <a href="https://www.twiztedjourneys.org/twizted-merch" target="_blank" rel="noopener">twiztedjourneys.org/twizted-merch</a>
-          </p>
-
+        <div class="card--calm" style="text-align:left;max-width:480px;margin:0 auto 28px;">
+          <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+            <img src="images/merch/charm-semicolon-detail-1.jpg"
+                 alt="Semicolon charm detail"
+                 style="width:90px;height:90px;border-radius:8px;object-fit:cover;border:1px solid var(--card-border);"
+                 loading="lazy">
+            <div>
+              <p style="font-weight:700;color:var(--white);margin-bottom:6px;">12mm Stainless Steel Semicolon Charm</p>
+              <p style="color:var(--teal);font-weight:700;font-size:0.95rem;">1 for $5 &nbsp;&middot;&nbsp; 3 for $12 &nbsp;&middot;&nbsp; 10 for $30</p>
+            </div>
+          </div>
         </div>
+
+        <a href="https://www.twiztedjourneys.org/product/14056229/12mm-semicolon-charm"
+           class="btn btn-primary"
+           target="_blank"
+           rel="noopener">Order on Webador Store &rarr;</a>
+        <p style="margin-top:16px;font-size:0.88rem;color:var(--muted);">
+          Full store: <a href="https://www.twiztedjourneys.org/twizted-merch" target="_blank" rel="noopener">twiztedjourneys.org/twizted-merch</a>
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Handmade by Tonya -->
-  <section class="section-dark" style="padding:56px 0;" aria-labelledby="handmade-heading">
+  <!-- Shop Update / More Coming -->
+  <section class="section--alt" style="padding:72px 0;" aria-labelledby="handmade-heading">
     <div class="container">
       <div style="max-width:640px;margin:0 auto;text-align:center;">
         <p class="section-label">Made with Intention</p>
-        <h2 id="handmade-heading">Handmade by Tonya</h2>
-        <p>Tonya handcrafts bracelets, keychains, cups, and memorial pieces — each made with intention and care. Every handmade item comes with a QR tag that connects to a story. More items coming soon.</p>
-        <a class="btn btn-secondary" href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener" style="margin-top:16px;display:inline-block;">Join the Facebook Group &rarr;</a>
+        <h2 class="section-title" id="handmade-heading">Handmade by <em>Tonya</em></h2>
+        <p style="color:var(--muted);font-size:1rem;line-height:1.75;margin-bottom:24px;">
+          Tonya handcrafts bracelets, keychains, cups, and memorial pieces &mdash; each made with intention and care.
+          Every handmade item comes with a QR tag that connects to a story. New pieces are being added soon.
+        </p>
+        <a class="btn btn-secondary" href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Join the Facebook Group for Updates &rarr;</a>
       </div>
     </div>
   </section>
 
   <!-- Twizted Treasures tracker callout -->
-  <section style="padding:48px 0;" aria-labelledby="tracker-callout-heading">
+  <section style="padding:72px 0;" aria-labelledby="tracker-callout-heading">
     <div class="container">
-      <div style="max-width:680px;margin:0 auto;background:linear-gradient(135deg,rgba(138,43,239,0.1),rgba(86,224,210,0.07));border:1px solid rgba(138,43,239,0.3);border-radius:14px;padding:36px 32px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
+      <div style="max-width:680px;margin:0 auto;background:linear-gradient(135deg,rgba(138,43,239,0.1),rgba(86,224,210,0.07));border:1px solid var(--card-border);border-radius:14px;padding:36px 32px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
         <div style="font-size:2.4rem;flex-shrink:0;" aria-hidden="true">&#10024;</div>
         <div style="flex:1;min-width:220px;">
           <h2 id="tracker-callout-heading" style="font-size:1.15rem;font-weight:800;margin:0 0 8px;color:var(--white);">Track a Twizted Treasure</h2>
           <p style="color:var(--muted);font-size:0.93rem;line-height:1.65;margin:0 0 16px;">Got a charm with a QR tag? Scan it or tap below to share where it traveled, who it honors, or what it meant to you. Every piece carries a story.</p>
-          <a class="btn btn-primary" href="twizted-treasures.html">Share This Charm&#8217;s Journey &rarr;</a>
+          <a class="btn btn-primary" href="twizted-treasures.html">Share This Charm&rsquo;s Journey &rarr;</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Support the mission -->
-  <section style="padding:48px 0 56px;" aria-labelledby="mission-support-heading">
+  <section style="padding:48px 0 72px;" aria-labelledby="mission-support-heading">
     <div class="container">
       <div style="max-width:560px;margin:0 auto;text-align:center;">
-        <h2 id="mission-support-heading" style="font-size:1.3rem;">Support the Mission</h2>
-        <p>Proceeds from merch go directly toward events, awareness materials, and peer support programs.</p>
-        <a class="btn btn-ghost" href="https://www.twiztedjourneys.org/donations-matter" style="margin-top:12px;display:inline-block;">Donate to support the mission &rarr;</a>
+        <h2 id="mission-support-heading" style="font-size:1.3rem;margin-bottom:12px;">Support the Mission</h2>
+        <p style="color:var(--muted);font-size:0.95rem;line-height:1.65;">Proceeds from merch go directly toward events, awareness materials, and peer support programs.</p>
+        <a class="btn btn-ghost" href="https://www.twiztedjourneys.org/donations-matter" style="margin-top:16px;display:inline-block;">Donate to support the mission &rarr;</a>
       </div>
     </div>
   </section>
@@ -130,14 +182,9 @@
   <div class="container">
     <p>
       <strong>If you are in crisis or need immediate help:</strong><br />
-      Call or text <span class="crisis-number">988</span> — the Suicide &amp; Crisis Lifeline — free, 24/7, confidential.<br />
+      Call or text <span class="crisis-number">988</span> &mdash; the Suicide &amp; Crisis Lifeline &mdash; free, 24/7, confidential.<br />
       Visit <a href="https://988lifeline.org" target="_blank" rel="noopener">988lifeline.org</a> &nbsp;|&nbsp;
-      Crisis Text Line: text <strong>HOME</strong> to <strong>741741</strong> &nbsp;|&nbsp;
-      Visit <a href="https://crisistextline.org" target="_blank" rel="noopener">crisistextline.org</a>
-    </p>
-    <p style="font-size:0.8rem;color:var(--muted);margin-top:8px;">
-      Twizted Journeys is not a hotline, therapy provider, or emergency service.
-      In an emergency, call 911.
+      Crisis Text Line: text <strong>HOME</strong> to <strong>741741</strong>
     </p>
   </div>
 </div>
@@ -159,7 +206,7 @@
           <li><a href="podcast.html">Podcast</a></li>
           <li><a href="merch.html">Shop</a></li>
           <li><a href="about.html">About Us</a></li>
-            <li><a href="twizted-qr-codes.html">QR Codes &amp; Links</a></li>
+          <li><a href="twizted-qr-codes.html">QR Codes &amp; Links</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -185,7 +232,7 @@
       If you are in crisis, please call 911 or contact the 988 Suicide &amp; Crisis Lifeline.
     </p>
     <div class="footer-bottom">
-      <p>© 2022–2026 Twizted Journeys, Inc. All rights reserved.</p>
+      <p>&copy; 2022&ndash;2026 Twizted Journeys, Inc. All rights reserved.</p>
       <p>Founders: Tonya Crump &amp; Tia Weaver &nbsp;|&nbsp; <a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
     </div>
   </div>

@@ -3,12 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Memorial Page â€” Twizted Journeys</title>
+  <title>Memorial Page &mdash; Twizted Journeys</title>
   <meta name="description" content="A memorial page honoring those we've lost. Add your loved one's name to the Twizted Journeys list. Their story continues here.">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .memorial-hero {
+      background: linear-gradient(160deg, #0d0015 0%, var(--midnight) 55%, #080820 100%);
+      border-bottom: 1px solid var(--card-border);
+      padding: 72px 0 56px;
+      text-align: center;
+    }
+    .memorial-hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .memorial-hero h1 em {
+      font-style: normal;
+      color: var(--teal);
+    }
+    .memorial-hero .hero-sub {
+      font-size: var(--text-lg);
+      color: rgba(248,251,255,0.78);
+      max-width: 540px;
+      margin: 0 auto 28px;
+      line-height: 1.65;
+    }
+    .memorial-name-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+    .form-field { margin-bottom: 16px; }
+    .form-field label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      color: var(--muted);
+    }
+    .form-field input,
+    .form-field textarea {
+      width: 100%;
+      background: var(--midnight-3);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 11px 14px;
+      color: var(--white);
+      font-size: 0.9rem;
+      font-family: var(--font-main);
+    }
+    .form-field textarea { resize: vertical; }
+  </style>
 </head>
 <body>
-
 
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
@@ -38,106 +92,101 @@
 
   <main id="main-content">
 
-<section class="hero-section" style="text-align:center;">
-  <div style="max-width:220px; margin:0 auto 24px; opacity:0.85;">
-    <img src="images/tj-cursive-logo.png"
-         alt="Twizted Journeys cursive lettering â€” Tw;zted Journeys"
-         style="width:100%; display:block; object-fit:contain; background:#fff; border-radius:12px; padding:12px;"
-         loading="eager">
-  </div>
-  <div class="hero-eyebrow">In Loving Memory</div>
-  <h1>Their story<br>continues <em>here.</em></h1>
-  <p class="hero-sub">
-    You can add your loved ones to our list. Every name here is carried forward â€” at events, on
-    memorial shirts, and in everything we do. No one is forgotten.
-  </p>
-  <div class="hero-actions">
-    <a href="#add-name" class="btn btn-primary">ðŸ•¯ Add a Name</a>
-    <a href="stories.html" class="btn btn-ghost">Share Their Journey</a>
-  </div>
-</section>
-
-<!-- INTRO -->
-<section class="section" style="padding-bottom:0;">
-  <div class="container" style="max-width:680px; text-align:center;">
-    <p style="color:var(--muted); font-size:0.95rem; line-height:1.8;">
-      This page exists because <strong style="color:var(--text)">keeping their story going is how we carry them forward.</strong>
-      Names added here appear on our memorial t-shirts, are honored at events, and remain part of the
-      Twizted Journeys family permanently.
-    </p>
-  </div>
-</section>
-
-<hr class="divider">
-
-<!-- MEMORIAL WALL â€” from live site concept / placeholder for actual names -->
-<section class="section">
-  <div class="container">
-    <h2 class="section-title text-center mb-32">ðŸ’œ In Memory Of</h2>
-
-    <!-- KR â€” from the KR Journey story -->
-    <div style="max-width:720px; margin:0 auto;">
-      <div class="card" style="margin-bottom:16px; display:flex; align-items:center; gap:20px;">
-        <div style="font-size:2.5rem; flex-shrink:0;">ðŸ•¯</div>
-        <div>
-          <h3 style="font-size:1.05rem;">Katrina Lee Rodarmel</h3>
-          <p style="color:var(--muted); font-size:0.85rem;">
-            Born March 18, 1987 Â· San Bernardino, CA<br>
-            <em>"I know the plans I have for you." â€” Jeremiah 29:11</em>
-          </p>
+    <!-- HERO — dark gradient with centered logo, respectful and minimal -->
+    <header class="memorial-hero" aria-label="Memorial page hero">
+      <div class="container">
+        <div style="max-width:180px;margin:0 auto 32px;opacity:0.9;">
+          <img src="images/logos/tj-cursive-logo.png"
+               alt="Twizted Journeys cursive logo"
+               style="width:100%;display:block;object-fit:contain;background:#fff;border-radius:10px;padding:10px;"
+               loading="eager">
+        </div>
+        <p class="section-label">In Loving Memory</p>
+        <h1>Their story<br>continues <em>here.</em></h1>
+        <p class="hero-sub">
+          You can add your loved ones to our list. Every name here is carried forward &mdash; at events, on
+          memorial shirts, and in everything we do. No one is forgotten.
+        </p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="#add-name" class="btn btn-primary">Add a Name</a>
+          <a href="stories.html" class="btn btn-ghost">Share Their Journey</a>
         </div>
       </div>
+    </header>
 
-      <!-- TODO: Copy memorial names from twiztedjourneys.org/memorial-page and add a card for each person here -->
-      <div class="card" style="margin-bottom:12px; display:flex; align-items:center; gap:20px;">
-        <div style="font-size:2.5rem; flex-shrink:0;">ðŸ•¯</div>
-        <div>
-          <p style="color:var(--muted); font-size:0.95rem; font-style:italic;">
-            Memorial names are being transferred from our current site. Check back soon, or visit
-            <a href="https://www.twiztedjourneys.org/memorial-page" target="_blank" style="color:var(--teal-lt);">twiztedjourneys.org/memorial-page</a>
-            to view the full wall of remembrance.
-          </p>
+    <!-- INTRO -->
+    <section style="padding:56px 0 0;">
+      <div class="container" style="max-width:680px;text-align:center;">
+        <p style="color:var(--muted);font-size:0.95rem;line-height:1.8;">
+          This page exists because <strong style="color:var(--white);">keeping their story going is how we carry them forward.</strong>
+          Names added here appear on our memorial t-shirts, are honored at events, and remain part of the
+          Twizted Journeys family permanently.
+        </p>
+      </div>
+    </section>
+
+    <!-- MEMORIAL WALL -->
+    <section style="padding:56px 0;" aria-labelledby="memorial-wall-heading">
+      <div class="container">
+        <h2 class="section-title text-center mb-32" id="memorial-wall-heading">&#128156; In Memory Of</h2>
+
+        <div style="max-width:720px;margin:0 auto;">
+          <div class="memorial-name-card">
+            <div style="font-size:2rem;flex-shrink:0;">&#128337;</div>
+            <div>
+              <h3 style="font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:4px;">Katrina Lee Rodarmel</h3>
+              <p style="color:var(--muted);font-size:0.85rem;">
+                Born March 18, 1987 &middot; San Bernardino, CA<br>
+                <em>&ldquo;I know the plans I have for you.&rdquo; &mdash; Jeremiah 29:11</em>
+              </p>
+            </div>
+          </div>
+
+          <div class="memorial-name-card" style="background:rgba(26,26,40,0.5);">
+            <div style="font-size:2rem;flex-shrink:0;">&#128337;</div>
+            <div>
+              <p style="color:var(--muted);font-size:0.9rem;font-style:italic;line-height:1.7;">
+                Memorial names are being transferred from our current site. Check back soon, or visit
+                <a href="https://www.twiztedjourneys.org/memorial-page" target="_blank" rel="noopener">twiztedjourneys.org/memorial-page</a>
+                to view the full wall of remembrance.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<hr class="divider">
-
-<!-- ADD A NAME â€” FROM LIVE SITE (contact form) -->
-<section class="section" id="add-name">
-  <div class="container" style="max-width:640px;">
-    <h2 class="section-title">Add Your Loved One</h2>
-    <p style="color:var(--muted); margin-bottom:28px; line-height:1.75;">
-      Submit your loved one's name to be added to our memorial list. Include any details you'd like
-      shared â€” or just their name. We will treat every submission with care.
-    </p>
-    <div class="card">
-      <form action="mailto:info@twiztedjourneys.org" method="post" enctype="text/plain">
-        <div class="mb-16">
-          <label style="display:block; font-size:0.85rem; margin-bottom:6px; color:var(--muted);">Your Name *</label>
-          <input type="text" name="name" required style="width:100%; background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:11px 14px; color:var(--text); font-size:0.9rem; font-family:inherit;">
+    <!-- ADD A NAME -->
+    <section class="section--calm" id="add-name" style="padding:72px 0;" aria-labelledby="add-name-heading">
+      <div class="container" style="max-width:640px;">
+        <p class="section-label">Submissions</p>
+        <h2 class="section-title" id="add-name-heading">Add Your Loved One</h2>
+        <p style="color:var(--muted);margin-bottom:28px;line-height:1.75;">
+          Submit your loved one&rsquo;s name to be added to our memorial list. Include any details you&rsquo;d like
+          shared &mdash; or just their name. We will treat every submission with care.
+        </p>
+        <div class="card--calm">
+          <form action="mailto:info@twiztedjourneys.org" method="post" enctype="text/plain">
+            <div class="form-field">
+              <label>Your Name *</label>
+              <input type="text" name="name" required>
+            </div>
+            <div class="form-field">
+              <label>Your Email *</label>
+              <input type="email" name="email" required>
+            </div>
+            <div class="form-field">
+              <label>Loved One&rsquo;s Name &amp; Any Message</label>
+              <textarea name="message" rows="5" placeholder="Their name, dates, and anything you'd like us to know..."></textarea>
+            </div>
+            <div style="background:rgba(86,224,210,0.06);border:1px solid rgba(86,224,210,0.2);border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:0.85rem;color:var(--teal);">
+              Your submission will be reviewed before it is added. We handle every name with reverence.
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Submit Their Name &#128337;</button>
+          </form>
         </div>
-        <div class="mb-16">
-          <label style="display:block; font-size:0.85rem; margin-bottom:6px; color:var(--muted);">Your Email *</label>
-          <input type="email" name="email" required style="width:100%; background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:11px 14px; color:var(--text); font-size:0.9rem; font-family:inherit;">
-        </div>
-        <div class="mb-16">
-          <label style="display:block; font-size:0.85rem; margin-bottom:6px; color:var(--muted);">Loved One's Name &amp; Any Message</label>
-          <textarea name="message" rows="5" placeholder="Their name, dates, and anything you'd like us to know..." style="width:100%; background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:11px 14px; color:var(--text); font-size:0.9rem; font-family:inherit; resize:vertical;"></textarea>
-        </div>
-        <div style="background:var(--teal-bg); border:1px solid rgba(13,148,136,0.3); border-radius:8px; padding:12px 14px; margin-bottom:16px; font-size:0.85rem; color:var(--teal-lt);">
-          ðŸ’™ Your submission will be reviewed before it is added. We handle every name with reverence.
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:100%;">Submit Their Name ðŸ•¯</button>
-      </form>
-    </div>
-  </div>
-</section>
-
-
-
+      </div>
+    </section>
 
   </main>
 
@@ -152,13 +201,49 @@
 
   <footer class="site-footer">
     <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h2>Tw<span>;</span>zted Journeys</h2>
+          <p>A safe place for every journey. Indiana nonprofit serving Shelby, Johnson, Bartholomew, Hancock, Decatur, and Rush counties.</p>
+          <p style="margin-top:10px;"><a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
+        </div>
+        <div class="footer-col">
+          <h3>Navigate</h3>
+          <ul>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="stories.html">Share Your Story</a></li>
+            <li><a href="memorial.html">Memorial</a></li>
+            <li><a href="podcast.html">Podcast</a></li>
+            <li><a href="merch.html">Shop</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="twizted-qr-codes.html">QR Codes &amp; Links</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="https://988lifeline.org" target="_blank" rel="noopener">988 Crisis Lifeline</a></li>
+            <li><a href="https://crisistextline.org" target="_blank" rel="noopener">Crisis Text Line</a></li>
+            <li><a href="https://afsp.org" target="_blank" rel="noopener">AFSP</a></li>
+            <li><a href="https://nami.org" target="_blank" rel="noopener">NAMI</a></li>
+            <li><a href="https://overdoselifeline.org" target="_blank" rel="noopener">Overdose Lifeline</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Connect</h3>
+          <div class="social-links">
+            <a class="social-link" href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Join the Facebook Group</a>
+          </div>
+        </div>
+      </div>
+      <p class="footer-disclaimer">
+        Twizted Journeys, Inc. is a 501(c)(3) public charity. Donations are tax-deductible as allowed by law.
+        We are not a crisis hotline, counseling service, therapy provider, medical provider, or emergency response service.
+        If you are in crisis, please call 911 or contact the 988 Suicide &amp; Crisis Lifeline.
+      </p>
       <div class="footer-bottom">
         <p>&copy; 2022&ndash;2026 Twizted Journeys, Inc. All rights reserved. &middot; 501(c)(3) nonprofit</p>
-        <p>
-          <a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a>
-          &nbsp;&middot;&nbsp;
-          <a href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Join the Facebook Group</a>
-        </p>
+        <p><a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a> &nbsp;&middot;&nbsp; <a href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Join the Facebook Group</a></p>
       </div>
     </div>
   </footer>

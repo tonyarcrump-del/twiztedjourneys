@@ -3,41 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Upcoming Twizted Journeys events â€” awareness rides, walks, and community gatherings in Shelbyville, Indiana." />
-  <title>Events â€” Twizted Journeys</title>
+  <meta name="description" content="Upcoming Twizted Journeys events &mdash; awareness rides, walks, and community gatherings in Shelbyville, Indiana. September 12&ndash;13, 2026 at Shelby County Fairgrounds." />
+  <title>Events &mdash; Twizted Journeys</title>
   <link rel="stylesheet" href="css/styles.css" />
   <style>
-    .event-promo-grid {
+    .events-card-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      align-items: center;
-      margin: 32px 0;
+      gap: 24px;
+      margin-top: 36px;
     }
-    .vendor-promo-grid {
+    @media (max-width: 720px) {
+      .events-card-grid { grid-template-columns: 1fr; }
+    }
+    .past-photo-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px;
-      align-items: center;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 32px;
     }
-    @media (max-width: 680px) {
-      .event-promo-grid,
-      .vendor-promo-grid { grid-template-columns: 1fr; }
-      .event-promo-grid img,
-      .vendor-promo-grid img { order: -1; }
-      .event-card-img { order: -1; width: 100%; max-width: 100%; }
+    @media (max-width: 640px) {
+      .past-photo-grid { grid-template-columns: 1fr 1fr; }
     }
-    /* Image panel inside event cards */
-    .event-card-img {
-      flex: 0 0 240px;
-      max-width: 240px;
-      align-self: flex-start;
-    }
-    .event-card-img img {
+    .past-photo-grid img {
       width: 100%;
       border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.42);
-      display: block;
+      object-fit: cover;
+      aspect-ratio: 4/3;
     }
   </style>
 </head>
@@ -52,184 +44,145 @@
         <img src="images/web-optimized/twizted-journeys-banner.jpg" alt="Twizted Journeys logo" style="height:44px;width:auto;border-radius:6px;" />
         <span class="nav-logo-text">Tw<span class="semicolon-accent">;</span>zted Journeys</span>
       </a>
-      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">â˜°</button>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">&#9776;</button>
       <ul class="nav-links" id="nav-links" role="list">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="events.html" class="active">Events</a></li>
-          <li><a href="merch.html">Merch</a></li>
-          <li><a href="stories.html">Share Your Story</a></li>
-          <li><a href="memorial.html">Memorial</a></li>
-          <li><a href="resources.html">Resources</a></li>
-          <li><a href="podcast.html">Podcast</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="twizted-qr-codes.html">QR Codes</a></li>
-          <li><a href="https://www.twiztedjourneys.org/donations-matter" class="btn btn-primary nav-donate">Donate</a></li>
-        </ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li><a href="merch.html">Merch</a></li>
+        <li><a href="stories.html">Share Your Story</a></li>
+        <li><a href="memorial.html">Memorial</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="podcast.html">Podcast</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="twizted-qr-codes.html">QR Codes</a></li>
+        <li><a href="https://www.twiztedjourneys.org/donations-matter" class="btn btn-primary nav-donate" target="_blank" rel="noopener">Donate</a></li>
+      </ul>
     </div>
   </div>
 </nav>
 
 <main id="main-content">
 
-  <!-- Hero -->
-  <section class="section-dark" style="padding:64px 0 48px;">
-    <div class="container">
-      <p class="section-label">Community Events</p>
-      <h1 class="section-title">Where We've Been â€” <em>And What's Next</em></h1>
-      <p class="section-intro">Our events are free, open to the community, and built around awareness, healing, and hope.</p>
+  <!-- HERO -->
+  <header class="hero-page hero-page--light" style="background-image: url('images/events/event-photo-community-6-hires.jpg'); background-size: cover; background-position: center;" aria-label="Events hero">
+    <div class="hero-page__inner container">
+      <p class="section-label">Community Events &middot; Shelbyville, Indiana</p>
+      <h1>September 12&ndash;13, 2026 &mdash; <em>What Comes After the Pause</em></h1>
+      <p class="hero-sub">Two days at the Shelby County Fairgrounds &mdash; an awareness ride, a community walk, vendors, and people who get it. Everyone welcome.</p>
+      <div class="hero-ctas">
+        <a href="mailto:info@twiztedjourneys.org?subject=RSVP%20-%20September%202026%20Event" class="btn btn-primary">RSVP by Email</a>
+        <a href="https://www.facebook.com/groups/560290368564902/" class="btn btn-secondary" target="_blank" rel="noopener">Join the Facebook Group</a>
+      </div>
     </div>
-  </section>
+  </header>
 
-  <!-- 2026 Upcoming Events -->
-  <section class="events-section" id="upcoming" aria-labelledby="upcoming-heading">
+  <!-- UPCOMING EVENTS -->
+  <section id="upcoming" aria-labelledby="upcoming-heading" style="padding:80px 0;">
     <div class="container">
-      <p class="section-label">Upcoming Â· 2026</p>
-      <h2 id="upcoming-heading">September â€” What Comes After the Pause</h2>
-      <p class="events-intro">Two days at the Shelby County Fairgrounds in Shelbyville, Indiana.</p>
-      <!-- Event promo artwork -->
-      <div class="event-promo-grid">
-        <div>
-          <img src="images/what-comes-after-the-pause-logo.png"
-               alt="What Comes After the Pause â€” event identity"
-               style="max-width:220px;margin-bottom:16px;display:block;"
-               loading="lazy">
-          <p style="font-size:1.05rem;line-height:1.75;margin:0;">
-            Join us <strong>September 12â€“13, 2026</strong> at the Shelby County Fairgrounds for two days of awareness, community, and healing.
-            Riders, walkers, families, and friends â€” everyone is welcome. Wear purple and teal.
-          </p>
+      <p class="section-label">Upcoming &middot; 2026</p>
+      <h2 class="section-title" id="upcoming-heading">What Comes After the <em>Pause</em></h2>
+      <p class="section-intro">Two powerful days at the Shelby County Fairgrounds, 100 Prairie Ave, Shelbyville, IN. Free and open to the entire community.</p>
+
+      <div class="events-card-grid">
+
+        <!-- Day 1 -->
+        <div class="card--calm">
+          <span class="event-tag" style="display:inline-block;background:rgba(86,224,210,0.1);color:var(--teal);border-radius:20px;padding:3px 12px;font-size:0.78rem;font-weight:700;margin-bottom:14px;">&#127949; Awareness Ride &middot; Day One</span>
+          <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px;">
+            <span style="font-size:2rem;font-weight:800;color:var(--white);line-height:1;">12</span>
+            <span style="color:var(--purple);font-weight:700;font-size:1rem;">SEPTEMBER 2026</span>
+          </div>
+          <h3 style="font-size:1.2rem;font-weight:800;color:var(--white);margin-bottom:12px;">Light Up the Night</h3>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:18px;">
+            <li style="color:var(--muted);font-size:0.9rem;">&#128205; Shelby County Fairgrounds &mdash; 100 Prairie Ave, Shelbyville, IN</li>
+            <li style="color:var(--muted);font-size:0.9rem;">&#128336; Registration opens 11 AM</li>
+            <li style="color:var(--muted);font-size:0.9rem;">&#127949; Motorcycle ride &amp; walk both welcome</li>
+            <li style="color:var(--muted);font-size:0.9rem;">&#127989; Vendors welcome &mdash; $50/day</li>
+          </ul>
+          <p style="color:var(--muted);font-size:0.9rem;line-height:1.65;margin-bottom:20px;">Riders, supporters, families, and friends are all welcome. Wear purple and teal. Come as you are.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <a class="btn btn-primary" href="mailto:info@twiztedjourneys.org?subject=RSVP%20-%20Ride%20Registration%20Sept%2012">RSVP &mdash; Ride</a>
+            <a class="btn btn-ghost" href="mailto:info@twiztedjourneys.org?subject=Vendor%20Signup%20-%20Sept%2012">Vendor Signup ($50/day)</a>
+          </div>
         </div>
-        <div>
-          <img src="images/what-comes-after-the-pause-promo.png"
-               alt="What Comes After the Pause â€” September 2026 event promo art"
-               style="width:100%;border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,0.45);"
-               loading="lazy">
+
+        <!-- Day 2 -->
+        <div class="card--calm">
+          <span class="event-tag" style="display:inline-block;background:rgba(86,224,210,0.1);color:var(--teal);border-radius:20px;padding:3px 12px;font-size:0.78rem;font-weight:700;margin-bottom:14px;">&#128694; Awareness Walk &middot; Day Two</span>
+          <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px;">
+            <span style="font-size:2rem;font-weight:800;color:var(--white);line-height:1;">13</span>
+            <span style="color:var(--purple);font-weight:700;font-size:1rem;">SEPTEMBER 2026</span>
+          </div>
+          <h3 style="font-size:1.2rem;font-weight:800;color:var(--white);margin-bottom:12px;">The Cause &mdash; Awareness Walk</h3>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:18px;">
+            <li style="color:var(--muted);font-size:0.9rem;">&#128205; Shelby County Fairgrounds &mdash; 100 Prairie Ave, Shelbyville, IN</li>
+            <li style="color:var(--muted);font-size:0.9rem;">&#128336; Registration opens 11 AM</li>
+            <li style="color:var(--muted);font-size:0.9rem;">&#128100; All ages &amp; all backgrounds welcome</li>
+            <li style="color:var(--muted);font-size:0.9rem;">&#127989; Vendors welcome &mdash; $50/day</li>
+          </ul>
+          <p style="color:var(--muted);font-size:0.9rem;line-height:1.65;margin-bottom:20px;">Walk in memory and in hope. Bring a photo of your loved one to carry with you. Free and open to all.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <a class="btn btn-primary" href="mailto:info@twiztedjourneys.org?subject=RSVP%20-%20Walk%20Registration%20Sept%2013">RSVP &mdash; Walk</a>
+            <a class="btn btn-ghost" href="mailto:info@twiztedjourneys.org?subject=Vendor%20Signup%20-%20Sept%2013">Vendor Signup ($50/day)</a>
+          </div>
         </div>
+
       </div>
 
-
-      <div class="event-card">
-        <div class="event-date-badge" aria-label="September 12, 2026">
-          <span class="month">Sept</span>
-          <span class="day">12</span>
-          <span class="year">2026</span>
-        </div>
-        <div class="event-info">
-          <p class="event-tag">ðŸ Awareness Ride Â· Day One</p>
-          <h3>Light Up the Night</h3>
-          <p>
-            ðŸ“ Shelby County Fairgrounds, Shelbyville IN &nbsp;|&nbsp;
-            ðŸ•š Registration 11AM &nbsp;|&nbsp;
-            ðŸ“¬ 100 Prairie Ave
-          </p>
-          <p>Our annual awareness motorcycle ride. Riders, supporters, families, and friends are all welcome. Wear purple and teal. Vendors welcome at $50/day.</p>
-          <div class="event-actions" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;">
-            <a class="btn btn-primary" href="mailto:info@twiztedjourneys.org?subject=RSVP%20-%20Ride%20Registration">RSVP â€” Ride Registration</a>
-            <a class="btn btn-secondary" href="mailto:info@twiztedjourneys.org?subject=Vendor%20Signup">Vendor Signup ($50/day)</a>
-            <a class="btn btn-ghost" href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Facebook Page</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="event-card">
-        <div class="event-date-badge" aria-label="September 13, 2026">
-          <span class="month">Sept</span>
-          <span class="day">13</span>
-          <span class="year">2026</span>
-        </div>
-        <div class="event-info">
-          <p class="event-tag">ðŸš¶ Awareness Walk Â· Day Two</p>
-          <h3>The Cause â€” Awareness Walk</h3>
-          <p>
-            ðŸ“ Shelby County Fairgrounds &nbsp;|&nbsp;
-            ðŸ•š Registration 11AM &nbsp;|&nbsp;
-            ðŸ“¬ 100 Prairie Ave
-          </p>
-          <p>Community walk in memory of the lives we've lost and in support of those still fighting. All ages, all backgrounds. Bring a photo of your loved one to carry with you.</p>
-          <div class="event-actions" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;">
-            <a class="btn btn-primary" href="mailto:info@twiztedjourneys.org?subject=RSVP%20-%20Walk%20Registration">RSVP â€” Walk Registration</a>
-            <a class="btn btn-secondary" href="mailto:info@twiztedjourneys.org?subject=Vendor%20Signup">Vendor Signup ($50/day)</a>
-            <a class="btn btn-ghost" href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Facebook Page</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Vendor callout -->
-      <div style="margin-top:32px;padding:28px;background:var(--surface-raised, #1e1e2e);border:1px solid var(--border, #333);border-radius:10px;">
-        <div class="vendor-promo-grid">
-          <div>
-            <p style="margin:0 0 10px;font-weight:700;font-size:1.05rem;">Interested in vending?</p>
-            <p style="margin:0 0 18px;">Vendor spaces are available <strong>both days â€” $50/day</strong>. Makers, food vendors, resource tables, and awareness organizations are welcome. Reserve your spot early.</p>
-            <a class="btn btn-secondary" href="mailto:info@twiztedjourneys.org?subject=Vendor%20Signup%20-%20September%202026">Email to Reserve Your Space</a>
-          </div>
-          <div>
-            <img src="images/vendor-event-flyer.png"
-                 alt="Twizted Journeys vendor event flyer â€” September 2026"
-                 style="width:100%;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.45);"
-                 loading="lazy">
-          </div>
-        </div>
+      <!-- Event promo image -->
+      <div style="margin-top:40px;text-align:center;">
+        <img src="images/what-comes-after-the-pause-promo-2.png"
+             alt="What Comes After the Pause &mdash; September 12&ndash;13, 2026 event art"
+             style="max-width:520px;width:100%;border-radius:10px;display:inline-block;"
+             loading="lazy">
       </div>
     </div>
   </section>
 
-  <!-- Past Events -->
-  <section class="section-dark" id="history" aria-labelledby="history-heading" style="padding:56px 0;">
+  <!-- PAST EVENTS -->
+  <section class="section--alt" id="history" aria-labelledby="history-heading" style="padding:80px 0;">
     <div class="container">
       <p class="section-label">Our History</p>
-      <h2 id="history-heading">Where We've Been</h2>
+      <h2 class="section-title" id="history-heading">Where We&rsquo;ve <em>Been</em></h2>
       <p class="section-intro">Since 2021, Twizted Journeys has hosted awareness rides, community walks, vendor events, and peer gatherings across Shelbyville and surrounding counties. Every year has brought more community, more healing, and more hope.</p>
 
-      <div style="margin-top:36px;display:flex;flex-direction:column;gap:28px;max-width:680px;">
-
-        <div>
-          <p style="font-weight:700;font-size:1.05rem;margin:0 0 6px;">2025 â€” Light Up the Night</p>
-          <p style="margin:0;">Our 2025 awareness event brought together riders, walkers, and community members for a powerful night of awareness.</p>
+      <div style="display:flex;flex-direction:column;gap:16px;max-width:640px;margin-bottom:44px;">
+        <div style="padding:18px 20px;border-left:3px solid var(--teal);background:rgba(86,224,210,0.04);">
+          <p style="font-weight:700;font-size:1rem;color:var(--white);margin:0 0 4px;">2025 &mdash; Light Up the Night</p>
+          <p style="color:var(--muted);font-size:0.9rem;margin:0;">Our 2025 awareness event brought together riders, walkers, and community members for a powerful night of awareness and connection.</p>
         </div>
-
-        <div>
-          <p style="font-weight:700;font-size:1.05rem;margin:0 0 6px;">2022 â€” A Journey to Be Stigma Free</p>
-          <p style="margin:0;">A landmark two-day event â€” our second annual benefit ride and first annual awareness walk.</p>
+        <div style="padding:18px 20px;border-left:3px solid var(--purple);background:rgba(138,43,239,0.04);">
+          <p style="font-weight:700;font-size:1rem;color:var(--white);margin:0 0 4px;">2022 &mdash; A Journey to Be Stigma Free</p>
+          <p style="color:var(--muted);font-size:0.9rem;margin:0;">A landmark two-day event &mdash; our second annual benefit ride and first annual awareness walk.</p>
         </div>
-
-        <div>
-          <p style="font-weight:700;font-size:1.05rem;margin:0 0 6px;">2021 â€” The Beginning</p>
-          <p style="margin:0;">Driven by personal loss, Tonya and her daughter launched what would become Twizted Journeys.</p>
+        <div style="padding:18px 20px;border-left:3px solid var(--purple);background:rgba(138,43,239,0.04);">
+          <p style="font-weight:700;font-size:1rem;color:var(--white);margin:0 0 4px;">2021 &mdash; The Beginning</p>
+          <p style="color:var(--muted);font-size:0.9rem;margin:0;">Driven by personal loss, Tonya and her daughter launched what would become Twizted Journeys.</p>
         </div>
+      </div>
 
+      <div class="past-photo-grid" aria-label="Past event photos">
+        <img src="images/events/event-photo-community-2-hires.jpg" alt="Twizted Journeys community event gathering" loading="lazy">
+        <img src="images/events/event-photo-community-1-hires.jpg" alt="Community members at a Twizted Journeys awareness event" loading="lazy">
+        <img src="images/events/event-collage-aug2022-1.jpg" alt="Twizted Journeys 2022 community awareness event" loading="lazy">
+        <img src="images/events/event-photo-sep2022-1.jpg" alt="Twizted Journeys September 2022 awareness event" loading="lazy">
+        <img src="images/events/event-photo-community-7.jpg" alt="Community members at a Twizted Journeys awareness event" loading="lazy">
+        <img src="images/events/event-photo-community-9.jpg" alt="Twizted Journeys community gathering" loading="lazy">
       </div>
     </div>
   </section>
 
-  <!-- Past event photos â€” real community and event images -->
-  <div style="padding:0 20px 8px;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:720px;margin:0 auto 40px;">
-      <img src="images/event-collage-aug2022-1.jpg"
-           alt="Twizted Journeys 2022 community awareness event gathering"
-           style="width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/3;"
-           loading="lazy">
-      <img src="images/event-photo-sep2022-1.jpg"
-           alt="Twizted Journeys September 2022 awareness event"
-           style="width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/3;"
-           loading="lazy">
-      <img src="images/event-photo-community-7.jpg"
-           alt="Community members at a Twizted Journeys awareness event"
-           style="width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/3;"
-           loading="lazy">
-      <img src="images/event-photo-community-9.jpg"
-           alt="Twizted Journeys community gathering"
-           style="width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/3;"
-           loading="lazy">
-    </div>
-  </div>
-
-  <!-- Finding Forward callout -->
-  <section style="padding:56px 0;" aria-labelledby="ff-heading">
+  <!-- CONTACT & RSVP -->
+  <section aria-labelledby="contact-heading" style="padding:80px 0;">
     <div class="container">
-      <div style="max-width:640px;margin:0 auto;text-align:center;">
-        <p class="section-label">Peer Support</p>
-        <h2 id="ff-heading">Finding Forward</h2>
-        <p style="margin:16px 0 24px;">Finding Forward meets every Tuesday evening in Shelbyville â€” a free peer support group for anyone processing grief, loss, or mental health struggles. Adults 18+.</p>
-        <a class="btn btn-primary" href="mailto:info@twiztedjourneys.org">Email for Details</a>
+      <div style="max-width:640px;margin:0 auto;">
+        <p class="section-label">RSVP &amp; Contact</p>
+        <h2 class="section-title" id="contact-heading">Get in <em>Touch</em></h2>
+        <p style="color:var(--muted);font-size:1rem;line-height:1.75;margin-bottom:28px;">Questions about events, vendor spaces, or registration? Reach out &mdash; we&rsquo;re real people and we always respond.</p>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <a href="mailto:info@twiztedjourneys.org" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;width:fit-content;">&#9993; info@twiztedjourneys.org</a>
+          <a href="https://www.facebook.com/groups/560290368564902/" class="btn btn-secondary" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;width:fit-content;">Join the Facebook Community Group</a>
+        </div>
       </div>
     </div>
   </section>
@@ -240,7 +193,7 @@
   <div class="container">
     <p>
       <strong>If you are in crisis or need immediate help:</strong><br />
-      Call or text <span class="crisis-number">988</span> â€” the Suicide &amp; Crisis Lifeline â€” free, 24/7, confidential.<br />
+      Call or text <span class="crisis-number">988</span> &mdash; the Suicide &amp; Crisis Lifeline &mdash; free, 24/7, confidential.<br />
       Visit <a href="https://988lifeline.org" target="_blank" rel="noopener">988lifeline.org</a> &nbsp;|&nbsp;
       Crisis Text Line: text <strong>HOME</strong> to <strong>741741</strong> &nbsp;|&nbsp;
       Visit <a href="https://crisistextline.org" target="_blank" rel="noopener">crisistextline.org</a>
@@ -269,7 +222,7 @@
           <li><a href="podcast.html">Podcast</a></li>
           <li><a href="merch.html">Shop</a></li>
           <li><a href="about.html">About Us</a></li>
-            <li><a href="twizted-qr-codes.html">QR Codes &amp; Links</a></li>
+          <li><a href="twizted-qr-codes.html">QR Codes &amp; Links</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -295,7 +248,7 @@
       If you are in crisis, please call 911 or contact the 988 Suicide &amp; Crisis Lifeline.
     </p>
     <div class="footer-bottom">
-      <p>Â© 2022â€“2026 Twizted Journeys, Inc. All rights reserved.</p>
+      <p>&copy; 2022&ndash;2026 Twizted Journeys, Inc. All rights reserved. &middot; 501(c)(3) nonprofit</p>
       <p>Founders: Tonya Crump &amp; Tia Weaver &nbsp;|&nbsp; <a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
     </div>
   </div>

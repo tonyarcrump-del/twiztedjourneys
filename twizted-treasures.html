@@ -1,662 +1,662 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Twizted Treasures â€” Track the Journey. Every charm can carry a story. Scan the QR code on your Twizted Journeys item and share where it traveled, who it honors, and what it meant." />
-  <title>Twizted Treasures: Track the Journey â€” Twizted Journeys</title>
-  <link rel="stylesheet" href="css/styles.css" />
-  <style>
-    /* â”€â”€ Twizted Treasures page styles â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <meta name="description" content="Twizted Treasures &mdash; Track the Journey. Every charm can carry a story. Scan the QR code on your Twizted Journeys item and share where it traveled, who it honors, and what it meant." />
+ <title>Twizted Treasures: Track the Journey &mdash; Twizted Journeys</title>
+ <link rel="stylesheet" href="css/styles.css" />
+ <style>
+ /* = Twizted Treasures page styles = */
 
-    /* Hero */
-    .tt-hero {
-      background: linear-gradient(160deg, #0d0015 0%, var(--midnight) 55%, #080820 100%);
-      border-bottom: 1px solid var(--border);
-      padding: 72px 0 56px;
-      text-align: center;
-    }
+ /* Hero */
+ .tt-hero {
+ background: linear-gradient(160deg, #0d0015 0%, var(--midnight) 55%, #080820 100%);
+ border-bottom: 1px solid var(--border);
+ padding: 72px 0 56px;
+ text-align: center;
+ }
 
-    .tt-hero .section-label { margin-bottom: 12px; }
+ .tt-hero .section-label { margin-bottom: 12px; }
 
-    .tt-hero h1 {
-      font-size: clamp(1.7rem, 4.5vw, 2.8rem);
-      font-weight: 800;
-      color: var(--white);
-      line-height: 1.15;
-      margin-bottom: 16px;
-    }
+ .tt-hero h1 {
+ font-size: clamp(1.7rem, 4.5vw, 2.8rem);
+ font-weight: 800;
+ color: var(--white);
+ line-height: 1.15;
+ margin-bottom: 16px;
+ }
 
-    .tt-hero h1 em {
-      font-style: normal;
-      color: var(--teal);
-    }
+ .tt-hero h1 em {
+ font-style: normal;
+ color: var(--teal);
+ }
 
-    .tt-hero .tt-tagline {
-      font-size: 1.15rem;
-      color: var(--muted);
-      max-width: 540px;
-      margin: 0 auto 28px;
-      line-height: 1.6;
-    }
+ .tt-hero .tt-tagline {
+ font-size: 1.15rem;
+ color: var(--muted);
+ max-width: 540px;
+ margin: 0 auto 28px;
+ line-height: 1.6;
+ }
 
-    .tt-hero .tt-tagline em {
-      color: var(--purple);
-      font-style: italic;
-    }
+ .tt-hero .tt-tagline em {
+ color: var(--purple);
+ font-style: italic;
+ }
 
-    /* Semicolon accent dots */
-    .tt-dots {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
+ /* Semicolon accent dots */
+ .tt-dots {
+ display: flex;
+ gap: 10px;
+ justify-content: center;
+ margin-bottom: 20px;
+ }
 
-    .tt-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--purple);
-      box-shadow: 0 0 12px rgba(138,43,239,0.6);
-      animation: tt-pulse 2.4s ease-in-out infinite;
-    }
+ .tt-dot {
+ width: 10px;
+ height: 10px;
+ border-radius: 50%;
+ background: var(--purple);
+ box-shadow: 0 0 12px rgba(138,43,239,0.6);
+ animation: tt-pulse 2.4s ease-in-out infinite;
+ }
 
-    .tt-dot:nth-child(2) {
-      background: var(--teal);
-      box-shadow: 0 0 12px rgba(86,224,210,0.5);
-      animation-delay: 0.4s;
-    }
+ .tt-dot:nth-child(2) {
+ background: var(--teal);
+ box-shadow: 0 0 12px rgba(86,224,210,0.5);
+ animation-delay: 0.4s;
+ }
 
-    .tt-dot:nth-child(3) {
-      background: var(--cyan);
-      box-shadow: 0 0 10px rgba(158,243,247,0.4);
-      animation-delay: 0.8s;
-    }
+ .tt-dot:nth-child(3) {
+ background: var(--cyan);
+ box-shadow: 0 0 10px rgba(158,243,247,0.4);
+ animation-delay: 0.8s;
+ }
 
-    @keyframes tt-pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.55; transform: scale(0.78); }
-    }
+ @keyframes tt-pulse {
+ 0%, 100% { opacity: 1; transform: scale(1); }
+ 50% { opacity: 0.55; transform: scale(0.78); }
+ }
 
-    /* Featured item card */
-    .charm-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 40px 36px;
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 40px;
-      align-items: center;
-      max-width: 780px;
-      margin: 0 auto;
-    }
+ /* Featured item card */
+ .charm-card {
+ background: var(--card-bg);
+ border: 1px solid var(--border);
+ border-radius: var(--radius);
+ padding: 40px 36px;
+ display: grid;
+ grid-template-columns: 220px 1fr;
+ gap: 40px;
+ align-items: center;
+ max-width: 780px;
+ margin: 0 auto;
+ }
 
-    @media (max-width: 640px) {
-      .charm-card {
-        grid-template-columns: 1fr;
-        padding: 28px 22px;
-        gap: 28px;
-        text-align: center;
-      }
+ @media (max-width: 640px) {
+ .charm-card {
+ grid-template-columns: 1fr;
+ padding: 28px 22px;
+ gap: 28px;
+ text-align: center;
+ }
 
-      .charm-card .charm-img-wrap {
-        margin: 0 auto;
-      }
+ .charm-card .charm-img-wrap {
+ margin: 0 auto;
+ }
 
-      .charm-card .charm-actions {
-        justify-content: center;
-      }
-    }
+ .charm-card .charm-actions {
+ justify-content: center;
+ }
+ }
 
-    .charm-img-wrap {
-      position: relative;
-      max-width: 220px;
-    }
+ .charm-img-wrap {
+ position: relative;
+ max-width: 220px;
+ }
 
-    .charm-img-wrap img {
-      width: 100%;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      box-shadow: 0 6px 28px rgba(0,0,0,0.55), 0 0 20px rgba(138,43,239,0.2);
-      display: block;
-    }
+ .charm-img-wrap img {
+ width: 100%;
+ border-radius: 12px;
+ border: 1px solid var(--border);
+ box-shadow: 0 6px 28px rgba(0,0,0,0.55), 0 0 20px rgba(138,43,239,0.2);
+ display: block;
+ }
 
-    .charm-badge {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      background: var(--purple);
-      color: var(--white);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 20px;
-      box-shadow: var(--glow-purple);
-    }
+ .charm-badge {
+ position: absolute;
+ top: -10px;
+ right: -10px;
+ background: var(--purple);
+ color: var(--white);
+ font-size: 0.7rem;
+ font-weight: 700;
+ letter-spacing: 0.06em;
+ text-transform: uppercase;
+ padding: 4px 10px;
+ border-radius: 20px;
+ box-shadow: var(--glow-purple);
+ }
 
-    .charm-info h2 {
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: var(--white);
-      margin-bottom: 6px;
-    }
+ .charm-info h2 {
+ font-size: 1.3rem;
+ font-weight: 800;
+ color: var(--white);
+ margin-bottom: 6px;
+ }
 
-    .charm-spec {
-      font-size: 0.82rem;
-      color: var(--muted);
-      letter-spacing: 0.04em;
-      margin-bottom: 14px;
-    }
+ .charm-spec {
+ font-size: 0.82rem;
+ color: var(--muted);
+ letter-spacing: 0.04em;
+ margin-bottom: 14px;
+ }
 
-    .charm-message {
-      font-size: 1.05rem;
-      color: var(--teal);
-      font-style: italic;
-      font-weight: 600;
-      border-left: 3px solid var(--purple);
-      padding-left: 14px;
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
+ .charm-message {
+ font-size: 1.05rem;
+ color: var(--teal);
+ font-style: italic;
+ font-weight: 600;
+ border-left: 3px solid var(--purple);
+ padding-left: 14px;
+ margin-bottom: 20px;
+ line-height: 1.5;
+ }
 
-    .charm-desc {
-      color: var(--muted);
-      font-size: 0.93rem;
-      line-height: 1.7;
-      margin-bottom: 24px;
-    }
+ .charm-desc {
+ color: var(--muted);
+ font-size: 0.93rem;
+ line-height: 1.7;
+ margin-bottom: 24px;
+ }
 
-    .charm-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+ .charm-actions {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ }
 
-    /* How it works */
-    .how-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 20px;
-      margin-top: 36px;
-    }
+ /* How it works */
+ .how-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+ gap: 20px;
+ margin-top: 36px;
+ }
 
-    .how-step {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: border-color var(--transition), transform var(--transition);
-    }
+ .how-step {
+ background: var(--card-bg);
+ border: 1px solid var(--border);
+ border-radius: var(--radius);
+ padding: 24px 20px;
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+ transition: border-color var(--transition), transform var(--transition);
+ }
 
-    .how-step:hover {
-      border-color: var(--purple);
-      transform: translateY(-3px);
-    }
+ .how-step:hover {
+ border-color: var(--purple);
+ transform: translateY(-3px);
+ }
 
-    .how-num {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--purple), var(--purple-dark));
-      color: var(--white);
-      font-weight: 800;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--glow-purple);
-      flex-shrink: 0;
-    }
+ .how-num {
+ width: 36px;
+ height: 36px;
+ border-radius: 50%;
+ background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+ color: var(--white);
+ font-weight: 800;
+ font-size: 0.95rem;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ box-shadow: var(--glow-purple);
+ flex-shrink: 0;
+ }
 
-    .how-step h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--white);
-      margin: 0;
-    }
+ .how-step h3 {
+ font-size: 1rem;
+ font-weight: 700;
+ color: var(--white);
+ margin: 0;
+ }
 
-    .how-step p {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.65;
-      margin: 0;
-    }
+ .how-step p {
+ font-size: 0.88rem;
+ color: var(--muted);
+ line-height: 1.65;
+ margin: 0;
+ }
 
-    /* Submission card */
-    .submission-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 40px 36px;
-      max-width: 680px;
-      margin: 0 auto;
-    }
+ /* Submission card */
+ .submission-card {
+ background: var(--card-bg);
+ border: 1px solid var(--border);
+ border-radius: var(--radius);
+ padding: 40px 36px;
+ max-width: 680px;
+ margin: 0 auto;
+ }
 
-    @media (max-width: 600px) {
-      .submission-card { padding: 24px 18px; }
-    }
+ @media (max-width: 600px) {
+ .submission-card { padding: 24px 18px; }
+ }
 
-    .submission-card h2 {
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: var(--white);
-      margin-bottom: 10px;
-    }
+ .submission-card h2 {
+ font-size: 1.3rem;
+ font-weight: 800;
+ color: var(--white);
+ margin-bottom: 10px;
+ }
 
-    .submission-card h2 em {
-      font-style: normal;
-      color: var(--teal);
-    }
+ .submission-card h2 em {
+ font-style: normal;
+ color: var(--teal);
+ }
 
-    .coming-soon-badge {
-      display: inline-block;
-      background: rgba(86,224,210,0.1);
-      border: 1px solid rgba(86,224,210,0.3);
-      color: var(--teal);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 20px;
-      margin-bottom: 16px;
-    }
+ .coming-soon-badge {
+ display: inline-block;
+ background: rgba(86,224,210,0.1);
+ border: 1px solid rgba(86,224,210,0.3);
+ color: var(--teal);
+ font-size: 0.72rem;
+ font-weight: 700;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ padding: 3px 10px;
+ border-radius: 20px;
+ margin-bottom: 16px;
+ }
 
-    .form-preview {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin: 24px 0;
-      opacity: 0.45;
-      pointer-events: none;
-      user-select: none;
-    }
+ .form-preview {
+ display: flex;
+ flex-direction: column;
+ gap: 12px;
+ margin: 24px 0;
+ opacity: 0.45;
+ pointer-events: none;
+ user-select: none;
+ }
 
-    .form-preview-field {
-      background: rgba(26,26,40,0.6);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 11px 14px;
-      font-size: 0.88rem;
-      color: var(--muted);
-    }
+ .form-preview-field {
+ background: rgba(26,26,40,0.6);
+ border: 1px solid var(--border);
+ border-radius: 8px;
+ padding: 11px 14px;
+ font-size: 0.88rem;
+ color: var(--muted);
+ }
 
-    .form-preview-label {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-bottom: 4px;
-      display: block;
-    }
+ .form-preview-label {
+ font-size: 0.78rem;
+ color: var(--muted);
+ margin-bottom: 4px;
+ display: block;
+ }
 
-    /* QR placeholder */
-    .qr-placeholder-box {
-      background: var(--card-bg);
-      border: 2px dashed var(--border);
-      border-radius: var(--radius);
-      padding: 40px 32px;
-      max-width: 380px;
-      margin: 0 auto;
-      text-align: center;
-    }
+ /* QR placeholder */
+ .qr-placeholder-box {
+ background: var(--card-bg);
+ border: 2px dashed var(--border);
+ border-radius: var(--radius);
+ padding: 40px 32px;
+ max-width: 380px;
+ margin: 0 auto;
+ text-align: center;
+ }
 
-    .qr-placeholder-box .qr-icon {
-      font-size: 3rem;
-      margin-bottom: 12px;
-      opacity: 0.55;
-    }
+ .qr-placeholder-box .qr-icon {
+ font-size: 3rem;
+ margin-bottom: 12px;
+ opacity: 0.55;
+ }
 
-    .qr-placeholder-box h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 8px;
-    }
+ .qr-placeholder-box h3 {
+ font-size: 1rem;
+ font-weight: 700;
+ color: var(--white);
+ margin-bottom: 8px;
+ }
 
-    .qr-placeholder-box p {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.65;
-    }
+ .qr-placeholder-box p {
+ font-size: 0.85rem;
+ color: var(--muted);
+ line-height: 1.65;
+ }
 
-    /* Detail image strip */
-    .charm-detail-img {
-      width: 100%;
-      max-width: 460px;
-      border-radius: 10px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.45);
-      display: block;
-      margin: 0 auto;
-    }
-  </style>
+ /* Detail image strip */
+ .charm-detail-img {
+ width: 100%;
+ max-width: 460px;
+ border-radius: 10px;
+ box-shadow: 0 4px 24px rgba(0,0,0,0.45);
+ display: block;
+ margin: 0 auto;
+ }
+ </style>
 </head>
 <body>
 
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
 <nav class="site-nav" aria-label="Main navigation">
-  <div class="container">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo" aria-label="Twizted Journeys home">
-        <img src="images/web-optimized/twizted-journeys-banner.jpg" alt="Twizted Journeys logo" style="height:44px;width:auto;border-radius:6px;" />
-        <span class="nav-logo-text">Tw<span class="semicolon-accent">;</span>zted Journeys</span>
-      </a>
-      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">&#9776;</button>
-      <ul class="nav-links" id="nav-links" role="list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="events.html">Events</a></li>
-        <li><a href="merch.html">Merch</a></li>
-        <li><a href="stories.html">Share Your Story</a></li>
-        <li><a href="memorial.html">Memorial</a></li>
-        <li><a href="resources.html">Resources</a></li>
-        <li><a href="podcast.html">Podcast</a></li>
-        <li><a href="about.html">About</a></li>
-          <li><a href="twizted-qr-codes.html">QR Codes</a></li>
-        <li><a href="https://www.twiztedjourneys.org/donations-matter" class="btn btn-primary nav-donate">Donate</a></li>
-      </ul>
-    </div>
-  </div>
+ <div class="container">
+ <div class="nav-inner">
+ <a href="index.html" class="nav-logo" aria-label="Twizted Journeys home">
+ <img src="images/web-optimized/twizted-journeys-banner.jpg" alt="Twizted Journeys logo" style="height:44px;width:auto;border-radius:6px;" />
+ <span class="nav-logo-text">Tw<span class="semicolon-accent">;</span>zted Journeys</span>
+ </a>
+ <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">&#9776;</button>
+ <ul class="nav-links" id="nav-links" role="list">
+ <li><a href="index.html">Home</a></li>
+ <li><a href="events.html">Events</a></li>
+ <li><a href="merch.html">Merch</a></li>
+ <li><a href="stories.html">Share Your Story</a></li>
+ <li><a href="memorial.html">Memorial</a></li>
+ <li><a href="resources.html">Resources</a></li>
+ <li><a href="podcast.html">Podcast</a></li>
+ <li><a href="about.html">About</a></li>
+ <li><a href="twizted-qr-codes.html">QR Codes</a></li>
+ <li><a href="https://www.twiztedjourneys.org/donations-matter" class="btn btn-primary nav-donate">Donate</a></li>
+ </ul>
+ </div>
+ </div>
 </nav>
 
 <main id="main-content">
 
-  <!-- â•â• 1. HERO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section class="tt-hero" aria-labelledby="tt-hero-heading">
-    <div class="container">
-      <div class="tt-dots" aria-hidden="true">
-        <div class="tt-dot"></div>
-        <div class="tt-dot"></div>
-        <div class="tt-dot"></div>
-      </div>
-      <p class="section-label">Twizted Treasures</p>
-      <h1 id="tt-hero-heading">Track the <em>Journey</em></h1>
-      <p class="tt-tagline">Every charm can carry a story. <em>Pause but continue. Tomorrow needs you.</em></p>
-      <a class="btn btn-primary" href="#share-journey">Share This Charm&#8217;s Journey</a>
-      &nbsp;
-      <a class="btn btn-ghost" href="https://www.twiztedjourneys.org/twizted-merch" target="_blank" rel="noopener">Shop Twizted Treasures &rarr;</a>
-    </div>
-  </section>
+ <!-- == 1. HERO ================================================== -->
+ <section class="tt-hero" aria-labelledby="tt-hero-heading">
+ <div class="container">
+ <div class="tt-dots" aria-hidden="true">
+ <div class="tt-dot"></div>
+ <div class="tt-dot"></div>
+ <div class="tt-dot"></div>
+ </div>
+ <p class="section-label">Twizted Treasures</p>
+ <h1 id="tt-hero-heading">Track the <em>Journey</em></h1>
+ <p class="tt-tagline">Every charm can carry a story. <em>Pause but continue. Tomorrow needs you.</em></p>
+ <a class="btn btn-primary" href="#share-journey">Share This Charm&#8217;s Journey</a>
+ &nbsp;
+ <a class="btn btn-ghost" href="https://www.twiztedjourneys.org/twizted-merch" target="_blank" rel="noopener">Shop Twizted Treasures &rarr;</a>
+ </div>
+ </section>
 
-  <!-- â•â• 2. FEATURED ITEM CARD â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section style="padding:64px 0;" aria-labelledby="charm-heading">
-    <div class="container">
-      <p class="section-label">Featured Item</p>
-      <h2 class="section-title" id="charm-heading" style="margin-bottom:32px;">Twizted Journeys Semicolon Charm</h2>
+ <!-- == 2. FEATURED ITEM CARD ==================================== -->
+ <section style="padding:64px 0;" aria-labelledby="charm-heading">
+ <div class="container">
+ <p class="section-label">Featured Item</p>
+ <h2 class="section-title" id="charm-heading" style="margin-bottom:32px;">Twizted Journeys Semicolon Charm</h2>
 
-      <div class="charm-card">
-        <div class="charm-img-wrap">
-          <img
-            src="images/charm-semicolon-product.png"
-            alt="Twizted Journeys 12mm stainless steel semicolon charm â€” made by Tonya"
-            loading="lazy"
-          />
-          <span class="charm-badge">Available Now</span>
-        </div>
-        <div class="charm-info">
-          <h2>Semicolon Charm</h2>
-          <p class="charm-spec">12mm &nbsp;&middot;&nbsp; Stainless Steel &nbsp;&middot;&nbsp; Handmade by Tonya</p>
-          <blockquote class="charm-message">&ldquo;Pause but continue. Tomorrow needs you.&rdquo;</blockquote>
-          <p class="charm-desc">
-            The semicolon is a symbol of continuation &mdash; a reminder that your story isn&rsquo;t over.
-            Each charm Tonya makes carries that message. If yours came with a QR tag, you can share
-            where it traveled, who it honors, or what it meant to you.
-          </p>
-          <p style="font-weight:600;font-size:0.93rem;color:var(--white);margin-bottom:16px;">
-            1 for $5 &nbsp;&middot;&nbsp; 3 for $12 &nbsp;&middot;&nbsp; 10 for $30
-          </p>
-          <div class="charm-actions">
-            <a class="btn btn-primary"
-               href="https://www.twiztedjourneys.org/product/14056229/12mm-semicolon-charm"
-               target="_blank" rel="noopener">
-              Order on Webador &rarr;
-            </a>
-            <a class="btn btn-secondary"
-               href="https://www.twiztedjourneys.org/twizted-merch"
-               target="_blank" rel="noopener">
-              Full Merch Store
-            </a>
-          </div>
-        </div>
-      </div>
+ <div class="charm-card">
+ <div class="charm-img-wrap">
+ <img
+ src="images/charm-semicolon-product.png"
+ alt="Twizted Journeys 12mm stainless steel semicolon charm &mdash; made by Tonya"
+ loading="lazy"
+ />
+ <span class="charm-badge">Available Now</span>
+ </div>
+ <div class="charm-info">
+ <h2>Semicolon Charm</h2>
+ <p class="charm-spec">12mm &nbsp;&middot;&nbsp; Stainless Steel &nbsp;&middot;&nbsp; Handmade by Tonya</p>
+ <blockquote class="charm-message">&ldquo;Pause but continue. Tomorrow needs you.&rdquo;</blockquote>
+ <p class="charm-desc">
+ The semicolon is a symbol of continuation &mdash; a reminder that your story isn&rsquo;t over.
+ Each charm Tonya makes carries that message. If yours came with a QR tag, you can share
+ where it traveled, who it honors, or what it meant to you.
+ </p>
+ <p style="font-weight:600;font-size:0.93rem;color:var(--white);margin-bottom:16px;">
+ 1 for $5 &nbsp;&middot;&nbsp; 3 for $12 &nbsp;&middot;&nbsp; 10 for $30
+ </p>
+ <div class="charm-actions">
+ <a class="btn btn-primary"
+ href="https://www.twiztedjourneys.org/product/14056229/12mm-semicolon-charm"
+ target="_blank" rel="noopener">
+ Order on Webador &rarr;
+ </a>
+ <a class="btn btn-secondary"
+ href="https://www.twiztedjourneys.org/twizted-merch"
+ target="_blank" rel="noopener">
+ Full Merch Store
+ </a>
+ </div>
+ </div>
+ </div>
 
-      <!-- Detail photo -->
-      <div style="margin-top:40px;text-align:center;">
-        <img
-          src="images/charm-semicolon-detail-1.jpg"
-          alt="Close-up detail of the Twizted Journeys semicolon charm"
-          class="charm-detail-img"
-          loading="lazy"
-        />
-        <p style="font-size:0.82rem;color:var(--muted);margin-top:10px;">Handcrafted with intention. Every piece is made by Tonya.</p>
-      </div>
-    </div>
-  </section>
+ <!-- Detail photo -->
+ <div style="margin-top:40px;text-align:center;">
+ <img
+ src="images/charm-semicolon-detail-1.jpg"
+ alt="Close-up detail of the Twizted Journeys semicolon charm"
+ class="charm-detail-img"
+ loading="lazy"
+ />
+ <p style="font-size:0.82rem;color:var(--muted);margin-top:10px;">Handcrafted with intention. Every piece is made by Tonya.</p>
+ </div>
+ </div>
+ </section>
 
-  <!-- â•â• 3. HOW IT WORKS â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section class="section-dark" style="padding:64px 0;" aria-labelledby="how-heading">
-    <div class="container">
-      <p class="section-label">How It Works</p>
-      <h2 class="section-title" id="how-heading">Every Treasure Has a Journey</h2>
-      <p class="section-intro">
-        Twizted Treasure items are handmade pieces that carry meaning wherever they go.
-        When someone receives or finds one, they can share its story.
-      </p>
+ <!-- == 3. HOW IT WORKS ========================================== -->
+ <section class="section-dark" style="padding:64px 0;" aria-labelledby="how-heading">
+ <div class="container">
+ <p class="section-label">How It Works</p>
+ <h2 class="section-title" id="how-heading">Every Treasure Has a Journey</h2>
+ <p class="section-intro">
+ Twizted Treasure items are handmade pieces that carry meaning wherever they go.
+ When someone receives or finds one, they can share its story.
+ </p>
 
-      <div class="how-grid">
-        <div class="how-step">
-          <div class="how-num">1</div>
-          <h3>Receive or Find It</h3>
-          <p>Someone gives you a Twizted Treasure &mdash; a charm, bracelet, or keepsake made by Tonya &mdash; or you come across one in the world.</p>
-        </div>
-        <div class="how-step">
-          <div class="how-num">2</div>
-          <h3>Scan the QR Code</h3>
-          <p>Each item comes with a small QR tag. Scan it with your phone camera and you&rsquo;ll land right here &mdash; on this page.</p>
-        </div>
-        <div class="how-step">
-          <div class="how-num">3</div>
-          <h3>Share the Journey</h3>
-          <p>Tell us where it traveled, who it honors, or what it meant to you. You choose how much or how little to share.</p>
-        </div>
-        <div class="how-step">
-          <div class="how-num">4</div>
-          <h3>Keep, Gift, or Pass Forward</h3>
-          <p>Hold on to it. Give it to someone who needs the message today. Or set it somewhere for the next person to find.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+ <div class="how-grid">
+ <div class="how-step">
+ <div class="how-num">1</div>
+ <h3>Receive or Find It</h3>
+ <p>Someone gives you a Twizted Treasure &mdash; a charm, bracelet, or keepsake made by Tonya &mdash; or you come across one in the world.</p>
+ </div>
+ <div class="how-step">
+ <div class="how-num">2</div>
+ <h3>Scan the QR Code</h3>
+ <p>Each item comes with a small QR tag. Scan it with your phone camera and you&rsquo;ll land right here &mdash; on this page.</p>
+ </div>
+ <div class="how-step">
+ <div class="how-num">3</div>
+ <h3>Share the Journey</h3>
+ <p>Tell us where it traveled, who it honors, or what it meant to you. You choose how much or how little to share.</p>
+ </div>
+ <div class="how-step">
+ <div class="how-num">4</div>
+ <h3>Keep, Gift, or Pass Forward</h3>
+ <p>Hold on to it. Give it to someone who needs the message today. Or set it somewhere for the next person to find.</p>
+ </div>
+ </div>
+ </div>
+ </section>
 
-  <!-- â•â• 4. SHARE THIS ITEM'S JOURNEY â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section style="padding:72px 0;" id="share-journey" aria-labelledby="share-heading">
-    <div class="container">
-      <p class="section-label">Share the Journey</p>
-      <h2 class="section-title" id="share-heading" style="margin-bottom:8px;">Where Did This Charm <em>Go?</em></h2>
-      <p class="section-intro">
-        Your story matters. Tell us where this charm traveled, who or what it honors,
-        or what it meant to you. We review every message with care.
-      </p>
+ <!-- == 4. SHARE THIS ITEM'S JOURNEY ============================ -->
+ <section style="padding:72px 0;" id="share-journey" aria-labelledby="share-heading">
+ <div class="container">
+ <p class="section-label">Share the Journey</p>
+ <h2 class="section-title" id="share-heading" style="margin-bottom:8px;">Where Did This Charm <em>Go?</em></h2>
+ <p class="section-intro">
+ Your story matters. Tell us where this charm traveled, who or what it honors,
+ or what it meant to you. We review every message with care.
+ </p>
 
-      <div class="submission-card">
-        <span class="coming-soon-badge">&#128274; Form Coming Soon</span>
-        <h2>Share <em>Your</em> Story</h2>
-        <p style="color:var(--muted);font-size:0.93rem;line-height:1.7;margin-bottom:8px;">
-          The full submission form is being set up. In the meantime, email us directly &mdash;
-          we read every message and we&rsquo;d love to hear where your charm went.
-        </p>
+ <div class="submission-card">
+ <span class="coming-soon-badge">&#128274; Form Coming Soon</span>
+ <h2>Share <em>Your</em> Story</h2>
+ <p style="color:var(--muted);font-size:0.93rem;line-height:1.7;margin-bottom:8px;">
+ The full submission form is being set up. In the meantime, email us directly &mdash;
+ we read every message and we&rsquo;d love to hear where your charm went.
+ </p>
 
-        <a class="btn btn-primary"
-           href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Journey%20Story&body=Hi%20Tonya%2C%0A%0AI%20have%20a%20Twizted%20Treasure%20to%20share.%0A%0AWhere%20the%20charm%20went%3A%0AWho%20or%20what%20it%20honors%3A%0AMy%20city%20%2F%20state%3A%0AMy%20message%3A%0A%0AI%20give%20permission%20to%20share%20this%20story%3A%20Yes%20%2F%20No"
-           style="margin-top:8px;display:inline-block;">
-          &#9993; Email Your Story
-        </a>
+ <a class="btn btn-primary"
+ href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Journey%20Story&body=Hi%20Tonya%2C%0A%0AI%20have%20a%20Twizted%20Treasure%20to%20share.%0A%0AWhere%20the%20charm%20went%3A%0AWho%20or%20what%20it%20honors%3A%0AMy%20city%20%2F%20state%3A%0AMy%20message%3A%0A%0AI%20give%20permission%20to%20share%20this%20story%3A%20Yes%20%2F%20No"
+ style="margin-top:8px;display:inline-block;">
+ &#9993; Email Your Story
+ </a>
 
-        <!-- Future form preview â€” greyed out placeholder -->
-        <div style="margin-top:32px;">
-          <p style="font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:12px;">
-            Coming Soon &mdash; Online Submission Form
-          </p>
-          <div class="form-preview" aria-hidden="true">
-            <div>
-              <span class="form-preview-label">First name or initials</span>
-              <div class="form-preview-field">e.g. Tonya C.</div>
-            </div>
-            <div>
-              <span class="form-preview-label">City / State</span>
-              <div class="form-preview-field">e.g. Shelbyville, IN</div>
-            </div>
-            <div>
-              <span class="form-preview-label">Where did this charm go?</span>
-              <div class="form-preview-field">I found it at the September event and gave it to my daughter&hellip;</div>
-            </div>
-            <div>
-              <span class="form-preview-label">Who or what does it honor? (optional)</span>
-              <div class="form-preview-field">In memory of&hellip;</div>
-            </div>
-            <div>
-              <span class="form-preview-label">A message to carry forward (optional)</span>
-              <div class="form-preview-field">Your story isn&rsquo;t over&hellip;</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:10px;">
-              <div style="width:16px;height:16px;border:1px solid var(--border);border-radius:4px;flex-shrink:0;"></div>
-              <span class="form-preview-label" style="margin:0;">I give Twizted Journeys permission to share this story publicly (name optional)</span>
-            </div>
-          </div>
-          <p style="font-size:0.78rem;color:var(--muted);margin-top:4px;">
-            This form will connect to the Twizted Treasure tracking system when deployed. Ask Nate to wire it up.
-          </p>
-        </div>
+ <!-- Future form preview &mdash; greyed out placeholder -->
+ <div style="margin-top:32px;">
+ <p style="font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:12px;">
+ Coming Soon &mdash; Online Submission Form
+ </p>
+ <div class="form-preview" aria-hidden="true">
+ <div>
+ <span class="form-preview-label">First name or initials</span>
+ <div class="form-preview-field">e.g. Tonya C.</div>
+ </div>
+ <div>
+ <span class="form-preview-label">City / State</span>
+ <div class="form-preview-field">e.g. Shelbyville, IN</div>
+ </div>
+ <div>
+ <span class="form-preview-label">Where did this charm go?</span>
+ <div class="form-preview-field">I found it at the September event and gave it to my daughter&hellip;</div>
+ </div>
+ <div>
+ <span class="form-preview-label">Who or what does it honor? (optional)</span>
+ <div class="form-preview-field">In memory of&hellip;</div>
+ </div>
+ <div>
+ <span class="form-preview-label">A message to carry forward (optional)</span>
+ <div class="form-preview-field">Your story isn&rsquo;t over&hellip;</div>
+ </div>
+ <div style="display:flex;align-items:center;gap:10px;">
+ <div style="width:16px;height:16px;border:1px solid var(--border);border-radius:4px;flex-shrink:0;"></div>
+ <span class="form-preview-label" style="margin:0;">I give Twizted Journeys permission to share this story publicly (name optional)</span>
+ </div>
+ </div>
+ <p style="font-size:0.78rem;color:var(--muted);margin-top:4px;">
+ This form will connect to the Twizted Treasure tracking system when deployed. Ask Nate to wire it up.
+ </p>
+ </div>
 
-        <!-- Privacy note -->
-        <div class="disclosure-box" style="margin-top:24px;">
-          <strong>Your privacy matters</strong>
-          <p>
-            You choose what to share. Names are never required. Stories are reviewed before anything is posted publicly.
-            Private submissions are seen only by Tonya and the Twizted Journeys team.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+ <!-- Privacy note -->
+ <div class="disclosure-box" style="margin-top:24px;">
+ <strong>Your privacy matters</strong>
+ <p>
+ You choose what to share. Names are never required. Stories are reviewed before anything is posted publicly.
+ Private submissions are seen only by Tonya and the Twizted Journeys team.
+ </p>
+ </div>
+ </div>
+ </div>
+ </section>
 
-  <!-- â•â• 5. QR PLACEHOLDER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section class="section-dark" style="padding:64px 0;" aria-labelledby="qr-heading">
-    <div class="container">
-      <p class="section-label">QR Code</p>
-      <h2 class="section-title" id="qr-heading" style="margin-bottom:32px;text-align:center;">QR Tag for This Page</h2>
+ <!-- == 5. QR PLACEHOLDER ======================================== -->
+ <section class="section-dark" style="padding:64px 0;" aria-labelledby="qr-heading">
+ <div class="container">
+ <p class="section-label">QR Code</p>
+ <h2 class="section-title" id="qr-heading" style="margin-bottom:32px;text-align:center;">QR Tag for This Page</h2>
 
-      <div class="qr-placeholder-box">
-        <div class="qr-icon" aria-hidden="true">&#9636;</div>
-        <h3>QR Code Coming Soon</h3>
-        <p>
-          A scannable QR code linking to this page will be printed on every Twizted Treasure tag.
-          <br><br>
-          Destination:<br>
-          <code style="color:var(--teal);font-size:0.82rem;word-break:break-all;">twiztedjourneys.org/twizted-treasures.html</code>
-        </p>
-        <a class="btn btn-ghost" href="twizted-tools-hub.html" style="margin-top:20px;display:inline-block;font-size:0.85rem;">
-          Generate QR in the Hub &rarr;
-        </a>
-      </div>
+ <div class="qr-placeholder-box">
+ <div class="qr-icon" aria-hidden="true">&#9636;</div>
+ <h3>QR Code Coming Soon</h3>
+ <p>
+ A scannable QR code linking to this page will be printed on every Twizted Treasure tag.
+ <br><br>
+ Destination:<br>
+ <code style="color:var(--teal);font-size:0.82rem;word-break:break-all;">twiztedjourneys.org/twizted-treasures.html</code>
+ </p>
+ <a class="btn btn-ghost" href="twizted-tools-hub.html" style="margin-top:20px;display:inline-block;font-size:0.85rem;">
+ Generate QR in the Hub &rarr;
+ </a>
+ </div>
 
-      <p style="text-align:center;font-size:0.8rem;color:var(--muted);margin-top:20px;">
-        To generate: open the Twizted Tools Hub &rarr; QR Builder &rarr; paste <code style="color:var(--teal);">https://www.twiztedjourneys.org/twizted-treasures.html</code> &rarr; download PNG &rarr; print on tags.
-      </p>
-    </div>
-  </section>
+ <p style="text-align:center;font-size:0.8rem;color:var(--muted);margin-top:20px;">
+ To generate: open the Twizted Tools Hub &rarr; QR Builder &rarr; paste <code style="color:var(--teal);">https://www.twiztedjourneys.org/twizted-treasures.html</code> &rarr; download PNG &rarr; print on tags.
+ </p>
+ </div>
+ </section>
 
-  <!-- â•â• 6. SAFETY NOTE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-  <section style="padding:48px 0 40px;" aria-label="Safety and support information">
-    <div class="container" style="max-width:700px;">
-      <div class="disclosure-box">
-        <strong>A Note About Safety</strong>
-        <p>
-          Twizted Journeys is not a crisis hotline, therapy provider, or emergency service.
-          If you or someone you know is in crisis or immediate danger, please call emergency services.
-          In the United States, call or text <strong style="color:var(--teal);">988</strong> &mdash;
-          the Suicide &amp; Crisis Lifeline &mdash; free, 24/7, and confidential.
-          Visit <a href="https://988lifeline.org" target="_blank" rel="noopener">988lifeline.org</a> or
-          text <strong>HOME</strong> to <strong>741741</strong> for the Crisis Text Line.
-        </p>
-      </div>
-    </div>
-  </section>
+ <!-- == 6. SAFETY NOTE =========================================== -->
+ <section style="padding:48px 0 40px;" aria-label="Safety and support information">
+ <div class="container" style="max-width:700px;">
+ <div class="disclosure-box">
+ <strong>A Note About Safety</strong>
+ <p>
+ Twizted Journeys is not a crisis hotline, therapy provider, or emergency service.
+ If you or someone you know is in crisis or immediate danger, please call emergency services.
+ In the United States, call or text <strong style="color:var(--teal);">988</strong> &mdash;
+ the Suicide &amp; Crisis Lifeline &mdash; free, 24/7, and confidential.
+ Visit <a href="https://988lifeline.org" target="_blank" rel="noopener">988lifeline.org</a> or
+ text <strong>HOME</strong> to <strong>741741</strong> for the Crisis Text Line.
+ </p>
+ </div>
+ </div>
+ </section>
 
 </main>
 
 <!-- Crisis band -->
 <div class="crisis-band" role="complementary" aria-label="Crisis support information">
-  <div class="container">
-    <p>
-      <strong>If you are in crisis or need immediate help:</strong><br />
-      Call or text <span class="crisis-number">988</span> &mdash; the Suicide &amp; Crisis Lifeline &mdash; free, 24/7, confidential.<br />
-      Visit <a href="https://988lifeline.org" target="_blank" rel="noopener">988lifeline.org</a> &nbsp;|&nbsp;
-      Crisis Text Line: text <strong>HOME</strong> to <strong>741741</strong> &nbsp;|&nbsp;
-      Visit <a href="https://crisistextline.org" target="_blank" rel="noopener">crisistextline.org</a>
-    </p>
-    <p style="font-size:0.8rem;color:var(--muted);margin-top:8px;">
-      Twizted Journeys is not a hotline, therapy provider, or emergency service.
-      In an emergency, call 911.
-    </p>
-  </div>
+ <div class="container">
+ <p>
+ <strong>If you are in crisis or need immediate help:</strong><br />
+ Call or text <span class="crisis-number">988</span> &mdash; the Suicide &amp; Crisis Lifeline &mdash; free, 24/7, confidential.<br />
+ Visit <a href="https://988lifeline.org" target="_blank" rel="noopener">988lifeline.org</a> &nbsp;|&nbsp;
+ Crisis Text Line: text <strong>HOME</strong> to <strong>741741</strong> &nbsp;|&nbsp;
+ Visit <a href="https://crisistextline.org" target="_blank" rel="noopener">crisistextline.org</a>
+ </p>
+ <p style="font-size:0.8rem;color:var(--muted);margin-top:8px;">
+ Twizted Journeys is not a hotline, therapy provider, or emergency service.
+ In an emergency, call 911.
+ </p>
+ </div>
 </div>
 
 <footer class="site-footer" aria-label="Site footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <h2>Tw<span>;</span>zted Journeys</h2>
-        <p>A safe place for every journey. Indiana nonprofit serving Shelby, Johnson, Bartholomew, Hancock, Decatur, and Rush counties.</p>
-        <p style="margin-top:10px;"><a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
-      </div>
-      <div class="footer-col">
-        <h3>Navigate</h3>
-        <ul>
-          <li><a href="events.html">Events</a></li>
-          <li><a href="stories.html">Share Your Story</a></li>
-          <li><a href="memorial.html">Memorial</a></li>
-          <li><a href="podcast.html">Podcast</a></li>
-          <li><a href="merch.html">Shop</a></li>
-          <li><a href="about.html">About Us</a></li>
-            <li><a href="twizted-qr-codes.html">QR Codes &amp; Links</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3>Resources</h3>
-        <ul>
-          <li><a href="https://988lifeline.org" target="_blank" rel="noopener">988 Crisis Lifeline</a></li>
-          <li><a href="https://crisistextline.org" target="_blank" rel="noopener">Crisis Text Line</a></li>
-          <li><a href="https://afsp.org" target="_blank" rel="noopener">AFSP</a></li>
-          <li><a href="https://nami.org" target="_blank" rel="noopener">NAMI</a></li>
-          <li><a href="https://overdoselifeline.org" target="_blank" rel="noopener">Overdose Lifeline</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3>Connect</h3>
-        <div class="social-links">
-          <a class="social-link" href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Join the Facebook Group</a>
-        </div>
-        <div style="margin-top:16px;">
-          <a href="twizted-treasures.html" style="font-size:0.85rem;color:var(--teal);">&#10024; Track a Twizted Treasure</a>
-        </div>
-      </div>
-    </div>
-    <p class="footer-disclaimer">
-      Twizted Journeys, Inc. is a 501(c)(3) public charity. Donations are tax-deductible as allowed by law.
-      We are not a crisis hotline, counseling service, therapy provider, medical provider, or emergency response service.
-      If you are in crisis, please call 911 or contact the 988 Suicide &amp; Crisis Lifeline.
-    </p>
-    <div class="footer-bottom">
-      <p>&copy; 2022&ndash;2026 Twizted Journeys, Inc. All rights reserved.</p>
-      <p>Founders: Tonya Crump &amp; Tia Weaver &nbsp;|&nbsp; <a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
-    </div>
-  </div>
+ <div class="container">
+ <div class="footer-grid">
+ <div class="footer-brand">
+ <h2>Tw<span>;</span>zted Journeys</h2>
+ <p>A safe place for every journey. Indiana nonprofit serving Shelby, Johnson, Bartholomew, Hancock, Decatur, and Rush counties.</p>
+ <p style="margin-top:10px;"><a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
+ </div>
+ <div class="footer-col">
+ <h3>Navigate</h3>
+ <ul>
+ <li><a href="events.html">Events</a></li>
+ <li><a href="stories.html">Share Your Story</a></li>
+ <li><a href="memorial.html">Memorial</a></li>
+ <li><a href="podcast.html">Podcast</a></li>
+ <li><a href="merch.html">Shop</a></li>
+ <li><a href="about.html">About Us</a></li>
+ <li><a href="twizted-qr-codes.html">QR Codes &amp; Links</a></li>
+ </ul>
+ </div>
+ <div class="footer-col">
+ <h3>Resources</h3>
+ <ul>
+ <li><a href="https://988lifeline.org" target="_blank" rel="noopener">988 Crisis Lifeline</a></li>
+ <li><a href="https://crisistextline.org" target="_blank" rel="noopener">Crisis Text Line</a></li>
+ <li><a href="https://afsp.org" target="_blank" rel="noopener">AFSP</a></li>
+ <li><a href="https://nami.org" target="_blank" rel="noopener">NAMI</a></li>
+ <li><a href="https://overdoselifeline.org" target="_blank" rel="noopener">Overdose Lifeline</a></li>
+ </ul>
+ </div>
+ <div class="footer-col">
+ <h3>Connect</h3>
+ <div class="social-links">
+ <a class="social-link" href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Join the Facebook Group</a>
+ </div>
+ <div style="margin-top:16px;">
+ <a href="twizted-treasures.html" style="font-size:0.85rem;color:var(--teal);">&#10024; Track a Twizted Treasure</a>
+ </div>
+ </div>
+ </div>
+ <p class="footer-disclaimer">
+ Twizted Journeys, Inc. is a 501(c)(3) public charity. Donations are tax-deductible as allowed by law.
+ We are not a crisis hotline, counseling service, therapy provider, medical provider, or emergency response service.
+ If you are in crisis, please call 911 or contact the 988 Suicide &amp; Crisis Lifeline.
+ </p>
+ <div class="footer-bottom">
+ <p>&copy; 2022&ndash;2026 Twizted Journeys, Inc. All rights reserved.</p>
+ <p>Founders: Tonya Crump &amp; Tia Weaver &nbsp;|&nbsp; <a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
+ </div>
+ </div>
 </footer>
 
 <script src="js/main.js"></script>
