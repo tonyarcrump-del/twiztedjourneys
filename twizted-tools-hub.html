@@ -1,0 +1,837 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Twizted Tools Hub â€” Internal</title>
+  <style>
+    :root {
+      --purple:      #8A2BEF;
+      --purple-dark: #5C1BA8;
+      --teal:        #56E0D2;
+      --cyan:        #9EF3F7;
+      --midnight:    #0B0B0F;
+      --midnight-2:  #111118;
+      --midnight-3:  #1A1A28;
+      --white:       #F8FBFF;
+      --muted:       #A8B4C0;
+      --card-bg:     rgba(26,26,40,0.92);
+      --border:      rgba(138,43,239,0.28);
+      --glow-purple: 0 0 18px rgba(138,43,239,0.45);
+      --glow-teal:   0 0 14px rgba(86,224,210,0.35);
+      --radius:      14px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--midnight); color: var(--white); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh; }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { color: var(--cyan); }
+
+    /* Internal banner */
+    .internal-banner { background: linear-gradient(90deg, var(--purple-dark), #2a0060); text-align: center; padding: 8px 16px; font-size: 0.82rem; letter-spacing: 0.06em; color: rgba(248,251,255,0.8); border-bottom: 1px solid rgba(138,43,239,0.4); }
+    .internal-banner strong { color: var(--cyan); }
+
+    /* Header */
+    .site-header { background: linear-gradient(135deg, #0d0015 0%, #0B0B0F 60%, #080820 100%); border-bottom: 1px solid var(--border); padding: 28px 20px 24px; text-align: center; }
+    .logo-line { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 6px; }
+    .logo-dot { width: 12px; height: 12px; background: var(--purple); border-radius: 50%; box-shadow: var(--glow-purple); flex-shrink: 0; }
+    .site-header h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 700; color: var(--white); }
+    .site-header h1 span { color: var(--purple); }
+    .site-header .tagline { font-size: 0.9rem; color: var(--muted); margin-top: 4px; }
+    .site-header .tagline em { color: var(--teal); font-style: normal; }
+
+    /* Layout */
+    .main { max-width: 1200px; margin: 0 auto; padding: 28px 16px 60px; }
+    .section-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+    /* â”€â”€ Ask the Hub â”€â”€ */
+    .ask-hub {
+      background: linear-gradient(135deg, rgba(26,26,40,0.98) 0%, rgba(20,10,45,0.98) 100%);
+      border: 1px solid rgba(138,43,239,0.5);
+      border-radius: var(--radius);
+      padding: 28px 24px 24px;
+      box-shadow: var(--glow-purple), 0 4px 40px rgba(0,0,0,0.5);
+      margin-bottom: 8px;
+    }
+    .ask-hub-header { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+    .ask-hub-dot { width: 10px; height: 10px; background: var(--purple); border-radius: 50%; box-shadow: var(--glow-purple); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; transform: scale(1); } 50% { opacity:0.6; transform: scale(0.85); } }
+    .ask-hub h2 { font-size: 1.15rem; font-weight: 700; color: var(--white); }
+    .ask-hub .sub { font-size: 0.84rem; color: var(--muted); margin-bottom: 16px; }
+    .ask-hub-form { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .ask-hub-input {
+      flex: 1; min-width: 240px;
+      background: var(--midnight-2);
+      border: 1px solid rgba(138,43,239,0.45);
+      border-radius: 10px;
+      color: var(--white);
+      font-size: 1rem;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .ask-hub-input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(138,43,239,0.15); }
+    .ask-hub-input::placeholder { color: rgba(168,180,192,0.55); }
+    .btn { display: inline-block; padding: 10px 22px; border-radius: 8px; font-weight: 600; font-size: 0.92rem; cursor: pointer; border: none; transition: opacity 0.2s, transform 0.15s; }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn-primary { background: var(--purple); color: var(--white); }
+    .btn-teal { background: var(--teal); color: #0B0B0F; }
+    .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+    .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
+    .btn-sm { padding: 7px 16px; font-size: 0.83rem; }
+    .btn-ask { padding: 12px 24px; background: var(--purple); color: var(--white); font-size: 0.95rem; }
+
+    .example-prompts { margin-bottom: 14px; }
+    .example-prompts p { font-size: 0.8rem; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.04em; }
+    .prompts-row { display: flex; flex-wrap: wrap; gap: 7px; }
+    .prompt-chip {
+      background: var(--midnight-3);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      padding: 5px 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .prompt-chip:hover { border-color: var(--purple); color: var(--white); background: rgba(138,43,239,0.15); }
+
+    /* Hub response output */
+    .hub-response {
+      display: none;
+      background: var(--midnight-2);
+      border: 1px solid rgba(86,224,210,0.3);
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-top: 14px;
+      animation: fadeIn 0.3s ease;
+    }
+    .hub-response.show { display: block; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    .hub-response-tag { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
+    .hub-response-body { font-size: 0.9rem; color: var(--white); line-height: 1.7; white-space: pre-wrap; }
+    .hub-response-actions { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .hub-ai-note {
+      background: rgba(158,243,247,0.06);
+      border: 1px solid rgba(158,243,247,0.18);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.78rem;
+      color: var(--cyan);
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    /* QR Builder */
+    .qr-builder { background: var(--card-bg); border: 1px solid rgba(86,224,210,0.3); border-radius: var(--radius); padding: 26px 22px; margin-bottom: 10px; box-shadow: 0 4px 32px rgba(0,0,0,0.4), var(--glow-teal); }
+    .qr-builder h2 { font-size: 1.1rem; font-weight: 700; color: var(--teal); margin-bottom: 4px; }
+    .qr-builder .sub { font-size: 0.84rem; color: var(--muted); margin-bottom: 18px; }
+    .qr-form { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; margin-bottom: 20px; }
+    .qr-form label { display: block; font-size: 0.78rem; color: var(--muted); margin-bottom: 5px; letter-spacing: 0.05em; text-transform: uppercase; }
+    .qr-form .field { flex: 1; min-width: 220px; }
+    .qr-form input[type="text"], .qr-form select { width: 100%; background: var(--midnight-2); border: 1px solid rgba(138,43,239,0.35); border-radius: 8px; color: var(--white); font-size: 0.93rem; padding: 10px 13px; outline: none; transition: border-color 0.2s; }
+    .qr-form input[type="text"]:focus, .qr-form select:focus { border-color: var(--teal); }
+    .qr-form select option { background: #1A1A28; }
+    .qr-output { display: flex; flex-wrap: wrap; gap: 22px; align-items: flex-start; }
+    .qr-canvas-wrap { background: #fff; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; align-items: center; gap: 10px; min-width: 170px; }
+    .qr-empty { width: 150px; height: 150px; border: 2px dashed rgba(138,43,239,0.3); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #888; font-size: 0.78rem; text-align: center; padding: 10px; background: #f8f8f8; }
+    .qr-info { flex: 1; min-width: 200px; }
+    .qr-note { background: rgba(86,224,210,0.08); border: 1px solid rgba(86,224,210,0.2); border-radius: 8px; padding: 11px 15px; font-size: 0.83rem; color: var(--teal); margin-bottom: 14px; }
+    .qr-presets-label { font-size: 0.83rem; color: var(--muted); margin-bottom: 9px; font-weight: 600; }
+    .qr-presets { display: flex; flex-wrap: wrap; gap: 7px; }
+    .preset-btn { background: var(--midnight-3); border: 1px solid var(--border); border-radius: 6px; color: var(--muted); font-size: 0.78rem; padding: 5px 11px; cursor: pointer; transition: all 0.2s; }
+    .preset-btn:hover { border-color: var(--purple); color: var(--white); background: rgba(138,43,239,0.15); }
+
+    /* Cards */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.25s, box-shadow 0.25s; }
+    .card:hover { border-color: rgba(138,43,239,0.55); box-shadow: var(--glow-purple); }
+    .card-header { display: flex; align-items: flex-start; gap: 12px; }
+    .card-icon { width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; }
+    .icon-purple { background: rgba(138,43,239,0.18); }
+    .icon-teal   { background: rgba(86,224,210,0.15); }
+    .icon-cyan   { background: rgba(158,243,247,0.13); }
+    .icon-gold   { background: rgba(255,200,80,0.15); }
+    .icon-rose   { background: rgba(239,83,120,0.15); }
+    .card-title { font-size: 1rem; font-weight: 700; color: var(--white); line-height: 1.25; }
+    .card-desc  { font-size: 0.84rem; color: var(--muted); flex: 1; }
+
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.04em; }
+    .badge-live    { background: rgba(86,224,210,0.18);  color: var(--teal); border: 1px solid rgba(86,224,210,0.3); }
+    .badge-ready   { background: rgba(80,210,120,0.15);  color: #5cd688;    border: 1px solid rgba(80,210,120,0.3); }
+    .badge-todo    { background: rgba(255,170,40,0.15);  color: #ffbb44;    border: 1px solid rgba(255,170,40,0.3); }
+    .badge-waiting { background: rgba(255,100,60,0.15);  color: #ff7755;    border: 1px solid rgba(255,100,60,0.3); }
+    .badge-preview { background: rgba(138,43,239,0.18);  color: #b97bff;    border: 1px solid rgba(138,43,239,0.35); }
+    .badge-external{ background: rgba(158,243,247,0.13); color: var(--cyan); border: 1px solid rgba(158,243,247,0.25); }
+
+    .card-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .card-qr-toggle { width: 100%; text-align: left; background: var(--midnight-2); border: 1px dashed rgba(138,43,239,0.3); border-radius: 7px; color: var(--muted); font-size: 0.8rem; padding: 7px 12px; cursor: pointer; transition: all 0.2s; }
+    .card-qr-toggle:hover { border-color: var(--teal); color: var(--teal); }
+    .card-qr-panel { display: none; margin-top: 4px; }
+    .card-qr-panel.open { display: block; }
+    .card-qr-panel .mini-qr-url { width: 100%; background: var(--midnight-2); border: 1px solid rgba(138,43,239,0.3); border-radius: 7px; color: var(--white); font-size: 0.84rem; padding: 8px 12px; margin-bottom: 8px; outline: none; }
+    .card-qr-panel .mini-qr-url:focus { border-color: var(--teal); }
+    .mini-qr-output { background: #fff; border-radius: 8px; padding: 10px; display: none; flex-direction: column; align-items: center; gap: 8px; margin-top: 8px; }
+    .mini-qr-output.show { display: flex; }
+    .qr-scan-note { font-size: 0.75rem; color: #555; text-align: center; }
+
+    /* Charm card */
+    .charm-card { border-color: rgba(158,243,247,0.25); background: linear-gradient(135deg, rgba(26,26,40,0.95) 0%, rgba(14,10,30,0.95) 100%); }
+    .charm-card:hover { border-color: rgba(158,243,247,0.55); box-shadow: var(--glow-teal); }
+    .charm-message { font-size: 0.9rem; font-style: italic; color: var(--cyan); background: rgba(158,243,247,0.06); border-left: 3px solid var(--cyan); padding: 10px 14px; border-radius: 0 8px 8px 0; margin-top: 4px; }
+
+    /* QR Reminder */
+    .qr-reminder { background: rgba(255,170,40,0.08); border: 1px solid rgba(255,170,40,0.25); border-radius: 10px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; font-size: 0.86rem; color: #ffcc55; margin-top: 24px; }
+    .qr-reminder .icon { font-size: 1.3rem; flex-shrink: 0; }
+
+    .todo-list { font-size: 0.8rem; color: var(--muted); padding-left: 16px; line-height: 1.9; }
+    .todo-list .todo { color: #ffbb44; }
+    .todo-list code { color: var(--cyan); font-size: 0.74rem; }
+
+    /* Footer */
+    .site-footer { text-align: center; padding: 24px 16px; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); margin-top: 40px; }
+    .site-footer em { color: var(--purple); font-style: normal; }
+
+    @media (max-width: 600px) {
+      .qr-builder, .ask-hub { padding: 18px 14px; }
+      .qr-output { flex-direction: column; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .ask-hub-form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="internal-banner">
+  &#128274; <strong>INTERNAL USE ONLY</strong> &mdash; Not public-facing &mdash; For Tonya &amp; Nate only &mdash; Do not push to GitHub without Nate&rsquo;s review
+</div>
+
+<header class="site-header">
+  <div class="logo-line">
+    <div class="logo-dot"></div>
+    <h1><span>Twizted</span> Tools Hub</h1>
+    <div class="logo-dot"></div>
+  </div>
+  <p class="tagline">Everything in one place &mdash; Build flyers &middot; Generate QR codes &middot; Track tools &middot; Ask the Hub &mdash; <em>Pause but continue.</em></p>
+</header>
+
+<main class="main">
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       ASK THE HUB
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <p class="section-title">&#129302; Ask the Hub</p>
+
+  <div class="ask-hub" id="ask-hub-panel">
+    <div class="ask-hub-header">
+      <div class="ask-hub-dot"></div>
+      <h2>What do you need today, Tonya?</h2>
+    </div>
+    <p class="sub">Type a plain-English request and the Hub will route you to the right tool or generate a starter output for you.</p>
+
+    <div class="ask-hub-form">
+      <input class="ask-hub-input" id="hub-input" type="text"
+        placeholder="e.g. Make a September event flyer with a QR code" />
+      <button class="btn btn-ask" onclick="runHub()">&#9658; Ask Hub</button>
+    </div>
+
+    <div class="example-prompts">
+      <p>Try one of these &mdash; click to load:</p>
+      <div class="prompts-row" id="prompts-row">
+        <button class="prompt-chip" onclick="askWith(this.textContent)">Make a September event flyer with a QR code</button>
+        <button class="prompt-chip" onclick="askWith(this.textContent)">Create a vendor flyer for the November event</button>
+        <button class="prompt-chip" onclick="askWith(this.textContent)">Make a Facebook post for the Shoe Drive</button>
+        <button class="prompt-chip" onclick="askWith(this.textContent)">Create a QR card for the semicolon charm</button>
+        <button class="prompt-chip" onclick="askWith(this.textContent)">Write a donor update for tonight</button>
+        <button class="prompt-chip" onclick="askWith(this.textContent)">Generate a QR code for the events page</button>
+        <button class="prompt-chip" onclick="askWith(this.textContent)">Make a Shoe Drive flyer</button>
+        <button class="prompt-chip" onclick="askWith(this.textContent)">Create a podcast guest announcement</button>
+        <button class="prompt-chip" onclick="askWith(this.textContent)">What tools are ready to use?</button>
+      </div>
+    </div>
+
+    <div class="hub-response" id="hub-response">
+      <div class="hub-response-tag" id="hub-response-tag">Routing...</div>
+      <div class="hub-response-body" id="hub-response-body"></div>
+      <div class="hub-response-actions" id="hub-response-actions"></div>
+    </div>
+
+    <div class="hub-ai-note">
+      &#127760; <span><strong>Voice &amp; AI automation coming next.</strong> Right now the Hub uses keyword routing to guide you to the right tool or generate a starter template. Full AI chat (where you speak or type anything and get a finished output) is the next build step. Ask Nate when ready.</span>
+    </div>
+  </div>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       QR CODE BUILDER
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <p class="section-title" id="qr-section">&#9724; QR Code Builder</p>
+
+  <div class="qr-builder">
+    <h2>QR Card Builder</h2>
+    <p class="sub">Type any URL &rarr; Generate &rarr; Download PNG. Use for any flyer, card, or event material. <strong style="color:var(--white);">Always test by scanning before printing.</strong></p>
+    <div style="background:rgba(86,224,210,0.08);border:1px solid rgba(86,224,210,0.3);border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:0.84rem;line-height:1.8;">
+      <strong style="color:var(--teal);">&#9733; Branded QR Card Builder (full print cards)</strong><br>
+      The original Twizted QR app creates full <strong>1600&times;2400 px branded cards</strong> — not just QR images. For print-ready table cards and event materials, use that app.<br>
+      <span style="color:var(--muted);">To start it: open a terminal &rarr; <code style="color:var(--cyan);">cd "C:\Twisted Journeys\TJ_Website_Local\qr-codes"</code> &rarr; <code style="color:var(--cyan);">npm start</code> &rarr; then open <a href="http://localhost:4177" target="_blank" rel="noopener" style="color:var(--cyan);">localhost:4177</a></span>
+    </div>
+    <div class="qr-form">
+      <div class="field">
+        <label for="qr-url">URL to encode</label>
+        <input type="text" id="qr-url" placeholder="https://www.twiztedjourneys.org/" value="https://www.twiztedjourneys.org/" />
+      </div>
+      <div class="field" style="max-width:170px;">
+        <label for="qr-size">Size</label>
+        <select id="qr-size">
+          <option value="160">Small (160px)</option>
+          <option value="220" selected>Medium (220px)</option>
+          <option value="300">Large (300px)</option>
+        </select>
+      </div>
+      <div><label style="visibility:hidden;">go</label><button class="btn btn-teal" onclick="generateQR()">&#9654; Generate QR</button></div>
+    </div>
+    <div class="qr-output">
+      <div class="qr-canvas-wrap">
+        <div id="qrcode"><div class="qr-empty">Enter a URL and click Generate</div></div>
+        <button class="btn btn-ghost btn-sm" id="dl-btn" style="display:none;" onclick="downloadQR()">&#8595; Download PNG</button>
+      </div>
+      <div class="qr-info">
+        <div class="qr-note">&#9888;&#65039; Test every QR by scanning with your phone before anything goes to print.</div>
+        <p class="qr-presets-label">Quick Presets:</p>
+        <div class="qr-presets">
+          <button class="preset-btn" onclick="setPreset('https://www.twiztedjourneys.org/')">Main Site</button>
+          <button class="preset-btn" onclick="setPreset('https://www.twiztedjourneys.org/events.html')">Events Page</button>
+          <button class="preset-btn" onclick="setPreset('https://www.twiztedjourneys.org/donations-matter')">Donate</button>
+          <button class="preset-btn" onclick="setPreset('https://www.facebook.com/groups/560290368564902/')">Facebook Group</button>
+          <button class="preset-btn" onclick="setPreset('https://www.twiztedjourneys.org/shoe-drive.html')">Shoe Drive</button>
+          <button class="preset-btn" onclick="setPreset('https://www.twiztedjourneys.org/twizted-merch')">Merch / Charm</button>
+          <button class="preset-btn" onclick="setPreset('https://tonyarcrump-del.github.io/twiztedjourneys/')">Preview: Home</button>
+          <button class="preset-btn" onclick="setPreset('https://tonyarcrump-del.github.io/twiztedjourneys/events.html')">Preview: Events</button>
+          <button class="preset-btn" onclick="setPreset('https://tonyarcrump-del.github.io/twiztedjourneys/stories.html')">Preview: Stories</button>
+          <button class="preset-btn" onclick="setPreset('https://tonyarcrump-del.github.io/twiztedjourneys/podcast.html')">Preview: Podcast</button>
+          <button class="preset-btn" onclick="setPreset('https://www.twiztedjourneys.org/twizted-merch')">Merch / Charm</button>
+          <button class="preset-btn" onclick="alert('Vendor signup URL not confirmed yet. Add the real link when ready.')">Vendor Signup &mdash; TODO</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       LIVE PAGES
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <p class="section-title">&#127760; Live Pages</p>
+  <div class="cards-grid">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon icon-teal">&#127760;</div>
+        <div><div class="card-title">Website Preview</div><span class="badge badge-live">Live</span></div>
+      </div>
+      <p class="card-desc">The published Twizted Journeys website. Open before printing flyers to confirm all URLs are correct.</p>
+      <div class="card-actions">
+        <a class="btn btn-teal btn-sm" href="https://tonyarcrump-del.github.io/twiztedjourneys/" target="_blank" rel="noopener">GitHub Pages &#8599;</a>
+        <a class="btn btn-ghost btn-sm" href="https://www.twiztedjourneys.org/" target="_blank" rel="noopener">Live Domain &#8599;</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon icon-rose">&#128156;</div>
+        <div><div class="card-title">Donate Page</div><span class="badge badge-live">Live</span></div>
+      </div>
+      <p class="card-desc">Active donations page. Use this URL when generating QR codes for any donation-focused flyer or card.</p>
+      <div class="card-actions">
+        <a class="btn btn-primary btn-sm" href="https://www.twiztedjourneys.org/donations-matter" target="_blank" rel="noopener">Open Donate Page &#8599;</a>
+      </div>
+      <button class="card-qr-toggle" onclick="toggleMiniQR(this,'https://www.twiztedjourneys.org/donations-matter')">&#9724; Generate QR for this page</button>
+      <div class="card-qr-panel">
+        <input class="mini-qr-url" type="text" value="https://www.twiztedjourneys.org/donations-matter" />
+        <button class="btn btn-teal btn-sm" onclick="generateMiniQR(this)">Generate</button>
+        <div class="mini-qr-output"><div></div><p class="qr-scan-note">Test before printing.</p><button class="btn btn-ghost btn-sm" onclick="downloadMiniQR(this)">&#8595; Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon icon-cyan">&#128101;</div>
+        <div><div class="card-title">Facebook Group</div><span class="badge badge-live">Live</span></div>
+      </div>
+      <p class="card-desc">Twizted Journeys community Facebook group. Use this link for social media QR codes on flyers.</p>
+      <div class="card-actions">
+        <a class="btn btn-ghost btn-sm" href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Open Facebook Group &#8599;</a>
+      </div>
+      <button class="card-qr-toggle" onclick="toggleMiniQR(this,'https://www.facebook.com/groups/560290368564902/')">&#9724; Generate QR for this page</button>
+      <div class="card-qr-panel">
+        <input class="mini-qr-url" type="text" value="https://www.facebook.com/groups/560290368564902/" />
+        <button class="btn btn-teal btn-sm" onclick="generateMiniQR(this)">Generate</button>
+        <div class="mini-qr-output"><div></div><p class="qr-scan-note">Test before printing.</p><button class="btn btn-ghost btn-sm" onclick="downloadMiniQR(this)">&#8595; Download</button></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       SEPTEMBER FLYERS
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <p class="section-title" id="sept-section">&#128197; Flyer Queue &mdash; September Events</p>
+  <div class="cards-grid">
+
+    <div class="card" id="card-sept-event">
+      <div class="card-header">
+        <div class="card-icon icon-purple">&#128197;</div>
+        <div><div class="card-title">September Event Flyer</div><span class="badge badge-live">Confirmed &#9989;</span></div>
+      </div>
+      <p class="card-desc"><strong>Sept 12, 2026 &mdash; Light Up the Night</strong> &nbsp;|&nbsp; Shelby County Fairgrounds, 100 Prairie Ave, Shelbyville IN &nbsp;|&nbsp; Registration 11AM &nbsp;|&nbsp; Vendors $50/day</p>
+      <ul class="todo-list">
+        <li>&#10003; Asset: <code>images/vendor-event-flyer.png</code></li>
+        <li>&#10003; Event date &amp; location confirmed</li>
+        <li>&#10003; RSVP: <a href="mailto:info@twiztedjourneys.org?subject=RSVP%20-%20Ride%20Registration" style="color:var(--teal);">Email to register</a></li>
+      </ul>
+      <button class="card-qr-toggle" onclick="toggleMiniQR(this,'https://www.twiztedjourneys.org/events.html')">&#9724; Generate QR (Events Page)</button>
+      <div class="card-qr-panel">
+        <input class="mini-qr-url" type="text" placeholder="Paste final registration URL" value="https://www.twiztedjourneys.org/events.html" />
+        <button class="btn btn-teal btn-sm" onclick="generateMiniQR(this)">Generate</button>
+        <div class="mini-qr-output"><div></div><p class="qr-scan-note">Test before printing.</p><button class="btn btn-ghost btn-sm" onclick="downloadMiniQR(this)">&#8595; Download</button></div>
+      </div>
+    </div>
+
+    <div class="card" id="card-sept-vendor">
+      <div class="card-header">
+        <div class="card-icon icon-purple">&#127978;</div>
+        <div><div class="card-title">September Vendor Flyer</div><span class="badge badge-live">Confirmed &#9989;</span></div>
+      </div>
+      <p class="card-desc">Sept 12 &amp; 13, 2026 &mdash; Shelby County Fairgrounds, 100 Prairie Ave, Shelbyville IN &nbsp;|&nbsp; <strong>/day per vendor</strong>. Makers, food vendors, resource tables, and awareness orgs welcome.</p>
+      <ul class="todo-list">
+        <li>&#10003; Vendor fee confirmed: /day</li>
+        <li>&#10003; Asset: <code>images/vendor-event-flyer.png</code></li>
+        <li>&#10003; Contact: email info@twiztedjourneys.org to reserve</li>
+        <li class="todo">TODO: Formal vendor signup URL (email used for now)</li>
+      </ul>
+      <button class="card-qr-toggle" onclick="toggleMiniQR(this,'https://www.twiztedjourneys.org/events.html')">&#9724; Generate QR (Vendor Signup)</button>
+      <div class="card-qr-panel">
+        <input class="mini-qr-url" type="text" value="https://www.twiztedjourneys.org/events.html" placeholder="Or paste vendor signup URL" />
+        <button class="btn btn-teal btn-sm" onclick="generateMiniQR(this)">Generate</button>
+        <div class="mini-qr-output"><div></div><p class="qr-scan-note">Test before printing.</p><button class="btn btn-ghost btn-sm" onclick="downloadMiniQR(this)">&#8595; Download</button></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       NOVEMBER FLYERS
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <p class="section-title" id="nov-section">&#128197; Flyer Queue &mdash; November Events</p>
+  <div class="cards-grid">
+
+    <div class="card" id="card-nov-event">
+      <div class="card-header">
+        <div class="card-icon icon-gold">&#128197;</div>
+        <div><div class="card-title">November Event Flyer</div><span class="badge badge-todo">Needs Final Details</span></div>
+      </div>
+      <p class="card-desc">General community event flyer for November. Waiting on Tonya to confirm event details.</p>
+      <ul class="todo-list">
+        <li class="todo">TODO: Confirm event date &amp; time</li>
+        <li class="todo">TODO: Confirm venue / location</li>
+        <li class="todo">TODO: Confirm theme or event name</li>
+        <li class="todo">TODO: Confirm registration/RSVP link</li>
+      </ul>
+      <button class="card-qr-toggle" onclick="toggleMiniQR(this,'')">&#9724; Generate QR (when URL is ready)</button>
+      <div class="card-qr-panel">
+        <input class="mini-qr-url" type="text" placeholder="TODO: Add November event URL" />
+        <button class="btn btn-teal btn-sm" onclick="generateMiniQR(this)">Generate</button>
+        <div class="mini-qr-output"><div></div><p class="qr-scan-note">Test before printing.</p><button class="btn btn-ghost btn-sm" onclick="downloadMiniQR(this)">&#8595; Download</button></div>
+      </div>
+    </div>
+
+    <div class="card" id="card-nov-vendor">
+      <div class="card-header">
+        <div class="card-icon icon-gold">&#127978;</div>
+        <div><div class="card-title">November Vendor Flyer</div><span class="badge badge-todo">Needs Final Details</span></div>
+      </div>
+      <p class="card-desc">Vendor recruitment for November. Waiting on event confirmation before building.</p>
+      <ul class="todo-list">
+        <li class="todo">TODO: Confirm November event date is set</li>
+        <li class="todo">TODO: Confirm vendor fee &amp; table details</li>
+        <li class="todo">TODO: Confirm vendor application URL</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       CAMPAIGNS
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <p class="section-title" id="campaigns-section">&#128099; Campaigns &amp; Tools</p>
+  <div class="cards-grid">
+
+    <div class="card" id="card-shoe-drive">
+      <div class="card-header">
+        <div class="card-icon icon-rose">&#128099;</div>
+        <div><div class="card-title">Shoe Drive Flyer</div><span class="badge badge-ready">Partner Confirmed &mdash; Dates TBD</span></div>
+      </div>
+      <p class="card-desc"><strong style="color:var(--teal);">Shoe Us the Love</strong> &mdash; Twizted Journeys shoe drive powered by <strong>Funds2Orgs</strong>. Collect gently worn, used, and new shoes. Funds2Orgs pays per pound &mdash; no cash needed from donors. Goal: 100 bags (~25 pairs each). Drop-off sites coming soon.</p>
+      <ul class="todo-list">
+        <li>&#10003; Partner: Funds2Orgs (Jim Cundiff &mdash; jim@funds2orgs.com)</li>
+        <li>&#10003; Accepted: gently worn, used, and new shoes</li>
+        <li>&#10003; Assets: <code>images/Bad_Shoes.png</code>, <code>images/Good_Shoes.png</code></li>
+        <li>&#10003; QR target: shoe-drive.html (confirmed)</li>
+        <li class="todo">TODO: Confirm campaign start &amp; end dates</li>
+        <li class="todo">TODO: Confirm drop-off location(s) &amp; address(es)</li>
+      </ul>
+      <button class="card-qr-toggle" onclick="toggleMiniQR(this,'https://www.twiztedjourneys.org/shoe-drive.html')">&#9724; Generate QR (Shoe Drive Page)</button>
+      <div class="card-qr-panel">
+        <input class="mini-qr-url" type="text" value="https://www.twiztedjourneys.org/shoe-drive.html" />
+        <button class="btn btn-teal btn-sm" onclick="generateMiniQR(this)">Generate</button>
+        <div class="mini-qr-output"><div></div><p class="qr-scan-note">Test before printing.</p><button class="btn btn-ghost btn-sm" onclick="downloadMiniQR(this)">&#8595; Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon icon-purple">&#127912;</div>
+        <div><div class="card-title">Promo / Flyer Builder</div><span class="badge badge-waiting">AI-Assisted + Canva</span></div>
+      </div>
+      <p class="card-desc">Use Claude (AI) to generate flyer copy, Facebook posts, and design instructions from rough notes — then build the visual in Canva. A full AI prompt for the Twizted brand is already written and ready to use.</p>
+      <div class="card-actions">
+        <a class="btn btn-primary btn-sm" href="https://www.canva.com/" target="_blank" rel="noopener">Open Canva &#8599;</a>
+        <a class="btn btn-ghost btn-sm" href="https://express.adobe.com/" target="_blank" rel="noopener">Adobe Express &#8599;</a>
+      </div>
+      <p style="font-size:0.77rem; color:var(--muted); margin-top:8px; line-height:1.75;">
+        <strong style="color:var(--white);">Existing assets:</strong><br>
+        <code style="color:var(--cyan);">images/awareness-graphics/what-comes-after-the-pause-promo.png</code><br>
+        <code style="color:var(--cyan);">images/awareness-graphics/what-comes-after-the-pause-promo-2.png</code><br>
+        <code style="color:var(--cyan);">images/flyers/vendor-event-flyer.png</code>
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon icon-cyan">&#127911;</div>
+        <div><div class="card-title">Podcast Platform</div><span class="badge badge-preview">Placeholder</span></div>
+      </div>
+      <p class="card-desc">Podcast guest announcements and episode flyers. Build when Twizted Journeys podcast launch is confirmed.</p>
+      <ul class="todo-list">
+        <li class="todo">TODO: Confirm podcast platform (Spotify, Apple, etc.)</li>
+        <li class="todo">TODO: Confirm episode schedule</li>
+        <li class="todo">TODO: Confirm guest announcement format</li>
+      </ul>
+      <p style="font-size:0.78rem; color:var(--muted); margin-top:4px;">Ask Nate to build podcast flyer generator when ready.</p>
+    </div>
+
+  </div>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       TWIZTED TREASURE
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <p class="section-title" id="tracker-section">&#10024; Twizted Treasure</p>
+  <div class="cards-grid">
+
+    <div class="card charm-card" id="card-tracker">
+      <div class="card-header">
+        <div class="card-icon icon-cyan">&#10024;</div>
+        <div><div class="card-title">Twizted Treasure Tracker</div><span class="badge badge-todo">Deploy Required</span></div>
+      </div>
+      <p class="card-desc">Charm Story System &mdash; track items, stories, and messages tied to the Twizted Treasure line.</p>
+      <div style="font-size:0.83rem; color:var(--muted); line-height:1.8;">
+        <p><strong style="color:var(--white);">&#128279; Featured Item:</strong> Twizted Journeys Semicolon Charm</p>
+        <p><code style="color:var(--cyan); font-size:0.74rem;">images/charm-semicolon-product.png</code></p>
+        <p><code style="color:var(--cyan); font-size:0.74rem;">images/charm-semicolon-detail-1.jpg</code></p>
+      </div>
+      <div class="charm-message">&ldquo;Pause but continue. Tomorrow needs you.&rdquo;</div>
+      <p style="font-size:0.77rem; color:var(--muted); margin-top:4px;">Files complete in TJ_Story_System folder. Needs free Supabase account (database) + free Netlify account (hosting) to go live. See SETUP.md in the folder for step-by-step guide. Ask Nate to deploy or walk through setup.</p>
+      <button class="card-qr-toggle" onclick="toggleMiniQR(this,'https://www.twiztedjourneys.org/twizted-merch')">&#9724; Generate QR (Merch / Charm Page)</button>
+      <div class="card-qr-panel">
+        <input class="mini-qr-url" type="text" value="https://www.twiztedjourneys.org/twizted-merch" />
+        <button class="btn btn-teal btn-sm" onclick="generateMiniQR(this)">Generate</button>
+        <div class="mini-qr-output"><div></div><p class="qr-scan-note">Test before printing.</p><button class="btn btn-ghost btn-sm" onclick="downloadMiniQR(this)">&#8595; Download</button></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- QR Rule -->
+  <div class="qr-reminder">
+    <span class="icon">&#128269;</span>
+    <span><strong style="color:var(--white);">QR Rule:</strong> Test every QR code by scanning with your phone before anything goes to print. Print shops cannot undo a bad QR. Black &amp; white QR codes only &mdash; no colored QR on flyers.</span>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <p>Twizted Tools Hub &mdash; <em>Internal Use Only</em> &mdash; Not public-facing</p>
+  <p style="margin-top:6px; color:rgba(168,180,192,0.55);">Do not push to GitHub without Nate&rsquo;s review. Do not add to public nav.</p>
+  <p style="margin-top:6px;">&#128204; File: <code style="color:var(--muted);">C:\Projects\twiztedjourneys-official\twizted-tools-hub.html</code></p>
+</footer>
+
+<!-- QR library from CDN â€” requires internet -->
+<script>
+var QRCodeLib = null;
+
+function loadQRLib(cb) {
+  if (QRCodeLib) { cb(); return; }
+  var s = document.createElement('script');
+  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+  s.onload = function() { QRCodeLib = window.QRCode; cb(); };
+  s.onerror = function() { alert('QR library failed to load. Check internet connection.\nOffline alternative: https://goqr.me/'); };
+  document.head.appendChild(s);
+}
+
+// Main QR Builder
+function generateQR() {
+  var url = document.getElementById('qr-url').value.trim();
+  var size = parseInt(document.getElementById('qr-size').value, 10);
+  if (!url) { alert('Please enter a URL.'); return; }
+  if (url.indexOf('TODO') !== -1) { alert('Replace the TODO placeholder with a real URL first.'); return; }
+  loadQRLib(function() {
+    var w = document.getElementById('qrcode');
+    w.innerHTML = '';
+    new QRCodeLib(w, { text:url, width:size, height:size, colorDark:'#000', colorLight:'#fff', correctLevel:QRCodeLib.CorrectLevel.H });
+    document.getElementById('dl-btn').style.display = 'inline-block';
+  });
+}
+function downloadQR() {
+  var c = document.querySelector('#qrcode canvas');
+  if (!c) { alert('Generate first.'); return; }
+  var slug = document.getElementById('qr-url').value.trim().replace(/https?:\/\//,'').replace(/[^\w]/g,'-').slice(0,40);
+  var a = document.createElement('a');
+  a.download = 'twizted-qr-' + slug + '.png';
+  a.href = c.toDataURL('image/png');
+  a.click();
+}
+function setPreset(url) {
+  document.getElementById('qr-url').value = url;
+  generateQR();
+}
+document.getElementById('qr-url').addEventListener('keydown', function(e){ if(e.key==='Enter') generateQR(); });
+
+// Mini QR in cards
+function toggleMiniQR(btn, def) {
+  var p = btn.nextElementSibling;
+  p.classList.toggle('open');
+  if (p.classList.contains('open') && def) {
+    var inp = p.querySelector('.mini-qr-url');
+    if (inp && !inp.value) inp.value = def;
+  }
+}
+function generateMiniQR(btn) {
+  var p  = btn.closest('.card-qr-panel');
+  var inp = p.querySelector('.mini-qr-url');
+  var out = p.querySelector('.mini-qr-output');
+  var qd  = out.querySelector('div');
+  var url = inp.value.trim();
+  if (!url || url.indexOf('TODO') !== -1) { alert('Enter a real URL first â€” replace any TODO text.'); return; }
+  loadQRLib(function() {
+    qd.innerHTML = '';
+    new QRCodeLib(qd, { text:url, width:160, height:160, colorDark:'#000', colorLight:'#fff', correctLevel:QRCodeLib.CorrectLevel.H });
+    out.classList.add('show');
+  });
+}
+function downloadMiniQR(btn) {
+  var out = btn.closest('.mini-qr-output');
+  var c = out.querySelector('canvas');
+  if (!c) { alert('Generate first.'); return; }
+  var a = document.createElement('a');
+  a.download = 'twizted-qr-' + Date.now() + '.png';
+  a.href = c.toDataURL('image/png');
+  a.click();
+}
+
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ASK THE HUB â€” keyword router
+// No external API calls. Pure client-side keyword matching.
+// Future: replace routeHub() with a real AI call when ready.
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+function askWith(text) {
+  document.getElementById('hub-input').value = text;
+  runHub();
+}
+
+function runHub() {
+  var raw = document.getElementById('hub-input').value.trim();
+  if (!raw) { alert('Type something first.'); return; }
+  var q = raw.toLowerCase();
+  var resp = routeHub(q, raw);
+  var box  = document.getElementById('hub-response');
+  document.getElementById('hub-response-tag').textContent = resp.tag;
+  document.getElementById('hub-response-body').textContent = resp.body;
+  var acts = document.getElementById('hub-response-actions');
+  acts.innerHTML = '';
+  (resp.actions || []).forEach(function(a) {
+    if (a.scroll) {
+      var btn = document.createElement('button');
+      btn.className = 'btn btn-primary btn-sm';
+      btn.textContent = a.label;
+      btn.onclick = function() { var el = document.getElementById(a.scroll); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); };
+      acts.appendChild(btn);
+    } else if (a.href) {
+      var lnk = document.createElement('a');
+      lnk.className = 'btn btn-teal btn-sm';
+      lnk.textContent = a.label;
+      lnk.href = a.href;
+      lnk.target = '_blank';
+      lnk.rel = 'noopener';
+      acts.appendChild(lnk);
+    } else if (a.copy) {
+      var cb = document.createElement('button');
+      cb.className = 'btn btn-ghost btn-sm';
+      cb.textContent = a.label;
+      var textToCopy = resp.body;
+      cb.onclick = function() {
+        navigator.clipboard.writeText(textToCopy).then(function(){
+          cb.textContent = 'Copied!';
+          setTimeout(function(){ cb.textContent = a.label; }, 2000);
+        }).catch(function(){ alert('Copy failed. Select the text above and copy manually.'); });
+      };
+      acts.appendChild(cb);
+    }
+  });
+  box.classList.add('show');
+}
+
+function routeHub(q, raw) {
+  // â”€â”€ QR codes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  if (contains(q, ['qr code','qr card','generate qr','make a qr','create a qr','qr for the','qr for'])) {
+    var url = '';
+    if (contains(q,['charm','semicolon'])) url = 'https://www.twiztedjourneys.org/twizted-merch';
+    else if (contains(q,['donate','donation'])) url = 'https://www.twiztedjourneys.org/donations-matter';
+    else if (contains(q,['facebook','fb','group'])) url = 'https://www.facebook.com/groups/560290368564902/';
+    else if (contains(q,['shoe drive','shoes'])) url = 'https://www.twiztedjourneys.org/shoe-drive.html';
+    else if (contains(q,['event','events'])) url = 'https://www.twiztedjourneys.org/events.html';
+    if (url) document.getElementById('qr-url').value = url;
+    return {
+      tag: '&#9724; QR Code Builder',
+      body: url
+        ? 'Iâ€™ve pre-loaded the URL for you in the QR Builder above.\nScroll up, hit Generate, then download the PNG.\n\nURL loaded: ' + url
+        : 'Scroll up to the QR Builder. Enter your URL, click Generate, and download the PNG.\n\nRemember: test every QR by scanning it before printing.',
+      actions: [{ label: 'Go to QR Builder â†‘', scroll: 'qr-section' }]
+    };
+  }
+
+  // â”€â”€ September event flyer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  if (contains(q,['september','sept']) && contains(q,['event','flyer','flier'])) {
+    return {
+      tag: '&#128197; September Event Flyer',
+      body: 'September Event Flyer — CONFIRMED
+
+Sept 12, 2026 — Light Up the Night
+Shelby County Fairgrounds, 100 Prairie Ave, Shelbyville IN
+Registration: 11AM | Vendors: $50/day
+RSVP: info@twiztedjourneys.org
+
+QR target: events.html (already set in card below)
+Flyer asset: images/vendor-event-flyer.png',
+      actions: [{ label: 'Go to September Flyer', scroll: 'card-sept-event' }, { label: 'Open Canva', href: 'https://www.canva.com/' }]
+    };
+  }
+
+  // â”€â”€ September vendor flyer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  if (contains(q,['september','sept']) && contains(q,['vendor'])) {
+    return {
+      tag: '&#127978; September Vendor Flyer',
+      body: 'The September Vendor Flyer card is below.\n\nStatus: Ready to Build\nNeeded before building:\nâ€¢ Vendor signup / contact URL (for the QR)\nâ€¢ Vendor fee / table cost\nâ€¢ Event date to put on the flyer',
+      actions: [{ label: 'Go to Vendor Flyer', scroll: 'card-sept-vendor' }, { label: 'Open Canva', href: 'https://www.canva.com/' }]
+    };
+  }
+
+  // â”€â”€ November event flyer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  if (contains(q,['november','nov']) && contains(q,['event','flyer','flier']) && !contains(q,['vendor'])) {
+    return {
+      tag: '&#128197; November Event Flyer',
+      body: 'The November Event Flyer card is below.\n\nStatus: Needs Final Details\nCannot build until Tonya confirms:\nâ€¢ Event date &amp; time\nâ€¢ Venue / location\nâ€¢ Event theme or name\nâ€¢ Registration link for QR code',
+      actions: [{ label: 'Go to November Flyer', scroll: 'card-nov-event' }]
+    };
+  }
+
+  // â”€â”€ November vendor flyer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  if (contains(q,['november','nov']) && contains(q,['vendor'])) {
+    return {
+      tag: '&#127978; November Vendor Flyer',
+      body: 'The November Vendor Flyer card is below.\n\nStatus: Needs Final Details â€” waiting on November event confirmation.',
+      actions: [{ label: 'Go to November Vendor Flyer', scroll: 'card-nov-vendor' }]
+    };
+  }
+
+  // â”€â”€ Shoe Drive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  if (contains(q,['shoe drive','shoe','shoes'])) {
+    return {
+      tag: '&#128099; Shoe Drive',
+      body: 'The Shoe Drive card is below.\n\nStatus: Waiting on Details\nNeeded before building the flyer:\nâ€¢ Campaign dates\nâ€¢ Drop-off location(s)\nâ€¢ Accepted shoe types\nâ€¢ Final QR target (donate page or info page)\n\nImages are already in the project: Bad_Shoes.png and Good_Shoes.png.',
+      actions: [{ label: 'Go to Shoe Drive Card', scroll: 'card-shoe-drive' }]
+    };
+  }
+
+  // â”€â”€ Facebook / social post â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  if (contains(q,['facebook post','fb post','social post','social media post','facebook']) && contains(q,['shoe drive','shoes'])) {
+    return {
+      tag: '&#128241; Social Post â€” Shoe Drive',
+      body: '&#128242; STARTER DRAFT (edit before posting):\n\nðŸ‘Ÿ Itâ€™s Shoe Drive time with Twizted Journeys! ðŸ‘Ÿ\n\nWeâ€™re collecting gently used shoes to help our community keep moving forward.\n\nðŸ“ Drop-off location: [TODO â€” add location]\nðŸ—“ Dates: [TODO â€” add dates]\nðŸ‘Ÿ Accepted: gently worn shoes of all sizes\n\nScan the QR code on the flyer or visit the link below to learn more.\nðŸ”— twiztedjourneys.org/shoe-drive.html\n\n#TwiztedJourneys #ShoeDrive #CommunityLove #PauseButContinue',
+      actions: [{ label: 'Copy Post Text', copy: true }]
+    };
+  }
+
+  if (contains(q,['facebook post','fb post','social post','make a post','write a post'])) {
+    var topic = contains(q,['event']) ? 'Event' : contains(q,['vendor']) ? 'Vendor Event' : contains(q,['donate','donation']) ? 'Donation Drive' : 'Twizted Journeys';
+    return {
+      tag: '&#128241; Social Post â€” ' + topic,
+      body: '&#128242; STARTER DRAFT (edit before posting):\n\n&#10024; Twizted Journeys â€” ' + topic + ' &#10024;\n\n[TODO â€” add event or campaign details here]\n\nJoin us as we come together, support each other, and keep moving forward.\n\nLearn more: twiztedjourneys.org\nGroup: facebook.com/groups/560290368564902/\n\n#TwiztedJourneys #PauseButContinue #Community',
+      actions: [{ label: 'Copy Post Text', copy: true }, { label: 'Open Facebook Group', href: 'https://www.facebook.com/groups/560290368564902/' }]
+    };
+  }
+
+  // â”€â”€ Donor update â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  if (contains(q,['donor update','donation update','donor','write a donor','update for tonight'])) {
+    return {
+      tag: '&#128156; Donor Update',
+      body: '&#128202; DONOR UPDATE DRAFT (edit before sending):\n\nSubject: A quick update from Twizted Journeys â€” Thank You\n\nHi [Donor Name],\n\nThank you so much for your continued support of Twizted Journeys.\n\nYour generosity helps us show up for our community every single day. Because of you, we can [TODO â€” add recent impact or event].\n\nWeâ€™re currently [TODO â€” add whatâ€™s happening right now or next steps].\n\nIf youâ€™d like to give again or share our mission with someone who needs it:\nðŸ”— twiztedjourneys.org/donations-matter\n\nPause but continue. Tomorrow needs you.\n\nWith gratitude,\nTonya &amp; the Twizted Journeys team',
+      actions: [{ label: 'Copy Donor Update', copy: true }, { label: 'Open Donate Page', href: 'https://www.twiztedjourneys.org/donations-matter' }]
+    };
+  }
+
+  // â”€â”€ Charm / tracker â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  if (contains(q,['charm','semicolon','tracker','story tracker','twizted treasure','treasure'])) {
+    return {
+      tag: '&#10024; Twizted Treasure Tracker',
+      body: 'The Twizted Treasure Tracker card is below.\n\nFeatured item: Twizted Journeys Semicolon Charm\nMessage: "Pause but continue. Tomorrow needs you."\n\nFull tracker system (TJ_Story_System) is not yet deployed locally.\nAsk Nate to set it up before building further.',
+      actions: [{ label: 'Go to Tracker Card', scroll: 'card-tracker' }]
+    };
+  }
+
+  // â”€â”€ Podcast â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  if (contains(q,['podcast','guest announcement','episode'])) {
+    return {
+      tag: '&#127911; Podcast',
+      body: '&#128242; PODCAST GUEST ANNOUNCEMENT DRAFT:\n\nðŸŽ¤ New Episode â€” Twizted Journeys Podcast\n\nWeâ€™re thrilled to announce our next guest: [TODO â€” Guest Name]\n\n[TODO â€” brief guest bio or topic]\n\nThis conversation is going to move you. Pause but continue.\nðŸŽ§ Listen on [TODO â€” Spotify / Apple Podcasts / link]\n\n#TwiztedJourneys #Podcast #PauseButContinue',
+      actions: [{ label: 'Copy Announcement', copy: true }]
+    };
+  }
+
+  // â”€â”€ "What tools are ready" â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  if (contains(q,['what tools','tools ready','whatâ€™s ready','whats ready','ready to use','what can i','what can you'])) {
+    return {
+      tag: '&#9989; Tool Status',
+      body: 'TOOLS READY TO USE RIGHT NOW:\nâœ… QR Code Builder â€” type any URL, generate, download\nâœ… Website Preview â€” live link to twiztedjourneys.org\nâœ… Donate Page â€” live\nâœ… Facebook Group â€” live\nâœ… September Event Flyer â€” ready to build (needs Tonya dates)\nâœ… September Vendor Flyer â€” ready to build (needs signup URL)\n\nTOOLS WAITING ON DETAILS:\nâ³ November Event Flyer â€” needs confirmed date, venue, RSVP link\nâ³ November Vendor Flyer â€” needs November event confirmed\nâ³ Shoe Drive Flyer â€” needs campaign dates &amp; drop-off locations\n\nPLACEHOLDERS (not yet built):\nðŸ”§ Twizted Treasure Tracker â€” ask Nate to deploy TJ_Story_System\nðŸ”§ Podcast Platform â€” confirm podcast launch details first',
+      actions: [{ label: 'Go to QR Builder', scroll: 'qr-section' }]
+    };
+  }
+
+  // â”€â”€ Fallback â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  return {
+    tag: '&#129302; Hub Response',
+    body: 'I didnâ€™t recognize that exact request, but hereâ€™s what I can help with:\n\nâ€¢ Generate a QR code for any URL\nâ€¢ Route you to the right flyer card (September / November / Shoe Drive)\nâ€¢ Generate a starter Facebook post or social post\nâ€¢ Generate a donor update draft\nâ€¢ Generate a podcast guest announcement draft\nâ€¢ Show which tools are ready to use\n\nTry one of the example prompts above, or rephrase your request.',
+    actions: []
+  };
+}
+
+function contains(str, terms) {
+  return terms.some(function(t){ return str.indexOf(t) !== -1; });
+}
+
+// Allow Enter key in hub input
+document.getElementById('hub-input').addEventListener('keydown', function(e){ if(e.key==='Enter') runHub(); });
+</script>
+
+</body>
+</html>
