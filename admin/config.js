@@ -14,8 +14,8 @@
  */
 
 const TJ_CONFIG = {
-  supabaseUrl:     'SUPABASE_URL_HERE',
-  supabaseAnonKey: 'SUPABASE_ANON_KEY_HERE'
+  supabaseUrl:     'https://ypzmckccroiffhtoofgr.supabase.co',
+  supabaseAnonKey: 'sb_publishable_q2u4RkabDzM3kQxs1jDprQ_UYr1hONz'
 };
 
 window.TJ_CONFIG = TJ_CONFIG;
