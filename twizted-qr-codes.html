@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Twizted Journeys QR Codes — Scan to visit our website, donate, shop, join the community, find events, and share your journey." />
+  <title>QR Codes &amp; Quick Links — Twizted Journeys</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ── QR Codes page styles ───────────────────────────────────── */
+
+    .qr-hero {
+      background: linear-gradient(160deg, #0d0015 0%, var(--midnight) 55%, #080820 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 64px 0 48px;
+      text-align: center;
+    }
+
+    .qr-hero h1 {
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .qr-hero h1 em {
+      font-style: normal;
+      color: var(--teal);
+    }
+
+    .qr-hero .qr-tagline {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 20px;
+      line-height: 1.6;
+    }
+
+    /* Notice banner for Facebook Page placeholder */
+    .qr-notice {
+      background: rgba(138,43,239,0.12);
+      border: 1px solid rgba(138,43,239,0.35);
+      border-radius: 10px;
+      padding: 14px 20px;
+      margin: 0 auto 48px;
+      max-width: 680px;
+      font-size: 0.92rem;
+      color: var(--muted);
+      text-align: left;
+    }
+
+    .qr-notice strong { color: var(--purple); }
+
+    /* Grid */
+    .qr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+      margin-top: 12px;
+    }
+
+    /* QR Card */
+    .qr-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .qr-card:hover {
+      border-color: rgba(138,43,239,0.55);
+      transform: translateY(-2px);
+    }
+
+    .qr-card.needs-url {
+      border-color: rgba(255,200,0,0.3);
+      background: rgba(26,26,40,0.6);
+    }
+
+    .qr-img-wrap {
+      width: 180px;
+      height: 180px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      padding: 8px;
+    }
+
+    .qr-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .qr-placeholder-img {
+      width: 164px;
+      height: 164px;
+      border: 2px dashed rgba(255,200,0,0.5);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      color: rgba(255,200,0,0.7);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-align: center;
+      padding: 12px;
+    }
+
+    .qr-placeholder-img .ph-icon { font-size: 1.8rem; }
+
+    .qr-card-label {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .qr-card-dest {
+      font-size: 0.82rem;
+      color: var(--teal);
+      word-break: break-all;
+      margin-bottom: 10px;
+      opacity: 0.85;
+    }
+
+    .qr-card-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+
+    .qr-url-badge {
+      display: inline-block;
+      background: rgba(255,200,0,0.12);
+      border: 1px solid rgba(255,200,0,0.35);
+      color: rgba(255,200,0,0.85);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .qr-card-cta {
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--muted);
+      opacity: 0.75;
+      margin-top: auto;
+    }
+
+    /* Print button */
+    .qr-print-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin: 48px 0 16px;
+      padding: 20px;
+      background: rgba(86,224,210,0.07);
+      border: 1px solid rgba(86,224,210,0.2);
+      border-radius: 12px;
+    }
+
+    .qr-print-bar p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    /* Print styles */
+    @media print {
+      .site-nav, .crisis-bar, .site-footer, .qr-print-bar, .qr-hero .btn { display: none !important; }
+      .qr-hero { background: #fff; color: #000; padding: 20px 0; }
+      .qr-hero h1 { color: #1a0033; font-size: 1.4rem; }
+      .qr-hero .qr-tagline { color: #444; font-size: 0.9rem; }
+      .qr-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+      .qr-card { background: #fff; border: 1px solid #ccc; page-break-inside: avoid; }
+      .qr-card-label { color: #1a0033; }
+      .qr-card-dest { color: #555; }
+      .qr-card-desc { color: #444; }
+      .qr-img-wrap { width: 140px; height: 140px; }
+      body { background: #fff; }
+      .section { padding: 12px 0; }
+    }
+
+    @media (max-width: 640px) {
+      .qr-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .qr-img-wrap { width: 140px; height: 140px; }
+      .qr-card { padding: 18px 14px; }
+    }
+
+    @media (max-width: 400px) {
+      .qr-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Crisis Bar -->
+  <div class="crisis-bar" role="banner" aria-label="Crisis resources">
+    <span>If you are in crisis: </span>
+    <a href="https://988lifeline.org" target="_blank" rel="noopener" class="crisis-link">Call or text <strong>988</strong></a>
+    <span class="crisis-sep">·</span>
+    <a href="https://crisistextline.org" target="_blank" rel="noopener" class="crisis-link">Text <strong>HOME to 741741</strong></a>
+    <span class="crisis-sep">·</span>
+    <span>Emergency: <strong>911</strong></span>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo" aria-label="Twizted Journeys home">
+          <img src="images/web-optimized/twizted-journeys-banner.jpg" alt="Twizted Journeys logo" style="height:44px;width:auto;border-radius:6px;" />
+          <span class="nav-logo-text">Tw<span class="semicolon-accent">;</span>zted Journeys</span>
+        </a>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">&#9776;</button>
+        <ul class="nav-links" id="nav-links" role="list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="merch.html">Merch</a></li>
+          <li><a href="stories.html">Share Your Story</a></li>
+          <li><a href="memorial.html">Memorial</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="podcast.html">Podcast</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="twizted-qr-codes.html" class="active">QR Codes</a></li>
+          <li><a href="https://www.twiztedjourneys.org/donations-matter" class="btn btn-primary nav-donate" target="_blank" rel="noopener">Donate</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="qr-hero" aria-label="QR Codes page hero">
+    <div class="container">
+      <p class="section-label">Scan &middot; Share &middot; Connect</p>
+      <h1>QR Codes &amp; <em>Quick Links</em></h1>
+      <p class="qr-tagline">Every QR code below is ready to scan. Use them on flyers, table signs, merchandise inserts, or event materials to connect people to Twizted Journeys.</p>
+      <button class="btn btn-secondary" onclick="window.print()" style="margin-top:4px;">&#128438; Print This Page</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="section" aria-label="QR code grid">
+      <div class="container">
+
+
+        <div class="qr-grid">
+
+          <!-- 1. Website -->
+          <div class="qr-card">
+            <div class="qr-img-wrap">
+              <img src="public/assets/qr/website-qr-2026.png" alt="QR code — Twizted Journeys website" loading="lazy" />
+            </div>
+            <div class="qr-card-label">&#127760; Our Website</div>
+            <div class="qr-card-dest">twiztedjourneys.org</div>
+            <p class="qr-card-desc">The main Twizted Journeys website — events, stories, merch, resources, and more.</p>
+            <a href="https://www.twiztedjourneys.org/" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size:0.82rem;padding:8px 16px;">Open Link</a>
+            <p class="qr-card-cta">Label as: "Visit Our Website"</p>
+          </div>
+
+          <!-- 2. Facebook Group -->
+          <div class="qr-card">
+            <div class="qr-img-wrap">
+              <img src="public/assets/qr/facebook-group-qr-2026.png" alt="QR code — Facebook Community Group" loading="lazy" />
+            </div>
+            <div class="qr-card-label">&#128101; Facebook Community</div>
+            <div class="qr-card-dest">facebook.com/groups/560290368564902</div>
+            <p class="qr-card-desc">Join the private Twizted Journeys community group on Facebook.</p>
+            <a href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size:0.82rem;padding:8px 16px;">Open Link</a>
+            <p class="qr-card-cta">Label as: "Join Our Facebook Group"</p>
+          </div>
+
+          <!-- 3. Facebook Page -->
+          <div class="qr-card">
+            <div class="qr-img-wrap">
+              <img src="public/assets/qr/facebook-page-qr-2026.png" alt="QR code — Twizted Journeys Facebook Page" loading="lazy" />
+            </div>
+            <div class="qr-card-label">&#128273; Facebook Page</div>
+            <div class="qr-card-dest">facebook.com/twiztedjourneys</div>
+            <p class="qr-card-desc">Follow the Twizted Journeys Facebook Page for updates, events, and community posts.</p>
+            <a href="https://www.facebook.com/twiztedjourneys" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size:0.82rem;padding:8px 16px;">Open Link</a>
+            <p class="qr-card-cta">Label as: "Follow Us on Facebook"</p>
+          </div>
+
+          <!-- 4. Donate -->
+          <div class="qr-card">
+            <div class="qr-img-wrap">
+              <img src="public/assets/qr/donate-qr-2026.png" alt="QR code — Donate to Twizted Journeys" loading="lazy" />
+            </div>
+            <div class="qr-card-label">&#10084; Donate</div>
+            <div class="qr-card-dest">twiztedjourneys.org/donations-matter</div>
+            <p class="qr-card-desc">Support Twizted Journeys. 501(c)(3) — donations are tax-deductible as allowed by law.</p>
+            <a href="https://www.twiztedjourneys.org/donations-matter" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:0.82rem;padding:8px 16px;">Open Link</a>
+            <p class="qr-card-cta">Label as: "Donate — Tax Deductible"</p>
+          </div>
+
+          <!-- 5. Events / Registration -->
+          <div class="qr-card">
+            <div class="qr-img-wrap">
+              <img src="public/assets/qr/events-qr-2026.png" alt="QR code — Events and registration" loading="lazy" />
+            </div>
+            <div class="qr-card-label">&#128197; Events &amp; Registration</div>
+            <div class="qr-card-dest">tonyarcrump-del.github.io/twiztedjourneys/events.html</div>
+            <p class="qr-card-desc">See upcoming events, RSVP for rides and walks, and sign up as a vendor. Sept 12 &amp; 13, 2026 — Light Up the Night.</p>
+            <a href="https://tonyarcrump-del.github.io/twiztedjourneys/events.html" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size:0.82rem;padding:8px 16px;">Open Link</a>
+            <p class="qr-card-cta">Label as: "Event Info &amp; RSVP"</p>
+          </div>
+
+          <!-- 6. Shop / Merch -->
+          <div class="qr-card">
+            <div class="qr-img-wrap">
+              <img src="public/assets/qr/merch-qr-2026.png" alt="QR code — Shop merch" loading="lazy" />
+            </div>
+            <div class="qr-card-label">&#128722; Shop &amp; Merch</div>
+            <div class="qr-card-dest">twiztedjourneys.org/twizted-merch</div>
+            <p class="qr-card-desc">Semicolon charms, awareness items, and handmade merchandise. Every purchase supports the mission.</p>
+            <a href="https://www.twiztedjourneys.org/twizted-merch" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size:0.82rem;padding:8px 16px;">Open Link</a>
+            <p class="qr-card-cta">Label as: "Shop Twizted Merch"</p>
+          </div>
+
+          <!-- 7. Memorial -->
+          <div class="qr-card">
+            <div class="qr-img-wrap">
+              <img src="public/assets/qr/memorial-qr-2026.png" alt="QR code — Memorial wall" loading="lazy" />
+            </div>
+            <div class="qr-card-label">&#129419; Memorial Wall</div>
+            <div class="qr-card-dest">twiztedjourneys.org/memorial-page</div>
+            <p class="qr-card-desc">Honor those we've lost. The memorial wall keeps their story going as a way to carry them forward.</p>
+            <a href="https://www.twiztedjourneys.org/memorial-page" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size:0.82rem;padding:8px 16px;">Open Link</a>
+            <p class="qr-card-cta">Label as: "Remember &amp; Honor"</p>
+          </div>
+
+          <!-- 8. Share Your Journey / Twizted Treasures -->
+          <div class="qr-card">
+            <div class="qr-img-wrap">
+              <img src="public/assets/qr/journey-qr-2026.png" alt="QR code — Share your journey / Twizted Treasures" loading="lazy" />
+            </div>
+            <div class="qr-card-label">&#10024; Share Your Journey</div>
+            <div class="qr-card-dest">twizted-treasures.html</div>
+            <p class="qr-card-desc">Got a Twizted Treasure charm? Scan to continue its journey — share where it went and who it honors.</p>
+            <a href="twizted-treasures.html" class="btn btn-secondary" style="font-size:0.82rem;padding:8px 16px;">Open Link</a>
+            <p class="qr-card-cta">Label as: "Track a Twizted Treasure"</p>
+          </div>
+
+        </div><!-- /.qr-grid -->
+
+        <!-- Print bar -->
+        <div class="qr-print-bar" aria-label="Print instructions">
+          <p>&#128438; To print QR codes for flyers and table signs, use your browser's <strong>Print</strong> function (Ctrl+P / Cmd+P) or click the button below. QR codes print cleanly in black and white.</p>
+          <button class="btn btn-secondary" onclick="window.print()">&#128438; Print QR Sheet</button>
+        </div>
+
+        <!-- Connected routes note -->
+        <div style="margin:40px auto 0;max-width:720px;background:rgba(86,224,210,0.06);border:1px solid rgba(86,224,210,0.18);border-radius:12px;padding:24px 28px;">
+          <h2 style="font-size:1.05rem;color:var(--teal);font-weight:700;margin-bottom:10px;">&#128279; Connected Pages &amp; Routes</h2>
+          <p style="font-size:0.9rem;color:var(--muted);line-height:1.65;margin-bottom:14px;">This QR hub is connected to the full Twizted Journeys site. It appears in the main navigation, site footer, and homepage quick-links section. Use it as the central reference for all print and digital QR materials.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;font-size:0.85rem;color:var(--muted);">
+            <div>&#9989; Website — <span style="color:var(--teal);">Live URL confirmed</span></div>
+            <div>&#9989; Facebook Group — <span style="color:var(--teal);">URL confirmed</span></div>
+            <div>&#9989; Facebook Page — <span style="color:var(--teal);">Live URL confirmed</span></div>
+            <div>&#9989; Donate Page — <span style="color:var(--teal);">Live URL confirmed</span></div>
+            <div>&#9989; Events — <span style="color:var(--teal);">GitHub preview (update when live)</span></div>
+            <div>&#9989; Shop/Merch — <span style="color:var(--teal);">Live URL confirmed</span></div>
+            <div>&#9989; Memorial — <span style="color:var(--teal);">Live URL confirmed</span></div>
+            <div>&#9989; Twizted Treasures — <span style="color:var(--teal);">Local page (update when deployed)</span></div>
+          </div>
+          <p style="font-size:0.82rem;color:var(--muted);margin-top:16px;opacity:0.7;">Two URLs use the GitHub Pages preview while the live site cleanup is in progress. Once the full site is deployed, update those two QR codes in <code>public/assets/qr/</code> and regenerate using the Node.js QR builder at <code>localhost:4177</code>.</p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- 988 Crisis Section -->
+  <section class="crisis-section" aria-label="Crisis resources">
+    <div class="container">
+      <div class="crisis-card" style="text-align:center;">
+        <h2>In crisis? You don't have to face it alone.</h2>
+        <p>Call or text <strong>988</strong> — Suicide &amp; Crisis Lifeline, available 24/7. Text HOME to <strong>741741</strong> — Crisis Text Line. Emergency: <strong>911</strong>.</p>
+        <a href="https://988lifeline.org" class="btn btn-primary" target="_blank" rel="noopener">988 Lifeline</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h2>Tw<span>;</span>zted Journeys</h2>
+          <p>A safe place for every journey. Indiana nonprofit serving Shelby, Johnson, Bartholomew, Hancock, Decatur, and Rush counties.</p>
+          <p style="margin-top:10px;"><a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
+        </div>
+        <div class="footer-col">
+          <h3>Navigate</h3>
+          <ul>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="stories.html">Share Your Story</a></li>
+            <li><a href="memorial.html">Memorial</a></li>
+            <li><a href="podcast.html">Podcast</a></li>
+            <li><a href="merch.html">Shop</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="twizted-qr-codes.html">QR Codes &amp; Links</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="https://988lifeline.org" target="_blank" rel="noopener">988 Crisis Lifeline</a></li>
+            <li><a href="https://crisistextline.org" target="_blank" rel="noopener">Crisis Text Line</a></li>
+            <li><a href="https://afsp.org" target="_blank" rel="noopener">AFSP</a></li>
+            <li><a href="https://nami.org" target="_blank" rel="noopener">NAMI</a></li>
+            <li><a href="https://overdoselifeline.org" target="_blank" rel="noopener">Overdose Lifeline</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Connect</h3>
+          <div class="social-links">
+            <a class="social-link" href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Join the Facebook Group</a>
+            <a class="social-link" href="twizted-qr-codes.html" style="margin-top:8px;display:block;">QR Codes &amp; Print Links</a>
+            <a class="social-link" href="twizted-treasures.html" style="margin-top:8px;display:block;">Track a Twizted Treasure</a>
+          </div>
+        </div>
+      </div>
+      <p class="footer-disclaimer">
+        Twizted Journeys, Inc. is a 501(c)(3) public charity. Donations are tax-deductible as allowed by law.
+        We are not a crisis hotline, counseling service, therapy provider, medical provider, or emergency response service.
+        If you are in crisis, please call 911 or contact the 988 Suicide &amp; Crisis Lifeline.
+      </p>
+      <div class="footer-bottom">
+        <p>&copy; 2022&ndash;2026 Twizted Journeys, Inc. All rights reserved. &middot; 501(c)(3) nonprofit</p>
+        <p>Founders: Tonya Crump &amp; Tia Weaver &nbsp;|&nbsp; <a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav(btn) {
+      const links = document.getElementById('nav-links');
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', !expanded);
+      links.classList.toggle('nav-open', !expanded);
+    }
+  </script>
+
+</body>
+</html>
