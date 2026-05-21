@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flyer Builder — TJ Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="admin.css" />
+  <style>
+    /* ── Flyer Builder Layout ─────────────────────────────── */
+    .flyer-builder-wrap {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 24px;
+      align-items: start;
+      padding: 24px 30px;
+      flex: 1;
+    }
+
+    /* Controls panel */
+    .controls-panel {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      overflow: hidden;
+      position: sticky;
+      top: 70px;
+    }
+    .controls-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--card-border);
+      background: linear-gradient(135deg, rgba(138,43,239,0.08) 0%, transparent 100%);
+    }
+    .controls-header h2 {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+    .controls-header p {
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+    .controls-body { padding: 18px 20px; }
+    .controls-body .field { margin-bottom: 14px; }
+    .controls-body .field:last-child { margin-bottom: 0; }
+
+    /* Template selector */
+    .template-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .template-btn {
+      background: rgba(8,8,18,0.6);
+      border: 2px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+      font-family: inherit;
+      color: var(--muted);
+    }
+    .template-btn:hover { border-color: rgba(138,43,239,0.5); color: var(--white); }
+    .template-btn.active {
+      border-color: var(--purple);
+      background: var(--purple-dim);
+      color: var(--white);
+    }
+    .template-btn .t-icon { font-size: 1.4rem; display: block; margin-bottom: 5px; }
+    .template-btn .t-name { font-size: 0.74rem; font-weight: 700; display: block; }
+
+    /* Color scheme row */
+    .scheme-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+    .scheme-dot {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .scheme-dot.active { border-color: var(--white); transform: scale(1.15); }
+
+    /* Section label inside controls */
+    .ctrl-section {
+      font-size: 0.63rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 20px 0 10px;
+    }
+
+    /* Export buttons */
+    .export-buttons {
+      padding: 16px 20px;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Preview panel */
+    .preview-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .preview-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      align-self: flex-start;
+    }
+    .flyer-stage {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(30,30,56,0.3) 0px,
+        rgba(30,30,56,0.3) 10px,
+        transparent 10px,
+        transparent 20px
+      );
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    /* The actual printable flyer — 8.5×11 at 96dpi = 816×1056 */
+    #flyer-output {
+      width: 816px;
+      min-height: 1056px;
+      background: #0B0B1A;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.7);
+      flex-shrink: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    /* Scale flyer to fit screen */
+    .flyer-scaler {
+      transform-origin: top center;
+    }
+
+    /* ── FLYER INTERNAL STYLES ───────────────────────────── */
+
+    /* Shared flyer structure */
+    .fl-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .fl-content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Watermark semicolon */
+    .fl-watermark {
+      position: absolute;
+      font-size: 600px;
+      font-weight: 900;
+      line-height: 1;
+      opacity: 0.04;
+      right: -80px;
+      top: 50px;
+      color: #fff;
+      pointer-events: none;
+      z-index: 0;
+      letter-spacing: -0.1em;
+    }
+
+    /* Event template */
+    .fl-event-header {
+      padding: 44px 54px 36px;
+      position: relative;
+    }
+    .fl-org-name {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 6px;
+    }
+    .fl-org-name span { color: var(--fl-accent, #56E0D2); }
+    .fl-divider-line {
+      height: 1px;
+      background: linear-gradient(90deg, var(--fl-accent, #56E0D2), transparent);
+      margin: 12px 0 20px;
+      opacity: 0.4;
+    }
+    .fl-presents {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+    }
+    .fl-event-title {
+      font-size: 58px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .fl-event-subtitle {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--fl-accent, #56E0D2);
+      line-height: 1.4;
+      margin-bottom: 0;
+    }
+
+    /* Info blocks row */
+    .fl-info-row {
+      display: flex;
+      gap: 0;
+      margin: 0 54px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .fl-info-block {
+      flex: 1;
+      padding: 18px 22px;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .fl-info-block:last-child { border-right: none; }
+    .fl-info-icon {
+      font-size: 18px;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .fl-info-label {
+      font-size: 8.5px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--fl-accent, #56E0D2);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .fl-info-value {
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.25;
+    }
+
+    /* Body section */
+    .fl-body {
+      padding: 28px 54px;
+      flex: 1;
+    }
+    .fl-section-title {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fl-accent, #56E0D2);
+      margin-bottom: 10px;
+    }
+    .fl-description {
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    /* RSVP box */
+    .fl-rsvp-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-left: 3px solid var(--fl-accent, #56E0D2);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 18px;
+    }
+    .fl-rsvp-label {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fl-accent, #56E0D2);
+      margin-bottom: 5px;
+    }
+    .fl-rsvp-value {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* Footer bar */
+    .fl-footer {
+      padding: 18px 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      background: rgba(0,0,0,0.2);
+    }
+    .fl-footer-brand {
+      font-size: 16px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+    .fl-footer-brand span { color: var(--fl-accent, #56E0D2); }
+    .fl-footer-crisis {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+      text-align: right;
+      line-height: 1.5;
+    }
+    .fl-footer-crisis strong {
+      display: block;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    /* ── Shop / Promo template ──────────────────────────── */
+    .fl-shop-header {
+      padding: 50px 54px 30px;
+    }
+    .fl-shop-tag {
+      display: inline-block;
+      background: var(--fl-accent, #56E0D2);
+      color: #050510;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .fl-shop-title {
+      font-size: 62px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .fl-shop-tagline {
+      font-size: 18px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.4;
+    }
+    .fl-shop-price-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin: 30px 54px;
+    }
+    .fl-price-badge {
+      background: var(--fl-accent, #56E0D2);
+      color: #050510;
+      font-size: 34px;
+      font-weight: 900;
+      padding: 14px 28px;
+      border-radius: 12px;
+      line-height: 1;
+    }
+    .fl-price-detail {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+    }
+    .fl-shop-body {
+      padding: 0 54px 24px;
+      flex: 1;
+    }
+    .fl-shop-desc {
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+    .fl-shop-url-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .fl-shop-url-icon { font-size: 20px; }
+    .fl-shop-url-label {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--fl-accent, #56E0D2);
+    }
+    .fl-shop-url-value {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* Accent gradient overlay (top) */
+    .fl-gradient-top {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 420px;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .fl-accent-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+    }
+
+    /* ── Print styles ─────────────────────────────────────── */
+    @media print {
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      body * { visibility: hidden; }
+      #flyer-output, #flyer-output * { visibility: visible; }
+      #flyer-output {
+        position: fixed !important;
+        top: 0 !important; left: 0 !important;
+        width: 8.5in !important;
+        height: 11in !important;
+        transform: none !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        z-index: 99999 !important;
+      }
+      .flyer-scaler { transform: none !important; }
+    }
+
+    /* Responsive preview scale */
+    @media (max-width: 1400px) {
+      .flyer-scaler { transform: scale(0.75); transform-origin: top center; }
+      .flyer-stage { min-height: calc(1056px * 0.75 + 48px); }
+    }
+    @media (max-width: 1200px) {
+      .flyer-scaler { transform: scale(0.62); transform-origin: top center; }
+      .flyer-stage { min-height: calc(1056px * 0.62 + 48px); }
+    }
+    @media (max-width: 1000px) {
+      .flyer-builder-wrap { grid-template-columns: 1fr; }
+      .flyer-scaler { transform: scale(0.5); transform-origin: top center; }
+      .flyer-stage { min-height: calc(1056px * 0.5 + 48px); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="tj-toast"></div>
+
+<div class="admin-shell">
+
+  <!-- ── Sidebar ─────────────────────────────────────────── -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-glyph">;</div>
+      <div>
+        <div class="wordmark">Tw<span>;</span>zted</div>
+        <div class="subtitle">Admin Panel</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Main</div>
+      <a href="dashboard.html" class="nav-link">
+        <span class="nav-icon">🏠</span> Dashboard
+      </a>
+      <a href="content.html" class="nav-link">
+        <span class="nav-icon">✏️</span> Edit Site Content
+      </a>
+      <div class="nav-section">Data</div>
+      <a href="submissions.html" class="nav-link">
+        <span class="nav-icon">📋</span> Submissions
+      </a>
+      <a href="registrations.html" class="nav-link">
+        <span class="nav-icon">📅</span> Event RSVPs
+      </a>
+      <a href="shop.html" class="nav-link">
+        <span class="nav-icon">🛍️</span> Shop / Inventory
+      </a>
+      <a href="media.html" class="nav-link">
+        <span class="nav-icon">🖼️</span> Media Library
+      </a>
+      <a href="qr-codes.html" class="nav-link">
+        <span class="nav-icon">📱</span> QR Codes
+      </a>
+      <a href="flyer-builder.html" class="nav-link active">
+        <span class="nav-icon">🎨</span> Flyer Builder
+      </a>
+      <div class="nav-section">Public Pages</div>
+      <a href="../charm-journey.html" target="_blank" class="nav-link">
+        <span class="nav-icon nav-semicolon">;</span> Charm Journey
+      </a>
+      <a href="../podcast.html" target="_blank" class="nav-link">
+        <span class="nav-icon">🎙️</span> Hope Signal
+      </a>
+      <a href="../index.html" target="_blank" class="nav-link">
+        <span class="nav-icon">🌐</span> View Full Site
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info" id="user-email">Loading…</div>
+      <button class="btn-signout" onclick="signOut()">Sign Out</button>
+      <div class="sidebar-version">Twizted Journeys · Admin v2</div>
+    </div>
+  </aside>
+
+  <!-- ── Main ───────────────────────────────────────────── -->
+  <main class="admin-main">
+
+    <div class="admin-topbar">
+      <div>
+        <div class="topbar-title">🎨 Flyer Builder</div>
+        <div class="topbar-sub">Design print-ready flyers for events and promotions</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost btn-sm" onclick="resetForm()">↺ Reset</button>
+        <button class="btn btn-teal btn-sm" onclick="printFlyer()">🖨️ Print / PDF</button>
+        <button class="btn btn-primary btn-sm" onclick="downloadPNG()">📥 Download PNG</button>
+      </div>
+    </div>
+
+    <div class="flyer-builder-wrap">
+
+      <!-- ── Controls ──────────────────────────────────── -->
+      <div class="controls-panel">
+        <div class="controls-header">
+          <h2>Flyer Settings</h2>
+          <p>Fill in the fields — preview updates live</p>
+        </div>
+        <div class="controls-body">
+
+          <!-- Template picker -->
+          <div class="ctrl-section">Template</div>
+          <div class="template-grid">
+            <button class="template-btn active" onclick="setTemplate('event')" id="tpl-event">
+              <span class="t-icon">🎪</span>
+              <span class="t-name">Event / Ride</span>
+            </button>
+            <button class="template-btn" onclick="setTemplate('shop')" id="tpl-shop">
+              <span class="t-icon">🛍️</span>
+              <span class="t-name">Shop / Promo</span>
+            </button>
+          </div>
+
+          <!-- Color scheme -->
+          <div class="ctrl-section">Color Scheme</div>
+          <div class="scheme-row" style="margin-bottom:18px;">
+            <div class="scheme-dot active" style="background:linear-gradient(135deg,#8A2BEF,#56E0D2);" title="Purple + Teal (default)" onclick="setScheme('purple-teal',this)"></div>
+            <div class="scheme-dot" style="background:linear-gradient(135deg,#1a0a40,#9EF3F7);" title="Deep Navy + Cyan" onclick="setScheme('navy-cyan',this)"></div>
+            <div class="scheme-dot" style="background:linear-gradient(135deg,#0d2b1a,#56E0D2);" title="Dark Forest + Teal" onclick="setScheme('forest-teal',this)"></div>
+            <div class="scheme-dot" style="background:linear-gradient(135deg,#1a0020,#e040fb);" title="Black + Violet" onclick="setScheme('black-violet',this)"></div>
+            <div class="scheme-dot" style="background:linear-gradient(135deg,#0a0a0a,#ffffff);" title="Black + White (print-safe)" onclick="setScheme('black-white',this)"></div>
+          </div>
+
+          <!-- ── EVENT fields ─────────────────────────── -->
+          <div id="fields-event">
+            <div class="ctrl-section">Event Details</div>
+
+            <div class="field">
+              <label class="field-label">Event Name</label>
+              <input class="field-input" id="ev-title" value="Finding Forward" oninput="render()" placeholder="e.g. Finding Forward 2026" />
+            </div>
+            <div class="field">
+              <label class="field-label">Subtitle / Tagline</label>
+              <input class="field-input" id="ev-subtitle" value="A Ride for Hope · A Walk for Healing" oninput="render()" placeholder="Short tagline" />
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label class="field-label">Date</label>
+                <input class="field-input" id="ev-date" value="September 13, 2025" oninput="render()" />
+              </div>
+              <div class="field">
+                <label class="field-label">Time</label>
+                <input class="field-input" id="ev-time" value="10:00 AM" oninput="render()" />
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label">Location</label>
+              <input class="field-input" id="ev-location" value="Anderson, Indiana" oninput="render()" />
+            </div>
+            <div class="field">
+              <label class="field-label">Description</label>
+              <textarea class="field-textarea" id="ev-desc" rows="4" oninput="render()" placeholder="What is this event about?">Join us for Finding Forward — a day of community, remembrance, and hope. Motorcycle riders, walkers, vendors, and volunteers all welcome. Every mile we ride and every step we take honors lives lost and celebrates those still fighting.</textarea>
+            </div>
+            <div class="field">
+              <label class="field-label">RSVP / Registration Info</label>
+              <input class="field-input" id="ev-rsvp" value="RSVP free at twiztedjourneys.org/events" oninput="render()" />
+            </div>
+            <div class="field">
+              <label class="field-label">Website</label>
+              <input class="field-input" id="ev-website" value="twiztedjourneys.org" oninput="render()" />
+            </div>
+          </div>
+
+          <!-- ── SHOP fields ─────────────────────────── -->
+          <div id="fields-shop" style="display:none;">
+            <div class="ctrl-section">Product / Promo Details</div>
+
+            <div class="field">
+              <label class="field-label">Headline</label>
+              <input class="field-input" id="sh-title" value="New in the Shop" oninput="render()" placeholder="e.g. New in the Shop" />
+            </div>
+            <div class="field">
+              <label class="field-label">Product Name</label>
+              <input class="field-input" id="sh-product" value="Semicolon Charm" oninput="render()" placeholder="e.g. Semicolon Charm" />
+            </div>
+            <div class="field">
+              <label class="field-label">Tagline</label>
+              <input class="field-input" id="sh-tagline" value="Handmade with love. Worn with purpose." oninput="render()" />
+            </div>
+            <div class="field">
+              <label class="field-label">Description</label>
+              <textarea class="field-textarea" id="sh-desc" rows="4" oninput="render()">Each semicolon charm is handcrafted by Tonya and carries a message of hope. Wear it as a reminder that your story isn't over — and every purchase directly supports Twizted Journeys' mission.</textarea>
+            </div>
+            <div class="field">
+              <label class="field-label">Price</label>
+              <input class="field-input" id="sh-price" value="$25" oninput="render()" placeholder="e.g. $25" />
+            </div>
+            <div class="field">
+              <label class="field-label">Price Detail (optional)</label>
+              <input class="field-input" id="sh-price-detail" value="Free shipping on orders over $50&#10;100% supports the TJ mission" oninput="render()" placeholder="e.g. ships in 3–5 days" />
+            </div>
+            <div class="field">
+              <label class="field-label">Shop URL</label>
+              <input class="field-input" id="sh-url" value="twiztedjourneys.org/shop" oninput="render()" />
+            </div>
+          </div>
+
+        </div><!-- /controls-body -->
+
+        <div class="export-buttons">
+          <button class="btn btn-teal btn-block" onclick="printFlyer()">🖨️ Print / Save as PDF</button>
+          <button class="btn btn-primary btn-block" onclick="downloadPNG()">📥 Download as PNG (social)</button>
+        </div>
+      </div><!-- /controls-panel -->
+
+      <!-- ── Preview ───────────────────────────────────── -->
+      <div class="preview-panel">
+        <div class="preview-label">Live Preview — 8.5 × 11 in (print ready)</div>
+        <div class="flyer-stage">
+          <div class="flyer-scaler">
+            <div id="flyer-output"><!-- rendered by JS --></div>
+          </div>
+        </div>
+        <p style="font-size:0.75rem;color:var(--muted);text-align:center;margin-top:-8px;">
+          ↑ Scaled for screen — actual print size is full letter page
+        </p>
+      </div>
+
+    </div><!-- /flyer-builder-wrap -->
+  </main>
+</div>
+
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script>
+  // ── State ────────────────────────────────────────────────────
+  let currentTemplate = 'event';
+  let currentScheme   = 'purple-teal';
+
+  const SCHEMES = {
+    'purple-teal':  { bg: '#0B0B1A', grad: 'linear-gradient(135deg,#8A2BEF 0%,#56E0D2 100%)', accent: '#56E0D2', bar: 'linear-gradient(90deg,#8A2BEF,#56E0D2)' },
+    'navy-cyan':    { bg: '#060614', grad: 'linear-gradient(135deg,#1a0a40 0%,#9EF3F7 100%)', accent: '#9EF3F7', bar: 'linear-gradient(90deg,#1a0a40,#9EF3F7)' },
+    'forest-teal':  { bg: '#060f08', grad: 'linear-gradient(135deg,#0d2b1a 0%,#56E0D2 100%)', accent: '#56E0D2', bar: 'linear-gradient(90deg,#0d2b1a,#56E0D2)' },
+    'black-violet': { bg: '#0a000f', grad: 'linear-gradient(135deg,#1a0020 0%,#e040fb 100%)', accent: '#e040fb', bar: 'linear-gradient(90deg,#1a0020,#e040fb)' },
+    'black-white':  { bg: '#0a0a0a', grad: 'linear-gradient(135deg,#1a1a1a 0%,#ffffff 100%)', accent: '#ffffff', bar: 'linear-gradient(90deg,#333,#fff)' },
+  };
+
+  // ── Template switch ──────────────────────────────────────────
+  function setTemplate(t) {
+    currentTemplate = t;
+    document.getElementById('tpl-event').classList.toggle('active', t === 'event');
+    document.getElementById('tpl-shop').classList.toggle('active',  t === 'shop');
+    document.getElementById('fields-event').style.display = t === 'event' ? '' : 'none';
+    document.getElementById('fields-shop').style.display  = t === 'shop'  ? '' : 'none';
+    render();
+  }
+
+  // ── Scheme switch ────────────────────────────────────────────
+  function setScheme(s, el) {
+    currentScheme = s;
+    document.querySelectorAll('.scheme-dot').forEach(d => d.classList.remove('active'));
+    el.classList.add('active');
+    render();
+  }
+
+  // ── Get field value safely ───────────────────────────────────
+  function val(id) {
+    const el = document.getElementById(id);
+    return el ? (el.value || '') : '';
+  }
+
+  // ── Render ───────────────────────────────────────────────────
+  function render() {
+    const sc = SCHEMES[currentScheme];
+    const out = document.getElementById('flyer-output');
+    out.style.background = sc.bg;
+
+    if (currentTemplate === 'event') {
+      renderEvent(sc, out);
+    } else {
+      renderShop(sc, out);
+    }
+  }
+
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  }
+
+  // ── Event Template ───────────────────────────────────────────
+  function renderEvent(sc, out) {
+    out.innerHTML = `
+      <!-- gradient overlay -->
+      <div class="fl-gradient-top" style="background:${sc.grad};"></div>
+      <div class="fl-accent-bar" style="background:${sc.bar};"></div>
+      <div class="fl-watermark">;</div>
+
+      <div class="fl-content" style="--fl-accent:${sc.accent};">
+
+        <!-- Header -->
+        <div class="fl-event-header">
+          <div class="fl-org-name">TW<span>;</span>ZTED JOURNEYS PRESENTS</div>
+          <div class="fl-divider-line"></div>
+          <div class="fl-presents">A COMMUNITY EVENT</div>
+          <div class="fl-event-title">${esc(val('ev-title'))}</div>
+          <div class="fl-event-subtitle">${esc(val('ev-subtitle'))}</div>
+        </div>
+
+        <!-- Info row -->
+        <div class="fl-info-row">
+          <div class="fl-info-block">
+            <span class="fl-info-icon">📅</span>
+            <span class="fl-info-label">Date</span>
+            <div class="fl-info-value">${esc(val('ev-date'))}</div>
+          </div>
+          <div class="fl-info-block">
+            <span class="fl-info-icon">🕙</span>
+            <span class="fl-info-label">Time</span>
+            <div class="fl-info-value">${esc(val('ev-time'))}</div>
+          </div>
+          <div class="fl-info-block">
+            <span class="fl-info-icon">📍</span>
+            <span class="fl-info-label">Location</span>
+            <div class="fl-info-value">${esc(val('ev-location'))}</div>
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div class="fl-body">
+          <div class="fl-section-title">About This Event</div>
+          <div class="fl-description">${esc(val('ev-desc'))}</div>
+
+          ${val('ev-rsvp') ? `
+          <div class="fl-rsvp-box">
+            <div class="fl-rsvp-label">RSVP / Register</div>
+            <div class="fl-rsvp-value">${esc(val('ev-rsvp'))}</div>
+          </div>` : ''}
+        </div>
+
+        <!-- Footer -->
+        <div class="fl-footer">
+          <div>
+            <div class="fl-footer-brand">Tw<span>;</span>zted Journeys</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:3px;">${esc(val('ev-website'))}</div>
+          </div>
+          <div class="fl-footer-crisis">
+            If you are in crisis, help is available.
+            <strong>Call or text 988</strong>
+          </div>
+        </div>
+
+      </div>
+    `;
+  }
+
+  // ── Shop Template ────────────────────────────────────────────
+  function renderShop(sc, out) {
+    const priceDetail = val('sh-price-detail').split('\n').filter(Boolean);
+    out.innerHTML = `
+      <div class="fl-gradient-top" style="background:${sc.grad};"></div>
+      <div class="fl-accent-bar" style="background:${sc.bar};"></div>
+      <div class="fl-watermark">;</div>
+
+      <div class="fl-content" style="--fl-accent:${sc.accent};">
+
+        <!-- Header -->
+        <div class="fl-shop-header">
+          <div class="fl-shop-tag">${esc(val('sh-title'))}</div>
+          <div class="fl-org-name">TW<span style="color:${sc.accent};">;</span>ZTED JOURNEYS</div>
+          <div class="fl-divider-line" style="background:linear-gradient(90deg,${sc.accent},transparent);opacity:0.4;height:1px;margin:10px 0 20px;"></div>
+          <div class="fl-shop-title">${esc(val('sh-product'))}</div>
+          <div class="fl-shop-tagline">${esc(val('sh-tagline'))}</div>
+        </div>
+
+        <!-- Price -->
+        ${val('sh-price') ? `
+        <div class="fl-shop-price-row">
+          <div class="fl-price-badge" style="background:${sc.accent};color:#050510;">${esc(val('sh-price'))}</div>
+          <div class="fl-price-detail">
+            ${priceDetail.map(l => `${esc(l)}<br>`).join('')}
+          </div>
+        </div>` : ''}
+
+        <!-- Body -->
+        <div class="fl-shop-body">
+          <div class="fl-section-title">About This Item</div>
+          <div class="fl-shop-desc">${esc(val('sh-desc'))}</div>
+
+          ${val('sh-url') ? `
+          <div class="fl-shop-url-box">
+            <div class="fl-shop-url-icon">🛍️</div>
+            <div>
+              <div class="fl-shop-url-label">Shop Online</div>
+              <div class="fl-shop-url-value">${esc(val('sh-url'))}</div>
+            </div>
+          </div>` : ''}
+        </div>
+
+        <!-- Footer -->
+        <div class="fl-footer">
+          <div>
+            <div class="fl-footer-brand">Tw<span>;</span>zted Journeys</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:3px;">Every purchase supports our mission</div>
+          </div>
+          <div class="fl-footer-crisis">
+            In crisis? Help is available 24/7.
+            <strong>Call or text 988</strong>
+          </div>
+        </div>
+
+      </div>
+    `;
+  }
+
+  // ── Print to PDF ─────────────────────────────────────────────
+  function printFlyer() {
+    window.print();
+  }
+
+  // ── Download PNG ─────────────────────────────────────────────
+  async function downloadPNG() {
+    const btn = document.querySelector('.topbar-actions .btn-primary');
+    const orig = btn.textContent;
+    btn.textContent = 'Generating…';
+    btn.disabled = true;
+
+    try {
+      const el = document.getElementById('flyer-output');
+      // Temporarily remove transform for capture
+      const scaler = document.querySelector('.flyer-scaler');
+      const prevTransform = scaler.style.transform;
+      scaler.style.transform = 'none';
+
+      const canvas = await html2canvas(el, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: null,
+        logging: false,
+        width: 816,
+        height: 1056
+      });
+
+      scaler.style.transform = prevTransform;
+
+      const link = document.createElement('a');
+      const title = (currentTemplate === 'event' ? val('ev-title') : val('sh-product'))
+        .replace(/[^a-z0-9]/gi, '-').toLowerCase() || 'flyer';
+      link.download = `TJ-${title}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+
+      toast('✅ PNG downloaded!', 'success');
+    } catch(e) {
+      toast('PNG export failed: ' + e.message, 'error');
+      console.error(e);
+    }
+
+    btn.textContent = orig;
+    btn.disabled = false;
+  }
+
+  // ── Reset ────────────────────────────────────────────────────
+  function resetForm() {
+    if (!confirm('Reset all fields to defaults?')) return;
+    location.reload();
+  }
+
+  // ── Toast ────────────────────────────────────────────────────
+  function toast(msg, type='info') {
+    const t = document.getElementById('tj-toast');
+    t.textContent = msg;
+    t.className = 'show ' + type;
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.className = ''; }, 3500);
+  }
+
+  // ── Auth ─────────────────────────────────────────────────────
+  initAdmin(function(user) {
+    render(); // initial render after auth confirmed
+  });
+
+  function signOut() { adminSignOut(); }
+</script>
+</body>
+</html>
