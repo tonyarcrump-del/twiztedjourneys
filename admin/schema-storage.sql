@@ -38,8 +38,12 @@ ON CONFLICT (id) DO NOTHING;
 
 
 -- ============================================================
--- 2. RLS Policies — site-media bucket
+-- 2. RLS Policies — site-media bucket (drop first so re-runs work)
 -- ============================================================
+DROP POLICY IF EXISTS "site-media: public read"  ON storage.objects;
+DROP POLICY IF EXISTS "site-media: auth upload"  ON storage.objects;
+DROP POLICY IF EXISTS "site-media: auth delete"  ON storage.objects;
+DROP POLICY IF EXISTS "site-media: auth update"  ON storage.objects;
 
 -- Allow anyone to read/view images (needed for public site)
 CREATE POLICY "site-media: public read"
@@ -72,8 +76,12 @@ CREATE POLICY "site-media: auth update"
 
 
 -- ============================================================
--- 3. RLS Policies — product-photos bucket
+-- 3. RLS Policies — product-photos bucket (drop first so re-runs work)
 -- ============================================================
+DROP POLICY IF EXISTS "product-photos: public read"  ON storage.objects;
+DROP POLICY IF EXISTS "product-photos: auth upload"  ON storage.objects;
+DROP POLICY IF EXISTS "product-photos: auth delete"  ON storage.objects;
+DROP POLICY IF EXISTS "product-photos: auth update"  ON storage.objects;
 
 -- Allow anyone to read/view product images
 CREATE POLICY "product-photos: public read"
