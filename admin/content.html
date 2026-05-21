@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Site Content — TJ Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<div id="tj-toast"></div>
+
+<div class="admin-shell">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-logo">
+      <div class="wordmark">Tw<span>;</span>zted</div>
+      <div class="subtitle">Admin Panel</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Main</div>
+      <a href="dashboard.html" class="nav-link">
+        <span class="nav-icon">⬛</span> Dashboard
+      </a>
+      <a href="content.html" class="nav-link active">
+        <span class="nav-icon">✏️</span> Edit Site Content
+      </a>
+      <div class="nav-section">Data</div>
+      <a href="submissions.html" class="nav-link">
+        <span class="nav-icon">📋</span> Submissions
+        <span class="nav-badge zero" id="nav-pending">…</span>
+      </a>
+      <a href="registrations.html" class="nav-link">
+        <span class="nav-icon">📅</span> Event RSVPs
+      </a>
+      <a href="shop.html" class="nav-link">
+        <span class="nav-icon">🛍️</span> Shop / Inventory
+      </a>
+      <div class="nav-section">Site</div>
+      <a href="../index.html" target="_blank" class="nav-link">
+        <span class="nav-icon">🌐</span> View Public Site
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info" id="user-email">Loading…</div>
+      <button class="btn-signout" onclick="signOut()">Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="admin-main">
+
+    <div class="admin-topbar">
+      <div>
+        <div class="topbar-title">✏️ Edit Site Content</div>
+        <div class="topbar-sub">Changes go live on the public site instantly — no coding needed.</div>
+      </div>
+      <div class="topbar-actions">
+        <a href="../index.html" target="_blank" class="btn btn-ghost btn-sm">🌐 Preview Site</a>
+        <button class="btn btn-teal btn-sm" onclick="saveAll()" id="save-all-btn">💾 Save All Changes</button>
+      </div>
+    </div>
+
+    <!-- Save status bar -->
+    <div id="save-status-bar" style="display:none;background:rgba(86,224,210,0.08);border:1px solid rgba(86,224,210,0.2);border-radius:10px;padding:12px 20px;margin-bottom:20px;font-size:0.85rem;color:var(--teal);display:flex;align-items:center;gap:10px;">
+      <span>✅</span><span id="save-status-msg">All changes saved.</span>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- Tab bar -->
+      <div class="tab-bar" style="margin-bottom:28px;">
+        <button class="tab-btn active" onclick="switchTab('announce',this)">📢 Announcement</button>
+        <button class="tab-btn" onclick="switchTab('home',this)">🏠 Homepage</button>
+        <button class="tab-btn" onclick="switchTab('event',this)">🎪 Event Details</button>
+        <button class="tab-btn" onclick="switchTab('social',this)">📱 Social &amp; Links</button>
+      </div>
+
+      <!-- ─── TAB: ANNOUNCEMENT ─────────────────────────────────── -->
+      <div id="tab-announce" class="tab-panel">
+
+        <div class="two-col left-wide">
+          <div class="card">
+            <div class="card-title">📢 Site-Wide Announcement Banner</div>
+            <p style="font-size:0.83rem;color:var(--muted);margin-bottom:20px;line-height:1.6;">
+              When active, this banner appears at the top of every page on the public site.
+              Use it for events, news, urgent alerts, or a quick thank-you.
+            </p>
+
+            <div class="field">
+              <label class="field-label">Announcement Text</label>
+              <textarea class="field-textarea" id="ann-text" rows="3"
+                placeholder="e.g. Registration is now open for Finding Forward 2026! Click here to RSVP."></textarea>
+              <div class="field-hint">One punchy sentence. Include a call to action if relevant.</div>
+            </div>
+
+            <div class="field">
+              <label class="field-label">Banner Type / Color</label>
+              <select class="field-select" id="ann-type">
+                <option value="event">📅 Event announcement (purple)</option>
+                <option value="info">ℹ️ General info (blue)</option>
+                <option value="urgent">🚨 Urgent / Alert (red)</option>
+                <option value="success">✅ Good news (teal/green)</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label class="field-label">Banner Link (optional)</label>
+              <input type="url" class="field-input" id="ann-link"
+                placeholder="https://shop.twiztedjourneys.org/donations-matter" />
+              <div class="field-hint">If set, the whole banner is a clickable link.</div>
+            </div>
+
+            <div class="field">
+              <label class="toggle-wrap">
+                <div class="toggle">
+                  <input type="checkbox" id="ann-active" />
+                  <div class="toggle-track"></div>
+                </div>
+                <div>
+                  <div class="toggle-label">Show banner on public site</div>
+                  <div class="toggle-sub">Toggle off to hide without losing the text</div>
+                </div>
+              </label>
+            </div>
+
+            <div style="margin-top:20px;">
+              <button class="btn btn-teal btn-block" onclick="saveSection('announcement')" id="btn-ann">💾 Save Announcement</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">✨ Suggestions</div>
+            <p style="font-size:0.82rem;color:var(--muted);margin-bottom:16px;line-height:1.5;">
+              Click any suggestion to fill in the text — then edit it to fit, or use it as-is.
+            </p>
+            <div class="suggestion-pills" style="flex-direction:column;gap:10px;">
+              <button class="suggestion-pill" style="text-align:left;width:100%;"
+                onclick="fillAnn('Registration is now open for Finding Forward 2026 — Sept 12–13 in Anderson, IN. RSVP today!', 'event', true)">
+                🎉 <strong>RSVP open</strong><br/>
+                <span style="font-size:0.78rem;font-weight:400;">"Registration is now open for Finding Forward 2026 — Sept 12–13..."</span>
+              </button>
+              <button class="suggestion-pill" style="text-align:left;width:100%;"
+                onclick="fillAnn('Thank you to everyone who supported Twizted Journeys this year. Your generosity saves lives.', 'success', true)">
+                💜 <strong>Thank you message</strong><br/>
+                <span style="font-size:0.78rem;font-weight:400;">"Thank you to everyone who supported Twizted Journeys..."</span>
+              </button>
+              <button class="suggestion-pill" style="text-align:left;width:100%;"
+                onclick="fillAnn('New handmade charms are in the shop! Every purchase supports our mission.', 'event', true)">
+                🛍️ <strong>New merch alert</strong><br/>
+                <span style="font-size:0.78rem;font-weight:400;">"New handmade charms are in the shop!..."</span>
+              </button>
+              <button class="suggestion-pill" style="text-align:left;width:100%;"
+                onclick="fillAnn('If you or someone you know is in crisis, call or text 988 — free, confidential, 24/7.', 'urgent', true)">
+                📞 <strong>988 crisis reminder</strong><br/>
+                <span style="font-size:0.78rem;font-weight:400;">"If you or someone you know is in crisis, call or text 988..."</span>
+              </button>
+              <button class="suggestion-pill" style="text-align:left;width:100%;"
+                onclick="fillAnn('Finding Forward 2026 is happening Sept 12–13! Riders, walkers, vendors, and volunteers welcome.', 'event', true)">
+                🎪 <strong>Event is happening</strong><br/>
+                <span style="font-size:0.78rem;font-weight:400;">"Finding Forward 2026 is happening Sept 12–13!..."</span>
+              </button>
+            </div>
+
+            <div class="divider"></div>
+            <div class="card-title" style="font-size:0.88rem;margin-bottom:10px;">Live Preview</div>
+            <div id="ann-preview" style="border-radius:8px;padding:12px 16px;font-size:0.88rem;font-weight:600;text-align:center;background:rgba(138,43,239,0.15);border:1px solid rgba(138,43,239,0.3);color:var(--white);">
+              Preview will update as you type…
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ─── TAB: HOMEPAGE ─────────────────────────────────────── -->
+      <div id="tab-home" class="tab-panel" style="display:none;">
+
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-title">🏠 Homepage — Hero Section</div>
+          <p style="font-size:0.83rem;color:var(--muted);margin-bottom:20px;line-height:1.6;">
+            The first thing visitors see. Keep the headline bold and personal — this is Tonya's voice.
+          </p>
+          <div class="field-row">
+            <div class="field" style="flex:1;">
+              <label class="field-label">Main Headline</label>
+              <input type="text" class="field-input" id="home-headline"
+                placeholder="e.g. Hope Rides. Grief Walks. Love Never Stops." />
+              <div class="field-hint">Bold, one-line mission statement. Short and powerful.</div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label">Sub-headline / Tagline</label>
+            <input type="text" class="field-input" id="home-subheadline"
+              placeholder="e.g. Twizted Journeys is a grief support and suicide awareness nonprofit in Indiana." />
+          </div>
+          <div class="field">
+            <label class="field-label">Mission Statement (1–2 sentences)</label>
+            <textarea class="field-textarea" id="home-mission" rows="3"
+              placeholder="e.g. We believe no one should grieve alone. Through community, creativity, and action — we turn loss into legacy."></textarea>
+            <div class="field-hint">Appears under the hero on the homepage.</div>
+          </div>
+          <div class="field-row">
+            <div class="field" style="flex:1;">
+              <label class="field-label">Hero Button Text</label>
+              <input type="text" class="field-input" id="home-cta-text"
+                placeholder="e.g. RSVP for Finding Forward →" />
+            </div>
+            <div class="field" style="flex:1;">
+              <label class="field-label">Hero Button Link</label>
+              <input type="url" class="field-input" id="home-cta-url"
+                placeholder="https://twiztedjourneys.org/events.html" />
+            </div>
+          </div>
+          <button class="btn btn-teal" onclick="saveSection('homepage')" id="btn-home">💾 Save Homepage</button>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-title">💜 About / Story Section</div>
+          <div class="field">
+            <label class="field-label">About Paragraph</label>
+            <textarea class="field-textarea" id="home-about" rows="5"
+              placeholder="Tell visitors about Twizted Journeys — how it started, what it means, who it's for…"></textarea>
+            <div class="field-hint">This appears in the "About" section on the homepage. Be as personal as you want.</div>
+          </div>
+          <div class="field">
+            <label class="field-label">Founder / Personal Quote</label>
+            <textarea class="field-textarea" id="home-quote" rows="2"
+              placeholder="e.g. &quot;I started Twizted Journeys because I needed a place where grief was allowed to exist.&quot; — Tonya Crump"></textarea>
+          </div>
+          <button class="btn btn-teal" onclick="saveSection('about')" id="btn-about">💾 Save About Section</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">📢 988 Crisis Line Message</div>
+          <p style="font-size:0.83rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">
+            This always appears on the public site. You can customize the message around the 988 number.
+          </p>
+          <div class="field">
+            <label class="field-label">Crisis Line Message</label>
+            <textarea class="field-textarea" id="home-988" rows="2"
+              placeholder="If you or someone you know is struggling, help is available 24/7. Call or text 988."></textarea>
+          </div>
+          <button class="btn btn-teal" onclick="saveSection('crisis')" id="btn-crisis">💾 Save Crisis Message</button>
+        </div>
+
+      </div>
+
+      <!-- ─── TAB: EVENT DETAILS ────────────────────────────────── -->
+      <div id="tab-event" class="tab-panel" style="display:none;">
+
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-title">🎪 Event — Main Details</div>
+          <p style="font-size:0.83rem;color:var(--muted);margin-bottom:20px;line-height:1.6;">
+            These fields control what appears on the public Events page. Update whenever event info changes.
+          </p>
+
+          <div class="field-row">
+            <div class="field" style="flex:1;">
+              <label class="field-label">Event Name</label>
+              <input type="text" class="field-input" id="event-name"
+                placeholder="e.g. Finding Forward 2026" />
+            </div>
+            <div class="field" style="flex:1;">
+              <label class="field-label">Event Date(s)</label>
+              <input type="text" class="field-input" id="event-dates"
+                placeholder="e.g. September 12–13, 2026" />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field" style="flex:1;">
+              <label class="field-label">Location / Venue</label>
+              <input type="text" class="field-input" id="event-location"
+                placeholder="e.g. Anderson, Indiana" />
+            </div>
+            <div class="field" style="flex:1;">
+              <label class="field-label">Address (optional)</label>
+              <input type="text" class="field-input" id="event-address"
+                placeholder="e.g. 123 Main St, Anderson IN 46016" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Event Description</label>
+            <textarea class="field-textarea" id="event-description" rows="5"
+              placeholder="Describe what happens at the event — the ride, the walk, vendors, food, speakers…"></textarea>
+            <div class="field-hint">This appears as the main description on the Events page.</div>
+          </div>
+
+          <div class="field-row">
+            <div class="field" style="flex:1;">
+              <label class="field-label">Day 1 — Name &amp; Details</label>
+              <input type="text" class="field-input" id="event-day1"
+                placeholder="e.g. Sept 12 — Light Up the Night (6–10pm)" />
+            </div>
+            <div class="field" style="flex:1;">
+              <label class="field-label">Day 2 — Name &amp; Details</label>
+              <input type="text" class="field-input" id="event-day2"
+                placeholder="e.g. Sept 13 — The Cause Walk (10am–4pm)" />
+            </div>
+          </div>
+
+          <button class="btn btn-teal" onclick="saveSection('event-main')" id="btn-event-main">💾 Save Event Details</button>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-title">🎟️ RSVP Settings</div>
+
+          <div class="field">
+            <label class="toggle-wrap">
+              <div class="toggle">
+                <input type="checkbox" id="event-rsvp-open" />
+                <div class="toggle-track"></div>
+              </div>
+              <div>
+                <div class="toggle-label">RSVP Form is Open</div>
+                <div class="toggle-sub">When off, the RSVP form is replaced with a "coming soon" message</div>
+              </div>
+            </label>
+          </div>
+
+          <div class="field">
+            <label class="field-label">RSVP Closed Message</label>
+            <input type="text" class="field-input" id="event-rsvp-closed-msg"
+              placeholder="e.g. Registration opens in spring 2026 — check back soon!" />
+            <div class="field-hint">Shown when RSVP form is toggled off.</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">RSVP Confirmation Message</label>
+            <textarea class="field-textarea" id="event-rsvp-confirm" rows="2"
+              placeholder="e.g. Thank you for registering! We'll email you details closer to the event. 💜"></textarea>
+            <div class="field-hint">Shown after someone submits the RSVP form.</div>
+          </div>
+
+          <button class="btn btn-teal" onclick="saveSection('event-rsvp')" id="btn-event-rsvp">💾 Save RSVP Settings</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🏍️ Registration Types</div>
+          <p style="font-size:0.83rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">
+            Control which registration options appear on the RSVP form.
+          </p>
+          <div class="field">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <label class="toggle-wrap">
+                <div class="toggle"><input type="checkbox" id="rsvp-type-attendee" /><div class="toggle-track"></div></div>
+                <div><div class="toggle-label">General Attendee</div></div>
+              </label>
+              <label class="toggle-wrap">
+                <div class="toggle"><input type="checkbox" id="rsvp-type-rider" /><div class="toggle-track"></div></div>
+                <div><div class="toggle-label">Motorcycle Rider</div></div>
+              </label>
+              <label class="toggle-wrap">
+                <div class="toggle"><input type="checkbox" id="rsvp-type-walker" /><div class="toggle-track"></div></div>
+                <div><div class="toggle-label">The Cause Walker</div></div>
+              </label>
+              <label class="toggle-wrap">
+                <div class="toggle"><input type="checkbox" id="rsvp-type-vendor" /><div class="toggle-track"></div></div>
+                <div><div class="toggle-label">Vendor</div></div>
+              </label>
+              <label class="toggle-wrap">
+                <div class="toggle"><input type="checkbox" id="rsvp-type-volunteer" /><div class="toggle-track"></div></div>
+                <div><div class="toggle-label">Volunteer</div></div>
+              </label>
+            </div>
+          </div>
+          <button class="btn btn-teal" onclick="saveSection('rsvp-types')" id="btn-rsvp-types">💾 Save Registration Types</button>
+        </div>
+
+      </div>
+
+      <!-- ─── TAB: SOCIAL & LINKS ───────────────────────────────── -->
+      <div id="tab-social" class="tab-panel" style="display:none;">
+
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-title">📱 Social Media Links</div>
+          <p style="font-size:0.83rem;color:var(--muted);margin-bottom:20px;line-height:1.6;">
+            These links appear in the site footer and on the contact page.
+            Leave blank to hide an icon.
+          </p>
+          <div class="field">
+            <label class="field-label">Facebook URL</label>
+            <input type="url" class="field-input" id="social-facebook"
+              placeholder="https://facebook.com/twiztedjourneys" />
+          </div>
+          <div class="field">
+            <label class="field-label">Instagram URL</label>
+            <input type="url" class="field-input" id="social-instagram"
+              placeholder="https://instagram.com/twiztedjourneys" />
+          </div>
+          <div class="field">
+            <label class="field-label">TikTok URL</label>
+            <input type="url" class="field-input" id="social-tiktok"
+              placeholder="https://tiktok.com/@twiztedjourneys" />
+          </div>
+          <div class="field">
+            <label class="field-label">YouTube URL (optional)</label>
+            <input type="url" class="field-input" id="social-youtube"
+              placeholder="https://youtube.com/@twiztedjourneys" />
+          </div>
+          <button class="btn btn-teal" onclick="saveSection('social')" id="btn-social">💾 Save Social Links</button>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-title">📧 Contact &amp; Donation Links</div>
+          <div class="field">
+            <label class="field-label">Contact Email</label>
+            <input type="email" class="field-input" id="contact-email"
+              placeholder="tonya@twiztedjourneys.org" />
+            <div class="field-hint">Appears on the contact page and in the footer.</div>
+          </div>
+          <div class="field">
+            <label class="field-label">Donate Page URL</label>
+            <input type="url" class="field-input" id="donate-url"
+              placeholder="https://shop.twiztedjourneys.org/donations-matter" />
+            <div class="field-hint">Where the Donate buttons on the site link to. (Webador handles payment.)</div>
+          </div>
+          <div class="field">
+            <label class="field-label">Shop / Merch URL</label>
+            <input type="url" class="field-input" id="shop-url"
+              placeholder="https://shop.twiztedjourneys.org/twizted-merch" />
+            <div class="field-hint">Where the Shop buttons link to. (Webador handles checkout.)</div>
+          </div>
+          <div class="field">
+            <label class="field-label">Phone / Text (optional)</label>
+            <input type="tel" class="field-input" id="contact-phone"
+              placeholder="e.g. (765) 555-0123" />
+          </div>
+          <button class="btn btn-teal" onclick="saveSection('contact')" id="btn-contact">💾 Save Contact Info</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🔗 Footer Text</div>
+          <div class="field">
+            <label class="field-label">Footer Tagline</label>
+            <input type="text" class="field-input" id="footer-tagline"
+              placeholder="e.g. Turning loss into legacy — one journey at a time." />
+          </div>
+          <div class="field">
+            <label class="field-label">Footer Legal / Nonprofit Line</label>
+            <input type="text" class="field-input" id="footer-legal"
+              placeholder="e.g. Twizted Journeys is a registered 501(c)(3) nonprofit in Indiana." />
+          </div>
+          <button class="btn btn-teal" onclick="saveSection('footer')" id="btn-footer">💾 Save Footer</button>
+        </div>
+
+      </div>
+
+    </div><!-- /admin-content -->
+  </main>
+</div>
+
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script>
+
+  // ─── Tab switching ─────────────────────────────────────────────────────────
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).style.display = '';
+    btn.classList.add('active');
+  }
+
+  // ─── Announcement preview ──────────────────────────────────────────────────
+  function updatePreview() {
+    const text = document.getElementById('ann-text').value.trim();
+    const type = document.getElementById('ann-type').value;
+    const active = document.getElementById('ann-active').checked;
+    const preview = document.getElementById('ann-preview');
+    const colors = {
+      event:   ['rgba(138,43,239,0.15)','rgba(138,43,239,0.3)'],
+      info:    ['rgba(59,130,246,0.15)', 'rgba(59,130,246,0.3)'],
+      urgent:  ['rgba(239,68,68,0.15)',  'rgba(239,68,68,0.35)'],
+      success: ['rgba(86,224,210,0.12)', 'rgba(86,224,210,0.3)']
+    };
+    const [bg, border] = colors[type] || colors.event;
+    preview.style.background = bg;
+    preview.style.borderColor = border;
+    preview.textContent = active ? (text || '(No text entered yet)') : '⚠ Banner is currently hidden — toggle "Show banner" to make it live';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    ['ann-text','ann-type','ann-active'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', updatePreview);
+    });
+    updatePreview();
+  });
+
+  function fillAnn(text, type, active) {
+    document.getElementById('ann-text').value = text;
+    document.getElementById('ann-type').value = type || 'event';
+    document.getElementById('ann-active').checked = active !== false;
+    updatePreview();
+  }
+
+  // ─── Toast ─────────────────────────────────────────────────────────────────
+  function toast(msg, type = 'info') {
+    const t = document.getElementById('tj-toast');
+    t.textContent = msg;
+    t.className = 'show ' + type;
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.className = ''; }, 3500);
+  }
+
+  // ─── Supabase upsert helper ────────────────────────────────────────────────
+  let _db = null;
+
+  async function upsertKeys(db, pairs) {
+    for (const [key, value] of Object.entries(pairs)) {
+      const { error } = await db.from('site_content').upsert({ key, value }, { onConflict: 'key' });
+      if (error) throw error;
+    }
+  }
+
+  // ─── Load all content on init ──────────────────────────────────────────────
+  initAdmin(async function(user, db) {
+    _db = db;
+
+    // Load pending badge
+    try {
+      const { count } = await db.from('memorial_submissions').select('id', { count: 'exact', head: true }).eq('status', 'pending');
+      const badge = document.getElementById('nav-pending');
+      badge.textContent = count ?? 0;
+      badge.className = 'nav-badge' + ((count ?? 0) === 0 ? ' zero' : '');
+    } catch(e) {}
+
+    // Load all site_content keys
+    try {
+      const { data } = await db.from('site_content').select('key,value');
+      if (!data) return;
+      const kv = {};
+      data.forEach(r => kv[r.key] = r.value || '');
+
+      // Announcement
+      setVal('ann-text', kv.announcement_text);
+      setVal('ann-type', kv.announcement_type || 'event');
+      setChecked('ann-active', kv.announcement_active === 'true');
+      setVal('ann-link', kv.announcement_link);
+
+      // Homepage
+      setVal('home-headline', kv.home_headline);
+      setVal('home-subheadline', kv.home_subheadline);
+      setVal('home-mission', kv.home_mission);
+      setVal('home-cta-text', kv.home_cta_text);
+      setVal('home-cta-url', kv.home_cta_url);
+      setVal('home-about', kv.home_about);
+      setVal('home-quote', kv.home_quote);
+      setVal('home-988', kv.home_988);
+
+      // Event
+      setVal('event-name', kv.event_name);
+      setVal('event-dates', kv.event_dates);
+      setVal('event-location', kv.event_location);
+      setVal('event-address', kv.event_address);
+      setVal('event-description', kv.event_description);
+      setVal('event-day1', kv.event_day1);
+      setVal('event-day2', kv.event_day2);
+      setChecked('event-rsvp-open', kv.event_rsvp_open !== 'false');
+      setVal('event-rsvp-closed-msg', kv.event_rsvp_closed_msg);
+      setVal('event-rsvp-confirm', kv.event_rsvp_confirm);
+      setChecked('rsvp-type-attendee', kv.rsvp_type_attendee !== 'false');
+      setChecked('rsvp-type-rider', kv.rsvp_type_rider !== 'false');
+      setChecked('rsvp-type-walker', kv.rsvp_type_walker !== 'false');
+      setChecked('rsvp-type-vendor', kv.rsvp_type_vendor !== 'false');
+      setChecked('rsvp-type-volunteer', kv.rsvp_type_volunteer !== 'false');
+
+      // Social
+      setVal('social-facebook', kv.social_facebook);
+      setVal('social-instagram', kv.social_instagram);
+      setVal('social-tiktok', kv.social_tiktok);
+      setVal('social-youtube', kv.social_youtube);
+      setVal('contact-email', kv.contact_email);
+      setVal('donate-url', kv.donate_url);
+      setVal('shop-url', kv.shop_url);
+      setVal('contact-phone', kv.contact_phone);
+      setVal('footer-tagline', kv.footer_tagline);
+      setVal('footer-legal', kv.footer_legal);
+
+      updatePreview();
+    } catch(e) {
+      console.warn('Failed to load site content:', e);
+    }
+  });
+
+  function setVal(id, val) {
+    const el = document.getElementById(id);
+    if (el && val !== undefined) el.value = val;
+  }
+  function setChecked(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.checked = !!val;
+  }
+
+  // ─── Save individual sections ──────────────────────────────────────────────
+  const SECTION_KEYS = {
+    announcement: () => ({
+      announcement_text:   document.getElementById('ann-text').value.trim(),
+      announcement_type:   document.getElementById('ann-type').value,
+      announcement_active: document.getElementById('ann-active').checked ? 'true' : 'false',
+      announcement_link:   document.getElementById('ann-link').value.trim()
+    }),
+    homepage: () => ({
+      home_headline:    document.getElementById('home-headline').value.trim(),
+      home_subheadline: document.getElementById('home-subheadline').value.trim(),
+      home_mission:     document.getElementById('home-mission').value.trim(),
+      home_cta_text:    document.getElementById('home-cta-text').value.trim(),
+      home_cta_url:     document.getElementById('home-cta-url').value.trim()
+    }),
+    about: () => ({
+      home_about: document.getElementById('home-about').value.trim(),
+      home_quote: document.getElementById('home-quote').value.trim()
+    }),
+    crisis: () => ({
+      home_988: document.getElementById('home-988').value.trim()
+    }),
+    'event-main': () => ({
+      event_name:        document.getElementById('event-name').value.trim(),
+      event_dates:       document.getElementById('event-dates').value.trim(),
+      event_location:    document.getElementById('event-location').value.trim(),
+      event_address:     document.getElementById('event-address').value.trim(),
+      event_description: document.getElementById('event-description').value.trim(),
+      event_day1:        document.getElementById('event-day1').value.trim(),
+      event_day2:        document.getElementById('event-day2').value.trim()
+    }),
+    'event-rsvp': () => ({
+      event_rsvp_open:       document.getElementById('event-rsvp-open').checked ? 'true' : 'false',
+      event_rsvp_closed_msg: document.getElementById('event-rsvp-closed-msg').value.trim(),
+      event_rsvp_confirm:    document.getElementById('event-rsvp-confirm').value.trim()
+    }),
+    'rsvp-types': () => ({
+      rsvp_type_attendee: document.getElementById('rsvp-type-attendee').checked ? 'true' : 'false',
+      rsvp_type_rider:    document.getElementById('rsvp-type-rider').checked ? 'true' : 'false',
+      rsvp_type_walker:   document.getElementById('rsvp-type-walker').checked ? 'true' : 'false',
+      rsvp_type_vendor:   document.getElementById('rsvp-type-vendor').checked ? 'true' : 'false',
+      rsvp_type_volunteer:document.getElementById('rsvp-type-volunteer').checked ? 'true' : 'false'
+    }),
+    social: () => ({
+      social_facebook:  document.getElementById('social-facebook').value.trim(),
+      social_instagram: document.getElementById('social-instagram').value.trim(),
+      social_tiktok:    document.getElementById('social-tiktok').value.trim(),
+      social_youtube:   document.getElementById('social-youtube').value.trim()
+    }),
+    contact: () => ({
+      contact_email: document.getElementById('contact-email').value.trim(),
+      donate_url:    document.getElementById('donate-url').value.trim(),
+      shop_url:      document.getElementById('shop-url').value.trim(),
+      contact_phone: document.getElementById('contact-phone').value.trim()
+    }),
+    footer: () => ({
+      footer_tagline: document.getElementById('footer-tagline').value.trim(),
+      footer_legal:   document.getElementById('footer-legal').value.trim()
+    })
+  };
+
+  async function saveSection(section) {
+    if (!_db) return;
+    const btnId = 'btn-' + section;
+    const btn = document.getElementById(btnId);
+    if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
+
+    try {
+      const pairs = SECTION_KEYS[section]();
+      await upsertKeys(_db, pairs);
+      toast('✅ Saved — live on the site now!', 'success');
+    } catch(e) {
+      toast('Error saving: ' + e.message, 'error');
+    }
+
+    if (btn) {
+      btn.disabled = false;
+      const labels = {
+        announcement: '💾 Save Announcement',
+        homepage:     '💾 Save Homepage',
+        about:        '💾 Save About Section',
+        crisis:       '💾 Save Crisis Message',
+        'event-main': '💾 Save Event Details',
+        'event-rsvp': '💾 Save RSVP Settings',
+        'rsvp-types': '💾 Save Registration Types',
+        social:       '💾 Save Social Links',
+        contact:      '💾 Save Contact Info',
+        footer:       '💾 Save Footer'
+      };
+      btn.textContent = labels[section] || '💾 Saved';
+    }
+  }
+
+  async function saveAll() {
+    if (!_db) return;
+    const btn = document.getElementById('save-all-btn');
+    btn.disabled = true; btn.textContent = 'Saving all…';
+    let errors = 0;
+    for (const section of Object.keys(SECTION_KEYS)) {
+      try {
+        await upsertKeys(_db, SECTION_KEYS[section]());
+      } catch(e) {
+        errors++;
+        console.warn('Save error for', section, e);
+      }
+    }
+    btn.disabled = false; btn.textContent = '💾 Save All Changes';
+    if (errors === 0) {
+      toast('✅ All changes saved and live on the site!', 'success');
+    } else {
+      toast(`⚠ Saved with ${errors} error(s). Check console.`, 'error');
+    }
+  }
+
+  function signOut() { adminSignOut(); }
+
+</script>
+</body>
+</html>

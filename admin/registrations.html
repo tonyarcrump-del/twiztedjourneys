@@ -3,152 +3,149 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Event RSVPs — Twizted Journeys Admin</title>
+  <title>Event RSVPs — TJ Admin</title>
   <meta name="robots" content="noindex, nofollow" />
-  <link rel="stylesheet" href="../css/styles.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <style>
-    body { background: var(--midnight, #0B0B0F); }
-    .admin-shell { display: flex; min-height: 100vh; }
-    .admin-sidebar { width: 220px; flex-shrink: 0; background: #0a0a14; border-right: 1px solid var(--card-border, #222235); display: flex; flex-direction: column; padding: 24px 0; }
-    .admin-logo { padding: 0 20px 24px; border-bottom: 1px solid var(--card-border); margin-bottom: 16px; }
-    .admin-logo h1 { font-size: 1.1rem; font-weight: 900; color: var(--white); margin: 0 0 2px; }
-    .admin-logo h1 span { color: var(--teal); }
-    .admin-logo p { font-size: 0.75rem; color: var(--muted); margin: 0; }
-    .admin-nav { flex: 1; }
-    .admin-nav a { display: flex; align-items: center; gap: 10px; padding: 10px 20px; color: var(--muted); font-size: 0.88rem; font-weight: 600; text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; }
-    .admin-nav a:hover, .admin-nav a.active { color: var(--white); background: rgba(138,43,239,0.08); border-left-color: var(--purple); }
-    .admin-nav a .nav-icon { font-size: 1rem; width: 20px; text-align: center; }
-    .admin-sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--card-border); }
-    .user-chip { font-size: 0.78rem; color: var(--muted); margin-bottom: 10px; word-break: break-all; }
-    .admin-main { flex: 1; padding: 32px; overflow-y: auto; }
-    .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
-    .admin-header h2 { font-size: 1.5rem; font-weight: 800; color: var(--white); margin: 0; }
-
-    /* Summary chips */
-    .summary-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
-    .summary-chip {
-      background: var(--card-bg); border: 1px solid var(--card-border);
-      border-radius: 8px; padding: 12px 16px; text-align: center; min-width: 100px;
-    }
-    .summary-chip .num { font-size: 1.6rem; font-weight: 900; color: var(--teal); line-height: 1; }
-    .summary-chip .lbl { font-size: 0.72rem; color: var(--muted); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.05em; }
-
-    /* Table */
-    .rsvp-table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    th { background: rgba(138,43,239,0.1); color: var(--muted); font-weight: 700; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em; padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--card-border); }
-    td { padding: 11px 14px; border-bottom: 1px solid rgba(34,34,53,0.7); color: var(--muted); vertical-align: top; }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: rgba(138,43,239,0.04); }
-    td.name { color: var(--white); font-weight: 700; }
-    .type-badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.72rem; font-weight: 700; }
-    .type-attendee  { background: rgba(86,224,210,0.12); color: var(--teal); }
-    .type-rider     { background: rgba(138,43,239,0.15); color: #c084fc; }
-    .type-walker    { background: rgba(16,185,129,0.12); color: #34d399; }
-    .type-vendor    { background: rgba(251,191,36,0.12); color: #fbbf24; }
-    .type-volunteer { background: rgba(239,68,68,0.1); color: #f87171; }
-
-    .filter-bar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
-    .filter-bar select { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 6px; padding: 7px 12px; color: var(--white); font-size: 0.85rem; font-family: inherit; }
-    .filter-bar input { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 6px; padding: 7px 12px; color: var(--white); font-size: 0.85rem; font-family: inherit; }
-    .netlify-note { background: rgba(86,224,210,0.05); border: 1px solid rgba(86,224,210,0.18); border-radius: 10px; padding: 18px 20px; margin-bottom: 24px; font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
-    .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 0.9rem; }
-    .empty-state .icon { font-size: 2.5rem; margin-bottom: 12px; }
-    @media (max-width: 768px) {
-      .admin-shell { flex-direction: column; }
-      .admin-sidebar { width: 100%; flex-direction: row; align-items: center; padding: 12px 16px; }
-      .admin-logo { padding: 0 16px 0 0; border-bottom: none; border-right: 1px solid var(--card-border); margin-bottom: 0; margin-right: 12px; }
-      .admin-nav { display: flex; flex-direction: row; overflow-x: auto; }
-      .admin-nav a { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; padding: 8px 14px; }
-      .admin-nav a.active { border-left-color: transparent; border-bottom-color: var(--purple); }
-      .admin-sidebar-footer { display: none; }
-      .admin-main { padding: 16px; }
-    }
-  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="admin.css" />
 </head>
 <body>
 
+<div id="tj-toast"></div>
+
 <div class="admin-shell">
+
+  <!-- Sidebar -->
   <aside class="admin-sidebar">
-    <div class="admin-logo">
-      <h1>Tw<span>;</span>zted</h1>
-      <p>Admin Panel</p>
+    <div class="sidebar-logo">
+      <div class="wordmark">Tw<span>;</span>zted</div>
+      <div class="subtitle">Admin Panel</div>
     </div>
-    <nav class="admin-nav">
-      <a href="dashboard.html"><span class="nav-icon">&#9776;</span> Dashboard</a>
-      <a href="submissions.html"><span class="nav-icon">&#128330;&#65039;</span> Submissions</a>
-      <a href="registrations.html" class="active"><span class="nav-icon">&#128197;</span> Event RSVPs</a>
-      <a href="shop.html"><span class="nav-icon">&#128247;</span> Shop / Inventory</a>
-      <a href="../index.html" target="_blank" rel="noopener"><span class="nav-icon">&#127760;</span> View Public Site</a>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Main</div>
+      <a href="dashboard.html" class="nav-link">
+        <span class="nav-icon">⬛</span> Dashboard
+      </a>
+      <a href="content.html" class="nav-link">
+        <span class="nav-icon">✏️</span> Edit Site Content
+      </a>
+      <div class="nav-section">Data</div>
+      <a href="submissions.html" class="nav-link">
+        <span class="nav-icon">📋</span> Submissions
+        <span class="nav-badge zero" id="nav-pending">…</span>
+      </a>
+      <a href="registrations.html" class="nav-link active">
+        <span class="nav-icon">📅</span> Event RSVPs
+      </a>
+      <a href="shop.html" class="nav-link">
+        <span class="nav-icon">🛍️</span> Shop / Inventory
+      </a>
+      <div class="nav-section">Site</div>
+      <a href="../index.html" target="_blank" class="nav-link">
+        <span class="nav-icon">🌐</span> View Public Site
+      </a>
     </nav>
-    <div class="admin-sidebar-footer">
-      <div class="user-chip" id="user-email">Loading...</div>
-      <button onclick="signOut()" style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:#f87171;border-radius:6px;padding:7px 14px;font-size:0.8rem;font-weight:700;cursor:pointer;width:100%;font-family:inherit;">Sign Out</button>
+    <div class="sidebar-footer">
+      <div class="user-info" id="user-email">Loading…</div>
+      <button class="btn-signout" onclick="signOut()">Sign Out</button>
     </div>
   </aside>
 
+  <!-- Main -->
   <main class="admin-main">
-    <div class="admin-header">
-      <h2>Event RSVPs &mdash; Sept 2026</h2>
-      <div style="display:flex;gap:8px;">
-        <button onclick="exportCSV()" style="background:rgba(86,224,210,0.1);border:1px solid rgba(86,224,210,0.25);color:var(--teal);border-radius:6px;padding:8px 14px;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:inherit;">&#11015; Export CSV</button>
-        <button onclick="loadRsvps()" style="background:rgba(86,224,210,0.1);border:1px solid rgba(86,224,210,0.25);color:var(--teal);border-radius:6px;padding:8px 14px;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:inherit;">&#8635; Refresh</button>
+
+    <div class="admin-topbar">
+      <div>
+        <div class="topbar-title">📅 Event RSVPs</div>
+        <div class="topbar-sub" id="event-label">Finding Forward 2026 — Sept 12–13, Anderson IN</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost btn-sm" onclick="loadRsvps()">↻ Refresh</button>
+        <button class="btn btn-teal btn-sm" onclick="exportCSV()">⬇ Export CSV</button>
       </div>
     </div>
 
-    <div class="netlify-note">
-      &#9432; <strong style="color:var(--white);">RSVPs from the events page</strong> are saved directly to Supabase and appear in this table automatically.
-      Use the Export CSV button to download a full list for printing or sharing.
-    </div>
+    <div class="admin-content">
 
-    <!-- Summary chips -->
-    <div class="summary-row" id="summary-row">
-      <div class="summary-chip"><div class="num" id="sum-total">—</div><div class="lbl">Total RSVPs</div></div>
-      <div class="summary-chip"><div class="num" id="sum-attendee">—</div><div class="lbl">Attendees</div></div>
-      <div class="summary-chip"><div class="num" id="sum-rider">—</div><div class="lbl">Riders</div></div>
-      <div class="summary-chip"><div class="num" id="sum-walker">—</div><div class="lbl">Walkers</div></div>
-      <div class="summary-chip"><div class="num" id="sum-vendor">—</div><div class="lbl">Vendors</div></div>
-      <div class="summary-chip"><div class="num" id="sum-volunteer">—</div><div class="lbl">Volunteers</div></div>
-    </div>
+      <!-- Stats row -->
+      <div class="stats-row" style="margin-bottom:24px;">
+        <div class="stat-card" style="--stat-color:var(--teal);">
+          <div class="stat-icon">📅</div>
+          <div class="stat-num" id="sum-total">—</div>
+          <div class="stat-label">Total RSVPs</div>
+        </div>
+        <div class="stat-card" style="--stat-color:var(--purple);">
+          <div class="stat-icon">🏍️</div>
+          <div class="stat-num" id="sum-rider">—</div>
+          <div class="stat-label">Riders</div>
+        </div>
+        <div class="stat-card" style="--stat-color:#34d399;">
+          <div class="stat-icon">🚶</div>
+          <div class="stat-num" id="sum-walker">—</div>
+          <div class="stat-label">Walkers</div>
+        </div>
+        <div class="stat-card" style="--stat-color:#fbbf24;">
+          <div class="stat-icon">🛖</div>
+          <div class="stat-num" id="sum-vendor">—</div>
+          <div class="stat-label">Vendors</div>
+        </div>
+        <div class="stat-card" style="--stat-color:#f87171;">
+          <div class="stat-icon">🙋</div>
+          <div class="stat-num" id="sum-volunteer">—</div>
+          <div class="stat-label">Volunteers</div>
+        </div>
+        <div class="stat-card" style="--stat-color:var(--cyan);">
+          <div class="stat-icon">👥</div>
+          <div class="stat-num" id="sum-attendee">—</div>
+          <div class="stat-label">Attendees</div>
+        </div>
+      </div>
 
-    <!-- Filters -->
-    <div class="filter-bar">
-      <select id="type-filter" onchange="renderTable()">
-        <option value="all">All types</option>
-        <option value="attendee">Attendees</option>
-        <option value="rider">Riders</option>
-        <option value="walker">Walkers</option>
-        <option value="vendor">Vendors</option>
-        <option value="volunteer">Volunteers</option>
-      </select>
-      <select id="day-filter" onchange="renderTable()">
-        <option value="all">Both days</option>
-        <option value="day1">Day 1 — Sept 12</option>
-        <option value="day2">Day 2 — Sept 13</option>
-      </select>
-      <input type="search" id="search-input" placeholder="Search by name or email&hellip;" oninput="renderTable()" style="width:200px;" />
-    </div>
+      <div class="card">
+        <div class="card-title" style="margin-bottom:16px;">📋 Registered Attendees</div>
 
-    <!-- Table -->
-    <div class="rsvp-table-wrap">
-      <table id="rsvp-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Type</th>
-            <th>Guests</th>
-            <th>Day(s)</th>
-            <th>Notes</th>
-            <th>Registered</th>
-          </tr>
-        </thead>
-        <tbody id="rsvp-tbody">
-          <tr><td colspan="8" class="empty-state"><div class="icon">&#9203;</div><p>Loading&hellip;</p></td></tr>
-        </tbody>
-      </table>
+        <!-- Filters -->
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px;">
+          <select class="field-select" id="type-filter" onchange="renderTable()" style="width:auto;">
+            <option value="all">All types</option>
+            <option value="attendee">👥 Attendees</option>
+            <option value="rider">🏍️ Riders</option>
+            <option value="walker">🚶 Walkers</option>
+            <option value="vendor">🛖 Vendors</option>
+            <option value="volunteer">🙋 Volunteers</option>
+          </select>
+          <select class="field-select" id="day-filter" onchange="renderTable()" style="width:auto;">
+            <option value="all">Both days</option>
+            <option value="day1">Day 1 — Sept 12</option>
+            <option value="day2">Day 2 — Sept 13</option>
+          </select>
+          <input type="search" class="field-input" id="search-input"
+            placeholder="Search name or email…" oninput="renderTable()"
+            style="flex:1;min-width:180px;max-width:280px;" />
+          <span id="count-label" style="font-size:0.82rem;color:var(--muted);margin-left:auto;"></span>
+        </div>
+
+        <!-- Table -->
+        <div style="overflow-x:auto;">
+          <table class="data-table" id="rsvp-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Type</th>
+                <th>Guests</th>
+                <th>Day(s)</th>
+                <th>Notes</th>
+                <th>Registered</th>
+              </tr>
+            </thead>
+            <tbody id="rsvp-tbody">
+              <tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
   </main>
 </div>
@@ -159,8 +156,36 @@
   let allRsvps = [];
   let _db = null;
 
+  function toast(msg, type = 'info') {
+    const t = document.getElementById('tj-toast');
+    t.textContent = msg;
+    t.className = 'show ' + type;
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.className = ''; }, 3500);
+  }
+
   initAdmin(async function(user, db) {
     _db = db;
+
+    // Load submissions badge
+    try {
+      const { count } = await db.from('memorial_submissions').select('id', { count: 'exact', head: true }).eq('status', 'pending');
+      const badge = document.getElementById('nav-pending');
+      badge.textContent = count ?? 0;
+      badge.className = 'nav-badge' + ((count ?? 0) === 0 ? ' zero' : '');
+    } catch(e) {}
+
+    // Load event name from site_content
+    try {
+      const { data } = await db.from('site_content').select('value').eq('key', 'event_name').single();
+      if (data?.value) {
+        const dateRes = await db.from('site_content').select('value').eq('key', 'event_dates').single();
+        const locRes  = await db.from('site_content').select('value').eq('key', 'event_location').single();
+        document.getElementById('event-label').textContent =
+          [data.value, dateRes.data?.value, locRes.data?.value].filter(Boolean).join(' — ');
+      }
+    } catch(e) {}
+
     await loadRsvps();
   });
 
@@ -168,61 +193,102 @@
 
   async function loadRsvps() {
     if (!_db) return;
-    const { data } = await _db.from('event_registrations').select('*').order('created_at', { ascending: false });
+    document.getElementById('rsvp-tbody').innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">Loading…</td></tr>';
+    const { data, error } = await _db.from('event_registrations').select('*').order('created_at', { ascending: false });
+    if (error) { toast('Failed to load: ' + error.message, 'error'); return; }
     allRsvps = data || [];
-    updateSummary();
+    updateStats();
     renderTable();
   }
 
-  function updateSummary() {
-    document.getElementById('sum-total').textContent = allRsvps.length;
-    ['attendee','rider','walker','vendor','volunteer'].forEach(function(t) {
-      document.getElementById('sum-' + t).textContent = allRsvps.filter(function(r){ return r.registration_type === t; }).length;
-    });
+  function updateStats() {
+    document.getElementById('sum-total').textContent    = allRsvps.length;
+    document.getElementById('sum-attendee').textContent = allRsvps.filter(r => r.registration_type === 'attendee').length;
+    document.getElementById('sum-rider').textContent    = allRsvps.filter(r => r.registration_type === 'rider').length;
+    document.getElementById('sum-walker').textContent   = allRsvps.filter(r => r.registration_type === 'walker').length;
+    document.getElementById('sum-vendor').textContent   = allRsvps.filter(r => r.registration_type === 'vendor').length;
+    document.getElementById('sum-volunteer').textContent= allRsvps.filter(r => r.registration_type === 'volunteer').length;
   }
 
   function renderTable() {
     const typeF = document.getElementById('type-filter').value;
     const dayF  = document.getElementById('day-filter').value;
-    const q     = document.getElementById('search-input').value.toLowerCase();
-    const filtered = allRsvps.filter(function(r) {
+    const q     = document.getElementById('search-input').value.toLowerCase().trim();
+
+    const filtered = allRsvps.filter(r => {
       if (typeF !== 'all' && r.registration_type !== typeF) return false;
       if (dayF === 'day1' && !r.day1) return false;
       if (dayF === 'day2' && !r.day2) return false;
-      if (q && !((r.name||'').toLowerCase().includes(q) || (r.email||'').toLowerCase().includes(q))) return false;
+      if (q && ![(r.name||''),(r.email||'')].join(' ').toLowerCase().includes(q)) return false;
       return true;
     });
+
+    document.getElementById('count-label').textContent = filtered.length + ' result' + (filtered.length !== 1 ? 's' : '');
+
     if (!filtered.length) {
-      document.getElementById('rsvp-tbody').innerHTML = '<tr><td colspan="8"><div class="empty-state"><div class="icon">&#128197;</div><p>No RSVPs match the current filters.</p></div></td></tr>';
+      document.getElementById('rsvp-tbody').innerHTML = `
+        <tr><td colspan="8">
+          <div style="text-align:center;padding:50px 20px;color:var(--muted);">
+            <div style="font-size:2rem;margin-bottom:10px;">📭</div>
+            No RSVPs match this filter. <a href="#" onclick="resetFilters(event)" style="color:var(--teal);">Clear filters</a>
+          </div>
+        </td></tr>`;
       return;
     }
-    document.getElementById('rsvp-tbody').innerHTML = filtered.map(function(r) {
-      var days = [r.day1?'Sept 12':'', r.day2?'Sept 13':''].filter(Boolean).join(', ') || '--';
-      var type = r.registration_type || 'attendee';
-      return '<tr><td class="name">'+esc(r.name||'')+'</td>' +
-        '<td><a href="mailto:'+esc(r.email||'')+'" style="color:var(--teal);">'+esc(r.email||'')+'</a></td>' +
-        '<td>'+esc(r.phone||'--')+'</td>' +
-        '<td><span class="type-badge type-'+type+'">'+type+'</span></td>' +
-        '<td>'+esc(r.guests||'1')+'</td>' +
-        '<td>'+days+'</td>' +
-        '<td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="'+esc(r.notes||'')+'">'+esc(r.notes||'--')+'</td>' +
-        '<td>'+(r.created_at?new Date(r.created_at).toLocaleDateString():'--')+'</td></tr>';
+
+    const typeBadge = {
+      attendee:  'badge-teal',
+      rider:     'badge-purple',
+      walker:    'badge-success',
+      vendor:    'badge-warning',
+      volunteer: 'badge-danger'
+    };
+
+    document.getElementById('rsvp-tbody').innerHTML = filtered.map(r => {
+      const type = r.registration_type || 'attendee';
+      const days = [r.day1 ? 'Sept 12' : '', r.day2 ? 'Sept 13' : ''].filter(Boolean).join(', ') || '—';
+      const date = r.created_at ? new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '—';
+      return `<tr>
+        <td style="color:var(--white);font-weight:700;">${esc(r.name || '')}</td>
+        <td><a href="mailto:${esc(r.email||'')}" style="color:var(--teal);">${esc(r.email || '—')}</a></td>
+        <td>${esc(r.phone || '—')}</td>
+        <td><span class="badge ${typeBadge[type] || 'badge-teal'}">${type}</span></td>
+        <td>${esc(r.guests || '1')}</td>
+        <td>${days}</td>
+        <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${esc(r.notes||'')}">${esc(r.notes || '—')}</td>
+        <td style="white-space:nowrap;">${date}</td>
+      </tr>`;
     }).join('');
   }
 
-  function exportCSV() {
-    var rows = [['Name','Email','Phone','Type','Guests','Day1','Day2','Notes','Registered']];
-    allRsvps.forEach(function(r) {
-      rows.push([r.name||'', r.email||'', r.phone||'', r.registration_type||'', r.guests||'', r.day1?'Yes':'No', r.day2?'Yes':'No', r.notes||'', r.created_at||'']);
-    });
-    var csv = rows.map(function(r){ return r.map(function(v){ return '"'+String(v).replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
-    a.download = 'tj-rsvps-' + new Date().toISOString().slice(0,10) + '.csv';
-    a.click();
+  function resetFilters(e) {
+    e.preventDefault();
+    document.getElementById('type-filter').value = 'all';
+    document.getElementById('day-filter').value  = 'all';
+    document.getElementById('search-input').value = '';
+    renderTable();
   }
 
-  function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function exportCSV() {
+    const headers = ['Name','Email','Phone','Type','Guests','Day1 (Sept 12)','Day2 (Sept 13)','Notes','Registered'];
+    const rows = allRsvps.map(r => [
+      r.name||'', r.email||'', r.phone||'', r.registration_type||'',
+      r.guests||'', r.day1?'Yes':'No', r.day2?'Yes':'No', r.notes||'',
+      r.created_at ? new Date(r.created_at).toLocaleDateString() : ''
+    ]);
+    const csv = [headers, ...rows].map(row =>
+      row.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')
+    ).join('\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+    a.download = `tj-rsvps-${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    toast('✅ CSV downloaded!', 'success');
+  }
+
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
 </script>
 </body>
 </html>

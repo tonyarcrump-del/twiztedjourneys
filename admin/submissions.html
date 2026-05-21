@@ -3,160 +3,123 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Submissions — Twizted Journeys Admin</title>
+  <title>Submissions — TJ Admin</title>
   <meta name="robots" content="noindex, nofollow" />
-  <link rel="stylesheet" href="../css/styles.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <style>
-    body { background: var(--midnight, #0B0B0F); }
-    .admin-shell { display: flex; min-height: 100vh; }
-    .admin-sidebar {
-      width: 220px; flex-shrink: 0;
-      background: #0a0a14;
-      border-right: 1px solid var(--card-border, #222235);
-      display: flex; flex-direction: column; padding: 24px 0;
-    }
-    .admin-logo { padding: 0 20px 24px; border-bottom: 1px solid var(--card-border); margin-bottom: 16px; }
-    .admin-logo h1 { font-size: 1.1rem; font-weight: 900; color: var(--white); margin: 0 0 2px; }
-    .admin-logo h1 span { color: var(--teal); }
-    .admin-logo p { font-size: 0.75rem; color: var(--muted); margin: 0; }
-    .admin-nav { flex: 1; }
-    .admin-nav a {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 20px; color: var(--muted);
-      font-size: 0.88rem; font-weight: 600; text-decoration: none;
-      border-left: 3px solid transparent; transition: all 0.15s;
-    }
-    .admin-nav a:hover, .admin-nav a.active {
-      color: var(--white); background: rgba(138,43,239,0.08);
-      border-left-color: var(--purple);
-    }
-    .admin-nav a .nav-icon { font-size: 1rem; width: 20px; text-align: center; }
-    .admin-sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--card-border); }
-    .user-chip { font-size: 0.78rem; color: var(--muted); margin-bottom: 10px; word-break: break-all; }
-    .admin-main { flex: 1; padding: 32px; overflow-y: auto; }
-    .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
-    .admin-header h2 { font-size: 1.5rem; font-weight: 800; color: var(--white); margin: 0; }
-
-    /* Tab bar */
-    .tab-bar { display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 1px solid var(--card-border); }
-    .tab-btn {
-      padding: 10px 18px; font-size: 0.88rem; font-weight: 700; color: var(--muted);
-      background: none; border: none; border-bottom: 3px solid transparent;
-      cursor: pointer; font-family: inherit; transition: all 0.15s;
-    }
-    .tab-btn:hover { color: var(--white); }
-    .tab-btn.active { color: var(--teal); border-bottom-color: var(--teal); }
-
-    /* Submission cards */
-    .sub-card {
-      background: var(--card-bg, #111118);
-      border: 1px solid var(--card-border, #222235);
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 16px;
-    }
-    .sub-card.pending { border-left: 4px solid #fbbf24; }
-    .sub-card.approved { border-left: 4px solid var(--teal); }
-    .sub-card.rejected { border-left: 4px solid #f87171; opacity: 0.6; }
-    .sub-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
-    .sub-name { font-weight: 800; color: var(--white); font-size: 0.97rem; }
-    .sub-email { font-size: 0.8rem; color: var(--muted); }
-    .sub-date { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
-    .sub-body { color: var(--muted); font-size: 0.88rem; line-height: 1.7; white-space: pre-wrap; word-break: break-word; max-height: 140px; overflow: hidden; }
-    .sub-body.expanded { max-height: none; }
-    .sub-actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; align-items: center; }
-    .action-btn {
-      padding: 7px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: 700;
-      cursor: pointer; border: none; font-family: inherit; transition: opacity 0.15s;
-    }
-    .action-btn:hover { opacity: 0.8; }
-    .btn-approve { background: rgba(86,224,210,0.15); color: var(--teal); }
-    .btn-reject  { background: rgba(239,68,68,0.12); color: #f87171; }
-    .btn-expand  { background: transparent; color: var(--muted); font-size: 0.78rem; text-decoration: underline; }
-    .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.72rem; font-weight: 700; }
-    .badge-pending  { background: rgba(251,191,36,0.15); color: #fbbf24; }
-    .badge-approved { background: rgba(86,224,210,0.15); color: var(--teal); }
-    .badge-rejected { background: rgba(239,68,68,0.12); color: #f87171; }
-    .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 0.9rem; }
-    .empty-state .icon { font-size: 2.5rem; margin-bottom: 12px; }
-    .filter-bar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
-    .filter-bar select {
-      background: var(--card-bg); border: 1px solid var(--card-border);
-      border-radius: 6px; padding: 7px 12px; color: var(--white); font-size: 0.85rem;
-      font-family: inherit;
-    }
-    .netlify-note {
-      background: rgba(86,224,210,0.05); border: 1px solid rgba(86,224,210,0.18);
-      border-radius: 10px; padding: 18px 20px; margin-bottom: 24px;
-      font-size: 0.85rem; color: var(--muted); line-height: 1.7;
-    }
-    @media (max-width: 768px) {
-      .admin-shell { flex-direction: column; }
-      .admin-sidebar { width: 100%; flex-direction: row; align-items: center; padding: 12px 16px; }
-      .admin-logo { padding: 0 16px 0 0; border-bottom: none; border-right: 1px solid var(--card-border); margin-bottom: 0; margin-right: 12px; }
-      .admin-nav { display: flex; flex-direction: row; overflow-x: auto; }
-      .admin-nav a { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; padding: 8px 14px; }
-      .admin-nav a.active { border-left-color: transparent; border-bottom-color: var(--purple); }
-      .admin-sidebar-footer { display: none; }
-      .admin-main { padding: 16px; }
-    }
-  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="admin.css" />
 </head>
 <body>
 
+<div id="tj-toast"></div>
+
 <div class="admin-shell">
+
+  <!-- Sidebar -->
   <aside class="admin-sidebar">
-    <div class="admin-logo">
-      <h1>Tw<span>;</span>zted</h1>
-      <p>Admin Panel</p>
+    <div class="sidebar-logo">
+      <div class="wordmark">Tw<span>;</span>zted</div>
+      <div class="subtitle">Admin Panel</div>
     </div>
-    <nav class="admin-nav">
-      <a href="dashboard.html"><span class="nav-icon">&#9776;</span> Dashboard</a>
-      <a href="submissions.html" class="active"><span class="nav-icon">&#128330;&#65039;</span> Submissions</a>
-      <a href="registrations.html"><span class="nav-icon">&#128197;</span> Event RSVPs</a>
-      <a href="shop.html"><span class="nav-icon">&#128247;</span> Shop / Inventory</a>
-      <a href="../index.html" target="_blank" rel="noopener"><span class="nav-icon">&#127760;</span> View Public Site</a>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Main</div>
+      <a href="dashboard.html" class="nav-link">
+        <span class="nav-icon">⬛</span> Dashboard
+      </a>
+      <a href="content.html" class="nav-link">
+        <span class="nav-icon">✏️</span> Edit Site Content
+      </a>
+      <div class="nav-section">Data</div>
+      <a href="submissions.html" class="nav-link active">
+        <span class="nav-icon">📋</span> Submissions
+        <span class="nav-badge zero" id="nav-pending">…</span>
+      </a>
+      <a href="registrations.html" class="nav-link">
+        <span class="nav-icon">📅</span> Event RSVPs
+      </a>
+      <a href="shop.html" class="nav-link">
+        <span class="nav-icon">🛍️</span> Shop / Inventory
+      </a>
+      <div class="nav-section">Site</div>
+      <a href="../index.html" target="_blank" class="nav-link">
+        <span class="nav-icon">🌐</span> View Public Site
+      </a>
     </nav>
-    <div class="admin-sidebar-footer">
-      <div class="user-chip" id="user-email">Loading...</div>
-      <button onclick="signOut()" style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:#f87171;border-radius:6px;padding:7px 14px;font-size:0.8rem;font-weight:700;cursor:pointer;width:100%;font-family:inherit;">Sign Out</button>
+    <div class="sidebar-footer">
+      <div class="user-info" id="user-email">Loading…</div>
+      <button class="btn-signout" onclick="signOut()">Sign Out</button>
     </div>
   </aside>
 
+  <!-- Main -->
   <main class="admin-main">
-    <div class="admin-header">
-      <h2>Submissions</h2>
-      <button onclick="loadAll()" style="background:rgba(86,224,210,0.1);border:1px solid rgba(86,224,210,0.25);color:var(--teal);border-radius:6px;padding:8px 14px;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:inherit;">&#8635; Refresh</button>
+
+    <div class="admin-topbar">
+      <div>
+        <div class="topbar-title">📋 Submissions</div>
+        <div class="topbar-sub">Review memorial names and journey stories submitted through the site.</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost btn-sm" onclick="loadAll()">↻ Refresh</button>
+      </div>
     </div>
 
-    <div class="netlify-note">
-      &#9432; <strong style="color:var(--white);">Memorial and story submissions</strong> are saved directly to Supabase and appear here for your review.
-      Use the Approve / Reject buttons to manage each submission. Approved memorials will appear on the public memorial page.
-    </div>
+    <div class="admin-content">
 
-    <!-- Tab bar -->
-    <div class="tab-bar" role="tablist">
-      <button class="tab-btn active" role="tab" aria-selected="true" onclick="switchTab('memorial', this)">&#128337; Memorial Names</button>
-      <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('stories', this)">&#128330;&#65039; Journey Stories</button>
-    </div>
+      <!-- Stats row -->
+      <div class="stats-row" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+        <div class="stat-card" style="--stat-color:var(--warning);">
+          <div class="stat-icon">⏳</div>
+          <div class="stat-num" id="count-pending">—</div>
+          <div class="stat-label">Pending Review</div>
+        </div>
+        <div class="stat-card" style="--stat-color:var(--teal);">
+          <div class="stat-icon">✅</div>
+          <div class="stat-num" id="count-approved">—</div>
+          <div class="stat-label">Approved</div>
+        </div>
+        <div class="stat-card" style="--stat-color:#f87171;">
+          <div class="stat-icon">✕</div>
+          <div class="stat-num" id="count-rejected">—</div>
+          <div class="stat-label">Rejected</div>
+        </div>
+        <div class="stat-card" style="--stat-color:var(--purple);">
+          <div class="stat-icon">📝</div>
+          <div class="stat-num" id="count-total">—</div>
+          <div class="stat-label">Total Submissions</div>
+        </div>
+      </div>
 
-    <!-- Filter bar -->
-    <div class="filter-bar">
-      <select id="status-filter" onchange="applyFilter()">
-        <option value="all">All statuses</option>
-        <option value="pending" selected>Pending review</option>
-        <option value="approved">Approved</option>
-        <option value="rejected">Rejected</option>
-      </select>
-      <span id="count-label" style="font-size:0.82rem;color:var(--muted);"></span>
-    </div>
+      <div class="card">
 
-    <!-- Submission list -->
-    <div id="sub-list">
-      <div class="empty-state">
-        <div class="icon">&#9203;</div>
-        <p>Loading submissions&hellip;</p>
+        <!-- Tab bar -->
+        <div class="tab-bar" style="margin-bottom:20px;">
+          <button class="tab-btn active" onclick="switchTab('memorial',this)">🕯️ Memorial Names</button>
+          <button class="tab-btn" onclick="switchTab('stories',this)">📋 Journey Stories</button>
+        </div>
+
+        <!-- Filter bar -->
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:20px;">
+          <select class="field-select" id="status-filter" onchange="applyFilter()" style="width:auto;">
+            <option value="all">All statuses</option>
+            <option value="pending" selected>⏳ Pending review</option>
+            <option value="approved">✅ Approved</option>
+            <option value="rejected">✕ Rejected</option>
+          </select>
+          <span id="count-label" style="font-size:0.83rem;color:var(--muted);"></span>
+          <div style="margin-left:auto;">
+            <input type="text" class="field-input" id="search-input" placeholder="Search by name…"
+              oninput="applyFilter()" style="width:220px;" />
+          </div>
+        </div>
+
+        <!-- List -->
+        <div id="sub-list">
+          <div class="empty-state">
+            <div class="empty-icon">⏳</div>
+            <p>Loading submissions…</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </main>
@@ -168,10 +131,18 @@
   let currentTab = 'memorial';
   let allData = { memorial: [], stories: [] };
   let _db = null;
-  let currentUser = null;
+  let _user = null;
+
+  function toast(msg, type = 'info') {
+    const t = document.getElementById('tj-toast');
+    t.textContent = msg;
+    t.className = 'show ' + type;
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.className = ''; }, 3500);
+  }
 
   initAdmin(async function(user, db) {
-    currentUser = user; _db = db;
+    _user = user; _db = db;
     await loadAll();
   });
 
@@ -179,63 +150,143 @@
 
   function switchTab(tab, btn) {
     currentTab = tab;
-    document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
-    btn.classList.add('active'); btn.setAttribute('aria-selected','true');
-    renderList();
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilter();
   }
 
   async function loadAll() {
     if (!_db) return;
-    document.getElementById('sub-list').innerHTML = '<div class="empty-state"><div class="icon">&#9203;</div><p>Loading&hellip;</p></div>';
+    document.getElementById('sub-list').innerHTML = '<div class="empty-state"><div class="empty-icon">⏳</div><p>Loading…</p></div>';
+
     const [memRes, storyRes] = await Promise.all([
       _db.from('memorial_submissions').select('*').order('created_at', { ascending: false }),
       _db.from('story_submissions').select('*').order('created_at', { ascending: false })
     ]);
+
     allData.memorial = memRes.data || [];
     allData.stories  = storyRes.data || [];
-    renderList();
+
+    // Update stats
+    const all = [...allData.memorial, ...allData.stories];
+    document.getElementById('count-pending').textContent  = all.filter(r => r.status === 'pending').length;
+    document.getElementById('count-approved').textContent = all.filter(r => r.status === 'approved').length;
+    document.getElementById('count-rejected').textContent = all.filter(r => r.status === 'rejected').length;
+    document.getElementById('count-total').textContent    = all.length;
+
+    // Nav badge
+    const pendingN = allData.memorial.filter(r => r.status === 'pending').length;
+    const badge = document.getElementById('nav-pending');
+    badge.textContent = pendingN;
+    badge.className = 'nav-badge' + (pendingN === 0 ? ' zero' : '');
+
+    applyFilter();
   }
 
-  function applyFilter() { renderList(); }
-
-  function renderList() {
+  function applyFilter() {
     const filter = document.getElementById('status-filter').value;
-    const data = currentTab === 'memorial' ? allData.memorial : allData.stories;
-    const filtered = filter === 'all' ? data : data.filter(r => r.status === filter);
-    document.getElementById('count-label').textContent = filtered.length + ' submission' + (filtered.length !== 1 ? 's' : '');
-    if (!filtered.length) {
-      document.getElementById('sub-list').innerHTML = '<div class="empty-state"><div class="icon">' + (filter === 'pending' ? '&#10003;' : '&#128330;') + '</div><p>' + (filter === 'pending' ? 'No pending submissions.' : 'No submissions here yet.') + '</p></div>';
+    const search = (document.getElementById('search-input').value || '').toLowerCase().trim();
+    let data = currentTab === 'memorial' ? allData.memorial : allData.stories;
+
+    if (filter !== 'all') data = data.filter(r => (r.status || 'pending') === filter);
+    if (search) data = data.filter(r =>
+      (r.name || '').toLowerCase().includes(search) ||
+      (r.loved_one_name || '').toLowerCase().includes(search) ||
+      (r.email || '').toLowerCase().includes(search)
+    );
+
+    document.getElementById('count-label').textContent = data.length + ' result' + (data.length !== 1 ? 's' : '');
+    renderList(data);
+  }
+
+  function renderList(data) {
+    const list = document.getElementById('sub-list');
+
+    if (!data.length) {
+      const msg = document.getElementById('status-filter').value === 'pending'
+        ? 'All caught up — no pending submissions! 🎉'
+        : 'No submissions match this filter.';
+      list.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><p>${msg}</p></div>`;
       return;
     }
-    document.getElementById('sub-list').innerHTML = filtered.map(function(s) {
-      return '<div class="sub-card ' + (s.status||'pending') + '" id="card-' + s.id + '">' +
-        '<div class="sub-meta"><span class="sub-name">' + esc(s.name||'Anonymous') + '</span>' +
-        '<span class="badge badge-' + (s.status||'pending') + '">' + (s.status||'pending') + '</span>' +
-        '<span class="sub-email">' + esc(s.email||'') + '</span>' +
-        '<span class="sub-date">' + (s.created_at ? new Date(s.created_at).toLocaleDateString() : '') + '</span></div>' +
-        (currentTab === 'memorial' && s.loved_one_name ? '<div style="font-size:0.85rem;color:var(--white);font-weight:700;margin-bottom:8px;">&#128337; ' + esc(s.loved_one_name) + '</div>' : '') +
-        '<div class="sub-body" id="body-' + s.id + '">' + esc(s.message||s.story||'') + '</div>' +
-        '<div class="sub-actions">' +
-        (s.status !== 'approved' ? '<button class="action-btn btn-approve" onclick="updateStatus(\'' + s.id + '\',\'approved\')">&#10003; Approve</button>' : '') +
-        (s.status !== 'rejected' ? '<button class="action-btn btn-reject" onclick="updateStatus(\'' + s.id + '\',\'rejected\')">&#10005; Reject</button>' : '') +
-        '<button class="action-btn btn-expand" onclick="toggleExpand(\'' + s.id + '\')">Show more</button></div></div>';
+
+    list.innerHTML = data.map(s => {
+      const status = s.status || 'pending';
+      const accentColors = { pending: '#fbbf24', approved: 'var(--teal)', rejected: '#f87171', needs_edit: 'var(--purple)' };
+      const badgeColors  = { pending: 'warning', approved: 'teal', rejected: 'danger', needs_edit: 'purple' };
+      const accent = accentColors[status] || '#fbbf24';
+      const badgeCls = badgeColors[status] || 'warning';
+      const date = s.created_at ? new Date(s.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+      const bodyText = esc(s.message || s.story || '(No message)');
+
+      return `
+        <div style="border:1px solid var(--card-border);border-left:4px solid ${accent};border-radius:10px;padding:20px;margin-bottom:14px;background:var(--surface);" id="card-${s.id}">
+          <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+            <div style="flex:1;min-width:0;">
+              <div style="font-weight:800;color:var(--white);font-size:0.97rem;">${esc(s.name || 'Anonymous')}</div>
+              ${currentTab === 'memorial' && s.loved_one_name
+                ? `<div style="font-size:0.85rem;color:var(--cyan);margin-top:3px;">🕯️ In memory of: <strong>${esc(s.loved_one_name)}</strong></div>`
+                : ''}
+              <div style="font-size:0.78rem;color:var(--muted);margin-top:3px;">${esc(s.email || '')}</div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;flex-shrink:0;">
+              <span class="badge badge-${badgeCls}">${status}</span>
+              <span style="font-size:0.75rem;color:var(--muted);">${date}</span>
+            </div>
+          </div>
+
+          <div id="body-${s.id}" style="font-size:0.87rem;color:var(--muted);line-height:1.75;white-space:pre-wrap;word-break:break-word;max-height:120px;overflow:hidden;transition:max-height 0.2s;">
+${bodyText}
+          </div>
+          <button onclick="toggleExpand('${s.id}')" id="expand-${s.id}"
+            style="background:none;border:none;color:var(--muted);font-size:0.77rem;cursor:pointer;padding:4px 0;font-family:inherit;text-decoration:underline;">
+            Show more
+          </button>
+
+          <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">
+            ${status !== 'approved'
+              ? `<button class="btn btn-teal btn-sm" onclick="setStatus('${s.id}','approved')">✓ Approve</button>`
+              : `<span style="font-size:0.8rem;color:var(--teal);font-weight:700;">✅ Approved</span>`}
+            ${status !== 'rejected'
+              ? `<button class="btn btn-danger btn-sm" onclick="setStatus('${s.id}','rejected')">✕ Reject</button>`
+              : ''}
+            ${status === 'pending'
+              ? `<button class="btn btn-ghost btn-sm" onclick="setStatus('${s.id}','needs_edit')">✏️ Needs Edit</button>`
+              : ''}
+          </div>
+        </div>`;
     }).join('');
   }
 
-  async function updateStatus(id, status) {
+  async function setStatus(id, status) {
     if (!_db) return;
     const table = currentTab === 'memorial' ? 'memorial_submissions' : 'story_submissions';
-    const { error } = await _db.from(table).update({ status: status, reviewed_at: new Date().toISOString(), reviewed_by: currentUser?.email }).eq('id', id);
-    if (!error) { await loadAll(); } else { alert('Update failed: ' + error.message); }
+    const { error } = await _db.from(table).update({
+      status,
+      reviewed_at: new Date().toISOString(),
+      reviewed_by: _user?.email || ''
+    }).eq('id', id);
+
+    if (error) {
+      toast('Error: ' + error.message, 'error');
+    } else {
+      const labels = { approved: '✅ Approved!', rejected: '✕ Rejected', needs_edit: '✏️ Marked as needs edit' };
+      toast(labels[status] || 'Updated', 'success');
+      await loadAll();
+    }
   }
 
   function toggleExpand(id) {
-    const el = document.getElementById('body-' + id);
-    const btn = el.nextElementSibling?.querySelector('.btn-expand');
-    if (el.classList.toggle('expanded')) { if (btn) btn.textContent = 'Show less'; } else { if (btn) btn.textContent = 'Show more'; }
+    const body = document.getElementById('body-' + id);
+    const btn  = document.getElementById('expand-' + id);
+    const expanded = body.style.maxHeight === 'none';
+    body.style.maxHeight = expanded ? '120px' : 'none';
+    btn.textContent = expanded ? 'Show more' : 'Show less';
   }
 
-  function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
 </script>
 </body>
 </html>

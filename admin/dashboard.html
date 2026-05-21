@@ -3,325 +3,346 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Dashboard — Twizted Journeys</title>
+  <title>Dashboard — TJ Admin</title>
   <meta name="robots" content="noindex, nofollow" />
-  <link rel="stylesheet" href="../css/styles.css" />
-  
-  
-  <style>
-    body { background: var(--midnight, #0B0B0F); }
-    .admin-shell { display: flex; min-height: 100vh; }
-    /* Sidebar */
-    .admin-sidebar {
-      width: 220px;
-      flex-shrink: 0;
-      background: #0a0a14;
-      border-right: 1px solid var(--card-border, #222235);
-      display: flex;
-      flex-direction: column;
-      padding: 24px 0;
-    }
-    .admin-logo {
-      padding: 0 20px 24px;
-      border-bottom: 1px solid var(--card-border, #222235);
-      margin-bottom: 16px;
-    }
-    .admin-logo h1 {
-      font-size: 1.1rem;
-      font-weight: 900;
-      color: var(--white, #F8FBFF);
-      margin: 0 0 2px;
-    }
-    .admin-logo h1 span { color: var(--teal, #56E0D2); }
-    .admin-logo p { font-size: 0.75rem; color: var(--muted, #7A8FA6); margin: 0; }
-    .admin-nav { flex: 1; }
-    .admin-nav a {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 20px;
-      color: var(--muted, #7A8FA6);
-      font-size: 0.88rem;
-      font-weight: 600;
-      text-decoration: none;
-      border-left: 3px solid transparent;
-      transition: all 0.15s;
-    }
-    .admin-nav a:hover, .admin-nav a.active {
-      color: var(--white, #F8FBFF);
-      background: rgba(138,43,239,0.08);
-      border-left-color: var(--purple, #8A2BEF);
-    }
-    .admin-nav a .nav-icon { font-size: 1rem; width: 20px; text-align: center; }
-    .admin-sidebar-footer {
-      padding: 16px 20px;
-      border-top: 1px solid var(--card-border, #222235);
-    }
-    .user-chip {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-bottom: 10px;
-      word-break: break-all;
-    }
-    /* Main area */
-    .admin-main {
-      flex: 1;
-      padding: 32px;
-      overflow-y: auto;
-    }
-    .admin-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .admin-header h2 {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--white);
-      margin: 0;
-    }
-    /* Stat cards */
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-    .stat-card {
-      background: var(--card-bg, #111118);
-      border: 1px solid var(--card-border, #222235);
-      border-radius: 10px;
-      padding: 20px;
-    }
-    .stat-card .label {
-      font-size: 0.78rem;
-      color: var(--muted);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
-    }
-    .stat-card .value {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--teal, #56E0D2);
-      line-height: 1;
-    }
-    .stat-card .sub {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-    /* Quick action cards */
-    .quick-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-    }
-    .quick-card {
-      background: var(--card-bg, #111118);
-      border: 1px solid var(--card-border, #222235);
-      border-radius: 10px;
-      padding: 22px;
-      text-decoration: none;
-      display: block;
-      transition: border-color 0.15s, background 0.15s;
-    }
-    .quick-card:hover {
-      border-color: var(--purple, #8A2BEF);
-      background: rgba(138,43,239,0.06);
-    }
-    .quick-card .icon { font-size: 1.6rem; margin-bottom: 10px; }
-    .quick-card h3 {
-      font-size: 0.97rem;
-      font-weight: 800;
-      color: var(--white);
-      margin: 0 0 6px;
-    }
-    .quick-card p {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin: 0;
-      line-height: 1.6;
-    }
-    /* Badge */
-    .badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 0.72rem;
-      font-weight: 700;
-    }
-    .badge-pending { background: rgba(251,191,36,0.15); color: #fbbf24; }
-    .badge-ok { background: rgba(86,224,210,0.15); color: var(--teal); }
-    /* Alert banner */
-    .setup-alert {
-      background: rgba(251,191,36,0.08);
-      border: 1px solid rgba(251,191,36,0.3);
-      border-radius: 10px;
-      padding: 16px 20px;
-      margin-bottom: 28px;
-      font-size: 0.88rem;
-      color: #fbbf24;
-      line-height: 1.65;
-    }
-    @media (max-width: 768px) {
-      .admin-shell { flex-direction: column; }
-      .admin-sidebar { width: 100%; flex-direction: row; align-items: center; padding: 12px 16px; }
-      .admin-logo { padding: 0 16px 0 0; border-bottom: none; border-right: 1px solid var(--card-border); margin-bottom: 0; margin-right: 12px; }
-      .admin-nav { display: flex; flex-direction: row; overflow-x: auto; }
-      .admin-nav a { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; padding: 8px 14px; }
-      .admin-nav a:hover, .admin-nav a.active { border-left-color: transparent; border-bottom-color: var(--purple); }
-      .admin-sidebar-footer { display: none; }
-      .admin-main { padding: 20px; }
-    }
-  </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="admin.css" />
 </head>
 <body>
+
+<div id="tj-toast"></div>
 
 <div class="admin-shell">
 
   <!-- Sidebar -->
   <aside class="admin-sidebar">
-    <div class="admin-logo">
-      <h1>Tw<span>;</span>zted</h1>
-      <p>Admin Panel</p>
+    <div class="sidebar-logo">
+      <div class="wordmark">Tw<span>;</span>zted</div>
+      <div class="subtitle">Admin Panel</div>
     </div>
-    <nav class="admin-nav">
-      <a href="dashboard.html" class="active">
-        <span class="nav-icon">&#9776;</span> Dashboard
+    <nav class="sidebar-nav">
+      <div class="nav-section">Main</div>
+      <a href="dashboard.html" class="nav-link active">
+        <span class="nav-icon">⬛</span> Dashboard
       </a>
-      <a href="submissions.html">
-        <span class="nav-icon">&#128330;&#65039;</span> Submissions
+      <a href="content.html" class="nav-link">
+        <span class="nav-icon">✏️</span> Edit Site Content
       </a>
-      <a href="registrations.html">
-        <span class="nav-icon">&#128197;</span> Event RSVPs
+      <div class="nav-section">Data</div>
+      <a href="submissions.html" class="nav-link">
+        <span class="nav-icon">📋</span> Submissions
+        <span class="nav-badge" id="nav-pending">…</span>
       </a>
-      <a href="shop.html">
-        <span class="nav-icon">&#128247;</span> Shop / Inventory
+      <a href="registrations.html" class="nav-link">
+        <span class="nav-icon">📅</span> Event RSVPs
       </a>
-      <a href="../index.html" target="_blank" rel="noopener">
-        <span class="nav-icon">&#127760;</span> View Public Site
+      <a href="shop.html" class="nav-link">
+        <span class="nav-icon">🛍️</span> Shop / Inventory
+      </a>
+      <div class="nav-section">Site</div>
+      <a href="../index.html" target="_blank" class="nav-link">
+        <span class="nav-icon">🌐</span> View Public Site
       </a>
     </nav>
-    <div class="admin-sidebar-footer">
-      <div class="user-chip" id="user-email">Loading...</div>
-      <button onclick="signOut()" style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:#f87171;border-radius:6px;padding:7px 14px;font-size:0.8rem;font-weight:700;cursor:pointer;width:100%;font-family:inherit;">Sign Out</button>
+    <div class="sidebar-footer">
+      <div class="user-info" id="user-email">Loading…</div>
+      <button class="btn-signout" onclick="signOut()">Sign Out</button>
     </div>
   </aside>
 
   <!-- Main -->
   <main class="admin-main">
-    <div class="admin-header">
-      <h2>Dashboard</h2>
-      <span id="last-refresh" style="font-size:0.8rem;color:var(--muted);"></span>
-    </div>
 
-    <!-- Setup alert (shown when Supabase not configured) -->
-    <div class="setup-alert" id="setup-alert" style="display:none;">
-      &#9888; <strong>Setup required:</strong> Supabase credentials are not configured yet.
-      Edit <code>admin/config.js</code> and replace <code>SUPABASE_URL_HERE</code> and
-      <code>SUPABASE_ANON_KEY_HERE</code> with your real keys. Then run the schema SQL
-      in your Supabase SQL editor. See <code>docs/ADMIN_SYSTEM_PLAN.md</code> for the full setup guide.
-    </div>
-
-    <!-- Stat row -->
-    <div class="stat-grid" id="stat-grid">
-      <div class="stat-card">
-        <div class="label">Pending Submissions</div>
-        <div class="value" id="stat-pending">—</div>
-        <div class="sub">Memorial &amp; stories awaiting review</div>
+    <div class="admin-topbar">
+      <div>
+        <div class="topbar-title" id="greeting">Good morning</div>
+        <div class="topbar-sub" id="topbar-date"></div>
       </div>
-      <div class="stat-card">
-        <div class="label">Event RSVPs</div>
-        <div class="value" id="stat-rsvps">—</div>
-        <div class="sub">Registered for September 2026</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">Shop Products</div>
-        <div class="value" id="stat-products">—</div>
-        <div class="sub">Active listings</div>
-      </div>
-      <div class="stat-card">
-        <div class="label">Handmade Items</div>
-        <div class="value" id="stat-merch">—</div>
-        <div class="sub">In the story system</div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost btn-sm" onclick="refreshAll()">↻ Refresh</button>
+        <a href="content.html" class="btn btn-primary btn-sm">✏️ Edit Site</a>
       </div>
     </div>
 
-    <!-- Quick actions -->
-    <h3 style="font-size:1rem;font-weight:800;color:var(--white);margin:0 0 16px;">Quick Actions</h3>
-    <div class="quick-grid">
-      <a class="quick-card" href="submissions.html">
-        <div class="icon">&#128330;&#65039;</div>
-        <h3>Review Submissions <span class="badge badge-pending" id="badge-pending">...</span></h3>
-        <p>Memorial names and story submissions waiting for your review and approval.</p>
-      </a>
-      <a class="quick-card" href="registrations.html">
-        <div class="icon">&#128197;</div>
-        <h3>Event RSVPs</h3>
-        <p>View and export attendee, rider, walker, vendor, and volunteer registrations.</p>
-      </a>
-      <a class="quick-card" href="shop.html">
-        <div class="icon">&#128247;</div>
-        <h3>Shop Inventory</h3>
-        <p>Add products, update quantities, hide/show listings, manage the shop display.</p>
-      </a>
-      <a class="quick-card" href="../memorial.html" target="_blank" rel="noopener">
-        <div class="icon">&#128337;</div>
-        <h3>View Memorial Page</h3>
-        <p>See what visitors see on the public memorial page.</p>
-      </a>
-    </div>
+    <div class="admin-content">
 
-    <!-- Netlify Forms note -->
-    <div style="margin-top:32px;background:rgba(86,224,210,0.05);border:1px solid rgba(86,224,210,0.18);border-radius:10px;padding:20px;">
-      <h3 style="font-size:0.9rem;font-weight:800;color:var(--teal);margin:0 0 10px;">&#9432; About Form Submissions</h3>
-      <p style="font-size:0.85rem;color:var(--muted);line-height:1.7;margin:0;">
-        Memorial submissions, story submissions, and event RSVPs are collected by Netlify Forms and sent to
-        <strong style="color:var(--white);">tonyarcrump@gmail.com</strong> automatically.
-        They also appear in your Netlify dashboard under <em>Forms</em>.
-        Once Supabase is connected, all new submissions will also be stored in the database and
-        appear in the Submissions panel above with approval/reject controls.
-      </p>
-    </div>
+      <!-- Stat row -->
+      <div class="stats-row">
+        <div class="stat-card" style="--stat-color:var(--warning);" onclick="location.href='submissions.html'" title="Click to review">
+          <div class="stat-icon">📋</div>
+          <div class="stat-num" id="stat-pending">—</div>
+          <div class="stat-label">Pending Reviews</div>
+          <a class="stat-action" href="submissions.html">Review now →</a>
+        </div>
+        <div class="stat-card" style="--stat-color:var(--teal);" onclick="location.href='registrations.html'" title="Click to view RSVPs">
+          <div class="stat-icon">📅</div>
+          <div class="stat-num" id="stat-rsvps">—</div>
+          <div class="stat-label">Event RSVPs</div>
+          <a class="stat-action" href="registrations.html">View list →</a>
+        </div>
+        <div class="stat-card" style="--stat-color:var(--purple);" onclick="location.href='shop.html'" title="Click to manage shop">
+          <div class="stat-icon">🛍️</div>
+          <div class="stat-num" id="stat-products">—</div>
+          <div class="stat-label">Shop Products Live</div>
+          <a class="stat-action" href="shop.html">Manage →</a>
+        </div>
+        <div class="stat-card" style="--stat-color:var(--cyan);">
+          <div class="stat-icon">🕯️</div>
+          <div class="stat-num" id="stat-memorials">—</div>
+          <div class="stat-label">Approved Memorials</div>
+          <a class="stat-action" href="submissions.html">View all →</a>
+        </div>
+      </div>
+
+      <!-- Announce + Activity -->
+      <div class="two-col left-wide">
+
+        <!-- Quick Announce -->
+        <div class="card">
+          <div class="card-title">📢 Post a Site Announcement</div>
+          <p style="font-size:0.83rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">
+            Post a message and it appears as a banner across the entire public website immediately.
+          </p>
+
+          <div class="field">
+            <label class="field-label">Announcement Text</label>
+            <textarea class="field-textarea" id="ann-text" rows="3" placeholder="e.g. Registration is now open for Finding Forward 2026! Click here to RSVP."></textarea>
+            <div class="field-hint">Keep it short — one punchy sentence works best.</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Type</label>
+            <select class="field-select" id="ann-type">
+              <option value="event">📅 Event announcement</option>
+              <option value="info">ℹ️ General info</option>
+              <option value="urgent">🚨 Urgent / Alert</option>
+              <option value="success">✅ Good news</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="toggle-wrap">
+              <div class="toggle">
+                <input type="checkbox" id="ann-active" />
+                <div class="toggle-track"></div>
+              </div>
+              <div>
+                <div class="toggle-label">Show banner on site</div>
+                <div class="toggle-sub">Turn off to hide without deleting the text</div>
+              </div>
+            </label>
+          </div>
+
+          <p style="font-size:0.77rem;color:var(--muted);margin-bottom:10px;">✨ Suggestions:</p>
+          <div class="suggestion-pills">
+            <button class="suggestion-pill" onclick="fillAnn('Registration is now open for Finding Forward 2026 — Sept 12–13 in Anderson, IN. RSVP today!')">🎉 RSVP open</button>
+            <button class="suggestion-pill" onclick="fillAnn('Thank you to everyone who supported Twizted Journeys this year. Your generosity saves lives.')">💜 Thank you</button>
+            <button class="suggestion-pill" onclick="fillAnn('New handmade charms are in the shop! Every purchase supports our mission.')">🛍️ New merch</button>
+            <button class="suggestion-pill" onclick="fillAnn('If you or someone you know is in crisis, call or text 988 — free, confidential, 24/7.')">988 Reminder</button>
+          </div>
+
+          <div style="display:flex;gap:10px;margin-top:18px;">
+            <button class="btn btn-teal btn-block" onclick="saveAnnouncement()" id="ann-save-btn">💾 Save &amp; Publish</button>
+            <button class="btn btn-ghost" onclick="clearAnn()" style="flex-shrink:0;">Clear</button>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="card">
+          <div class="card-title">🕐 Recent Activity</div>
+          <div id="activity-feed">
+            <div style="color:var(--muted);font-size:0.85rem;padding:20px 0 0;text-align:center;">Loading…</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="card-title" style="margin-bottom:14px;">⚡ Quick Actions</div>
+      <div class="action-grid">
+        <a class="action-card" href="submissions.html">
+          <div class="ac-icon">📋</div>
+          <div class="ac-title">Review Submissions</div>
+          <div class="ac-desc">Approve or reject memorial names and community stories submitted through the site.</div>
+        </a>
+        <a class="action-card" href="registrations.html">
+          <div class="ac-icon">📅</div>
+          <div class="ac-title">Event RSVPs</div>
+          <div class="ac-desc">View all registered attendees, riders, walkers, vendors, and volunteers. Export to CSV.</div>
+        </a>
+        <a class="action-card" href="shop.html">
+          <div class="ac-icon">🛍️</div>
+          <div class="ac-title">Shop Inventory</div>
+          <div class="ac-desc">Add products, update quantities, hide or show listings, and manage the shop display.</div>
+        </a>
+        <a class="action-card" href="content.html">
+          <div class="ac-icon">✏️</div>
+          <div class="ac-title">Edit Site Content</div>
+          <div class="ac-desc">Update the homepage, event details, social links, and more — changes go live instantly.</div>
+        </a>
+        <a class="action-card" href="../events.html" target="_blank">
+          <div class="ac-icon">🎪</div>
+          <div class="ac-title">View Events Page</div>
+          <div class="ac-desc">See the live events page as visitors see it — with current RSVP form and event details.</div>
+        </a>
+        <a class="action-card" href="../memorial.html" target="_blank">
+          <div class="ac-icon">🕯️</div>
+          <div class="ac-title">View Memorial Page</div>
+          <div class="ac-desc">See the public memorial page and verify that approved names are displaying correctly.</div>
+        </a>
+      </div>
+
+    </div><!-- /admin-content -->
   </main>
-
 </div>
 
 <script src="config.js"></script>
 <script src="auth.js"></script>
 <script>
+  // Greeting
+  (function() {
+    const h = new Date().getHours();
+    document.getElementById('greeting').textContent =
+      h < 12 ? 'Good morning ☀️' : h < 17 ? 'Good afternoon 👋' : 'Good evening 🌙';
+    document.getElementById('topbar-date').textContent =
+      new Date().toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+  })();
+
+  // Toast
+  function toast(msg, type='info') {
+    const t = document.getElementById('tj-toast');
+    t.textContent = msg;
+    t.className = 'show ' + type;
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.className = ''; }, 3500);
+  }
+
+  // Fill suggestion
+  function fillAnn(text) {
+    document.getElementById('ann-text').value = text;
+    document.getElementById('ann-active').checked = true;
+  }
+  function clearAnn() {
+    document.getElementById('ann-text').value = '';
+    document.getElementById('ann-active').checked = false;
+  }
+
+  let _db = null;
+
   initAdmin(async function(user, db) {
-    const cfg = window.TJ_CONFIG;
-    if (!cfg || cfg.supabaseUrl === 'SUPABASE_URL_HERE') {
-      document.getElementById('setup-alert').style.display = 'block';
-      ['stat-pending','stat-rsvps','stat-products','stat-merch'].forEach(id => { document.getElementById(id).textContent = 'N/A'; });
-      document.getElementById('badge-pending').textContent = '?';
-      return;
-    }
+    _db = db;
+
+    // Load stats
     try {
-      const [memRes, storyRes, rsvpRes, prodRes, merchRes] = await Promise.all([
-        db.from('memorial_submissions').select('id', { count: 'exact', head: true }).eq('status','pending'),
-        db.from('story_submissions').select('id', { count: 'exact', head: true }).eq('status','pending'),
-        db.from('event_registrations').select('id', { count: 'exact', head: true }),
-        db.from('shop_products').select('id', { count: 'exact', head: true }).eq('is_hidden', false),
-        db.from('merch_items').select('id', { count: 'exact', head: true })
+      const [memPend, storyPend, memApproved, rsvps, products] = await Promise.all([
+        db.from('memorial_submissions').select('id', {count:'exact',head:true}).eq('status','pending'),
+        db.from('memorial_submissions').select('id', {count:'exact',head:true}).eq('status','approved'),
+        db.from('event_registrations').select('id', {count:'exact',head:true}),
+        db.from('shop_products').select('id', {count:'exact',head:true}).eq('is_hidden',false),
+        db.from('shop_products').select('id', {count:'exact',head:true}).eq('is_hidden',false)
       ]);
-      const pending = (memRes.count || 0) + (storyRes.count || 0);
-      document.getElementById('stat-pending').textContent = pending;
-      document.getElementById('badge-pending').textContent = pending;
-      if (pending > 0) document.getElementById('badge-pending').classList.add('badge-pending');
-      document.getElementById('stat-rsvps').textContent = rsvpRes.count || 0;
-      document.getElementById('stat-products').textContent = prodRes.count || 0;
-      document.getElementById('stat-merch').textContent = merchRes.count || 0;
-    } catch(e) { console.warn('Stats error:', e); }
-    document.getElementById('last-refresh').textContent = 'Refreshed ' + new Date().toLocaleTimeString();
+      document.getElementById('stat-pending').textContent = memPend.count ?? 0;
+      document.getElementById('stat-memorials').textContent = memApproved.count ?? 0;
+      document.getElementById('stat-rsvps').textContent = rsvps.count ?? 0;
+      document.getElementById('stat-products').textContent = products.count ?? 0;
+
+      const pendingN = memPend.count ?? 0;
+      const badge = document.getElementById('nav-pending');
+      badge.textContent = pendingN;
+      badge.className = 'nav-badge' + (pendingN === 0 ? ' zero' : '');
+    } catch(e) { console.warn('Stats:', e); }
+
+    // Load current announcement
+    try {
+      const { data } = await db.from('site_content').select('key,value').in('key',['announcement_text','announcement_active','announcement_type']);
+      if (data) {
+        data.forEach(row => {
+          if (row.key === 'announcement_text') document.getElementById('ann-text').value = row.value || '';
+          if (row.key === 'announcement_active') document.getElementById('ann-active').checked = row.value === 'true';
+          if (row.key === 'announcement_type') document.getElementById('ann-type').value = row.value || 'event';
+        });
+      }
+    } catch(e) {}
+
+    // Load recent activity
+    loadActivity(db);
   });
+
+  async function loadActivity(db) {
+    try {
+      const [mem, rsvp] = await Promise.all([
+        db.from('memorial_submissions').select('name,status,created_at').order('created_at',{ascending:false}).limit(4),
+        db.from('event_registrations').select('name,registration_type,created_at').order('created_at',{ascending:false}).limit(4)
+      ]);
+      const items = [];
+      (mem.data || []).forEach(r => items.push({ type:'submission', name:r.name, status:r.status, time: r.created_at }));
+      (rsvp.data || []).forEach(r => items.push({ type:'rsvp', name:r.name, reg:r.registration_type, time: r.created_at }));
+      items.sort((a,b) => new Date(b.time) - new Date(a.time));
+
+      const feed = document.getElementById('activity-feed');
+      if (!items.length) {
+        feed.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><p>No activity yet. Submissions and RSVPs will appear here.</p></div>';
+        return;
+      }
+      feed.innerHTML = items.slice(0,8).map(item => {
+        const ago = timeAgo(item.time);
+        if (item.type === 'submission') {
+          const color = item.status === 'approved' ? 'teal' : item.status === 'rejected' ? 'warning' : '';
+          return `<div class="activity-item">
+            <div class="activity-dot ${color}"></div>
+            <div>
+              <div class="activity-text">📋 Memorial submission — <strong>${esc(item.name)}</strong></div>
+              <div class="activity-time">${ago} · ${item.status}</div>
+            </div>
+          </div>`;
+        } else {
+          return `<div class="activity-item">
+            <div class="activity-dot teal"></div>
+            <div>
+              <div class="activity-text">📅 New RSVP — <strong>${esc(item.name)}</strong> (${item.reg})</div>
+              <div class="activity-time">${ago}</div>
+            </div>
+          </div>`;
+        }
+      }).join('');
+    } catch(e) {
+      document.getElementById('activity-feed').innerHTML = '<div style="color:var(--muted);font-size:0.83rem;padding:16px 0;">Could not load activity.</div>';
+    }
+  }
+
+  async function saveAnnouncement() {
+    if (!_db) return;
+    const btn = document.getElementById('ann-save-btn');
+    btn.disabled = true; btn.textContent = 'Saving…';
+    try {
+      const upserts = [
+        { key:'announcement_text',   value: document.getElementById('ann-text').value.trim() },
+        { key:'announcement_active', value: document.getElementById('ann-active').checked ? 'true' : 'false' },
+        { key:'announcement_type',   value: document.getElementById('ann-type').value }
+      ];
+      for (const row of upserts) {
+        await _db.from('site_content').upsert(row, { onConflict:'key' });
+      }
+      const active = document.getElementById('ann-active').checked;
+      toast(active ? '✅ Announcement is live on the site!' : '✅ Saved (banner is hidden)', 'success');
+    } catch(e) {
+      toast('Error saving: ' + e.message, 'error');
+    }
+    btn.disabled = false; btn.textContent = '💾 Save & Publish';
+  }
+
+  function refreshAll() { location.reload(); }
+
+  function timeAgo(iso) {
+    const diff = Date.now() - new Date(iso).getTime();
+    const m = Math.floor(diff/60000);
+    if (m < 1) return 'just now';
+    if (m < 60) return m + 'm ago';
+    const h = Math.floor(m/60);
+    if (h < 24) return h + 'h ago';
+    return Math.floor(h/24) + 'd ago';
+  }
+  function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function signOut() { adminSignOut(); }
 </script>
 </body>
