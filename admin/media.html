@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media Library — TJ Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="admin.css" />
+  <style>
+    /* Upload zone */
+    .upload-zone {
+      border: 2px dashed var(--card-border);
+      border-radius: 14px;
+      padding: 44px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      background: rgba(138,43,239,0.03);
+    }
+    .upload-zone:hover, .upload-zone.drag-over {
+      border-color: var(--purple);
+      background: rgba(138,43,239,0.08);
+    }
+    .upload-zone .uz-icon { font-size: 2.4rem; margin-bottom: 10px; }
+    .upload-zone .uz-title { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 5px; }
+    .upload-zone .uz-sub { font-size: 0.82rem; color: var(--muted); }
+    #file-input { display: none; }
+
+    /* Progress bar */
+    .upload-progress {
+      display: none;
+      background: var(--card-border);
+      border-radius: 8px;
+      height: 6px;
+      margin-top: 14px;
+      overflow: hidden;
+    }
+    .upload-progress-bar {
+      height: 100%;
+      background: var(--purple);
+      border-radius: 8px;
+      transition: width 0.3s;
+      width: 0%;
+    }
+
+    /* Image grid */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 4px;
+    }
+    .media-card {
+      background: var(--surface);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .media-card:hover {
+      border-color: var(--purple);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .media-thumb {
+      width: 100%; height: 140px;
+      object-fit: cover;
+      display: block;
+      background: rgba(138,43,239,0.06);
+    }
+    .media-thumb-placeholder {
+      width: 100%; height: 140px;
+      background: rgba(138,43,239,0.06);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; color: var(--muted);
+    }
+    .media-info {
+      padding: 10px 12px 12px;
+    }
+    .media-name {
+      font-size: 0.78rem;
+      color: var(--white);
+      font-weight: 600;
+      word-break: break-all;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .media-meta {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .media-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .btn-copy {
+      flex: 1;
+      background: rgba(86,224,210,0.1);
+      border: 1px solid rgba(86,224,210,0.25);
+      color: var(--teal);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .btn-copy:hover { background: rgba(86,224,210,0.18); }
+    .btn-copy.copied { background: rgba(86,224,210,0.25); color: var(--teal); }
+    .btn-del {
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.2);
+      color: #f87171;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .btn-del:hover { background: rgba(239,68,68,0.15); }
+
+    /* Bucket tabs */
+    .bucket-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .bucket-tab {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid var(--card-border);
+      color: var(--muted);
+      background: none;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .bucket-tab:hover { color: var(--white); border-color: var(--purple); }
+    .bucket-tab.active {
+      background: rgba(138,43,239,0.15);
+      border-color: var(--purple);
+      color: var(--purple-lt);
+    }
+
+    /* Lightbox */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #lightbox.open { display: flex; flex-direction: column; gap: 16px; }
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 75vh;
+      border-radius: 10px;
+      object-fit: contain;
+    }
+    #lightbox-url {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--teal);
+      font-size: 0.82rem;
+      font-family: 'Courier New', monospace;
+      max-width: 700px;
+      word-break: break-all;
+      text-align: center;
+    }
+    #lightbox-close {
+      position: absolute;
+      top: 16px; right: 20px;
+      background: none; border: none;
+      color: var(--white); font-size: 1.8rem;
+      cursor: pointer; opacity: 0.7;
+    }
+    #lightbox-close:hover { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<div id="tj-toast"></div>
+
+<!-- Lightbox -->
+<div id="lightbox">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="" />
+  <div id="lightbox-url"></div>
+  <div style="display:flex;gap:10px;">
+    <button class="btn btn-teal" onclick="copyLightboxUrl()">📋 Copy URL</button>
+    <button class="btn btn-ghost" onclick="closeLightbox()">Close</button>
+  </div>
+</div>
+
+<div class="admin-shell">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-logo">
+      <div class="wordmark">Tw<span>;</span>zted</div>
+      <div class="subtitle">Admin Panel</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Main</div>
+      <a href="dashboard.html" class="nav-link">
+        <span class="nav-icon">⬛</span> Dashboard
+      </a>
+      <a href="content.html" class="nav-link">
+        <span class="nav-icon">✏️</span> Edit Site Content
+      </a>
+      <a href="media.html" class="nav-link active">
+        <span class="nav-icon">🖼️</span> Media Library
+      </a>
+      <div class="nav-section">Data</div>
+      <a href="submissions.html" class="nav-link">
+        <span class="nav-icon">📋</span> Submissions
+        <span class="nav-badge zero" id="nav-pending">…</span>
+      </a>
+      <a href="registrations.html" class="nav-link">
+        <span class="nav-icon">📅</span> Event RSVPs
+      </a>
+      <a href="shop.html" class="nav-link">
+        <span class="nav-icon">🛍️</span> Shop / Inventory
+      </a>
+      <div class="nav-section">Site</div>
+      <a href="../index.html" target="_blank" class="nav-link">
+        <span class="nav-icon">🌐</span> View Public Site
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info" id="user-email">Loading…</div>
+      <button class="btn-signout" onclick="signOut()">Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="admin-main">
+
+    <div class="admin-topbar">
+      <div>
+        <div class="topbar-title">🖼️ Media Library</div>
+        <div class="topbar-sub">Upload images, copy URLs to use anywhere on the site — no coding needed.</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost btn-sm" onclick="loadImages()">↻ Refresh</button>
+        <button class="btn btn-primary btn-sm" onclick="document.getElementById('file-input').click()">⬆ Upload Images</button>
+      </div>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- Upload zone -->
+      <div class="card" style="margin-bottom:24px;">
+        <div class="upload-zone" id="upload-zone"
+          onclick="document.getElementById('file-input').click()"
+          ondragover="handleDragOver(event)"
+          ondragleave="handleDragLeave(event)"
+          ondrop="handleDrop(event)">
+          <div class="uz-icon">📁</div>
+          <div class="uz-title">Drop images here or click to upload</div>
+          <div class="uz-sub">JPG, PNG, WebP, GIF · Max 10MB per file · Multiple files OK</div>
+          <div class="upload-progress" id="upload-progress">
+            <div class="upload-progress-bar" id="upload-bar"></div>
+          </div>
+        </div>
+        <input type="file" id="file-input" multiple accept="image/*" onchange="handleFileSelect(event)" />
+
+        <div id="upload-status" style="margin-top:10px;font-size:0.83rem;color:var(--muted);display:none;"></div>
+      </div>
+
+      <!-- Bucket selector -->
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+        <div class="bucket-tabs">
+          <button class="bucket-tab active" onclick="switchBucket('site-media',this)">🌐 Site Media</button>
+          <button class="bucket-tab" onclick="switchBucket('product-photos',this)">🛍️ Product Photos</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <input type="search" class="field-input" id="media-search"
+            placeholder="Search images…" oninput="filterImages()"
+            style="width:200px;" />
+          <span id="media-count" style="font-size:0.82rem;color:var(--muted);white-space:nowrap;"></span>
+        </div>
+      </div>
+
+      <!-- How to use -->
+      <div style="background:rgba(86,224,210,0.05);border:1px solid rgba(86,224,210,0.18);border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:0.83rem;color:var(--muted);line-height:1.7;">
+        💡 <strong style="color:var(--white);">How to use:</strong>
+        Upload an image, then click <strong style="color:var(--teal);">Copy URL</strong> to get the link.
+        Paste it into product image fields in the Shop, or into any content field in Edit Site Content.
+      </div>
+
+      <!-- Image grid -->
+      <div class="media-grid" id="media-grid">
+        <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted);">Loading images…</div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script>
+  let _db = null;
+  let currentBucket = 'site-media';
+  let allFiles = [];
+
+  function toast(msg, type = 'info') {
+    const t = document.getElementById('tj-toast');
+    t.textContent = msg;
+    t.className = 'show ' + type;
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.className = ''; }, 3500);
+  }
+
+  initAdmin(async function(user, db) {
+    _db = db;
+
+    // Pending badge
+    try {
+      const { count } = await db.from('memorial_submissions').select('id', { count: 'exact', head: true }).eq('status', 'pending');
+      const badge = document.getElementById('nav-pending');
+      badge.textContent = count ?? 0;
+      badge.className = 'nav-badge' + ((count ?? 0) === 0 ? ' zero' : '');
+    } catch(e) {}
+
+    await loadImages();
+  });
+
+  function signOut() { adminSignOut(); }
+
+  // ─── Bucket switching ──────────────────────────────────────────────────────
+  function switchBucket(bucket, btn) {
+    currentBucket = bucket;
+    document.querySelectorAll('.bucket-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('media-search').value = '';
+    loadImages();
+  }
+
+  // ─── Load images from Supabase Storage ────────────────────────────────────
+  async function loadImages() {
+    if (!_db) return;
+    const grid = document.getElementById('media-grid');
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted);">Loading…</div>';
+
+    try {
+      const { data, error } = await _db.storage.from(currentBucket).list('', {
+        limit: 200,
+        sortBy: { column: 'created_at', order: 'desc' }
+      });
+
+      if (error) {
+        // Bucket may not exist yet
+        if (error.message.includes('not found') || error.message.includes('does not exist')) {
+          grid.innerHTML = `
+            <div style="grid-column:1/-1;">
+              <div class="empty-state">
+                <div class="empty-icon">🪣</div>
+                <p>The <strong>${currentBucket}</strong> storage bucket hasn't been created yet.</p>
+                <p style="margin-top:10px;font-size:0.8rem;">
+                  Go to Supabase → Storage → New bucket → name it <code style="color:var(--teal);">${currentBucket}</code> → set to Public.
+                </p>
+              </div>
+            </div>`;
+          return;
+        }
+        throw error;
+      }
+
+      allFiles = (data || []).filter(f => f.name !== '.emptyFolderPlaceholder');
+      document.getElementById('media-count').textContent = allFiles.length + ' image' + (allFiles.length !== 1 ? 's' : '');
+      filterImages();
+
+    } catch(e) {
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:#f87171;">Error: ${esc(e.message)}</div>`;
+    }
+  }
+
+  function filterImages() {
+    const q = (document.getElementById('media-search').value || '').toLowerCase().trim();
+    const filtered = q ? allFiles.filter(f => f.name.toLowerCase().includes(q)) : allFiles;
+    document.getElementById('media-count').textContent = filtered.length + ' image' + (filtered.length !== 1 ? 's' : '');
+    renderGrid(filtered);
+  }
+
+  function renderGrid(files) {
+    const grid = document.getElementById('media-grid');
+
+    if (!files.length) {
+      grid.innerHTML = `
+        <div style="grid-column:1/-1;">
+          <div class="empty-state">
+            <div class="empty-icon">📭</div>
+            <p>${allFiles.length === 0
+              ? 'No images yet. Upload something!'
+              : 'No images match that search.'}</p>
+          </div>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = files.map(file => {
+      const { data } = _db.storage.from(currentBucket).getPublicUrl(file.name);
+      const url = data?.publicUrl || '';
+      const isImage = /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(file.name);
+      const kb = file.metadata?.size ? Math.round(file.metadata.size / 1024) + ' KB' : '';
+
+      return `
+        <div class="media-card" id="mc-${esc(file.name.replace(/[^a-z0-9]/gi, '_'))}">
+          ${isImage && url
+            ? `<img class="media-thumb" src="${esc(url)}" alt="${esc(file.name)}" loading="lazy"
+                onclick="openLightbox('${esc(url)}', '${esc(file.name)}')" style="cursor:zoom-in;" />`
+            : `<div class="media-thumb-placeholder">📄</div>`}
+          <div class="media-info">
+            <div class="media-name" title="${esc(file.name)}">${esc(file.name)}</div>
+            <div class="media-meta">${kb}</div>
+            <div class="media-actions">
+              <button class="btn-copy" id="copy-${esc(file.name.replace(/[^a-z0-9]/gi,'_'))}"
+                onclick="copyUrl('${esc(url)}', '${esc(file.name.replace(/[^a-z0-9]/gi,'_'))}')">
+                📋 Copy URL
+              </button>
+              <button class="btn-del" onclick="deleteFile('${esc(file.name)}')">🗑</button>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  // ─── Upload ────────────────────────────────────────────────────────────────
+  function handleDragOver(e) {
+    e.preventDefault();
+    document.getElementById('upload-zone').classList.add('drag-over');
+  }
+  function handleDragLeave() {
+    document.getElementById('upload-zone').classList.remove('drag-over');
+  }
+  function handleDrop(e) {
+    e.preventDefault();
+    document.getElementById('upload-zone').classList.remove('drag-over');
+    const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+    if (files.length) uploadFiles(files);
+  }
+  function handleFileSelect(e) {
+    const files = Array.from(e.target.files);
+    if (files.length) uploadFiles(files);
+    e.target.value = ''; // reset so same file can be re-uploaded
+  }
+
+  async function uploadFiles(files) {
+    if (!_db) return;
+    const progress = document.getElementById('upload-progress');
+    const bar = document.getElementById('upload-bar');
+    const status = document.getElementById('upload-status');
+
+    progress.style.display = 'block';
+    status.style.display = 'block';
+    let done = 0, errors = 0;
+
+    for (const file of files) {
+      // Sanitize filename
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_').toLowerCase();
+      status.textContent = `Uploading ${safeName}…`;
+      bar.style.width = Math.round((done / files.length) * 100) + '%';
+
+      const { error } = await _db.storage
+        .from(currentBucket)
+        .upload(safeName, file, { upsert: true });
+
+      if (error) {
+        console.error('Upload error:', error);
+        errors++;
+      } else {
+        done++;
+      }
+      bar.style.width = Math.round(((done + errors) / files.length) * 100) + '%';
+    }
+
+    setTimeout(() => {
+      progress.style.display = 'none';
+      status.style.display = 'none';
+      bar.style.width = '0%';
+    }, 1000);
+
+    if (errors === 0) {
+      toast(`✅ ${done} image${done !== 1 ? 's' : ''} uploaded!`, 'success');
+    } else {
+      toast(`Uploaded ${done}, failed ${errors}`, 'error');
+    }
+
+    await loadImages();
+  }
+
+  // ─── Copy URL ──────────────────────────────────────────────────────────────
+  async function copyUrl(url, safeId) {
+    try {
+      await navigator.clipboard.writeText(url);
+      const btn = document.getElementById('copy-' + safeId);
+      if (btn) {
+        const orig = btn.textContent;
+        btn.textContent = '✅ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+      }
+      toast('✅ URL copied to clipboard!', 'success');
+    } catch(e) {
+      prompt('Copy this URL:', url);
+    }
+  }
+
+  // ─── Delete ────────────────────────────────────────────────────────────────
+  async function deleteFile(name) {
+    if (!confirm(`Delete "${name}"?\n\nThis cannot be undone. Make sure it's not in use on the site.`)) return;
+    const { error } = await _db.storage.from(currentBucket).remove([name]);
+    if (error) {
+      toast('Delete failed: ' + error.message, 'error');
+    } else {
+      toast('🗑 Deleted: ' + name, 'info');
+      await loadImages();
+    }
+  }
+
+  // ─── Lightbox ──────────────────────────────────────────────────────────────
+  function openLightbox(url, name) {
+    document.getElementById('lightbox-img').src = url;
+    document.getElementById('lightbox-img').alt = name;
+    document.getElementById('lightbox-url').textContent = url;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.getElementById('lightbox-img').src = '';
+  }
+  async function copyLightboxUrl() {
+    const url = document.getElementById('lightbox-url').textContent;
+    try {
+      await navigator.clipboard.writeText(url);
+      toast('✅ URL copied!', 'success');
+    } catch(e) {
+      prompt('Copy this URL:', url);
+    }
+  }
+  // Close lightbox on backdrop click
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+</script>
+</body>
+</html>
