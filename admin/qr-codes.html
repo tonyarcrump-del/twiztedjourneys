@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Codes — TJ Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="admin.css" />
+  <style>
+    .qr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .qr-card {
+      background: var(--surface);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 22px 20px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .qr-card:hover { border-color: rgba(138,43,239,0.4); }
+    .qr-img-wrap {
+      width: 160px; height: 160px;
+      background: #fff; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 8px; margin-bottom: 14px;
+    }
+    .qr-img-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    .qr-label { font-size: 1rem; font-weight: 800; color: var(--white); margin-bottom: 4px; }
+    .qr-dest  { font-size: 0.76rem; color: var(--teal); word-break: break-all; margin-bottom: 8px; opacity: 0.85; }
+    .qr-desc  { font-size: 0.84rem; color: var(--muted); line-height: 1.5; margin-bottom: 14px; flex: 1; }
+    .qr-hint  { font-size: 0.76rem; font-style: italic; color: var(--muted); opacity: 0.65; margin-top: auto; }
+    .qr-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 8px; }
+    .qr-section-title {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--teal);
+      padding-bottom: 10px; border-bottom: 1px solid var(--card-border);
+      margin: 36px 0 0;
+    }
+    @media print {
+      .admin-sidebar, .admin-topbar, .topbar-actions, .qr-actions { display: none !important; }
+      .admin-main { margin: 0 !important; }
+      .qr-grid { grid-template-columns: repeat(4,1fr); gap: 12px; }
+      .qr-card { background: #fff; border: 1px solid #ccc; page-break-inside: avoid; }
+      .qr-label, .qr-section-title { color: #1a0033 !important; }
+      .qr-dest  { color: #555 !important; }
+      .qr-desc, .qr-hint { color: #444 !important; }
+      body { background: #fff !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="tj-toast"></div>
+
+<div class="admin-shell">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-logo">
+      <div class="wordmark">Tw<span>;</span>zted</div>
+      <div class="subtitle">Admin Panel</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Main</div>
+      <a href="dashboard.html" class="nav-link">
+        <span class="nav-icon">⬛</span> Dashboard
+      </a>
+      <a href="content.html" class="nav-link">
+        <span class="nav-icon">✏️</span> Edit Site Content
+      </a>
+      <div class="nav-section">Data</div>
+      <a href="submissions.html" class="nav-link">
+        <span class="nav-icon">📋</span> Submissions
+        <span class="nav-badge zero" id="nav-pending">…</span>
+      </a>
+      <a href="registrations.html" class="nav-link">
+        <span class="nav-icon">📅</span> Event RSVPs
+      </a>
+      <a href="shop.html" class="nav-link">
+        <span class="nav-icon">🛍️</span> Shop / Inventory
+      </a>
+      <a href="media.html" class="nav-link">
+        <span class="nav-icon">🖼️</span> Media Library
+      </a>
+      <a href="qr-codes.html" class="nav-link active">
+        <span class="nav-icon">📱</span> QR Codes
+      </a>
+      <div class="nav-section">Site</div>
+      <a href="../index.html" target="_blank" class="nav-link">
+        <span class="nav-icon">🌐</span> View Public Site
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info" id="user-email">Loading…</div>
+      <button class="btn-signout" onclick="signOut()">Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="admin-main">
+
+    <div class="admin-topbar">
+      <div>
+        <div class="topbar-title">📱 QR Codes</div>
+        <div class="topbar-sub">Print-ready QR codes for flyers, event materials, and merchandise inserts.</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-secondary" onclick="window.print()">🖨️ Print QR Sheet</button>
+      </div>
+    </div>
+
+    <div class="page-content">
+
+      <!-- Connect -->
+      <div class="qr-section-title">Connect with Us</div>
+      <div class="qr-grid">
+
+        <div class="qr-card">
+          <div class="qr-img-wrap">
+            <img src="../public/assets/qr/website-qr-2026.png" alt="QR — Website" loading="lazy" />
+          </div>
+          <div class="qr-label">🌐 Our Website</div>
+          <div class="qr-dest">twiztedjourneys.org</div>
+          <p class="qr-desc">The main Twizted Journeys website — events, stories, merch, resources, and more.</p>
+          <div class="qr-actions">
+            <a href="https://www.twiztedjourneys.org/" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">Open Link</a>
+          </div>
+          <div class="qr-hint">Label: "Visit Our Website"</div>
+        </div>
+
+        <div class="qr-card">
+          <div class="qr-img-wrap">
+            <img src="../public/assets/qr/facebook-group-qr-2026.png" alt="QR — Facebook Group" loading="lazy" />
+          </div>
+          <div class="qr-label">👥 Facebook Community</div>
+          <div class="qr-dest">facebook.com/groups/560290368564902</div>
+          <p class="qr-desc">Join the private Twizted Journeys community group on Facebook.</p>
+          <div class="qr-actions">
+            <a href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">Open Link</a>
+          </div>
+          <div class="qr-hint">Label: "Join Our Facebook Group"</div>
+        </div>
+
+      </div>
+
+      <!-- Support -->
+      <div class="qr-section-title">Support the Mission</div>
+      <div class="qr-grid">
+
+        <div class="qr-card">
+          <div class="qr-img-wrap">
+            <img src="../public/assets/qr/donate-qr-2026.png" alt="QR — Donate" loading="lazy" />
+          </div>
+          <div class="qr-label">❤ Donate</div>
+          <div class="qr-dest">twiztedjourneys.org/donations-matter</div>
+          <p class="qr-desc">Support Twizted Journeys. 501(c)(3) — donations are tax-deductible as allowed by law.</p>
+          <div class="qr-actions">
+            <a href="https://www.twiztedjourneys.org/donations-matter" target="_blank" rel="noopener" class="btn btn-teal btn-sm">Open Link</a>
+          </div>
+          <div class="qr-hint">Label: "Donate — Tax Deductible"</div>
+        </div>
+
+        <div class="qr-card">
+          <div class="qr-img-wrap">
+            <img src="../public/assets/qr/merch-qr-2026.png" alt="QR — Shop" loading="lazy" />
+          </div>
+          <div class="qr-label">🛍️ Shop &amp; Merch</div>
+          <div class="qr-dest">twiztedjourneys.org/merch</div>
+          <p class="qr-desc">Semicolon charms, awareness items, and handmade merchandise. Every purchase supports the mission.</p>
+          <div class="qr-actions">
+            <a href="https://www.twiztedjourneys.org/merch" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">Open Link</a>
+          </div>
+          <div class="qr-hint">Label: "Shop Twizted Merch"</div>
+        </div>
+
+      </div>
+
+      <!-- Events & Stories -->
+      <div class="qr-section-title">Events &amp; Stories</div>
+      <div class="qr-grid">
+
+        <div class="qr-card">
+          <div class="qr-img-wrap">
+            <img src="../public/assets/qr/events-qr-2026.png" alt="QR — Events" loading="lazy" />
+          </div>
+          <div class="qr-label">📅 Events &amp; Registration</div>
+          <div class="qr-dest">twiztedjourneys.org/events</div>
+          <p class="qr-desc">See upcoming events, RSVP for rides and walks, and sign up as a vendor. Sept 12 &amp; 13, 2026.</p>
+          <div class="qr-actions">
+            <a href="../events.html" target="_blank" class="btn btn-secondary btn-sm">Open Link</a>
+          </div>
+          <div class="qr-hint">Label: "Event Info &amp; RSVP"</div>
+        </div>
+
+        <div class="qr-card">
+          <div class="qr-img-wrap">
+            <img src="../public/assets/qr/memorial-qr-2026.png" alt="QR — Memorial" loading="lazy" />
+          </div>
+          <div class="qr-label">🕊️ Memorial Wall</div>
+          <div class="qr-dest">twiztedjourneys.org/memorial</div>
+          <p class="qr-desc">Honor those we've lost. The memorial wall keeps their story going as a way to carry them forward.</p>
+          <div class="qr-actions">
+            <a href="../memorial.html" target="_blank" class="btn btn-secondary btn-sm">Open Link</a>
+          </div>
+          <div class="qr-hint">Label: "Remember &amp; Honor"</div>
+        </div>
+
+        <div class="qr-card">
+          <div class="qr-img-wrap">
+            <img src="../public/assets/qr/journey-qr-2026.png" alt="QR — Twizted Treasures" loading="lazy" />
+          </div>
+          <div class="qr-label">✨ Twizted Treasures</div>
+          <div class="qr-dest">twiztedjourneys.org/twizted-treasures</div>
+          <p class="qr-desc">Got a charm? Scan to continue its journey — share where it went and who it honors.</p>
+          <div class="qr-actions">
+            <a href="../twizted-treasures.html" target="_blank" class="btn btn-secondary btn-sm">Open Link</a>
+          </div>
+          <div class="qr-hint">Label: "Track a Twizted Treasure"</div>
+        </div>
+
+      </div>
+
+      <!-- Status note -->
+      <div class="card" style="margin-top:36px;">
+        <div class="card-title">📋 QR Code Status</div>
+        <p style="font-size:0.88rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">
+          QR code images live in <code>public/assets/qr/</code>. After DNS transfer to the new site, update any QR codes that currently point to the GitHub Pages preview URL.
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;font-size:0.85rem;">
+          <div>✅ Website — <span style="color:var(--teal);">Live URL confirmed</span></div>
+          <div>✅ Facebook Group — <span style="color:var(--teal);">URL confirmed</span></div>
+          <div>✅ Donate — <span style="color:var(--teal);">Live URL confirmed</span></div>
+          <div>✅ Shop/Merch — <span style="color:var(--teal);">Live URL confirmed</span></div>
+          <div>⏳ Events QR — <span style="color:#fbbf24;">Update after DNS transfer</span></div>
+          <div>✅ Memorial — <span style="color:var(--teal);">URL confirmed</span></div>
+          <div>✅ Twizted Treasures — <span style="color:var(--teal);">URL confirmed</span></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="auth.js"></script>
+<script>
+  function signOut() {
+    if (window._db) window._db.auth.signOut().then(() => { window.location.href = 'index.html'; });
+    else window.location.href = 'index.html';
+  }
+  // Load pending count
+  document.addEventListener('DOMContentLoaded', function() {
+    var cfg = window.TJ_PUBLIC_CONFIG;
+    if (!cfg || !cfg.supabaseUrl || cfg.supabaseUrl.includes('SUPABASE')) return;
+    try {
+      var db = supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+      db.from('contact_submissions').select('id', { count: 'exact', head: true }).eq('status', 'pending').then(function(res) {
+        var badge = document.getElementById('nav-pending');
+        if (!badge) return;
+        var n = res.count || 0;
+        badge.textContent = n > 0 ? n : '';
+        badge.className = 'nav-badge' + (n === 0 ? ' zero' : '');
+      });
+    } catch(e) {}
+  });
+</script>
+<script src="../js/tj-public-config.js"></script>
+</body>
+</html>
