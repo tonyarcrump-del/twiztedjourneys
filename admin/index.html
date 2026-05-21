@@ -126,6 +126,24 @@
         then commit and refresh.
       </div>
 
+      <!-- Set-password form (shown when arriving via invite email) -->
+      <form id="set-password-form" onsubmit="handleSetPassword(event)" style="display:none;">
+        <p style="color:var(--muted);font-size:0.88rem;margin-bottom:20px;line-height:1.6;">
+          Welcome! Create a password to activate your admin account.
+        </p>
+        <div class="form-field">
+          <label for="new-password">New Password</label>
+          <input type="password" id="new-password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters" />
+        </div>
+        <div class="form-field">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" autocomplete="new-password" required minlength="8" placeholder="Repeat password" />
+        </div>
+        <button type="submit" class="login-btn" id="set-pw-btn">Create Password &amp; Sign In</button>
+        <div class="error-msg" id="set-pw-error"></div>
+      </form>
+
+      <!-- Normal sign-in form -->
       <form id="login-form" onsubmit="handleLogin(event)">
         <div class="form-field">
           <label for="login-email">Email</label>
@@ -150,15 +168,72 @@
     const cfg = window.TJ_CONFIG;
     let db = null;
 
+    // Resolve dashboard path relative to this file (works on GitHub Pages subdirectory AND custom domain)
+    const DASHBOARD = (function() {
+      const base = window.location.pathname.replace(/\/index\.html$/, '').replace(/\/$/, '');
+      return base + '/dashboard.html';
+    })();
+
     if (!cfg || cfg.supabaseUrl === 'SUPABASE_URL_HERE') {
       document.getElementById('setup-banner').style.display = 'block';
     } else {
       db = supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
 
-      // If already logged in, go straight to dashboard
-      db.auth.getSession().then(({ data: { session } }) => {
-        if (session) window.location.href = '/admin/dashboard.html';
-      });
+      // Check for invite / recovery / magic-link token in URL hash
+      const hash = window.location.hash;
+      const hashParams = new URLSearchParams(hash.replace(/^#/, ''));
+      const tokenType = hashParams.get('type');          // "invite", "recovery", etc.
+      const accessToken = hashParams.get('access_token');
+
+      if (accessToken && (tokenType === 'invite' || tokenType === 'signup')) {
+        // Invite link — let Supabase JS pick up the session from hash, then show set-password form
+        db.auth.getSession().then(({ data: { session } }) => {
+          if (session) {
+            // Signed in via invite token — show set-password form
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('set-password-form').style.display = 'block';
+            document.querySelector('.admin-guard').style.display = 'none';
+          }
+        });
+      } else {
+        // Normal load — if already logged in, go straight to dashboard
+        db.auth.getSession().then(({ data: { session } }) => {
+          if (session) window.location.href = DASHBOARD;
+        });
+      }
+    }
+
+    async function handleSetPassword(e) {
+      e.preventDefault();
+      if (!db) return;
+
+      const btn = document.getElementById('set-pw-btn');
+      const err = document.getElementById('set-pw-error');
+      const pw1 = document.getElementById('new-password').value;
+      const pw2 = document.getElementById('confirm-password').value;
+
+      if (pw1 !== pw2) {
+        err.textContent = 'Passwords do not match.';
+        err.style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Setting password…';
+      err.style.display = 'none';
+
+      const { error } = await db.auth.updateUser({ password: pw1 });
+
+      if (error) {
+        err.textContent = error.message;
+        err.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Create Password & Sign In';
+        return;
+      }
+
+      // Password set — go to dashboard
+      window.location.href = DASHBOARD;
     }
 
     async function handleLogin(e) {
@@ -184,7 +259,7 @@
         return;
       }
 
-      window.location.href = '/admin/dashboard.html';
+      window.location.href = DASHBOARD;
     }
   </script>
 </body>

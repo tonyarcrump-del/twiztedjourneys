@@ -31,8 +31,9 @@ async function initAdmin(onReady) {
   const { data: { session } } = await db.auth.getSession();
 
   if (!session) {
-    // Not logged in — go to login page
-    window.location.href = '/admin/index.html';
+    // Not logged in — go to login page (relative path works on GitHub Pages + custom domain)
+    const base = window.location.pathname.replace(/\/[^/]+\.html$/, '');
+    window.location.href = base + '/index.html';
     return;
   }
 
@@ -50,5 +51,6 @@ async function initAdmin(onReady) {
 async function adminSignOut() {
   const db = window.TJ_SUPABASE;
   if (db) await db.auth.signOut();
-  window.location.href = '/admin/index.html';
+  const base = window.location.pathname.replace(/\/[^/]+\.html$/, '');
+  window.location.href = base + '/index.html';
 }
