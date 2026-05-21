@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -14,20 +14,25 @@
 
 <div class="admin-shell">
 
-  <!-- Sidebar -->
+  <!-- ── Sidebar ─────────────────────────────────────────── -->
   <aside class="admin-sidebar">
     <div class="sidebar-logo">
-      <div class="wordmark">Tw<span>;</span>zted</div>
-      <div class="subtitle">Admin Panel</div>
+      <div class="logo-glyph">;</div>
+      <div>
+        <div class="wordmark">Tw<span>;</span>zted</div>
+        <div class="subtitle">Admin Panel</div>
+      </div>
     </div>
+
     <nav class="sidebar-nav">
       <div class="nav-section">Main</div>
       <a href="dashboard.html" class="nav-link active">
-        <span class="nav-icon">⬛</span> Dashboard
+        <span class="nav-icon">🏠</span> Dashboard
       </a>
       <a href="content.html" class="nav-link">
         <span class="nav-icon">✏️</span> Edit Site Content
       </a>
+
       <div class="nav-section">Data</div>
       <a href="submissions.html" class="nav-link">
         <span class="nav-icon">📋</span> Submissions
@@ -45,21 +50,27 @@
       <a href="qr-codes.html" class="nav-link">
         <span class="nav-icon">📱</span> QR Codes
       </a>
-      <div class="nav-section">Site</div>
+
+      <div class="nav-section">Public Pages</div>
       <a href="../charm-journey.html" target="_blank" class="nav-link">
-        <span class="nav-icon">🦋</span> Butterflies (public)
+        <span class="nav-icon nav-semicolon">;</span> Charm Journey
+      </a>
+      <a href="../podcast.html" target="_blank" class="nav-link">
+        <span class="nav-icon">🎙️</span> Hope Signal
       </a>
       <a href="../index.html" target="_blank" class="nav-link">
-        <span class="nav-icon">🌐</span> View Public Site
+        <span class="nav-icon">🌐</span> View Full Site
       </a>
     </nav>
+
     <div class="sidebar-footer">
       <div class="user-info" id="user-email">Loading…</div>
       <button class="btn-signout" onclick="signOut()">Sign Out</button>
+      <div class="sidebar-version">Twizted Journeys · Admin v2</div>
     </div>
   </aside>
 
-  <!-- Main -->
+  <!-- ── Main ───────────────────────────────────────────── -->
   <main class="admin-main">
 
     <div class="admin-topbar">
@@ -68,16 +79,28 @@
         <div class="topbar-sub" id="topbar-date"></div>
       </div>
       <div class="topbar-actions">
+        <div class="status-indicator">
+          <span class="status-dot live"></span>
+          <span class="status-label">Live</span>
+        </div>
         <button class="btn btn-ghost btn-sm" onclick="refreshAll()">↻ Refresh</button>
         <a href="content.html" class="btn btn-primary btn-sm">✏️ Edit Site</a>
       </div>
     </div>
 
+    <!-- Pending alert banner — shown only when pending > 0 -->
+    <div class="alert-banner" id="pending-alert" style="display:none;">
+      <span class="alert-icon">⚠️</span>
+      <span id="alert-text">You have pending submissions waiting for review.</span>
+      <a href="submissions.html" class="alert-link">Review now →</a>
+      <button class="alert-dismiss" onclick="this.closest('.alert-banner').style.display='none'">✕</button>
+    </div>
+
     <div class="admin-content">
 
-      <!-- Stat row -->
+      <!-- Primary stat row -->
       <div class="stats-row">
-        <div class="stat-card" style="--stat-color:var(--warning);" onclick="location.href='submissions.html'" title="Click to review">
+        <div class="stat-card" id="stat-card-pending" style="--stat-color:var(--warning);" onclick="location.href='submissions.html'" title="Click to review">
           <div class="stat-icon">📋</div>
           <div class="stat-num" id="stat-pending">—</div>
           <div class="stat-label">Pending Reviews</div>
@@ -100,6 +123,26 @@
           <div class="stat-num" id="stat-memorials">—</div>
           <div class="stat-label">Approved Memorials</div>
           <a class="stat-action" href="submissions.html">View all →</a>
+        </div>
+      </div>
+
+      <!-- Secondary stats strip -->
+      <div class="stats-secondary">
+        <div class="stat-mini" style="--stat-color:var(--teal);">
+          <div class="stat-mini-glyph">;</div>
+          <div class="stat-mini-body">
+            <div class="stat-mini-num" id="stat-sightings">—</div>
+            <div class="stat-mini-label">Charm Sightings</div>
+          </div>
+          <a class="stat-mini-link" href="../charm-journey.html" target="_blank">View →</a>
+        </div>
+        <div class="stat-mini" style="--stat-color:var(--purple);">
+          <div class="stat-mini-icon">🎙️</div>
+          <div class="stat-mini-body">
+            <div class="stat-mini-num" id="stat-podcast">—</div>
+            <div class="stat-mini-label">Podcast Signups</div>
+          </div>
+          <a class="stat-mini-link" href="../podcast.html" target="_blank">View →</a>
         </div>
       </div>
 
@@ -158,7 +201,10 @@
 
         <!-- Recent Activity -->
         <div class="card">
-          <div class="card-title">🕐 Recent Activity</div>
+          <div class="card-title">
+            🕐 Recent Activity
+            <span class="card-count-badge" id="activity-count" style="display:none;"></span>
+          </div>
           <div id="activity-feed">
             <div style="color:var(--muted);font-size:0.85rem;padding:20px 0 0;text-align:center;">Loading…</div>
           </div>
@@ -167,8 +213,10 @@
       </div>
 
       <!-- Quick Actions -->
-      <div class="card-title" style="margin-bottom:14px;">⚡ Quick Actions</div>
-      <div class="action-grid">
+      <div class="section-header">
+        <div class="card-title" style="margin:0;">⚡ Quick Actions</div>
+      </div>
+      <div class="action-grid action-grid-wide" style="margin-top:14px;">
         <a class="action-card" href="submissions.html">
           <div class="ac-icon">📋</div>
           <div class="ac-title">Review Submissions</div>
@@ -188,6 +236,16 @@
           <div class="ac-icon">✏️</div>
           <div class="ac-title">Edit Site Content</div>
           <div class="ac-desc">Update the homepage, event details, social links, and more — changes go live instantly.</div>
+        </a>
+        <a class="action-card" href="../charm-journey.html" target="_blank">
+          <div class="ac-icon ac-semicolon">;</div>
+          <div class="ac-title">Charm Journey</div>
+          <div class="ac-desc">View the live charm tracking page — see where TJ charms have traveled around the world.</div>
+        </a>
+        <a class="action-card" href="../podcast.html" target="_blank">
+          <div class="ac-icon">🎙️</div>
+          <div class="ac-title">Hope Signal Podcast</div>
+          <div class="ac-desc">View the podcast landing page and check how many people have signed up for launch updates.</div>
         </a>
         <a class="action-card" href="../events.html" target="_blank">
           <div class="ac-icon">🎪</div>
@@ -247,25 +305,38 @@
   // ── Stats ────────────────────────────────────────────────────
   async function loadStats(db) {
     try {
-      const [memPending, storyPending, memApproved, rsvps, products] = await Promise.all([
+      const [memPending, storyPending, memApproved, rsvps, products, sightings, podcast] = await Promise.all([
         db.from('memorial_submissions').select('id', { count:'exact', head:true }).eq('status','pending'),
         db.from('story_submissions').select('id',    { count:'exact', head:true }).eq('status','pending'),
         db.from('memorial_submissions').select('id', { count:'exact', head:true }).eq('status','approved'),
         db.from('event_registrations').select('id',  { count:'exact', head:true }),
-        db.from('shop_products').select('id',        { count:'exact', head:true }).eq('is_hidden', false)
+        db.from('shop_products').select('id',        { count:'exact', head:true }).eq('is_hidden', false),
+        db.from('charm_sightings').select('id',      { count:'exact', head:true }),
+        db.from('podcast_interest').select('id',     { count:'exact', head:true })
       ]);
 
       const totalPending = (memPending.count ?? 0) + (storyPending.count ?? 0);
 
-      document.getElementById('stat-pending').textContent  = totalPending;
+      document.getElementById('stat-pending').textContent   = totalPending;
       document.getElementById('stat-memorials').textContent = memApproved.count ?? 0;
-      document.getElementById('stat-rsvps').textContent    = rsvps.count ?? 0;
-      document.getElementById('stat-products').textContent = products.count ?? 0;
+      document.getElementById('stat-rsvps').textContent     = rsvps.count ?? 0;
+      document.getElementById('stat-products').textContent  = products.count ?? 0;
+      document.getElementById('stat-sightings').textContent = sightings.count ?? 0;
+      document.getElementById('stat-podcast').textContent   = podcast.count ?? 0;
 
-      // Sidebar badge — total pending across both tables
+      // Pending alert banner
+      if (totalPending > 0) {
+        const s = totalPending === 1 ? '' : 's';
+        document.getElementById('alert-text').textContent =
+          `You have ${totalPending} submission${s} waiting for review.`;
+        document.getElementById('pending-alert').style.display = 'flex';
+        document.getElementById('stat-card-pending').classList.add('urgent');
+      }
+
+      // Sidebar badge
       const badge = document.getElementById('nav-pending');
       badge.textContent = totalPending > 0 ? totalPending : '';
-      badge.className   = 'nav-badge' + (totalPending === 0 ? ' zero' : '');
+      badge.className   = 'nav-badge' + (totalPending === 0 ? ' zero' : ' urgent');
     } catch(e) {
       console.warn('Stats error:', e);
     }
@@ -279,9 +350,9 @@
         .in('key', ['announcement_text','announcement_active','announcement_type']);
       if (!data) return;
       data.forEach(row => {
-        if (row.key === 'announcement_text')   document.getElementById('ann-text').value   = row.value || '';
+        if (row.key === 'announcement_text')   document.getElementById('ann-text').value    = row.value || '';
         if (row.key === 'announcement_active') document.getElementById('ann-active').checked = row.value === 'true';
-        if (row.key === 'announcement_type')   document.getElementById('ann-type').value   = row.value || 'event';
+        if (row.key === 'announcement_type')   document.getElementById('ann-type').value    = row.value || 'event';
       });
     } catch(e) { /* silent */ }
   }
@@ -297,10 +368,16 @@
       ]);
 
       const items = [];
-      (memRes.data   || []).forEach(r => items.push({ type:'memorial', label:'🕯️ Memorial submission', name:r.name, status:r.status, time:r.created_at }));
-      (storyRes.data || []).forEach(r => items.push({ type:'story',    label:'✍️ Story submission',    name:r.name, status:r.status, time:r.created_at }));
-      (rsvpRes.data  || []).forEach(r => items.push({ type:'rsvp',     label:'📅 New RSVP',             name:r.name, reg:r.registration_type,           time:r.created_at }));
+      (memRes.data   || []).forEach(r => items.push({ type:'memorial', label:'🕯️ Memorial', name:r.name, status:r.status, time:r.created_at }));
+      (storyRes.data || []).forEach(r => items.push({ type:'story',    label:'✍️ Story',    name:r.name, status:r.status, time:r.created_at }));
+      (rsvpRes.data  || []).forEach(r => items.push({ type:'rsvp',     label:'📅 RSVP',     name:r.name, reg:r.registration_type,  time:r.created_at }));
       items.sort((a,b) => new Date(b.time) - new Date(a.time));
+
+      const countEl = document.getElementById('activity-count');
+      if (items.length > 0) {
+        countEl.textContent = items.length;
+        countEl.style.display = 'inline-flex';
+      }
 
       if (!items.length) {
         feed.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><p>No activity yet — submissions and RSVPs will appear here.</p></div>';
@@ -313,21 +390,22 @@
           return `<div class="activity-item">
             <div class="activity-dot teal"></div>
             <div>
-              <div class="activity-text">${item.label} — <strong>${esc(item.name)}</strong> <span style="color:var(--muted);font-weight:400;">(${esc(item.reg || '')})</span></div>
+              <div class="activity-text">${item.label} — <strong>${esc(item.name)}</strong>
+                <span class="badge badge-teal" style="margin-left:4px;">${esc(item.reg || 'attendee')}</span></div>
               <div class="activity-time">${ago}</div>
             </div>
           </div>`;
         } else {
-          const dotClass = item.status === 'approved' ? 'teal' : item.status === 'rejected' ? 'danger' : '';
-          const statusBadge = item.status === 'pending'
-            ? `<span style="color:#fbbf24;font-size:0.75rem;">● pending</span>`
+          const dotClass = item.status === 'approved' ? 'teal' : item.status === 'rejected' ? 'danger' : 'warning';
+          const badge    = item.status === 'pending'
+            ? `<span class="badge badge-pending">pending</span>`
             : item.status === 'approved'
-            ? `<span style="color:var(--teal);font-size:0.75rem;">✓ approved</span>`
-            : `<span style="color:#f87171;font-size:0.75rem;">✗ rejected</span>`;
+            ? `<span class="badge badge-approved">approved</span>`
+            : `<span class="badge badge-rejected">rejected</span>`;
           return `<div class="activity-item">
             <div class="activity-dot ${dotClass}"></div>
             <div>
-              <div class="activity-text">${item.label} — <strong>${esc(item.name)}</strong> ${statusBadge}</div>
+              <div class="activity-text">${item.label} — <strong>${esc(item.name)}</strong> ${badge}</div>
               <div class="activity-time">${ago}</div>
             </div>
           </div>`;
@@ -384,4 +462,3 @@
 </script>
 </body>
 </html>
-
