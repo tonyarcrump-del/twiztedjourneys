@@ -14,7 +14,7 @@ while keeping the Webador shop/donate pages alive at shop.twiztedjourneys.org.
 
 ## Step 1 — Before Touching Anything (do this first)
 - [ ] Confirm the new GitHub Pages site looks correct at:
-  `https://natewhittaker91.github.io/twiztedjourneys/` (preview URL)
+  `https://tonyarcrump-del.github.io/twiztedjourneys/` (preview URL)
 - [ ] Test all pages on mobile (iPhone + Android)
 - [ ] Confirm RSVP form submits to Supabase (test with a dummy entry)
 - [ ] Confirm Memorial form submits to Supabase
@@ -67,7 +67,7 @@ www  CNAME  website-rendering.webador.com
 
 New state (GitHub Pages):
 ```
-www  CNAME  natewhittaker91.github.io
+www  CNAME  tonyarcrump-del.github.io
 ```
 
 Or if using apex domain (no www):
@@ -76,11 +76,11 @@ Or if using apex domain (no www):
 @   A   185.199.109.153
 @   A   185.199.110.153
 @   A   185.199.111.153
-www CNAME  natewhittaker91.github.io
+www CNAME  tonyarcrump-del.github.io
 ```
 
 **In GitHub Pages settings:**
-1. Go to github.com/natewhittaker91/twiztedjourneys → Settings → Pages
+1. Go to github.com/tonyarcrump-del/twiztedjourneys → Settings → Pages
 2. Under "Custom domain", enter: `twiztedjourneys.org`
 3. Check "Enforce HTTPS"
 4. Save
@@ -114,13 +114,13 @@ GitHub Pages handles:
 
 ---
 
-## Supabase Setup Remaining
-Before cutover, complete:
-- [ ] Run `admin/schema.sql` in Supabase SQL Editor (creates 3 tables)
-- [ ] Invite Tonya as admin user:
-  - Supabase dashboard → Authentication → Users → Invite User
-  - Email: tonyarcrump@gmail.com
-- [ ] Confirm admin login works with invited credentials
+## Supabase Setup Status
+- [x] Schema created — 3 tables live (shop_products, event_registrations, memorial_submissions)
+- [x] Both admin users invited (natewhittaker91@gmail.com + tonyarcrump@gmail.com)
+- [ ] Supabase URL Configuration → Site URL must be set to:
+  `https://tonyarcrump-del.github.io/twiztedjourneys/admin/index.html` (pre-cutover)
+  Then updated to `https://twiztedjourneys.org/admin/index.html` after DNS cutover
+- [ ] Confirm admin login works for both Nate and Tonya
 
 ---
 
