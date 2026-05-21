@@ -185,14 +185,14 @@ a:hover { color: var(--cyan); }
   font-size: 1.2rem;
 }
 
-/* ── Hero Page (full-bleed image hero) ─────────────────────────── */
+/* ── Hero Page (full-bleed image hero, parallax scroll) ─────────── */
 .hero-page {
-  min-height: 420px;
+  min-height: 520px;
   display: flex;
   align-items: center;
   position: relative;
   background-size: cover;
-  background-position: center;
+  background-position: center top;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -201,12 +201,13 @@ a:hover { color: var(--cyan); }
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(11,11,15,0.55) 0%, rgba(11,11,15,0.82) 100%);
+  background: linear-gradient(to bottom, rgba(11,11,15,0.45) 0%, rgba(11,11,15,0.80) 100%);
   z-index: 1;
 }
 
+/* Slightly lighter overlay for pages that explicitly call hero--light */
 .hero-page--light::before {
-  background: linear-gradient(to bottom, rgba(11,11,15,0.62) 0%, rgba(11,11,15,0.88) 100%);
+  background: linear-gradient(to bottom, rgba(11,11,15,0.52) 0%, rgba(11,11,15,0.85) 100%);
 }
 
 .hero-page__inner {
@@ -882,8 +883,8 @@ section { padding: 80px 0; }
   .nav-inner { flex-wrap: wrap; }
   .hero-banner { max-height: 220px; }
   .hero-tagline h1 { font-size: 1.5rem; }
-  .hero-page { min-height: 320px; background-attachment: scroll; }
-  .hero-page__inner { padding: 48px 0 36px; }
+  .hero-page { min-height: 400px; background-attachment: scroll; background-position: center top; }
+  .hero-page__inner { padding: 56px 0 44px; }
   .finding-forward { padding: 24px 20px; }
   .safe-place-banner { padding: 22px 20px; }
   .event-card { flex-direction: column; gap: 12px; }

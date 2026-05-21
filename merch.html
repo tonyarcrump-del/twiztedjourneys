@@ -8,10 +8,22 @@
   <link rel="stylesheet" href="css/styles.css" />
   <style>
     .merch-hero {
-      background: linear-gradient(135deg, #0d0015 0%, var(--midnight) 60%, #080820 100%);
+      background-image: url('images/events/event-photo-community-2-hires.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       border-bottom: 1px solid var(--card-border);
       padding: 72px 0 56px;
     }
+    .merch-hero { position: relative; }
+    .merch-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(11,11,15,0.75) 0%, rgba(11,11,15,0.9) 100%);
+      z-index: 0;
+    }
+    .merch-hero > * { position: relative; z-index: 1; }
     .merch-hero-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -44,7 +56,16 @@
       border: 1px solid var(--card-border);
     }
     @media (max-width: 680px) {
-      .merch-hero-grid { grid-template-columns: 1fr; }
+      .merch-hero { position: relative; }
+    .merch-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(11,11,15,0.75) 0%, rgba(11,11,15,0.9) 100%);
+      z-index: 0;
+    }
+    .merch-hero > * { position: relative; z-index: 1; }
+    .merch-hero-grid { grid-template-columns: 1fr; }
       .merch-hero-image { order: -1; }
       .merch-hero-image img { max-width: 200px; }
     }

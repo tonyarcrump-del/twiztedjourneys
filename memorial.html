@@ -8,11 +8,23 @@
   <link rel="stylesheet" href="css/styles.css">
   <style>
     .memorial-hero {
-      background: linear-gradient(160deg, #0d0015 0%, var(--midnight) 55%, #080820 100%);
+      background-image: url('images/hero-backgrounds/tj-road.png');
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
       border-bottom: 1px solid var(--card-border);
       padding: 72px 0 56px;
       text-align: center;
+      position: relative;
     }
+    .memorial-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(11,11,15,0.68) 0%, rgba(11,11,15,0.88) 100%);
+      z-index: 0;
+    }
+    .memorial-hero > * { position: relative; z-index: 1; }
     .memorial-hero h1 {
       font-size: clamp(1.8rem, 4vw, 2.6rem);
       font-weight: 800;
