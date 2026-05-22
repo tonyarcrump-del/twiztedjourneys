@@ -1,4 +1,4 @@
-﻿# Twizted Tools Hub — Internal Documentation
+# Twizted Tools Hub — Internal Documentation
 
 **Created:** 2026-05-20  
 **Status:** Internal only — not public-facing  
@@ -144,19 +144,19 @@ Tonya will eventually be able to type or speak anything — "Make this flyer sou
 Confirmed vs. still needed:
 
 **September Event Flyer — CONFIRMED (from events.html source files)**
-- [x] Event: Light Up the Night (awareness motorcycle ride)
+- [x] Event: Light Up the Night (awareness ride)
 - [x] Date: September 12, 2026
-- [x] Venue: Shelby County Fairgrounds, 100 Prairie Ave, Shelbyville IN
+- [x] Venue: Shelby County Fairgrounds, 40 & 8 Building, 500 Frank Street, Shelbyville IN
 - [x] Registration: 11AM
-- [x] Vendors: /day
+- [x] Vendors: $50/day
 - [x] RSVP: mailto:info@twiztedjourneys.org (subject: RSVP - Ride Registration)
 - [x] QR target: https://www.twiztedjourneys.org/events.html
 - [ ] TODO: Formal RSVP/registration URL (email works for now)
 
 **September Vendor Flyer — CONFIRMED**
 - [x] Event dates: Sept 12-13, 2026
-- [x] Venue: Shelby County Fairgrounds, 100 Prairie Ave
-- [x] Vendor fee: /day
+- [x] Venue: Shelby County Fairgrounds, 40 & 8 Building, 500 Frank Street, Shelbyville IN
+- [x] Vendor fee: $50/day
 - [x] Contact: mailto:info@twiztedjourneys.org (subject: Vendor Signup - September 2026)
 - [x] QR target: https://www.twiztedjourneys.org/events.html
 - [x] Asset: images/vendor-event-flyer.png
