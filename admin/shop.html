@@ -324,4 +324,126 @@
   function renderGrid(data) {
     const grid = document.getElementById('product-grid');
     if (!data.length) {
-      grid.innerHTML = '<div style="grid-column:1/-
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted);">No products found.</div>';
+      return;
+    }
+    grid.innerHTML = data.map(p => {
+      const avail = Math.max(0, (p.quantity_total || 0) - (p.quantity_sold || 0) - (p.quantity_held || 0));
+      const stockClass = avail === 0 ? 'stock-out' : avail <= 3 ? 'stock-low' : 'stock-avail';
+      return `
+        <div class="product-card${p.is_hidden ? ' is-hidden' : ''}">
+          <div class="product-thumb">
+            ${p.image_url ? `<img src="${p.image_url}" alt="${esc(p.name)}" />` : '🛍️'}
+          </div>
+          <div class="product-body">
+            <div class="product-name">${esc(p.name)}</div>
+            <div class="product-sku">${esc(p.sku || '')}</div>
+            <div class="product-price">${p.price ? '$' + Number(p.price).toFixed(2) : '—'}</div>
+            <div class="stock-bar">
+              <span class="${stockClass} stock-num">${avail} avail</span>
+              ${p.is_hidden ? '<span style="color:#fbbf24;">● Hidden</span>' : ''}
+              ${p.is_sold_out ? '<span class="stock-out">● Sold Out</span>' : ''}
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-ghost btn-sm" style="flex:1;" onclick="openEditModal(${JSON.stringify(p).replace(/"/g,'&quot;')})">✏️ Edit</button>
+              ${p.webador_url ? `<a href="${p.webador_url}" target="_blank" class="btn btn-ghost btn-sm" title="View on Webador">🔗</a>` : ''}
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── Modal: open for Add ──────────────────────────────────────
+  function openAddModal() {
+    document.getElementById('modal-title').textContent = 'Add Product';
+    document.getElementById('edit-id').value = '';
+    document.getElementById('edit-name').value = '';
+    document.getElementById('edit-sku').value = '';
+    document.getElementById('edit-category').value = 'charm';
+    document.getElementById('edit-price').value = '';
+    document.getElementById('edit-qty-total').value = '';
+    document.getElementById('edit-qty-sold').value = '';
+    document.getElementById('edit-desc').value = '';
+    document.getElementById('edit-webador-url').value = '';
+    document.getElementById('edit-image-url').value = '';
+    document.getElementById('edit-hidden').checked = false;
+    document.getElementById('edit-sold-out').checked = false;
+    document.getElementById('product-modal').classList.add('open');
+    document.getElementById('edit-name').focus();
+  }
+
+  // ── Modal: open for Edit ─────────────────────────────────────
+  function openEditModal(p) {
+    document.getElementById('modal-title').textContent = 'Edit Product';
+    document.getElementById('edit-id').value = p.id || '';
+    document.getElementById('edit-name').value = p.name || '';
+    document.getElementById('edit-sku').value = p.sku || '';
+    document.getElementById('edit-category').value = p.category || 'other';
+    document.getElementById('edit-price').value = p.price != null ? p.price : '';
+    document.getElementById('edit-qty-total').value = p.quantity_total != null ? p.quantity_total : '';
+    document.getElementById('edit-qty-sold').value = p.quantity_sold != null ? p.quantity_sold : '';
+    document.getElementById('edit-desc').value = p.description || '';
+    document.getElementById('edit-webador-url').value = p.webador_url || '';
+    document.getElementById('edit-image-url').value = p.image_url || '';
+    document.getElementById('edit-hidden').checked = !!p.is_hidden;
+    document.getElementById('edit-sold-out').checked = !!p.is_sold_out;
+    document.getElementById('product-modal').classList.add('open');
+  }
+
+  // ── Modal: close ─────────────────────────────────────────────
+  function closeModal() {
+    document.getElementById('product-modal').classList.remove('open');
+  }
+
+  // Close modal on backdrop click
+  document.getElementById('product-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // ── Save product to shop_products ────────────────────────────
+  async function saveProduct() {
+    if (!_db) return;
+    const name = document.getElementById('edit-name').value.trim();
+    const sku  = document.getElementById('edit-sku').value.trim();
+    if (!name) { toast('Product name is required.', 'error'); return; }
+    if (!sku)  { toast('SKU is required.', 'error'); return; }
+
+    const btn = document.getElementById('modal-save-btn');
+    btn.disabled = true; btn.textContent = 'Saving…';
+
+    const id = document.getElementById('edit-id').value;
+    const payload = {
+      name,
+      sku,
+      category:       document.getElementById('edit-category').value,
+      price:          parseFloat(document.getElementById('edit-price').value) || null,
+      quantity_total: parseInt(document.getElementById('edit-qty-total').value) || 0,
+      quantity_sold:  parseInt(document.getElementById('edit-qty-sold').value) || 0,
+      description:    document.getElementById('edit-desc').value.trim() || null,
+      webador_url:    document.getElementById('edit-webador-url').value.trim() || null,
+      image_url:      document.getElementById('edit-image-url').value.trim() || null,
+      is_hidden:      document.getElementById('edit-hidden').checked,
+      is_sold_out:    document.getElementById('edit-sold-out').checked,
+      updated_at:     new Date().toISOString()
+    };
+    if (id) payload.id = id;
+
+    const { error } = await _db.from('shop_products').upsert(payload, { onConflict: 'id' });
+    btn.disabled = false; btn.textContent = '💾 Save Product';
+
+    if (error) {
+      toast('Save failed: ' + error.message, 'error');
+    } else {
+      toast('✅ Product saved!', 'success');
+      closeModal();
+      await loadProducts();
+    }
+  }
+
+</script>
+</body>
+</html>

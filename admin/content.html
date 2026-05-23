@@ -61,7 +61,7 @@
     </nav>
     <div class="sidebar-footer">
       <div class="user-info" id="user-email">Loading…</div>
-      <button class="btn-signout" onclick="signOut()">Sign Out</button>
+      <button class="btn-signout" onclick="adminSignOut()">Sign Out</button>
     </div>
   </aside>
 
@@ -80,7 +80,7 @@
     </div>
 
     <!-- Save status bar -->
-    <div id="save-status-bar" style="display:none;background:rgba(86,224,210,0.08);border:1px solid rgba(86,224,210,0.2);border-radius:10px;padding:12px 20px;margin-bottom:20px;font-size:0.85rem;color:var(--teal);display:flex;align-items:center;gap:10px;">
+    <div id="save-status-bar" style="display:none;background:rgba(86,224,210,0.08);border:1px solid rgba(86,224,210,0.2);border-radius:10px;padding:12px 20px;margin-bottom:20px;font-size:0.85rem;color:var(--teal);align-items:center;gap:10px;">
       <span>✅</span><span id="save-status-msg">All changes saved.</span>
     </div>
 
@@ -715,4 +715,22 @@
         await upsertKeys(_db, SECTION_KEYS[section]());
       } catch(e) {
         errors++;
-        console.warn
+        console.warn('saveAll error in section:', section, e);
+      }
+    }
+    btn.disabled = false; btn.textContent = '💾 Save All Changes';
+    if (errors === 0) {
+      toast('✅ All changes saved — live on the site now!', 'success');
+      const bar = document.getElementById('save-status-bar');
+      const msg = document.getElementById('save-status-msg');
+      if (bar) { bar.style.display = 'flex'; }
+      if (msg) msg.textContent = 'All changes saved — live on the site.';
+      setTimeout(() => { if (bar) bar.style.display = 'none'; }, 5000);
+    } else {
+      toast('⚠ ' + errors + ' section(s) failed to save. Check your connection.', 'error');
+    }
+  }
+
+</script>
+</body>
+</html>

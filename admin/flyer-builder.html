@@ -574,6 +574,32 @@
             <div class="scheme-dot" style="background:linear-gradient(135deg,#0a0a0a,#ffffff);" title="Black + White (print-safe)" onclick="setScheme('black-white',this)"></div>
           </div>
 
+
+          <!-- ── Background image upload ───────────────── -->
+          <div class="ctrl-section">Background Image <span style="font-size:0.68rem;font-weight:400;color:var(--muted);">(optional)</span></div>
+          <div id="bg-upload-zone" class="bg-upload-zone">
+            <label for="bg-image-input" id="bg-upload-label">
+              📷 Click to upload — or drag &amp; drop<br>
+              <span style="font-size:0.73rem;">JPG, PNG, or WEBP</span>
+              <input type="file" id="bg-image-input" accept="image/jpeg,image/png,image/webp" style="display:none">
+            </label>
+            <div id="bg-thumb-row" style="display:none;">
+              <img id="bg-thumb" alt="" style="width:100%;height:84px;object-fit:cover;border-radius:6px;margin-bottom:8px;display:block;">
+              <button type="button" id="bg-remove-btn" class="btn btn-ghost btn-sm" style="width:100%;font-size:0.75rem;">✕ Remove Image</button>
+            </div>
+          </div>
+          <div id="bg-overlay-controls" style="display:none;margin-top:8px;">
+            <div style="display:flex;gap:6px;margin-bottom:8px;">
+              <button type="button" class="overlay-preset-btn" data-val="20">Light</button>
+              <button type="button" class="overlay-preset-btn active" data-val="50">Medium</button>
+              <button type="button" class="overlay-preset-btn" data-val="75">Strong</button>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <input type="range" id="bg-overlay-slider" min="0" max="88" value="50" style="flex:1;accent-color:var(--purple);">
+              <span id="bg-overlay-pct" style="font-size:0.8rem;color:var(--muted);min-width:32px;text-align:right;">50%</span>
+            </div>
+          </div>
+
           <!-- ── EVENT fields ─────────────────────────── -->
           <div id="fields-event">
             <div class="ctrl-section">Event Details</div>
@@ -679,6 +705,8 @@
   // ── State ────────────────────────────────────────────────────
   let currentTemplate = 'event';
   let currentScheme   = 'purple-teal';
+  let uploadedBgUrl   = null;   // Object URL from file upload
+  let bgOverlayDark   = 0.50;   // 0..0.88
 
   const SCHEMES = {
     'purple-teal':  { bg: '#0B0B1A', grad: 'linear-gradient(135deg,#8A2BEF 0%,#56E0D2 100%)', accent: '#56E0D2', bar: 'linear-gradient(90deg,#8A2BEF,#56E0D2)' },
@@ -717,6 +745,13 @@
     const sc = SCHEMES[currentScheme];
     const out = document.getElementById('flyer-output');
     out.style.background = sc.bg;
+    if (uploadedBgUrl) {
+      out.style.backgroundImage = `url('${uploadedBgUrl}')`;
+      out.style.backgroundSize  = 'cover';
+      out.style.backgroundPosition = 'center';
+    } else {
+      out.style.backgroundImage = '';
+    }
 
     if (currentTemplate === 'event') {
       renderEvent(sc, out);
@@ -735,6 +770,7 @@
       <!-- gradient overlay -->
       <div class="fl-gradient-top" style="background:${sc.grad};"></div>
       <div class="fl-accent-bar" style="background:${sc.bar};"></div>
+      ${uploadedBgUrl ? `<div style="position:absolute;inset:0;background:rgba(0,0,0,${bgOverlayDark});z-index:0;pointer-events:none;"></div>` : ''}
       <div class="fl-watermark">;</div>
 
       <div class="fl-content" style="--fl-accent:${sc.accent};">
@@ -801,6 +837,7 @@
     out.innerHTML = `
       <div class="fl-gradient-top" style="background:${sc.grad};"></div>
       <div class="fl-accent-bar" style="background:${sc.bar};"></div>
+      ${uploadedBgUrl ? `<div style="position:absolute;inset:0;background:rgba(0,0,0,${bgOverlayDark});z-index:0;pointer-events:none;"></div>` : ''}
       <div class="fl-watermark">;</div>
 
       <div class="fl-content" style="--fl-accent:${sc.accent};">
@@ -915,6 +952,72 @@
     clearTimeout(t._timer);
     t._timer = setTimeout(() => { t.className = ''; }, 3500);
   }
+
+
+  // ── Background image upload ──────────────────────────────────
+  (function() {
+    const zone        = document.getElementById('bg-upload-zone');
+    const input       = document.getElementById('bg-image-input');
+    const thumb       = document.getElementById('bg-thumb');
+    const thumbRow    = document.getElementById('bg-thumb-row');
+    const uploadLabel = document.getElementById('bg-upload-label');
+    const removeBtn   = document.getElementById('bg-remove-btn');
+    const controls    = document.getElementById('bg-overlay-controls');
+    const slider      = document.getElementById('bg-overlay-slider');
+    const pctLabel    = document.getElementById('bg-overlay-pct');
+    const presetBtns  = document.querySelectorAll('.overlay-preset-btn');
+
+    input.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+    zone.addEventListener('drop', e => {
+      e.preventDefault(); zone.classList.remove('drag-over');
+      if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    });
+
+    removeBtn.addEventListener('click', () => {
+      if (uploadedBgUrl) URL.revokeObjectURL(uploadedBgUrl);
+      uploadedBgUrl = null;
+      thumb.src = '';
+      thumbRow.style.display = 'none';
+      uploadLabel.style.display = '';
+      controls.style.display = 'none';
+      render();
+    });
+
+    slider.addEventListener('input', () => {
+      const v = parseInt(slider.value);
+      bgOverlayDark = v / 100;
+      pctLabel.textContent = v + '%';
+      syncPresets(v);
+      render();
+    });
+
+    presetBtns.forEach(btn => btn.addEventListener('click', () => {
+      const v = parseInt(btn.dataset.val);
+      slider.value = v;
+      bgOverlayDark = v / 100;
+      pctLabel.textContent = v + '%';
+      syncPresets(v);
+      render();
+    }));
+
+    function syncPresets(v) {
+      presetBtns.forEach(b => b.classList.toggle('active', parseInt(b.dataset.val) === v));
+    }
+
+    function handleFile(file) {
+      if (!file.type.startsWith('image/')) { toast('Upload a JPG, PNG, or WEBP image.', 'error'); return; }
+      if (uploadedBgUrl) URL.revokeObjectURL(uploadedBgUrl);
+      uploadedBgUrl = URL.createObjectURL(file);
+      thumb.src = uploadedBgUrl;
+      thumbRow.style.display = '';
+      uploadLabel.style.display = 'none';
+      controls.style.display = '';
+      render();
+    }
+  }());
 
   // ── Auth ─────────────────────────────────────────────────────
   initAdmin(function(user) {
