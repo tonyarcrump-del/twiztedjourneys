@@ -91,10 +91,10 @@
         <textarea class="field-textarea" id="edit-desc" rows="2" placeholder="Short product description visible on the shop page."></textarea>
       </div>
       <div class="field" style="grid-column:1/-1;">
-        <label class="field-label">Webador Product URL</label>
+        <label class="field-label">Buy / Order Link</label>
         <input type="url" class="field-input" id="edit-webador-url"
           placeholder="https://shop.twiztedjourneys.org/product/…" />
-        <div class="field-hint">The "Buy Now" button on the public site links here. Webador handles checkout — we never collect payment info.</div>
+        <div class="field-hint">The "Buy Now" button on the public site links here. Paste the checkout, order form, payment, or message link for this product. Leave blank if not ready yet.</div>
       </div>
       <div class="field" style="grid-column:1/-1;">
         <label class="field-label">Image URL (optional)</label>
@@ -181,7 +181,7 @@
     <div class="admin-topbar">
       <div>
         <div class="topbar-title">🛍️ Shop / Inventory</div>
-        <div class="topbar-sub">Track products displayed on the public shop. Webador handles all checkout and payments.</div>
+        <div class="topbar-sub">Track products displayed on the public shop. Each product can link to checkout, an order form, a payment option, or a contact/message option.</div>
       </div>
       <div class="topbar-actions">
         <button class="btn btn-ghost btn-sm" onclick="loadProducts()">↻ Refresh</button>
@@ -218,8 +218,8 @@
       <!-- Info banner -->
       <div style="background:rgba(86,224,210,0.05);border:1px solid rgba(86,224,210,0.18);border-radius:10px;padding:14px 18px;margin-bottom:24px;font-size:0.84rem;color:var(--muted);line-height:1.7;">
         ℹ️ <strong style="color:var(--white);">Display only.</strong>
-        Products listed here appear on the public shop page with a "Buy Now" button linking to Webador.
-        Webador handles all checkout, payment, and shipping — this table is for tracking and display only.
+        Products listed here appear on the public shop page with a "Buy Now" button.
+        The Buy button can link to checkout, an order form, a payment option, or a contact/message option. This table controls the product listing display.
       </div>
 
       <!-- Filter bar -->
@@ -345,7 +345,7 @@
             </div>
             <div style="display:flex;gap:8px;">
               <button class="btn btn-ghost btn-sm" style="flex:1;" onclick="openEditModal(${JSON.stringify(p).replace(/"/g,'&quot;')})">✏️ Edit</button>
-              ${p.webador_url ? `<a href="${p.webador_url}" target="_blank" class="btn btn-ghost btn-sm" title="View on Webador">🔗</a>` : ''}
+              ${p.webador_url ? `<a href="${p.webador_url}" target="_blank" class="btn btn-ghost btn-sm" title="Open buy/order link">🔗</a>` : ''}
             </div>
           </div>
         </div>`;
@@ -446,5 +446,6 @@
 </script>
 </body>
 </html>
+
 
 
