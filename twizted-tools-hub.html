@@ -304,7 +304,7 @@
         <div class="qr-presets">
           <button class="preset-btn" onclick="setPreset('https://www.twiztedjourneys.org/')">Main Site</button>
           <button class="preset-btn" onclick="setPreset('https://www.twiztedjourneys.org/events.html')">Events Page</button>
-          <button class="preset-btn" onclick="setPreset('https://www.twiztedjourneys.org/donations-matter')">Donate</button>
+          <button class="preset-btn" onclick="setPreset('donate.html')">Donate</button>
           <button class="preset-btn" onclick="setPreset('https://www.facebook.com/groups/560290368564902/')">Facebook Group</button>
           <button class="preset-btn" onclick="setPreset('https://www.twiztedjourneys.org/shoe-drive.html')">Shoe Drive</button>
           <button class="preset-btn" onclick="setPreset('https://www.twiztedjourneys.org/merch')">Merch / Charm</button>
@@ -344,11 +344,11 @@
       </div>
       <p class="card-desc">Active donations page. Use this URL when generating QR codes for any donation-focused flyer or card.</p>
       <div class="card-actions">
-        <a class="btn btn-primary btn-sm" href="https://www.twiztedjourneys.org/donations-matter" target="_blank" rel="noopener">Open Donate Page &#8599;</a>
+        <a class="btn btn-primary btn-sm" href="donate.html" target="_blank" rel="noopener">Open Donate Page &#8599;</a>
       </div>
-      <button class="card-qr-toggle" onclick="toggleMiniQR(this,'https://www.twiztedjourneys.org/donations-matter')">&#9724; Generate QR for this page</button>
+      <button class="card-qr-toggle" onclick="toggleMiniQR(this,'donate.html')">&#9724; Generate QR for this page</button>
       <div class="card-qr-panel">
-        <input class="mini-qr-url" type="text" value="https://www.twiztedjourneys.org/donations-matter" />
+        <input class="mini-qr-url" type="text" value="donate.html" />
         <button class="btn btn-teal btn-sm" onclick="generateMiniQR(this)">Generate</button>
         <div class="mini-qr-output"><div></div><p class="qr-scan-note">Test before printing.</p><button class="btn btn-ghost btn-sm" onclick="downloadMiniQR(this)">&#8595; Download</button></div>
       </div>
@@ -696,7 +696,7 @@ function routeHub(q, raw) {
   if (contains(q, ['qr code','qr card','generate qr','make a qr','create a qr','qr for the','qr for'])) {
     var url = '';
     if (contains(q,['charm','semicolon'])) url = 'https://www.twiztedjourneys.org/merch';
-    else if (contains(q,['donate','donation'])) url = 'https://www.twiztedjourneys.org/donations-matter';
+    else if (contains(q,['donate','donation'])) url = 'donate.html';
     else if (contains(q,['facebook','fb','group'])) url = 'https://www.facebook.com/groups/560290368564902/';
     else if (contains(q,['shoe drive','shoes'])) url = 'https://www.twiztedjourneys.org/shoe-drive.html';
     else if (contains(q,['event','events'])) url = 'https://www.twiztedjourneys.org/events.html';
@@ -785,8 +785,8 @@ Flyer asset: images/vendor-event-flyer.png',
   if (contains(q,['donor update','donation update','donor','write a donor','update for tonight'])) {
     return {
       tag: '&#128156; Donor Update',
-      body: '&#128202; DONOR UPDATE DRAFT (edit before sending):\n\nSubject: A quick update from Twizted Journeys &rdquo;” Thank You\n\nHi [Donor Name],\n\nThank you so much for your continued support of Twizted Journeys.\n\nYour generosity helps us show up for our community every single day. Because of you, we can [TODO &rdquo;” add recent impact or event].\n\nWe&rsquo;re currently [TODO &rdquo;” add what&rsquo;s happening right now or next steps].\n\nIf you&rsquo;d like to give again or share our mission with someone who needs it:\n”— twiztedjourneys.org/donations-matter\n\nPause but continue. Tomorrow needs you.\n\nWith gratitude,\nTonya &amp; the Twizted Journeys team',
-      actions: [{ label: 'Copy Donor Update', copy: true }, { label: 'Open Donate Page', href: 'https://www.twiztedjourneys.org/donations-matter' }]
+      body: '&#128202; DONOR UPDATE DRAFT (edit before sending):\n\nSubject: A quick update from Twizted Journeys &rdquo;” Thank You\n\nHi [Donor Name],\n\nThank you so much for your continued support of Twizted Journeys.\n\nYour generosity helps us show up for our community every single day. Because of you, we can [TODO &rdquo;” add recent impact or event].\n\nWe&rsquo;re currently [TODO &rdquo;” add what&rsquo;s happening right now or next steps].\n\nIf you&rsquo;d like to give again or share our mission with someone who needs it:\n”— twiztedjourneys.org/donate\n\nPause but continue. Tomorrow needs you.\n\nWith gratitude,\nTonya &amp; the Twizted Journeys team',
+      actions: [{ label: 'Copy Donor Update', copy: true }, { label: 'Open Donate Page', href: 'donate.html' }]
     };
   }
 
