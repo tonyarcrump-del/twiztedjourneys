@@ -255,46 +255,6 @@
  color: var(--teal);
  }
 
- .coming-soon-badge {
- display: inline-block;
- background: rgba(86,224,210,0.1);
- border: 1px solid rgba(86,224,210,0.3);
- color: var(--teal);
- font-size: 0.72rem;
- font-weight: 700;
- letter-spacing: 0.1em;
- text-transform: uppercase;
- padding: 3px 10px;
- border-radius: 20px;
- margin-bottom: 16px;
- }
-
- .form-preview {
- display: flex;
- flex-direction: column;
- gap: 12px;
- margin: 24px 0;
- opacity: 0.45;
- pointer-events: none;
- user-select: none;
- }
-
- .form-preview-field {
- background: rgba(26,26,40,0.6);
- border: 1px solid var(--border);
- border-radius: 8px;
- padding: 11px 14px;
- font-size: 0.88rem;
- color: var(--muted);
- }
-
- .form-preview-label {
- font-size: 0.78rem;
- color: var(--muted);
- margin-bottom: 4px;
- display: block;
- }
-
  /* QR placeholder */
  .qr-placeholder-box {
  background: var(--card-bg);
@@ -482,57 +442,33 @@
  </p>
 
  <div class="submission-card">
- <span class="coming-soon-badge">&#128274; Form Coming Soon</span>
- <h2>Share <em>Your</em> Story</h2>
- <p style="color:var(--muted);font-size:0.93rem;line-height:1.7;margin-bottom:8px;">
- The full submission form is being set up. In the meantime, email us directly &mdash;
- we read every message and we&rsquo;d love to hear where your charm went.
+ <h2>Share <em>Your</em> Charm Journey</h2>
+ <p style="color:var(--muted);font-size:0.93rem;line-height:1.7;margin-bottom:20px;">
+ Online submission form coming soon. For now, email your Twizted Treasure journey using
+ the button below &mdash; we read every message and we&rsquo;d love to hear where your charm went.
  </p>
+
+ <p style="font-size:0.85rem;color:var(--muted);line-height:1.7;margin-bottom:20px;">
+ Include as much or as little as you&rsquo;d like:
+ </p>
+ <ul style="color:var(--muted);font-size:0.88rem;line-height:2;list-style:none;padding:0;margin:0 0 24px;">
+   <li>&#10022; Your first name or initials</li>
+   <li>&#10022; City / state</li>
+   <li>&#10022; Where did this charm go?</li>
+   <li>&#10022; Who or what does it honor? (optional)</li>
+   <li>&#10022; A message to carry forward (optional)</li>
+   <li>&#10022; Permission to share publicly: <em>Yes / No</em></li>
+   <li>&#10022; Contact email (optional &mdash; only if you want a reply)</li>
+ </ul>
 
  <a class="btn btn-primary"
- href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Journey%20Story&body=Hi%20Tonya%2C%0A%0AI%20have%20a%20Twizted%20Treasure%20to%20share.%0A%0AWhere%20the%20charm%20went%3A%0AWho%20or%20what%20it%20honors%3A%0AMy%20city%20%2F%20state%3A%0AMy%20message%3A%0A%0AI%20give%20permission%20to%20share%20this%20story%3A%20Yes%20%2F%20No"
- style="margin-top:8px;display:inline-block;">
- &#9993; Email Your Story
+ href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Journey%20Submission&body=Hi%20Tonya%2C%0A%0AI%20have%20a%20Twizted%20Treasure%20journey%20to%20share.%0A%0AFirst%20name%20or%20initials%3A%0ACity%20%2F%20state%3A%0AWhere%20did%20this%20charm%20go%3F%0AWho%20or%20what%20does%20it%20honor%20(optional)%3A%0AA%20message%20to%20carry%20forward%20(optional)%3A%0APermission%20to%20share%20this%20story%20publicly%3A%20Yes%20%2F%20No%0AContact%20email%20(optional)%3A%0A%0AThank%20you%20for%20keeping%20this%20journey%20going."
+ style="display:inline-block;">
+ &#9993; Email Your Charm Journey
  </a>
 
- <!-- Future form preview &mdash; greyed out placeholder -->
- <div style="margin-top:32px;">
- <p style="font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:12px;">
- Coming Soon &mdash; Online Submission Form
- </p>
- <div class="form-preview" aria-hidden="true">
- <div>
- <span class="form-preview-label">First name or initials</span>
- <div class="form-preview-field">e.g. Tonya C.</div>
- </div>
- <div>
- <span class="form-preview-label">City / State</span>
- <div class="form-preview-field">e.g. Shelbyville, IN</div>
- </div>
- <div>
- <span class="form-preview-label">Where did this charm go?</span>
- <div class="form-preview-field">I found it at the September event and gave it to my daughter&hellip;</div>
- </div>
- <div>
- <span class="form-preview-label">Who or what does it honor? (optional)</span>
- <div class="form-preview-field">In memory of&hellip;</div>
- </div>
- <div>
- <span class="form-preview-label">A message to carry forward (optional)</span>
- <div class="form-preview-field">Your story isn&rsquo;t over&hellip;</div>
- </div>
- <div style="display:flex;align-items:center;gap:10px;">
- <div style="width:16px;height:16px;border:1px solid var(--border);border-radius:4px;flex-shrink:0;"></div>
- <span class="form-preview-label" style="margin:0;">I give Twizted Journeys permission to share this story publicly (name optional)</span>
- </div>
- </div>
- <p style="font-size:0.78rem;color:var(--muted);margin-top:4px;">
- This form will connect to the Twizted Treasure tracking system when deployed. Ask Nate to wire it up.
- </p>
- </div>
-
  <!-- Privacy note -->
- <div class="disclosure-box" style="margin-top:24px;">
+ <div class="disclosure-box" style="margin-top:28px;">
  <strong>Your privacy matters</strong>
  <p>
  You choose what to share. Names are never required. Stories are reviewed before anything is posted publicly.
