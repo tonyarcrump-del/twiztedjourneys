@@ -69,6 +69,71 @@
       .merch-hero-image { order: -1; }
       .merch-hero-image img { max-width: 200px; }
     }
+
+    /* ── Handmade Charms gallery ── */
+    .hp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 36px;
+    }
+    .hp-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .hp-card:hover {
+      border-color: rgba(138,43,239,0.45);
+      transform: translateY(-2px);
+    }
+    .hp-card-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+    }
+    .hp-card-body {
+      padding: 14px 14px 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .hp-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 4px;
+    }
+    .hp-card-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+    .hp-card-avail {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+      line-height: 1.5;
+      flex: 1;
+    }
+    .hp-card .btn {
+      font-size: 0.82rem;
+      padding: 9px 14px;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    @media (max-width: 480px) {
+      .hp-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+    }
   </style>
 </head>
 <body>
@@ -170,6 +235,166 @@
     </div>
   </section>
 
+  <!-- Handmade Charms & Twizted Treasures — HP1–HP11 -->
+  <section id="handmade-charms" style="padding:80px 0;" aria-labelledby="hp-charms-heading">
+    <div class="container">
+      <div style="max-width:720px;margin:0 auto;text-align:center;">
+        <p class="section-label">Handmade by Tonya</p>
+        <h2 class="section-title" id="hp-charms-heading">Handmade Charms &amp; <em>Twizted Treasures</em></h2>
+        <p style="color:var(--muted);font-size:0.95rem;line-height:1.75;max-width:620px;margin:0 auto;">
+          These handmade pieces are part of Twizted Treasures. Availability may change because items are made by hand and may be sold at events, online, or through direct contact.
+        </p>
+      </div>
+
+      <div class="hp-grid">
+
+        <div class="hp-card">
+          <img src="images/merch/hp1-butterfly-charm.jpg"
+               alt="HP1 — Butterfly Charm, handmade Twizted Treasures piece by Tonya"
+               class="hp-card-img" loading="lazy" />
+          <div class="hp-card-body">
+            <p class="hp-badge">HP1</p>
+            <p class="hp-card-name">Butterfly Charm</p>
+            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
+            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP1&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP1%20%E2%80%94%20Butterfly%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+               class="btn btn-secondary">Ask About This Item</a>
+          </div>
+        </div>
+
+        <div class="hp-card">
+          <img src="images/merch/hp2-blue-ribbon-charm.jpg"
+               alt="HP2 — Blue Awareness Ribbon Charm, handmade Twizted Treasures piece by Tonya"
+               class="hp-card-img" loading="lazy" />
+          <div class="hp-card-body">
+            <p class="hp-badge">HP2</p>
+            <p class="hp-card-name">Blue Awareness Ribbon Charm</p>
+            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
+            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP2&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP2%20%E2%80%94%20Blue%20Awareness%20Ribbon%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+               class="btn btn-secondary">Ask About This Item</a>
+          </div>
+        </div>
+
+        <div class="hp-card">
+          <img src="images/merch/hp3-heart-semicolon-charm.jpg"
+               alt="HP3 — Heart Semicolon Charm, handmade Twizted Treasures piece by Tonya"
+               class="hp-card-img" loading="lazy" />
+          <div class="hp-card-body">
+            <p class="hp-badge">HP3</p>
+            <p class="hp-card-name">Heart Semicolon Charm</p>
+            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
+            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP3&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP3%20%E2%80%94%20Heart%20Semicolon%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+               class="btn btn-secondary">Ask About This Item</a>
+          </div>
+        </div>
+
+        <div class="hp-card">
+          <img src="images/merch/hp4-purple-teal-awareness-ribbon-charm.jpg"
+               alt="HP4 — Purple &amp; Teal Awareness Ribbon Charm, handmade Twizted Treasures piece by Tonya"
+               class="hp-card-img" loading="lazy" />
+          <div class="hp-card-body">
+            <p class="hp-badge">HP4</p>
+            <p class="hp-card-name">Purple &amp; Teal Awareness Ribbon Charm</p>
+            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
+            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP4&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP4%20%E2%80%94%20Purple%20%26%20Teal%20Awareness%20Ribbon%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+               class="btn btn-secondary">Ask About This Item</a>
+          </div>
+        </div>
+
+        <div class="hp-card">
+          <img src="images/merch/hp5-winged-heart-charm.jpg"
+               alt="HP5 — Winged Heart Charm, handmade Twizted Treasures piece by Tonya"
+               class="hp-card-img" loading="lazy" />
+          <div class="hp-card-body">
+            <p class="hp-badge">HP5</p>
+            <p class="hp-card-name">Winged Heart Charm</p>
+            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
+            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP5&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP5%20%E2%80%94%20Winged%20Heart%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+               class="btn btn-secondary">Ask About This Item</a>
+          </div>
+        </div>
+
+        <div class="hp-card">
+          <img src="images/merch/hp6-rainbow-charm.jpg"
+               alt="HP6 — Rainbow Charm, handmade Twizted Treasures piece by Tonya"
+               class="hp-card-img" loading="lazy" />
+          <div class="hp-card-body">
+            <p class="hp-badge">HP6</p>
+            <p class="hp-card-name">Rainbow Charm</p>
+            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
+            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP6&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP6%20%E2%80%94%20Rainbow%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+               class="btn btn-secondary">Ask About This Item</a>
+          </div>
+        </div>
+
+        <div class="hp-card">
+          <img src="images/merch/hp7-purple-teal-heart-charm.jpg"
+               alt="HP7 — Purple &amp; Teal Heart Charm, handmade Twizted Treasures piece by Tonya"
+               class="hp-card-img" loading="lazy" />
+          <div class="hp-card-body">
+            <p class="hp-badge">HP7</p>
+            <p class="hp-card-name">Purple &amp; Teal Heart Charm</p>
+            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
+            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP7&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP7%20%E2%80%94%20Purple%20%26%20Teal%20Heart%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+               class="btn btn-secondary">Ask About This Item</a>
+          </div>
+        </div>
+
+        <div class="hp-card">
+          <img src="images/merch/hp8-flower-charm.jpg"
+               alt="HP8 — Flower Charm, handmade Twizted Treasures piece by Tonya"
+               class="hp-card-img" loading="lazy" />
+          <div class="hp-card-body">
+            <p class="hp-badge">HP8</p>
+            <p class="hp-card-name">Flower Charm</p>
+            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
+            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP8&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP8%20%E2%80%94%20Flower%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+               class="btn btn-secondary">Ask About This Item</a>
+          </div>
+        </div>
+
+        <div class="hp-card">
+          <img src="images/merch/hp9-wing-charm.jpg"
+               alt="HP9 — Wing Charm, handmade Twizted Treasures piece by Tonya"
+               class="hp-card-img" loading="lazy" />
+          <div class="hp-card-body">
+            <p class="hp-badge">HP9</p>
+            <p class="hp-card-name">Wing Charm</p>
+            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
+            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP9&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP9%20%E2%80%94%20Wing%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+               class="btn btn-secondary">Ask About This Item</a>
+          </div>
+        </div>
+
+        <div class="hp-card">
+          <img src="images/merch/hp10-butterfly-charm.jpg"
+               alt="HP10 — Butterfly Charm, handmade Twizted Treasures piece by Tonya"
+               class="hp-card-img" loading="lazy" />
+          <div class="hp-card-body">
+            <p class="hp-badge">HP10</p>
+            <p class="hp-card-name">Butterfly Charm</p>
+            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
+            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP10&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP10%20%E2%80%94%20Butterfly%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+               class="btn btn-secondary">Ask About This Item</a>
+          </div>
+        </div>
+
+        <div class="hp-card">
+          <img src="images/merch/hp11-purple-spider-charm.jpg"
+               alt="HP11 — Purple Spider Charm, handmade Twizted Treasures piece by Tonya"
+               class="hp-card-img" loading="lazy" />
+          <div class="hp-card-body">
+            <p class="hp-badge">HP11</p>
+            <p class="hp-card-name">Purple Spider Charm</p>
+            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
+            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP11&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP11%20%E2%80%94%20Purple%20Spider%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+               class="btn btn-secondary">Ask About This Item</a>
+          </div>
+        </div>
+
+      </div><!-- /.hp-grid -->
+    </div>
+  </section>
+
   <!-- Twizted Treasures tracker callout -->
   <section style="padding:72px 0;" aria-labelledby="tracker-callout-heading">
     <div class="container">
@@ -267,6 +492,3 @@
   <script src="js/tj-announcement.js"></script>
 </body>
 </html>
-
-
-
