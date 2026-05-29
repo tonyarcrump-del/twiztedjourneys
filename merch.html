@@ -70,71 +70,177 @@
       .merch-hero-image img { max-width: 200px; }
     }
 
-    /* ── Handmade Charms gallery ── */
-    .hp-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
-      margin-top: 36px;
+    /* ── Twizted Treasure Catalog ───────────────────────────── */
+    .tt-section {
+      background: linear-gradient(160deg,#0d0614 0%,#0b0b0f 52%,#071614 100%);
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
     }
-    .hp-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
+    .tt-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 62% 46% at 17% 28%,rgba(138,43,239,.12) 0%,transparent 70%),
+        radial-gradient(ellipse 52% 40% at 83% 72%,rgba(86,224,210,.09) 0%,transparent 70%);
+      pointer-events: none;
+    }
+    .tt-section > .container { position: relative; z-index: 1; }
+    .tt-heading-block { max-width: 780px; margin: 0 auto 52px; text-align: center; }
+    .tt-heading-block h2 {
+      font-size: clamp(1.7rem,3.5vw,2.4rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .tt-heading-block h2 em { font-style: normal; color: var(--teal); }
+    .tt-intro { color: var(--muted); font-size: 1rem; line-height: 1.75; margin-bottom: 18px; }
+    .tt-custom-note {
+      background: rgba(138,43,239,.07);
+      border: 1px solid rgba(138,43,239,.3);
+      border-radius: 8px;
+      padding: 14px 20px;
+      font-size: 0.87rem;
+      color: var(--muted);
+      margin: 0 auto 14px;
+      max-width: 620px;
+      line-height: 1.65;
+      text-align: left;
+    }
+    .tt-custom-note strong { color: var(--white); }
+    .tt-mission-note {
+      font-size: 0.8rem;
+      color: rgba(158,243,247,.62);
+      line-height: 1.7;
+      max-width: 660px;
+      margin: 0 auto;
+    }
+    .tt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+      gap: 20px;
+    }
+    .tt-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(138,43,239,.22);
+      border-radius: 14px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: border-color 0.2s, transform 0.2s;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+      cursor: pointer;
     }
-    .hp-card:hover {
-      border-color: rgba(138,43,239,0.45);
-      transform: translateY(-2px);
+    .tt-card:hover, .tt-card:focus {
+      border-color: rgba(86,224,210,.48);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(86,224,210,.08);
+      outline: none;
     }
-    .hp-card-img {
-      width: 100%;
+    .tt-card-img-wrap {
+      position: relative;
       aspect-ratio: 1 / 1;
-      object-fit: cover;
+      overflow: hidden;
+      background: rgba(248,251,255,.05);
+    }
+    .tt-card-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: contain;
       display: block;
-    }
-    .hp-card-body {
-      padding: 14px 14px 18px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-    .hp-badge {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 4px;
-    }
-    .hp-card-name {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 8px;
-      line-height: 1.35;
-    }
-    .hp-card-avail {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 14px;
-      line-height: 1.5;
-      flex: 1;
-    }
-    .hp-card .btn {
-      font-size: 0.82rem;
-      padding: 9px 14px;
-      text-align: center;
-      width: 100%;
+      padding: 12px;
       box-sizing: border-box;
+      transition: transform .3s;
     }
-    @media (max-width: 480px) {
-      .hp-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+    .tt-card:hover .tt-card-img-wrap img { transform: scale(1.04); }
+    .tt-card-overlay {
+      position: absolute; inset: 0;
+      background: rgba(11,11,15,.55);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .2s;
+      font-size: 0.74rem; font-weight: 700;
+      color: var(--white); letter-spacing: .07em; text-transform: uppercase;
+      pointer-events: none;
+    }
+    .tt-card:hover .tt-card-overlay,
+    .tt-card:focus .tt-card-overlay { opacity: 1; }
+    .tt-card-body { padding: 14px 16px 18px; display: flex; flex-direction: column; flex: 1; }
+    .tt-hp-badge {
+      font-size: 0.67rem; font-weight: 800;
+      letter-spacing: .13em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 3px;
+    }
+    .tt-card-name {
+      font-size: .88rem; font-weight: 700;
+      color: var(--white); line-height: 1.35; margin-bottom: 6px;
+    }
+    .tt-card-short {
+      font-size: .76rem; color: var(--muted);
+      line-height: 1.55; margin-bottom: 9px; flex: 1;
+    }
+    .tt-card-meta {
+      font-size: .71rem; color: rgba(158,243,247,.5);
+      line-height: 1.6; margin-bottom: 8px;
+    }
+    .tt-card-price {
+      font-size: .82rem; font-weight: 700;
+      color: rgba(138,43,239,.88); margin-bottom: 12px;
+    }
+    .tt-card-actions { display: flex; flex-direction: column; gap: 7px; }
+    .tt-card-actions .btn { font-size: .79rem; padding: 8px 12px; text-align: center; }
+    .tt-card--coming {
+      align-items: center; justify-content: center;
+      min-height: 260px; border-style: dashed;
+      cursor: default; padding: 24px; text-align: center;
+    }
+    .tt-card--coming:hover,
+    .tt-card--coming:focus { transform: none; box-shadow: none; border-color: rgba(138,43,239,.22); outline: none; }
+    /* Modal */
+    #tt-modal {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      background: rgba(11,11,15,.88);
+      backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    #tt-modal.is-open { display: flex; }
+    .tt-modal-inner {
+      background: #12091e;
+      border: 1px solid rgba(138,43,239,.4);
+      border-radius: 18px;
+      width: 100%; max-width: 680px; max-height: 90vh;
+      overflow-y: auto; display: flex; flex-direction: column; position: relative;
+    }
+    @media (min-width:600px) { .tt-modal-inner { flex-direction: row; } }
+    .tt-modal-img-col {
+      flex-shrink: 0; width: 100%;
+      background: rgba(248,251,255,.03);
+      display: flex; align-items: center; justify-content: center; padding: 28px;
+    }
+    @media (min-width:600px) { .tt-modal-img-col { width: 240px; } }
+    .tt-modal-img-col img { max-width: 100%; max-height: 260px; object-fit: contain; border-radius: 8px; }
+    .tt-modal-info { flex: 1; padding: 28px 24px 28px; }
+    .tt-modal-close {
+      position: absolute; top: 12px; right: 14px;
+      background: none; border: none; font-size: 1.25rem;
+      color: var(--muted); cursor: pointer; padding: 4px 8px;
+      border-radius: 6px; transition: color .15s, background .15s; line-height: 1; z-index: 1;
+    }
+    .tt-modal-close:hover { color: var(--white); background: rgba(255,255,255,.09); }
+    .tt-modal-close:focus { outline: 2px solid var(--teal); }
+    .tt-modal-badge {
+      font-size: .67rem; font-weight: 800;
+      letter-spacing: .13em; text-transform: uppercase; color: var(--teal); margin-bottom: 5px;
+    }
+    .tt-modal-title { font-size: 1.05rem; font-weight: 800; color: var(--white); margin-bottom: 10px; line-height: 1.3; }
+    .tt-modal-desc { font-size: .86rem; color: var(--muted); line-height: 1.75; margin-bottom: 12px; }
+    .tt-modal-specs { font-size: .78rem; color: rgba(158,243,247,.62); line-height: 1.85; margin-bottom: 10px; }
+    .tt-modal-price { font-size: .88rem; font-weight: 700; color: rgba(138,43,239,.9); margin-bottom: 18px; }
+    @media (max-width:480px) {
+      .tt-grid { grid-template-columns: repeat(auto-fill,minmax(155px,1fr)); gap: 12px; }
+      .tt-modal-inner { max-height: 95vh; }
     }
   </style>
+
 </head>
 <body>
 
@@ -220,178 +326,270 @@
     </div>
   </section>
 
-  <!-- Shop Update / More Coming -->
-  <section class="section--alt" style="padding:72px 0;" aria-labelledby="handmade-heading">
+  <!-- ── Twizted Treasure Charm Collection ──────────────────────────── -->
+  <section id="twizted-treasure-collection" class="tt-section"
+           aria-labelledby="tt-collection-heading">
     <div class="container">
-      <div style="max-width:640px;margin:0 auto;text-align:center;">
-        <p class="section-label">Made with Intention</p>
-        <h2 class="section-title" id="handmade-heading">Handmade by <em>Tonya</em></h2>
-        <p style="color:var(--muted);font-size:1rem;line-height:1.75;margin-bottom:24px;">
-          Tonya handcrafts bracelets, keychains, cups, and memorial pieces &mdash; each made with intention and care.
-          Every handmade item comes with a QR tag that connects to a story. New pieces are being added soon.
-        </p>
-        <a class="btn btn-secondary" href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Join the Facebook Group for Updates &rarr;</a>
-      </div>
-    </div>
-  </section>
 
-  <!-- Handmade Charms & Twizted Treasures — HP1–HP11 -->
-  <section id="handmade-charms" style="padding:80px 0;" aria-labelledby="hp-charms-heading">
-    <div class="container">
-      <div style="max-width:720px;margin:0 auto;text-align:center;">
-        <p class="section-label">Handmade by Tonya</p>
-        <h2 class="section-title" id="hp-charms-heading">Handmade Charms &amp; <em>Twizted Treasures</em></h2>
-        <p style="color:var(--muted);font-size:0.95rem;line-height:1.75;max-width:620px;margin:0 auto;">
-          These handmade pieces are part of Twizted Treasures. Availability may change because items are made by hand and may be sold at events, online, or through direct contact.
+      <!-- Heading block -->
+      <div class="tt-heading-block">
+        <p class="section-label">Twizted Treasure</p>
+        <h2 id="tt-collection-heading">Charm <em>Collection</em></h2>
+        <p class="tt-intro">Small symbols. Big meaning. Every charm supports the mission of Twizted Journeys.</p>
+        <div class="tt-custom-note">
+          <strong>Custom Orders Welcome</strong><br>
+          Our handmade items are one of a kind. If you like what you see and would like something
+          customized, let us know.
+        </div>
+        <p class="tt-mission-note">
+          Proceeds help support Twizted Journeys&rsquo; mission of spreading awareness, compassion,
+          comfort, resources, tools, and education for mental health awareness, suicide prevention,
+          and suicide loss survivors.
         </p>
       </div>
 
-      <div class="hp-grid">
+      <!-- Product grid -->
+      <div class="tt-grid" id="tt-grid">
 
-        <div class="hp-card">
-          <img src="images/merch/hp1-butterfly-charm.jpg"
-               alt="HP1 — Butterfly Charm, handmade Twizted Treasures piece by Tonya"
-               class="hp-card-img" loading="lazy" />
-          <div class="hp-card-body">
-            <p class="hp-badge">HP1</p>
-            <p class="hp-card-name">Butterfly Charm</p>
-            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
-            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP1&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP1%20%E2%80%94%20Butterfly%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-               class="btn btn-secondary">Ask About This Item</a>
+        <div class="tt-card" data-hp="2" role="button" tabindex="0"
+             aria-label="View details for HP2: Awareness Gnome Hat Pin"
+             onclick="ttOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ttOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/hp2-gnome-ribbon-charm-clean.png"
+                 alt="HP2 — Awareness Gnome Hat Pin, Twizted Treasure hat pin by Tonya"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HP2</p>
+            <p class="tt-card-name">Awareness Gnome Hat Pin</p>
+            <p class="tt-card-short">A whimsical gnome with a meaningful purpose.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
+            <p class="tt-card-price">Price coming soon</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP2%20Awareness%20Gnome%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP2%20%E2%80%94%20Awareness%20Gnome%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
           </div>
         </div>
 
-        <div class="hp-card">
-          <img src="images/merch/hp2-blue-ribbon-charm.jpg"
-               alt="HP2 — Blue Awareness Ribbon Charm, handmade Twizted Treasures piece by Tonya"
-               class="hp-card-img" loading="lazy" />
-          <div class="hp-card-body">
-            <p class="hp-badge">HP2</p>
-            <p class="hp-card-name">Blue Awareness Ribbon Charm</p>
-            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
-            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP2&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP2%20%E2%80%94%20Blue%20Awareness%20Ribbon%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-               class="btn btn-secondary">Ask About This Item</a>
+        <div class="tt-card" data-hp="3" role="button" tabindex="0"
+             aria-label="View details for HP3: Semicolon Heart Hat Pin"
+             onclick="ttOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ttOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/hp3-heart-semicolon-charm-clean.png"
+                 alt="HP3 — Semicolon Heart Hat Pin, Twizted Treasure hat pin by Tonya"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HP3</p>
+            <p class="tt-card-name">Semicolon Heart Hat Pin</p>
+            <p class="tt-card-short">A simple yet powerful semicolon heart design.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
+            <p class="tt-card-price">Price coming soon</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP3%20Semicolon%20Heart%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP3%20%E2%80%94%20Semicolon%20Heart%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
           </div>
         </div>
 
-        <div class="hp-card">
-          <img src="images/merch/hp3-heart-semicolon-charm.jpg"
-               alt="HP3 — Heart Semicolon Charm, handmade Twizted Treasures piece by Tonya"
-               class="hp-card-img" loading="lazy" />
-          <div class="hp-card-body">
-            <p class="hp-badge">HP3</p>
-            <p class="hp-card-name">Heart Semicolon Charm</p>
-            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
-            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP3&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP3%20%E2%80%94%20Heart%20Semicolon%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-               class="btn btn-secondary">Ask About This Item</a>
+        <div class="tt-card" data-hp="4" role="button" tabindex="0"
+             aria-label="View details for HP4: Dual Awareness Ribbon Hat Pin"
+             onclick="ttOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ttOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/hp4-purple-teal-awareness-ribbon-charm-clean.png"
+                 alt="HP4 — Dual Awareness Ribbon Hat Pin, Twizted Treasure hat pin by Tonya"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HP4</p>
+            <p class="tt-card-name">Dual Awareness Ribbon Hat Pin</p>
+            <p class="tt-card-short">A beautiful purple and teal awareness ribbon pin.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
+            <p class="tt-card-price">Price coming soon</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP4%20Dual%20Awareness%20Ribbon%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP4%20%E2%80%94%20Dual%20Awareness%20Ribbon%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
           </div>
         </div>
 
-        <div class="hp-card">
-          <img src="images/merch/hp4-purple-teal-awareness-ribbon-charm.jpg"
-               alt="HP4 — Purple &amp; Teal Awareness Ribbon Charm, handmade Twizted Treasures piece by Tonya"
-               class="hp-card-img" loading="lazy" />
-          <div class="hp-card-body">
-            <p class="hp-badge">HP4</p>
-            <p class="hp-card-name">Purple &amp; Teal Awareness Ribbon Charm</p>
-            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
-            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP4&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP4%20%E2%80%94%20Purple%20%26%20Teal%20Awareness%20Ribbon%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-               class="btn btn-secondary">Ask About This Item</a>
+        <div class="tt-card" data-hp="5" role="button" tabindex="0"
+             aria-label="View details for HP5: Wings of Hope Hat Pin"
+             onclick="ttOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ttOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/hp5-winged-ribbon-charm-clean.png"
+                 alt="HP5 — Wings of Hope Hat Pin, Twizted Treasure hat pin by Tonya"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HP5</p>
+            <p class="tt-card-name">Wings of Hope Hat Pin</p>
+            <p class="tt-card-short">A tribute piece symbolizing remembrance, strength, and hope.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
+            <p class="tt-card-price">Price coming soon</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP5%20Wings%20of%20Hope%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP5%20%E2%80%94%20Wings%20of%20Hope%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
           </div>
         </div>
 
-        <div class="hp-card">
-          <img src="images/merch/hp5-winged-heart-charm.jpg"
-               alt="HP5 — Winged Heart Charm, handmade Twizted Treasures piece by Tonya"
-               class="hp-card-img" loading="lazy" />
-          <div class="hp-card-body">
-            <p class="hp-badge">HP5</p>
-            <p class="hp-card-name">Winged Heart Charm</p>
-            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
-            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP5&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP5%20%E2%80%94%20Winged%20Heart%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-               class="btn btn-secondary">Ask About This Item</a>
+        <div class="tt-card" data-hp="6" role="button" tabindex="0"
+             aria-label="View details for HP6: Rainbow of Hope Hat Pin"
+             onclick="ttOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ttOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/hp6-rainbow-awareness-charm-clean.png"
+                 alt="HP6 — Rainbow of Hope Hat Pin, Twizted Treasure hat pin by Tonya"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HP6</p>
+            <p class="tt-card-name">Rainbow of Hope Hat Pin</p>
+            <p class="tt-card-short">A rainbow design celebrating hope after the storm.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
+            <p class="tt-card-price">Price coming soon</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP6%20Rainbow%20of%20Hope%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP6%20%E2%80%94%20Rainbow%20of%20Hope%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
           </div>
         </div>
 
-        <div class="hp-card">
-          <img src="images/merch/hp6-rainbow-charm.jpg"
-               alt="HP6 — Rainbow Charm, handmade Twizted Treasures piece by Tonya"
-               class="hp-card-img" loading="lazy" />
-          <div class="hp-card-body">
-            <p class="hp-badge">HP6</p>
-            <p class="hp-card-name">Rainbow Charm</p>
-            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
-            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP6&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP6%20%E2%80%94%20Rainbow%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-               class="btn btn-secondary">Ask About This Item</a>
+        <div class="tt-card" data-hp="7" role="button" tabindex="0"
+             aria-label="View details for HP7: Fighting Together Hat Pin"
+             onclick="ttOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ttOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/hp7-fighting-together-hat-pin-clean.png"
+                 alt="HP7 — Fighting Together Hat Pin, Twizted Treasure hat pin by Tonya"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HP7</p>
+            <p class="tt-card-name">Fighting Together Hat Pin</p>
+            <p class="tt-card-short">A symbol of courage, resilience, and community support.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
+            <p class="tt-card-price">Price coming soon</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP7%20Fighting%20Together%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP7%20%E2%80%94%20Fighting%20Together%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
           </div>
         </div>
 
-        <div class="hp-card">
-          <img src="images/merch/hp7-purple-teal-heart-charm.jpg"
-               alt="HP7 — Purple &amp; Teal Heart Charm, handmade Twizted Treasures piece by Tonya"
-               class="hp-card-img" loading="lazy" />
-          <div class="hp-card-body">
-            <p class="hp-badge">HP7</p>
-            <p class="hp-card-name">Purple &amp; Teal Heart Charm</p>
-            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
-            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP7&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP7%20%E2%80%94%20Purple%20%26%20Teal%20Heart%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-               class="btn btn-secondary">Ask About This Item</a>
+        <div class="tt-card" data-hp="8" role="button" tabindex="0"
+             aria-label="View details for HP8: Blooming Hope Hat Pin"
+             onclick="ttOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ttOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/hp8-flower-awareness-charm-clean.png"
+                 alt="HP8 — Blooming Hope Hat Pin, Twizted Treasure hat pin by Tonya"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HP8</p>
+            <p class="tt-card-name">Blooming Hope Hat Pin</p>
+            <p class="tt-card-short">A bright flower design rooted in healing and growth.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
+            <p class="tt-card-price">Price coming soon</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP8%20Blooming%20Hope%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP8%20%E2%80%94%20Blooming%20Hope%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
           </div>
         </div>
 
-        <div class="hp-card">
-          <img src="images/merch/hp8-flower-charm.jpg"
-               alt="HP8 — Flower Charm, handmade Twizted Treasures piece by Tonya"
-               class="hp-card-img" loading="lazy" />
-          <div class="hp-card-body">
-            <p class="hp-badge">HP8</p>
-            <p class="hp-card-name">Flower Charm</p>
-            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
-            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP8&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP8%20%E2%80%94%20Flower%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-               class="btn btn-secondary">Ask About This Item</a>
+        <div class="tt-card" data-hp="9" role="button" tabindex="0"
+             aria-label="View details for HP9: Dove of Peace Hat Pin"
+             onclick="ttOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ttOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/hp9-dove-ribbon-charm-clean.png"
+                 alt="HP9 — Dove of Peace Hat Pin, Twizted Treasure hat pin by Tonya"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HP9</p>
+            <p class="tt-card-name">Dove of Peace Hat Pin</p>
+            <p class="tt-card-short">A graceful dove symbolizing peace, comfort, remembrance, and hope.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
+            <p class="tt-card-price">Price coming soon</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP9%20Dove%20of%20Peace%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP9%20%E2%80%94%20Dove%20of%20Peace%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
           </div>
         </div>
 
-        <div class="hp-card">
-          <img src="images/merch/hp9-wing-charm.jpg"
-               alt="HP9 — Wing Charm, handmade Twizted Treasures piece by Tonya"
-               class="hp-card-img" loading="lazy" />
-          <div class="hp-card-body">
-            <p class="hp-badge">HP9</p>
-            <p class="hp-card-name">Wing Charm</p>
-            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
-            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP9&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP9%20%E2%80%94%20Wing%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-               class="btn btn-secondary">Ask About This Item</a>
+        <div class="tt-card" data-hp="10" role="button" tabindex="0"
+             aria-label="View details for HP10: Awareness Butterfly Hat Pin"
+             onclick="ttOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ttOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/hp10-butterfly-ribbon-charm-clean.png"
+                 alt="HP10 — Awareness Butterfly Hat Pin, Twizted Treasure hat pin by Tonya"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HP10</p>
+            <p class="tt-card-name">Awareness Butterfly Hat Pin</p>
+            <p class="tt-card-short">A butterfly and ribbon design representing healing and new beginnings.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
+            <p class="tt-card-price">Price coming soon</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP10%20Awareness%20Butterfly%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP10%20%E2%80%94%20Awareness%20Butterfly%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
           </div>
         </div>
 
-        <div class="hp-card">
-          <img src="images/merch/hp10-butterfly-charm.jpg"
-               alt="HP10 — Butterfly Charm, handmade Twizted Treasures piece by Tonya"
-               class="hp-card-img" loading="lazy" />
-          <div class="hp-card-body">
-            <p class="hp-badge">HP10</p>
-            <p class="hp-card-name">Butterfly Charm</p>
-            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
-            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP10&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP10%20%E2%80%94%20Butterfly%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-               class="btn btn-secondary">Ask About This Item</a>
+        <div class="tt-card" data-hp="11" role="button" tabindex="0"
+             aria-label="View details for HP11: Love, Hope & Awareness Hat Pin"
+             onclick="ttOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ttOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/hp11-peace-heart-ribbon-charm-clean.png"
+                 alt="HP11 — Love, Hope & Awareness Hat Pin, Twizted Treasure hat pin by Tonya"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HP11</p>
+            <p class="tt-card-name">Love, Hope &amp; Awareness Hat Pin</p>
+            <p class="tt-card-short">A powerful combination of peace, love, and hope.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
+            <p class="tt-card-price">Price coming soon</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP11%20Love%20Hope%20and%20Awareness%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP11%20%E2%80%94%20Love%2C%20Hope%20and%20Awareness%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
           </div>
         </div>
 
-        <div class="hp-card">
-          <img src="images/merch/hp11-purple-spider-charm.jpg"
-               alt="HP11 — Purple Spider Charm, handmade Twizted Treasures piece by Tonya"
-               class="hp-card-img" loading="lazy" />
-          <div class="hp-card-body">
-            <p class="hp-badge">HP11</p>
-            <p class="hp-card-name">Purple Spider Charm</p>
-            <p class="hp-card-avail">Handmade. Ask Tonya for availability &amp; pricing.</p>
-            <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP11&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP11%20%E2%80%94%20Purple%20Spider%20Charm.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-               class="btn btn-secondary">Ask About This Item</a>
-          </div>
+        <!-- HP12 — Coming Soon -->
+        <div class="tt-card tt-card--coming" aria-label="HP12 Coming Soon">
+          <p style="font-size:2rem;margin:0 0 10px;" aria-hidden="true">&#10024;</p>
+          <p class="tt-hp-badge" style="text-align:center;">HP12</p>
+          <p class="tt-card-name" style="text-align:center;margin-bottom:6px;">Coming Soon</p>
+          <p class="tt-card-short" style="text-align:center;margin:0;">New Twizted Treasure on the way!</p>
         </div>
 
-      </div><!-- /.hp-grid -->
+      </div><!-- /.tt-grid -->
     </div>
   </section>
 
@@ -421,6 +619,26 @@
   </section>
 
 </main>
+
+  <!-- ── Twizted Treasure Detail Modal ─────────────────────────────── -->
+  <div id="tt-modal" role="dialog" aria-modal="true" aria-labelledby="tt-modal-title"
+       onclick="if(event.target===this)ttCloseModal()">
+    <div class="tt-modal-inner">
+      <button class="tt-modal-close" onclick="ttCloseModal()" aria-label="Close dialog">&times;</button>
+      <div class="tt-modal-img-col">
+        <img id="tt-modal-img" src="" alt="" />
+      </div>
+      <div class="tt-modal-info">
+        <p class="tt-modal-badge" id="tt-modal-badge"></p>
+        <h2 class="tt-modal-title" id="tt-modal-title"></h2>
+        <p class="tt-modal-desc" id="tt-modal-desc"></p>
+        <p class="tt-modal-specs" id="tt-modal-specs"></p>
+        <p class="tt-modal-price">Price coming soon</p>
+        <a id="tt-modal-btn" href="#" class="btn btn-secondary"
+           onclick="event.stopPropagation()">Ask About This Item</a>
+      </div>
+    </div>
+  </div>
 
 <div class="crisis-band" role="complementary" aria-label="Crisis support information">
   <div class="container">
@@ -485,6 +703,127 @@
     </div>
   </div>
 </footer>
+<script>
+/* ── Twizted Treasure charm catalog ───────────────────────────────── */
+const TT_DATA = {
+  "2": {
+    "badge": "HP2",
+    "name": "Awareness Gnome Hat Pin",
+    "img": "images/merch/clean/hp2-gnome-ribbon-charm-clean.png",
+    "alt": "HP2 — Awareness Gnome Hat Pin",
+    "desc": "A whimsical gnome with a meaningful purpose. Featuring Twizted Journeys’ signature purple and teal awareness colors, this charming enamel pin symbolizes hope, healing, and support for mental health and suicide prevention. Perfect for hats, jackets, backpacks, lanyards, and memory displays.",
+    "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP2%20Awareness%20Gnome%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP2%20%E2%80%94%20Awareness%20Gnome%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "3": {
+    "badge": "HP3",
+    "name": "Semicolon Heart Hat Pin",
+    "img": "images/merch/clean/hp3-heart-semicolon-charm-clean.png",
+    "alt": "HP3 — Semicolon Heart Hat Pin",
+    "desc": "A simple yet powerful design featuring a purple semicolon topped with a teal heart. This pin represents love, resilience, and the decision to continue your story. A meaningful reminder that every journey matters.",
+    "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP3%20Semicolon%20Heart%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP3%20%E2%80%94%20Semicolon%20Heart%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "4": {
+    "badge": "HP4",
+    "name": "Dual Awareness Ribbon Hat Pin",
+    "img": "images/merch/clean/hp4-purple-teal-awareness-ribbon-charm-clean.png",
+    "alt": "HP4 — Dual Awareness Ribbon Hat Pin",
+    "desc": "Show your support with this beautiful purple and teal awareness ribbon. Designed to honor mental health awareness, suicide prevention, and those affected by loss, this pin makes a meaningful statement wherever it is worn.",
+    "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP4%20Dual%20Awareness%20Ribbon%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP4%20%E2%80%94%20Dual%20Awareness%20Ribbon%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "5": {
+    "badge": "HP5",
+    "name": "Wings of Hope Hat Pin",
+    "img": "images/merch/clean/hp5-winged-ribbon-charm-clean.png",
+    "alt": "HP5 — Wings of Hope Hat Pin",
+    "desc": "This striking awareness ribbon with angel wings symbolizes remembrance, strength, and the enduring connection we carry for those we love. A beautiful tribute piece for survivors, supporters, and advocates.",
+    "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP5%20Wings%20of%20Hope%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP5%20%E2%80%94%20Wings%20of%20Hope%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "6": {
+    "badge": "HP6",
+    "name": "Rainbow of Hope Hat Pin",
+    "img": "images/merch/clean/hp6-rainbow-awareness-charm-clean.png",
+    "alt": "HP6 — Rainbow of Hope Hat Pin",
+    "desc": "Featuring a purple and teal rainbow filled with tiny hearts and an awareness ribbon centerpiece, this pin celebrates hope after the storm. A reminder that healing, support, and brighter days are possible.",
+    "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP6%20Rainbow%20of%20Hope%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP6%20%E2%80%94%20Rainbow%20of%20Hope%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "7": {
+    "badge": "HP7",
+    "name": "Fighting Together Hat Pin",
+    "img": "images/merch/clean/hp7-fighting-together-hat-pin-clean.png",
+    "alt": "HP7 — Fighting Together Hat Pin",
+    "desc": "A pair of boxing gloves adorned with an awareness ribbon represents the courage to keep fighting and the strength found in community support. Perfect for advocates, survivors, and anyone battling life’s toughest challenges.",
+    "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP7%20Fighting%20Together%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP7%20%E2%80%94%20Fighting%20Together%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "8": {
+    "badge": "HP8",
+    "name": "Blooming Hope Hat Pin",
+    "img": "images/merch/clean/hp8-flower-awareness-charm-clean.png",
+    "alt": "HP8 — Blooming Hope Hat Pin",
+    "desc": "A beautiful flower featuring Twizted Journeys’ signature colors and an awareness ribbon center. This design symbolizes growth, healing, and finding beauty even after life’s most difficult seasons.",
+    "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP8%20Blooming%20Hope%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP8%20%E2%80%94%20Blooming%20Hope%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "9": {
+    "badge": "HP9",
+    "name": "Dove of Peace Hat Pin",
+    "img": "images/merch/clean/hp9-dove-ribbon-charm-clean.png",
+    "alt": "HP9 — Dove of Peace Hat Pin",
+    "desc": "A graceful dove carrying an awareness ribbon symbolizes peace, comfort, remembrance, and hope. This meaningful pin honors loved ones while encouraging compassion and understanding.",
+    "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP9%20Dove%20of%20Peace%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP9%20%E2%80%94%20Dove%20of%20Peace%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "10": {
+    "badge": "HP10",
+    "name": "Awareness Butterfly Hat Pin",
+    "img": "images/merch/clean/hp10-butterfly-ribbon-charm-clean.png",
+    "alt": "HP10 — Awareness Butterfly Hat Pin",
+    "desc": "The butterfly represents transformation, healing, and new beginnings. Combined with the awareness ribbon, this elegant pin serves as a reminder that growth and hope can emerge from even the most difficult journeys.",
+    "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP10%20Awareness%20Butterfly%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP10%20%E2%80%94%20Awareness%20Butterfly%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "11": {
+    "badge": "HP11",
+    "name": "Love, Hope & Awareness Hat Pin",
+    "img": "images/merch/clean/hp11-peace-heart-ribbon-charm-clean.png",
+    "alt": "HP11 — Love, Hope & Awareness Hat Pin",
+    "desc": "Featuring a peace sign, heart, and awareness ribbon, this pin brings together three powerful messages: peace, love, and hope. A perfect everyday reminder to spread kindness, support, and awareness.",
+    "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP11%20Love%20Hope%20and%20Awareness%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP11%20%E2%80%94%20Love%2C%20Hope%20and%20Awareness%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  }
+};
+
+function ttOpenModal(card) {
+  const hp = card.dataset.hp;
+  const d = TT_DATA[hp];
+  if (!d) return;
+  document.getElementById('tt-modal-img').src   = d.img;
+  document.getElementById('tt-modal-img').alt   = d.alt;
+  document.getElementById('tt-modal-badge').textContent = d.badge;
+  document.getElementById('tt-modal-title').textContent = d.name;
+  document.getElementById('tt-modal-desc').textContent  = d.desc;
+  document.getElementById('tt-modal-specs').innerHTML   = d.specs.replace(/\n/g,'<br>');
+  document.getElementById('tt-modal-btn').href          = d.mailto;
+  const m = document.getElementById('tt-modal');
+  m.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+  document.addEventListener('keydown', ttEscHandler);
+  m.querySelector('.tt-modal-close').focus();
+}
+
+function ttCloseModal() {
+  document.getElementById('tt-modal').classList.remove('is-open');
+  document.body.style.overflow = '';
+  document.removeEventListener('keydown', ttEscHandler);
+}
+
+function ttEscHandler(e) { if (e.key === 'Escape') ttCloseModal(); }
+</script>
 <script src="js/main.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
