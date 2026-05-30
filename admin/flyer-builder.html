@@ -850,18 +850,27 @@
     const out = document.getElementById('flyer-output');
     // Use backgroundColor (not background shorthand) so it never clears backgroundImage
     out.style.backgroundColor = sc.bg;
-    if (uploadedBgUrl) {
-      out.style.backgroundImage = `url('${uploadedBgUrl}')`;
-      out.style.backgroundSize  = 'cover';
-      out.style.backgroundPosition = 'center';
-    } else {
+
+    // Full-image mode: render an <img> so the entire uploaded flyer is visible,
+    // with no cropping. object-fit:contain keeps all four edges in frame.
+    // Using an <img> element (not CSS background) also gives cleaner html2canvas export.
+    if (uploadedBgUrl && flyerMode === 'full-image') {
       out.style.backgroundImage = '';
+      out.innerHTML = `<img src="${uploadedBgUrl}" alt="Uploaded flyer"
+        style="width:100%;height:100%;object-fit:contain;object-position:center;
+               display:block;background:${sc.bg};">` ;
+      return;
     }
 
-    // Full-image mode: show only the uploaded image — no template overlay
-    if (uploadedBgUrl && flyerMode === 'full-image') {
-      out.innerHTML = '';
-      return;
+    // Template mode: image as cover background behind text overlay
+    if (uploadedBgUrl) {
+      out.style.backgroundImage    = `url('${uploadedBgUrl}')`;
+      out.style.backgroundSize     = 'cover';
+      out.style.backgroundPosition = 'center';
+      out.style.backgroundRepeat   = 'no-repeat';
+    } else {
+      out.style.backgroundImage  = '';
+      out.style.backgroundRepeat = '';
     }
 
     if (currentTemplate === 'event') {
