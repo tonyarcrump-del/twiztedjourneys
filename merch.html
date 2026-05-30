@@ -242,6 +242,13 @@
       align-items: center; justify-content: center; padding: 20px;
     }
     #tm-modal.is-open { display: flex; }
+    #th-modal {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      background: rgba(11,11,15,.88);
+      backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    #th-modal.is-open { display: flex; }
     @media (max-width:480px) {
       .tt-grid { grid-template-columns: repeat(auto-fill,minmax(155px,1fr)); gap: 12px; }
       .tt-modal-inner { max-height: 95vh; }
@@ -779,6 +786,213 @@
     </div>
   </div>
 
+  <!-- ── Crystal Heart Pocket Stones ─────────────────────────────── -->
+  <section id="crystal-heart-collection" class="tt-section"
+           aria-labelledby="th-collection-heading" style="padding-top:0;">
+    <div class="container">
+
+      <div class="tt-heading-block">
+        <p class="section-label">Twizted Treasures</p>
+        <h2 id="th-collection-heading">Crystal Heart <em>Pocket Stones</em></h2>
+        <p class="tt-intro">These polished crystal heart carvings are pocket-sized reminders of love, hope, strength, and healing. Each heart is crafted from genuine stone and polished to a smooth finish that highlights its natural beauty and unique patterns. Perfect for carrying in a pocket, displaying on a desk, gifting to a loved one, or adding to a crystal collection.</p>
+        <p class="tt-mission-note" style="margin-bottom:18px;">
+          Proceeds help support Twizted Journeys&rsquo; mission of spreading awareness, compassion,
+          comfort, resources, tools, and education for mental health awareness, suicide prevention,
+          and suicide loss survivors.
+        </p>
+        <div class="tt-custom-note" style="font-size:0.82rem;">
+          <strong>Natural Stone Note</strong><br>
+          Due to the natural characteristics of stone, each heart is unique in color, pattern, and appearance. Availability may vary.
+        </div>
+      </div>
+
+      <div class="tt-grid" id="th-grid">
+
+        <div class="tt-card" data-hsku="HOC" role="button" tabindex="0"
+             aria-label="View details for HOC: Orange Howlite Heart"
+             onclick="thOpenModal(this)"
+             onkeydown="if(event.key=&apos;Enter&apos;||event.key=&apos; &apos;){event.preventDefault();thOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/hoc-orange-howlite-heart-clean.png"
+                 alt="HOC Orange Howlite polished crystal heart pocket stones with dark veining"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HOC</p>
+            <p class="tt-card-name">Orange Howlite Heart</p>
+            <p class="tt-card-short">Bright orange coloring paired with dark veining creates a bold and energetic look.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Genuine polished stone</p>
+            <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HOC%20Orange%20Howlite%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HOC%20%E2%80%94%20Orange%20Howlite%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tt-card" data-hsku="HOWC" role="button" tabindex="0"
+             aria-label="View details for HOWC: Orange Imperial Jasper Heart"
+             onclick="thOpenModal(this)"
+             onkeydown="if(event.key=&apos;Enter&apos;||event.key=&apos; &apos;){event.preventDefault();thOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/howc-orange-imperial-jasper-heart-clean.png"
+                 alt="HOWC Orange Imperial Jasper polished crystal heart pocket stones with cream and brown matrix patterns"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HOWC</p>
+            <p class="tt-card-name">Orange Imperial Jasper Heart</p>
+            <p class="tt-card-short">Warm orange tones mixed with cream and brown matrix patterns create a beautiful natural design.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Genuine polished stone</p>
+            <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HOWC%20Orange%20Imperial%20Jasper%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HOWC%20%E2%80%94%20Orange%20Imperial%20Jasper%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tt-card" data-hsku="HO" role="button" tabindex="0"
+             aria-label="View details for HO: Orange Aventurine Heart"
+             onclick="thOpenModal(this)"
+             onkeydown="if(event.key=&apos;Enter&apos;||event.key=&apos; &apos;){event.preventDefault();thOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/ho-orange-aventurine-heart-clean.png"
+                 alt="HO Orange Aventurine polished crystal heart pocket stone"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HO</p>
+            <p class="tt-card-name">Orange Aventurine Heart</p>
+            <p class="tt-card-short">A smooth, warm-toned heart displaying natural orange hues and subtle shimmer.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Genuine polished stone</p>
+            <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HO%20Orange%20Aventurine%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HO%20%E2%80%94%20Orange%20Aventurine%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tt-card" data-hsku="HPBC" role="button" tabindex="0"
+             aria-label="View details for HPBC: Pink Brecciated Jasper Heart"
+             onclick="thOpenModal(this)"
+             onkeydown="if(event.key=&apos;Enter&apos;||event.key=&apos; &apos;){event.preventDefault();thOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/hpbc-pink-brecciated-jasper-heart-clean.png"
+                 alt="HPBC Pink Brecciated Jasper polished crystal heart pocket stones with natural matrix patterns"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HPBC</p>
+            <p class="tt-card-name">Pink Brecciated Jasper Heart</p>
+            <p class="tt-card-short">A vibrant pink heart accented with natural matrix patterns throughout the stone.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Genuine polished stone</p>
+            <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HPBC%20Pink%20Brecciated%20Jasper%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HPBC%20%E2%80%94%20Pink%20Brecciated%20Jasper%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tt-card" data-hsku="HPC" role="button" tabindex="0"
+             aria-label="View details for HPC: Pink Howlite Heart"
+             onclick="thOpenModal(this)"
+             onkeydown="if(event.key=&apos;Enter&apos;||event.key=&apos; &apos;){event.preventDefault();thOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/hpc-pink-howlite-heart-clean.png"
+                 alt="HPC Pink Howlite polished crystal heart pocket stones with dark veining"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HPC</p>
+            <p class="tt-card-name">Pink Howlite Heart</p>
+            <p class="tt-card-short">Featuring bold pink tones and delicate dark veining, this heart combines beauty and serenity.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Genuine polished stone</p>
+            <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HPC%20Pink%20Howlite%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HPC%20%E2%80%94%20Pink%20Howlite%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tt-card" data-hsku="HPC2" role="button" tabindex="0"
+             aria-label="View details for HPC2: Pink Composite Jasper Heart"
+             onclick="thOpenModal(this)"
+             onkeydown="if(event.key=&apos;Enter&apos;||event.key=&apos; &apos;){event.preventDefault();thOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/hpc2-pink-composite-jasper-heart-clean.png"
+                 alt="HPC2 Pink Composite Jasper polished crystal heart pocket stones with tan matrix patterns"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HPC2</p>
+            <p class="tt-card-name">Pink Composite Jasper Heart</p>
+            <p class="tt-card-short">Bright pink tones with natural-looking matrix patterns create a bold and cheerful piece.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Genuine polished stone</p>
+            <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HPC2%20Pink%20Composite%20Jasper%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HPC2%20%E2%80%94%20Pink%20Composite%20Jasper%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tt-card" data-hsku="HA" role="button" tabindex="0"
+             aria-label="View details for HA: Rainbow Mosaic Heart"
+             onclick="thOpenModal(this)"
+             onkeydown="if(event.key=&apos;Enter&apos;||event.key=&apos; &apos;){event.preventDefault();thOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/ha-rainbow-mosaic-heart-clean.png"
+                 alt="HA Rainbow Mosaic polished crystal heart pocket stones with red blue and yellow colors"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">HA</p>
+            <p class="tt-card-name">Rainbow Mosaic Heart</p>
+            <p class="tt-card-short">Bright, colorful, and playful, each heart features a unique blend of vibrant colors.</p>
+            <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Genuine polished stone</p>
+            <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HA%20Rainbow%20Mosaic%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HA%20%E2%80%94%20Rainbow%20Mosaic%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Ask About This Item</a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.tt-grid -->
+    </div>
+  </section>
+
+  <!-- ── Crystal Heart Detail Modal ────────────────────────────────── -->
+  <div id="th-modal" role="dialog" aria-modal="true" aria-labelledby="th-modal-title"
+       onclick="if(event.target===this)thCloseModal()">
+    <div class="tt-modal-inner">
+      <button class="tt-modal-close" onclick="thCloseModal()" aria-label="Close dialog">&times;</button>
+      <div class="tt-modal-img-col">
+        <img id="th-modal-img" src="" alt="" />
+      </div>
+      <div class="tt-modal-info">
+        <p class="tt-modal-badge" id="th-modal-badge"></p>
+        <h2 class="tt-modal-title" id="th-modal-title"></h2>
+        <p class="tt-modal-desc" id="th-modal-desc"></p>
+        <p class="tt-modal-specs" id="th-modal-specs"></p>
+        <p class="tt-modal-price" id="th-modal-price"></p>
+        <a id="th-modal-btn" href="#" class="btn btn-secondary"
+           onclick="event.stopPropagation()">Ask About This Item</a>
+      </div>
+    </div>
+  </div>
+
   <!-- Twizted Treasures tracker callout -->
   <section style="padding:72px 0;" aria-labelledby="tracker-callout-heading">
     <div class="container">
@@ -890,6 +1104,107 @@
   </div>
 </footer>
 <script>
+/* ── Crystal Heart Pocket Stones catalog ───────────────────── */
+const TH_DATA = {
+  "HOC": {
+    "badge": "HOC",
+    "name": "Orange Howlite Heart",
+    "img": "images/merch/clean/hoc-orange-howlite-heart-clean.png",
+    "alt": "HOC — Orange Howlite Heart",
+    "desc": "Bright orange coloring paired with dark veining creates a bold and energetic look. A striking pocket stone that carries the warmth and vitality of its natural hues.",
+    "specs": "Size: Approx. 1 inch\nMaterial: Genuine polished stone",
+    "price": "$3 each · 2 for $5",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HOC%20Orange%20Howlite%20Heart&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HOC%20%E2%80%94%20Orange%20Howlite%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "HOWC": {
+    "badge": "HOWC",
+    "name": "Orange Imperial Jasper Heart",
+    "img": "images/merch/clean/howc-orange-imperial-jasper-heart-clean.png",
+    "alt": "HOWC — Orange Imperial Jasper Heart",
+    "desc": "Warm orange tones mixed with cream and brown matrix patterns create a beautiful natural design. Each piece is a unique expression of stone artistry.",
+    "specs": "Size: Approx. 1 inch\nMaterial: Genuine polished stone",
+    "price": "$3 each · 2 for $5",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HOWC%20Orange%20Imperial%20Jasper%20Heart&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HOWC%20%E2%80%94%20Orange%20Imperial%20Jasper%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "HO": {
+    "badge": "HO",
+    "name": "Orange Aventurine Heart",
+    "img": "images/merch/clean/ho-orange-aventurine-heart-clean.png",
+    "alt": "HO — Orange Aventurine Heart",
+    "desc": "A smooth, warm-toned heart displaying natural orange hues and subtle shimmer. Orange Aventurine is often associated with creativity, enthusiasm, and positive energy.",
+    "specs": "Size: Approx. 1 inch\nMaterial: Genuine polished stone",
+    "price": "$3 each · 2 for $5",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HO%20Orange%20Aventurine%20Heart&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HO%20%E2%80%94%20Orange%20Aventurine%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "HPBC": {
+    "badge": "HPBC",
+    "name": "Pink Brecciated Jasper Heart",
+    "img": "images/merch/clean/hpbc-pink-brecciated-jasper-heart-clean.png",
+    "alt": "HPBC — Pink Brecciated Jasper Heart",
+    "desc": "A vibrant pink heart accented with natural matrix patterns throughout the stone. Pink Brecciated Jasper is associated with strength, vitality, and gentle healing energy.",
+    "specs": "Size: Approx. 1 inch\nMaterial: Genuine polished stone",
+    "price": "$3 each · 2 for $5",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HPBC%20Pink%20Brecciated%20Jasper%20Heart&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HPBC%20%E2%80%94%20Pink%20Brecciated%20Jasper%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "HPC": {
+    "badge": "HPC",
+    "name": "Pink Howlite Heart",
+    "img": "images/merch/clean/hpc-pink-howlite-heart-clean.png",
+    "alt": "HPC — Pink Howlite Heart",
+    "desc": "Featuring bold pink tones and delicate dark veining, this heart combines beauty and serenity. Howlite is often associated with calming energy, patience, and reducing stress.",
+    "specs": "Size: Approx. 1 inch\nMaterial: Genuine polished stone",
+    "price": "$3 each · 2 for $5",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HPC%20Pink%20Howlite%20Heart&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HPC%20%E2%80%94%20Pink%20Howlite%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "HPC2": {
+    "badge": "HPC2",
+    "name": "Pink Composite Jasper Heart",
+    "img": "images/merch/clean/hpc2-pink-composite-jasper-heart-clean.png",
+    "alt": "HPC2 — Pink Composite Jasper Heart",
+    "desc": "Bright pink tones with natural-looking matrix patterns create a bold and cheerful piece. A joyful pocket stone full of color and character.",
+    "specs": "Size: Approx. 1 inch\nMaterial: Genuine polished stone",
+    "price": "$3 each · 2 for $5",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HPC2%20Pink%20Composite%20Jasper%20Heart&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HPC2%20%E2%80%94%20Pink%20Composite%20Jasper%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "HA": {
+    "badge": "HA",
+    "name": "Rainbow Mosaic Heart",
+    "img": "images/merch/clean/ha-rainbow-mosaic-heart-clean.png",
+    "alt": "HA — Rainbow Mosaic Heart",
+    "desc": "Bright, colorful, and playful, each heart features a unique blend of vibrant colors. A celebration of diversity and joy, no two pieces are alike.",
+    "specs": "Size: Approx. 1 inch\nMaterial: Genuine polished stone",
+    "price": "$3 each · 2 for $5",
+    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HA%20Rainbow%20Mosaic%20Heart&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HA%20%E2%80%94%20Rainbow%20Mosaic%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  }
+};
+
+function thOpenModal(card) {
+  const sku = card.dataset.hsku;
+  const d = TH_DATA[sku];
+  if (!d) return;
+  document.getElementById('th-modal-img').src    = d.img;
+  document.getElementById('th-modal-img').alt    = d.alt;
+  document.getElementById('th-modal-badge').textContent = d.badge;
+  document.getElementById('th-modal-title').textContent = d.name;
+  document.getElementById('th-modal-desc').textContent  = d.desc;
+  document.getElementById('th-modal-specs').innerHTML   = d.specs.replace(/\n/g,'<br>');
+  document.getElementById('th-modal-price').textContent = d.price;
+  document.getElementById('th-modal-btn').href          = d.mailto;
+  const m = document.getElementById('th-modal');
+  m.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+  document.addEventListener('keydown', thEscHandler);
+  m.querySelector('.tt-modal-close').focus();
+}
+
+function thCloseModal() {
+  document.getElementById('th-modal').classList.remove('is-open');
+  document.body.style.overflow = '';
+  document.removeEventListener('keydown', thEscHandler);
+}
+
+function thEscHandler(e) { if (e.key === 'Escape') thCloseModal(); }
+
 /* ── Polished stone mushroom catalog ──────────────────────────────────── */
 const TM_DATA = {
   "MY2": {
