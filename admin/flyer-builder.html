@@ -432,6 +432,19 @@
       height: 5px;
     }
 
+    /* ── Image display mode toggle ─────────────────────────── */
+    .mode-toggle-row { display:flex; gap:6px; margin-bottom:4px; }
+    .mode-toggle-btn {
+      flex:1; padding:7px 4px; font-size:0.72rem; font-weight:700;
+      font-family:inherit; border-radius:6px; cursor:pointer;
+      transition:all .15s; border:1px solid var(--card-border);
+      background:rgba(8,8,18,.6); color:var(--muted);
+    }
+    .mode-toggle-btn:hover { border-color:rgba(138,43,239,.5); color:var(--white); }
+    .mode-toggle-btn.active {
+      background:var(--purple-dim); border-color:var(--purple); color:var(--white);
+    }
+
     /* ── Print styles ─────────────────────────────────────── */
     @media print {
       * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -599,6 +612,21 @@
             </div>
           </div>
 
+          <!-- Image display mode (visible only when image is loaded) -->
+          <div id="bg-mode-toggle" style="display:none;margin-top:12px;">
+            <div class="ctrl-section" style="margin-top:0;margin-bottom:8px;">Image Display Mode</div>
+            <div class="mode-toggle-row">
+              <button type="button" class="mode-toggle-btn active" data-mode="template"
+                      onclick="setFlyerMode('template')">&#128221; Template</button>
+              <button type="button" class="mode-toggle-btn" data-mode="full-image"
+                      onclick="setFlyerMode('full-image')">&#128444;&#65039; Full Image</button>
+            </div>
+            <p style="font-size:0.68rem;color:var(--muted);margin-top:5px;line-height:1.5;">
+              <strong>Template</strong> — image as background behind text.<br>
+              <strong>Full Image</strong> — show only your uploaded flyer.
+            </p>
+          </div>
+
           <!-- ── EVENT fields ─────────────────────────── -->
           <div id="fields-event">
             <div class="ctrl-section">Event Details</div>
@@ -705,6 +733,7 @@
   let currentTemplate = 'event';
   let currentScheme   = 'purple-teal';
   let uploadedBgUrl   = null;   // Object URL from file upload
+  let flyerMode       = 'template'; // 'template' | 'full-image'
   let bgOverlayDark   = 0.50;   // 0..0.88
 
   const SCHEMES = {
@@ -743,13 +772,20 @@
   function render() {
     const sc = SCHEMES[currentScheme];
     const out = document.getElementById('flyer-output');
-    out.style.background = sc.bg;
+    // Use backgroundColor (not background shorthand) so it never clears backgroundImage
+    out.style.backgroundColor = sc.bg;
     if (uploadedBgUrl) {
       out.style.backgroundImage = `url('${uploadedBgUrl}')`;
       out.style.backgroundSize  = 'cover';
       out.style.backgroundPosition = 'center';
     } else {
       out.style.backgroundImage = '';
+    }
+
+    // Full-image mode: show only the uploaded image — no template overlay
+    if (uploadedBgUrl && flyerMode === 'full-image') {
+      out.innerHTML = '';
+      return;
     }
 
     if (currentTemplate === 'event') {
@@ -766,8 +802,8 @@
   // ── Event Template ───────────────────────────────────────────
   function renderEvent(sc, out) {
     out.innerHTML = `
-      <!-- gradient overlay -->
-      <div class="fl-gradient-top" style="background:${sc.grad};"></div>
+      <!-- gradient overlay — hidden when a background image replaces it -->
+      ${!uploadedBgUrl ? `<div class="fl-gradient-top" style="background:${sc.grad};"></div>` : ''}
       <div class="fl-accent-bar" style="background:${sc.bar};"></div>
       ${uploadedBgUrl ? `<div style="position:absolute;inset:0;background:rgba(0,0,0,${bgOverlayDark});z-index:0;pointer-events:none;"></div>` : ''}
       <div class="fl-watermark">;</div>
@@ -834,7 +870,7 @@
   function renderShop(sc, out) {
     const priceDetail = val('sh-price-detail').split('\n').filter(Boolean);
     out.innerHTML = `
-      <div class="fl-gradient-top" style="background:${sc.grad};"></div>
+      ${!uploadedBgUrl ? `<div class="fl-gradient-top" style="background:${sc.grad};"></div>` : ''}
       <div class="fl-accent-bar" style="background:${sc.bar};"></div>
       ${uploadedBgUrl ? `<div style="position:absolute;inset:0;background:rgba(0,0,0,${bgOverlayDark});z-index:0;pointer-events:none;"></div>` : ''}
       <div class="fl-watermark">;</div>
@@ -978,10 +1014,14 @@
     removeBtn.addEventListener('click', () => {
       if (uploadedBgUrl) URL.revokeObjectURL(uploadedBgUrl);
       uploadedBgUrl = null;
+      flyerMode = 'template';
+      setModeBtn('template');
       thumb.src = '';
+      input.value = '';
       thumbRow.style.display = 'none';
       uploadLabel.style.display = '';
       controls.style.display = 'none';
+      document.getElementById('bg-mode-toggle').style.display = 'none';
       render();
     });
 
@@ -1002,23 +1042,44 @@
       render();
     }));
 
-    function syncPresets(v) {
-      presetBtns.forEach(b => b.classList.toggle('active', parseInt(b.dataset.val) === v));
-    }
-
     function handleFile(file) {
-      if (!file.type.startsWith('image/')) { toast('Upload a JPG, PNG, or WEBP image.', 'error'); return; }
+      if (!file.type.startsWith('image/')) {
+        toast('Upload a JPG, PNG, or WEBP image.', 'error');
+        return;
+      }
+      // Revoke previous URL and reset to template mode for each new upload
       if (uploadedBgUrl) URL.revokeObjectURL(uploadedBgUrl);
+      flyerMode = 'template';
+      setModeBtn('template');
       uploadedBgUrl = URL.createObjectURL(file);
+      input.value = '';   // allow re-selecting the same file
       thumb.src = uploadedBgUrl;
       thumbRow.style.display = '';
       uploadLabel.style.display = 'none';
       controls.style.display = '';
+      document.getElementById('bg-mode-toggle').style.display = '';
       render();
     }
-  }());
 
-  // ── Auth ─────────────────────────────────────────────────────
+    function syncPresets(v) {
+      presetBtns.forEach(b => b.classList.toggle('active', parseInt(b.dataset.val) === v));
+    }
+
+  })();
+
+  // ── Image display mode toggle ────────────────────────────────────────────
+  function setFlyerMode(mode) {
+    flyerMode = mode;
+    setModeBtn(mode);
+    render();
+  }
+
+  function setModeBtn(mode) {
+    document.querySelectorAll('.mode-toggle-btn').forEach(b =>
+      b.classList.toggle('active', b.dataset.mode === mode));
+  }
+
+  // ── Admin init (auth gate + initial render) ────────────────────────────
   initAdmin(function(user) {
     render(); // initial render after auth confirmed
   });
