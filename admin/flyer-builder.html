@@ -626,16 +626,19 @@
 
           <!-- Image display mode (visible only when image is loaded) -->
           <div id="bg-mode-toggle" style="display:none;margin-top:12px;">
-            <div class="ctrl-section" style="margin-top:0;margin-bottom:8px;">Image Display Mode</div>
+            <div class="ctrl-section" style="margin-top:0;margin-bottom:6px;">Image Display Mode</div>
+            <p style="font-size:0.72rem;color:var(--accent);margin:0 0 8px;line-height:1.4;">
+              💡 Use <strong>Full Flyer Image</strong> for finished flyers. Use <strong>Template Overlay</strong> to layer text over your image.
+            </p>
             <div class="mode-toggle-row">
               <button type="button" class="mode-toggle-btn active" data-mode="template"
-                      onclick="setFlyerMode('template')">&#128221; Template</button>
+                      onclick="setFlyerMode('template')">&#128221; Template Overlay</button>
               <button type="button" class="mode-toggle-btn" data-mode="full-image"
-                      onclick="setFlyerMode('full-image')">&#128444;&#65039; Full Image</button>
+                      onclick="setFlyerMode('full-image')">&#128444;&#65039; Full Flyer Image</button>
             </div>
             <p style="font-size:0.68rem;color:var(--muted);margin-top:5px;line-height:1.5;">
-              <strong>Template</strong> — image as background behind text.<br>
-              <strong>Full Image</strong> — show only your uploaded flyer.
+              <strong>Template Overlay</strong> — image as background, text layered on top. May crop edges.<br>
+              <strong>Full Flyer Image</strong> — shows your uploaded flyer without cropping or text overlays.
             </p>
           </div>
 
@@ -813,6 +816,8 @@
   // ── Clear Preset ─────────────────────────────────────────────────────────
   // Clears all text fields for the active template.
   // Does NOT touch the uploaded background image.
+  // If an image is already loaded, automatically switches to Full Flyer Image
+  // mode so the uploaded flyer shows completely without cropping or text overlays.
   function clearPreset() {
     const ids = currentTemplate === 'event'
       ? Object.keys(EVENT_DEFAULTS)
@@ -821,20 +826,29 @@
       const el = document.getElementById(id);
       if (el) el.value = '';
     });
-    render();
-    toast('Fields cleared. Upload an image or type your own content.', 'info');
+    if (uploadedBgUrl) {
+      // Switch to Full Flyer Image — most likely intent when clearing text off a finished flyer.
+      setFlyerMode('full-image');
+      toast('Fields cleared — switched to Full Flyer Image mode.', 'info');
+    } else {
+      render();
+      toast('Fields cleared. Upload an image or type your own content.', 'info');
+    }
   }
 
   // ── Restore Example ──────────────────────────────────────────────────────
   // Restores the original sample text for the active template.
   // Does NOT touch the uploaded background image.
+  // Switches to Template Overlay mode because restored sample text is meant to be edited
+  // as a layered overlay — Full Flyer Image mode would hide that text.
   function restoreExample() {
     const defaults = currentTemplate === 'event' ? EVENT_DEFAULTS : SHOP_DEFAULTS;
     Object.entries(defaults).forEach(([id, v]) => {
       const el = document.getElementById(id);
       if (el) el.value = v;
     });
-    render();
+    // setFlyerMode calls render() internally
+    setFlyerMode('template');
     toast('Example content restored.', 'info');
   }
 
@@ -1152,7 +1166,7 @@
 
   })();
 
-  // ── Image display mode toggle ────────────────────────────────────────────
+  // -- Image display mode toggle
   function setFlyerMode(mode) {
     flyerMode = mode;
     setModeBtn(mode);
@@ -1164,7 +1178,7 @@
       b.classList.toggle('active', b.dataset.mode === mode));
   }
 
-  // ── Admin init (auth gate + initial render) ────────────────────────────
+  // -- Admin init (auth gate + initial render)
   initAdmin(function(user) {
     render(); // initial render after auth confirmed
   });
