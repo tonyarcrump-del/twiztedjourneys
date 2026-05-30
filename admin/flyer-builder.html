@@ -432,6 +432,18 @@
       height: 5px;
     }
 
+    /* ── Preset action row ──────────────────────────────────── */
+    .preset-action-row {
+      display: flex;
+      gap: 6px;
+      margin: 0 0 16px;
+    }
+    .preset-action-row button {
+      flex: 1;
+      font-size: 0.71rem;
+      padding: 7px 4px;
+    }
+
     /* ── Image display mode toggle ─────────────────────────── */
     .mode-toggle-row { display:flex; gap:6px; margin-bottom:4px; }
     .mode-toggle-btn {
@@ -627,6 +639,21 @@
             </p>
           </div>
 
+          <!-- ── Preset actions ───────────────────────────── -->
+          <div class="ctrl-section" style="margin-top:20px;">Content Preset</div>
+          <div class="preset-action-row">
+            <button type="button" class="btn btn-ghost btn-sm"
+                    onclick="clearPreset()"
+                    title="Clear all sample text — uploaded image is not affected">
+              ✕ Clear Preset
+            </button>
+            <button type="button" class="btn btn-ghost btn-sm"
+                    onclick="restoreExample()"
+                    title="Restore the original sample content">
+              ↩ Restore Example
+            </button>
+          </div>
+
           <!-- ── EVENT fields ─────────────────────────── -->
           <div id="fields-event">
             <div class="ctrl-section">Event Details</div>
@@ -762,7 +789,56 @@
     render();
   }
 
-  // ── Get field value safely ───────────────────────────────────
+  // ── Default field values ────────────────────────────────────────────────
+  const EVENT_DEFAULTS = {
+    'ev-title':    'Finding Forward',
+    'ev-subtitle': 'A Ride for Hope · A Walk for Healing',
+    'ev-date':     'September 13, 2025',
+    'ev-time':     '10:00 AM',
+    'ev-location': 'Anderson, Indiana',
+    'ev-desc':     'Join us for Finding Forward — a day of community, remembrance, and hope. Motorcycle riders, walkers, vendors, and volunteers all welcome. Every mile we ride and every step we take honors lives lost and celebrates those still fighting.',
+    'ev-rsvp':     'RSVP free at twiztedjourneys.org/events',
+    'ev-website':  'twiztedjourneys.org',
+  };
+  const SHOP_DEFAULTS = {
+    'sh-title':        'New in the Shop',
+    'sh-product':      'Semicolon Charm',
+    'sh-tagline':      'Handmade with love. Worn with purpose.',
+    'sh-desc':         "Each semicolon charm is handcrafted by Tonya and carries a message of hope. Wear it as a reminder that your story isn’t over — and every purchase directly supports Twizted Journeys’ mission.",
+    'sh-price':        '$25',
+    'sh-price-detail': 'Free shipping on orders over $50\n100% supports the TJ mission',
+    'sh-url':          'twiztedjourneys.org/shop',
+  };
+
+  // ── Clear Preset ─────────────────────────────────────────────────────────
+  // Clears all text fields for the active template.
+  // Does NOT touch the uploaded background image.
+  function clearPreset() {
+    const ids = currentTemplate === 'event'
+      ? Object.keys(EVENT_DEFAULTS)
+      : Object.keys(SHOP_DEFAULTS);
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    render();
+    toast('Fields cleared. Upload an image or type your own content.', 'info');
+  }
+
+  // ── Restore Example ──────────────────────────────────────────────────────
+  // Restores the original sample text for the active template.
+  // Does NOT touch the uploaded background image.
+  function restoreExample() {
+    const defaults = currentTemplate === 'event' ? EVENT_DEFAULTS : SHOP_DEFAULTS;
+    Object.entries(defaults).forEach(([id, v]) => {
+      const el = document.getElementById(id);
+      if (el) el.value = v;
+    });
+    render();
+    toast('Example content restored.', 'info');
+  }
+
+  // ── Get field value safely ───────────────────────────────────────
   function val(id) {
     const el = document.getElementById(id);
     return el ? (el.value || '') : '';
