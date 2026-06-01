@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Continue After the Pause &mdash; Twizted Journeys</title>
+  <meta name="description" content="You scanned this because someone chose to continue after the pause. Twizted Journeys brings awareness, remembrance, hope, and connection to people walking through grief, mental health struggles, and hard seasons of life." />
+  <meta property="og:title" content="Continue After the Pause &mdash; Twizted Journeys" />
+  <meta property="og:description" content="You scanned this because someone chose to continue after the pause. Twizted Journeys exists to bring awareness, remembrance, hope, and connection." />
+  <meta property="og:image" content="images/what-comes-after-the-pause-promo.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.twiztedjourneys.org/continue.html" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ── Continue After the Pause — page-specific styles ──────────── */
+    .continue-hero {
+      background: linear-gradient(160deg, #0a0012 0%, var(--midnight-2) 50%, #08081c 100%);
+      border-bottom: 1px solid var(--card-border);
+      padding: 80px 0 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .continue-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 30% 40%, rgba(138,43,239,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 70% 60%, rgba(86,224,210,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .continue-hero__inner {
+      position: relative;
+      z-index: 1;
+    }
+    .continue-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 16px;
+    }
+    .continue-hero h1 {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+    .continue-hero h1 em {
+      font-style: normal;
+      color: var(--teal);
+    }
+    .continue-hero__lead {
+      font-size: clamp(1rem, 2.5vw, 1.18rem);
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto 36px;
+      line-height: 1.75;
+    }
+    .continue-hero__lead strong {
+      color: var(--white);
+    }
+
+    /* Semicolon mark */
+    .pause-mark {
+      display: inline-block;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--teal);
+      line-height: 1;
+      margin-bottom: 20px;
+      text-shadow: var(--glow-teal);
+    }
+
+    /* Quick links grid */
+    .continue-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .continue-link-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 20px 14px 18px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s, transform 0.2s, background 0.2s;
+      text-align: center;
+    }
+    .continue-link-btn:hover {
+      border-color: rgba(86,224,210,0.45);
+      background: rgba(86,224,210,0.05);
+      transform: translateY(-2px);
+      color: var(--teal);
+    }
+    .continue-link-btn .link-icon {
+      font-size: 1.6rem;
+    }
+
+    /* About section */
+    .continue-about {
+      padding: 72px 0;
+    }
+    .continue-about__card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-left: 4px solid var(--teal);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 40px 44px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .continue-about__card p {
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 1.04rem;
+      margin-bottom: 18px;
+    }
+    .continue-about__card p:last-child { margin-bottom: 0; }
+    .continue-about__card strong { color: var(--white); }
+
+    /* What we do strip */
+    .what-we-do {
+      padding: 56px 0;
+      background: var(--midnight-2);
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .what-we-do-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      max-width: 880px;
+      margin: 36px auto 0;
+    }
+    .wwd-item {
+      text-align: center;
+      padding: 28px 20px;
+    }
+    .wwd-item .wwd-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .wwd-item h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .wwd-item p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* Stay connected */
+    .continue-cta {
+      padding: 72px 0;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .continue-hero { padding: 56px 0 44px; }
+      .continue-about__card { padding: 28px 20px; }
+      .continue-links { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Twizted Journeys home">
+        <img src="images/web-optimized/twizted-journeys-banner.jpg" alt="Twizted Journeys logo" style="height:44px;width:auto;border-radius:6px;" />
+        <span class="nav-logo-text">Tw<span class="semicolon-accent">;</span>zted Journeys</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">&#9776;</button>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="merch.html">Merch</a></li>
+        <li><a href="stories.html">Share Your Story</a></li>
+        <li><a href="memorial.html">Memorial</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="charm-journey.html">Twizted Treasures</a></li>
+        <li><a href="podcast.html">Podcast</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://donorbox.org/help-penetrate-the-darkness" class="btn btn-primary nav-donate" target="_blank" rel="noopener">Donate</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main id="main-content">
+
+  <!-- ═══ HERO ══════════════════════════════════════════════════════ -->
+  <header class="continue-hero" aria-label="Continue After the Pause">
+    <div class="container continue-hero__inner">
+      <div class="pause-mark" aria-hidden="true">;</div>
+      <p class="continue-eyebrow">Twizted Journeys &middot; Indiana Nonprofit</p>
+      <h1>Continue After<br><em>the Pause</em></h1>
+      <p class="continue-hero__lead">
+        You scanned this because <strong>someone chose to continue after the pause.</strong>
+        Twizted Journeys exists to bring awareness, remembrance, hope, and connection
+        to people walking through grief, mental health struggles, suicide loss,
+        and hard seasons of life.
+      </p>
+
+      <!-- Quick links -->
+      <nav aria-label="Quick links" style="margin-bottom:12px;">
+        <div class="continue-links">
+          <a href="index.html" class="continue-link-btn">
+            <span class="link-icon" aria-hidden="true">&#127968;</span>
+            Home
+          </a>
+          <a href="events.html" class="continue-link-btn">
+            <span class="link-icon" aria-hidden="true">&#127775;</span>
+            Events
+          </a>
+          <a href="https://donorbox.org/help-penetrate-the-darkness" class="continue-link-btn" target="_blank" rel="noopener">
+            <span class="link-icon" aria-hidden="true">&#128156;</span>
+            Donate
+          </a>
+          <a href="resources.html" class="continue-link-btn">
+            <span class="link-icon" aria-hidden="true">&#128218;</span>
+            Resources
+          </a>
+          <a href="stories.html" class="continue-link-btn">
+            <span class="link-icon" aria-hidden="true">&#128214;</span>
+            Share Your Journey
+          </a>
+          <a href="twizted-treasures.html" class="continue-link-btn">
+            <span class="link-icon" aria-hidden="true">&#129699;</span>
+            Twizted Treasures
+          </a>
+        </div>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- ═══ WHAT THIS IS ══════════════════════════════════════════════ -->
+  <section class="continue-about" aria-labelledby="about-heading">
+    <div class="container">
+      <p class="section-label" style="text-align:center;">What This Means</p>
+      <h2 class="section-title" style="text-align:center;" id="about-heading">Every Journey Is Twizted</h2>
+      <div class="continue-about__card">
+        <p>
+          A <strong>pause</strong> can mean many things. It might be a moment when life felt impossible to keep going.
+          It might be the moment someone you love left this world. It might be grief, loss, mental health,
+          addiction, or simply a season so hard you couldn&rsquo;t see past it.
+        </p>
+        <p>
+          <strong>Twizted Journeys was founded</strong> by Tonya Crump and Tia Weaver in Shelbyville, Indiana
+          after experiencing profound personal loss. They turned that loss into a lifeline &mdash;
+          a community that holds space for people who are still here, still walking, still continuing.
+        </p>
+        <p>
+          We are not here to diagnose, treat, or counsel. We are here to show up alongside you.
+          Through peer support, awareness events, community gatherings, memorials, and connection &mdash;
+          we remind each other that <strong>continuing after the pause is worth it.</strong>
+        </p>
+        <p>
+          Twizted Journeys, Inc. is a registered <strong>501(c)(3) nonprofit</strong> serving
+          Shelby, Johnson, Bartholomew, Hancock, Decatur, and Rush counties in Indiana.
+          Every program is free and open to the community.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHAT WE DO ════════════════════════════════════════════════ -->
+  <section class="what-we-do" aria-labelledby="wwd-heading">
+    <div class="container">
+      <p class="section-label" style="text-align:center;">How We Show Up</p>
+      <h2 class="section-title" style="text-align:center;" id="wwd-heading">Community. Awareness. Hope.</h2>
+      <div class="what-we-do-grid">
+
+        <div class="wwd-item">
+          <div class="wwd-icon" aria-hidden="true">&#128156;</div>
+          <h3>Finding Forward</h3>
+          <p>A free, peer-led support group every Tuesday evening in Shelbyville &mdash; for suicide loss survivors and anyone carrying grief or mental health struggles. Adults 18+.</p>
+        </div>
+
+        <div class="wwd-item">
+          <div class="wwd-icon" aria-hidden="true">&#127775;</div>
+          <h3>S.A.F.E. Events</h3>
+          <p>Suicide Awareness For Everyone &mdash; awareness rides, community walks, and gatherings. Open to everyone. Come as you are.</p>
+        </div>
+
+        <div class="wwd-item">
+          <div class="wwd-icon" aria-hidden="true">&#128330;&#65039;</div>
+          <h3>Memorial &amp; Stories</h3>
+          <p>Honor someone you&rsquo;ve lost. Share your own journey in a space that holds your story with care and zero judgment.</p>
+        </div>
+
+        <div class="wwd-item">
+          <div class="wwd-icon" aria-hidden="true">&#127981;</div>
+          <h3>Community Events</h3>
+          <p>Vendor tables, fundraisers, shoe drives &mdash; we show up in the community year-round to keep the conversation about mental health alive.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ STAY CONNECTED / DONATE ══════════════════════════════════ -->
+  <section class="continue-cta" aria-labelledby="cta-heading">
+    <div class="container" style="max-width:640px;">
+      <p class="section-label">Stay With Us</p>
+      <h2 class="section-title" id="cta-heading">Keep Walking Your Journey</h2>
+      <p style="color:var(--muted);max-width:520px;margin:0 auto 32px;line-height:1.75;font-size:1.02rem;">
+        Your story matters here. Whether you need community, want to honor someone,
+        or just want to stay connected &mdash; we&rsquo;re here.
+      </p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;">
+        <a href="events.html" class="btn btn-primary">See Upcoming Events &rarr;</a>
+        <a href="stories.html" class="btn btn-secondary">Share Your Journey &rarr;</a>
+        <a href="https://donorbox.org/help-penetrate-the-darkness" class="btn btn-ghost" target="_blank" rel="noopener">Support the Mission &rarr;</a>
+      </div>
+      <p style="margin-top:28px;font-size:0.88rem;color:var(--muted);">
+        Follow us: <a href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener" style="color:var(--teal);">Facebook</a>
+        &nbsp;&middot;&nbsp;
+        <a href="https://www.tiktok.com/@twiztedjourneys" target="_blank" rel="noopener" style="color:var(--teal);">TikTok</a>
+        &nbsp;&middot;&nbsp;
+        <a href="mailto:info@twiztedjourneys.org" style="color:var(--teal);">info@twiztedjourneys.org</a>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<div class="crisis-band" role="complementary" aria-label="Crisis support information">
+  <div class="container">
+    <p>
+      <strong>If you are in crisis:</strong> Call or text <span class="crisis-number">988</span> &mdash; free, 24/7, confidential.<br />
+      Crisis Text Line: text <strong>HOME</strong> to <strong>741741</strong>
+    </p>
+  </div>
+</div>
+
+<footer class="site-footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h2>Tw<span>;</span>zted Journeys</h2>
+        <p>A safe place for every journey. Indiana nonprofit serving Shelby, Johnson, Bartholomew, Hancock, Decatur, and Rush counties.</p>
+        <p style="margin-top:10px;"><a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
+      </div>
+      <div class="footer-col">
+        <h3>Navigate</h3>
+        <ul>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="stories.html">Share Your Story</a></li>
+          <li><a href="memorial.html">Memorial</a></li>
+          <li><a href="podcast.html">Podcast</a></li>
+          <li><a href="merch.html">Shop</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="https://988lifeline.org" target="_blank" rel="noopener">988 Crisis Lifeline</a></li>
+          <li><a href="https://crisistextline.org" target="_blank" rel="noopener">Crisis Text Line</a></li>
+          <li><a href="https://afsp.org" target="_blank" rel="noopener">AFSP</a></li>
+          <li><a href="https://nami.org" target="_blank" rel="noopener">NAMI</a></li>
+          <li><a href="https://overdoselifeline.org" target="_blank" rel="noopener">Overdose Lifeline</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Connect</h3>
+        <ul>
+          <li><a href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Facebook Community Group</a></li>
+          <li><a href="https://x.com/TonyaCrump14" target="_blank" rel="noopener">X (Twitter)</a></li>
+          <li><a href="https://www.pinterest.com/twiztedjourneys" target="_blank" rel="noopener">Pinterest</a></li>
+          <li><a href="https://www.tiktok.com/@twiztedjourneys" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="https://twiztedjourneys71.tumblr.com/" target="_blank" rel="noopener">Tumblr</a></li>
+          <li><a href="https://api.whatsapp.com/send?phone=3176043642" target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-disclaimer">
+      Twizted Journeys, Inc. is a 501(c)(3) public charity. Donations are tax-deductible as allowed by law.
+      We are not a crisis hotline, counseling service, therapy provider, medical provider, or emergency response service.
+      If you are in crisis, please call 911 or contact the 988 Suicide &amp; Crisis Lifeline.
+    </p>
+    <div class="footer-bottom">
+      <p>&copy; 2022&ndash;2026 Twizted Journeys, Inc. All rights reserved. &middot; 501(c)(3) nonprofit</p>
+      <p>Founders: Tonya Crump &amp; Tia Weaver &nbsp;|&nbsp; <a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
