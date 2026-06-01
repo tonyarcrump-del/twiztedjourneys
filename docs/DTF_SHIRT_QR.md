@@ -33,7 +33,7 @@ QR file: `images/qr/qr-continue-after-pause.png`
 > Continue After the Pause
 
 **Line 2 (below QR, call to action):**
-> Scan to follow the journey
+> Scan to follow the journey.
 
 **Line 3 (below call to action, URL fallback):**
 > twiztedjourneys.org
@@ -56,12 +56,13 @@ QR file: `images/qr/qr-continue-after-pause.png`
 ## About the QR Destination
 
 `continue.html` is a warm, mission-safe landing page that:
-- Explains "Continue After the Pause" in plain, nonprofit-appropriate language
+- Presents Twizted Journeys as the umbrella movement for "the journey after any pause" — grief, loss, trauma, recovery, survival, rebuilding, or a hard chapter in life
+- Names Finding Forward specifically as Twizted Journeys' peer-led space for suicide loss survivors (not as the whole organization)
 - Links to Home, Events, Donate, Resources, Share Your Journey, and Twizted Treasures
-- Includes 988 crisis support language (footer crisis band + disclaimer)
+- Includes the full crisis band: "Twizted Journeys is not a crisis hotline. If you are in immediate danger, call emergency services now. Call or text 988 or visit 988lifeline.org. Text HOME to 741741."
 - Does NOT claim to provide therapy, treatment, diagnosis, emergency response, or crisis counseling
 
-The page is designed to work for anyone who scans — whether they're a supporter, a grieving family member, someone in a hard season, or a curious stranger.
+The page is designed to work for anyone who scans — a supporter, a grieving family member, someone in a hard chapter, or a curious stranger encountering the shirt for the first time.
 
 ---
 
