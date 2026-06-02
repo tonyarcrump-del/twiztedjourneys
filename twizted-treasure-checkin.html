@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Twizted Treasure Check-In &mdash; Twizted Journeys</title>
+  <meta name="description" content="Have a Twizted Treasure? Let us know where its journey continued. Share your city, state, and a note about where this item found you." />
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .checkin-hero {
+      background: linear-gradient(160deg, #08001a 0%, var(--midnight-2) 55%, #080820 100%);
+      border-bottom: 1px solid var(--card-border);
+      padding: 64px 0 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .checkin-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 45% at 25% 40%, rgba(138,43,239,0.14) 0%, transparent 70%),
+        radial-gradient(ellipse 45% 35% at 75% 60%, rgba(86,224,210,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .checkin-hero__inner { position: relative; z-index: 1; }
+    .checkin-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 14px;
+    }
+    .checkin-hero h1 {
+      font-size: clamp(1.7rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+    .checkin-hero h1 em { font-style: normal; color: var(--teal); }
+    .checkin-hero__lead {
+      font-size: clamp(0.96rem, 2.2vw, 1.1rem);
+      color: var(--muted);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+    .checkin-mark {
+      display: inline-block;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--teal);
+      line-height: 1;
+      margin-bottom: 18px;
+      text-shadow: var(--glow-teal);
+    }
+
+    /* Form section */
+    .checkin-form-section {
+      padding: 64px 0 80px;
+    }
+    .checkin-form-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .form-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 40px 44px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+      letter-spacing: 0.03em;
+    }
+    .form-group label .opt {
+      font-weight: 400;
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-left: 4px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(10,10,20,0.6);
+      border: 1px solid rgba(138,43,239,0.25);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: var(--font-main);
+      font-size: 0.95rem;
+      padding: 11px 14px;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: rgba(86,224,210,0.5);
+      box-shadow: 0 0 0 3px rgba(86,224,210,0.08);
+    }
+    .form-group select option { background: #1a1a28; }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .privacy-note {
+      background: rgba(138,43,239,0.06);
+      border: 1px solid rgba(138,43,239,0.15);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .privacy-note strong { color: var(--white); }
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    @media (max-width: 600px) {
+      .form-card { padding: 28px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      .checkin-hero { padding: 48px 0 36px; }
+    }
+  </style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Twizted Journeys home">
+        <img src="images/web-optimized/twizted-journeys-banner.jpg" alt="Twizted Journeys logo" style="height:44px;width:auto;border-radius:6px;" />
+        <span class="nav-logo-text">Tw<span class="semicolon-accent">;</span>zted Journeys</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">&#9776;</button>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="merch.html">Merch</a></li>
+        <li><a href="stories.html">Share Your Story</a></li>
+        <li><a href="memorial.html">Memorial</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="charm-journey.html">Twizted Treasures</a></li>
+        <li><a href="podcast.html">Podcast</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://donorbox.org/help-penetrate-the-darkness" class="btn btn-primary nav-donate" target="_blank" rel="noopener">Donate</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main id="main-content">
+
+  <!-- ═══ HERO ══════════════════════════════════════════════════════ -->
+  <header class="checkin-hero" aria-label="Twizted Treasure Check-In">
+    <div class="container checkin-hero__inner">
+      <div class="checkin-mark" aria-hidden="true">&#129699;</div>
+      <p class="checkin-eyebrow">Twizted Journeys &middot; Treasure Tracker</p>
+      <h1>Have a <em>Twizted Treasure?</em></h1>
+      <p class="checkin-hero__lead">
+        Let us know where its journey continued.
+        Every Twizted Treasure is meant to travel &mdash; passed from hand to hand, place to place,
+        carrying a little hope along the way. Share where this one found you.
+      </p>
+    </div>
+  </header>
+
+  <!-- ═══ FORM ══════════════════════════════════════════════════════ -->
+  <section class="checkin-form-section" aria-labelledby="form-heading">
+    <div class="container checkin-form-wrap">
+
+      <p class="section-label" style="text-align:center;">Continue the Journey</p>
+      <h2 class="section-title" style="text-align:center;" id="form-heading">Where Did It Find You?</h2>
+      <p style="text-align:center;color:var(--muted);max-width:480px;margin:0 auto 36px;font-size:0.95rem;line-height:1.7;">
+        This takes about 30 seconds. All fields except Name/Nickname and City/State are optional.
+      </p>
+
+      <div class="form-card">
+
+        <div class="privacy-note" role="note">
+          <strong>Privacy note:</strong> Please do not include private medical information or anything you would not want seen by others.
+          Your name or nickname, city, and state will be collected. Optional email is only used if you request a follow-up &mdash; it will not be shared or published.
+          Submissions are reviewed privately by Twizted Journeys staff and are not posted publicly without your permission.
+        </div>
+
+        <form id="treasure-form" onsubmit="handleTreasureCheckin(event)" novalidate>
+
+          <div class="form-group">
+            <label for="tc-nickname">Name or Nickname <span aria-hidden="true">*</span></label>
+            <input type="text" id="tc-nickname" name="nickname" placeholder="Your name or a nickname" required autocomplete="name" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="tc-city">City <span aria-hidden="true">*</span></label>
+              <input type="text" id="tc-city" name="city" placeholder="City" required />
+            </div>
+            <div class="form-group">
+              <label for="tc-state">State <span aria-hidden="true">*</span></label>
+              <input type="text" id="tc-state" name="state" placeholder="State or province" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tc-item">Item Type <span class="opt">(optional)</span></label>
+            <select id="tc-item" name="item_type">
+              <option value="">-- Select if you know --</option>
+              <option value="charm">Charm or bracelet</option>
+              <option value="stone">Stone or token</option>
+              <option value="tag">Tag or card</option>
+              <option value="shirt">Shirt or apparel</option>
+              <option value="small-merch">Small merch item</option>
+              <option value="giveaway">Giveaway item</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tc-message">Where did it find you? Any message? <span class="opt">(optional)</span></label>
+            <textarea id="tc-message" name="message" placeholder="Share a little about where or how this treasure found you. Every note helps the journey grow."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="tc-email">Email <span class="opt">(optional &mdash; only if you want a reply)</span></label>
+            <input type="email" id="tc-email" name="email" placeholder="your@email.com" autocomplete="email" />
+          </div>
+
+          <button type="submit" class="btn btn-primary submit-btn">&#129699; Send the Journey Forward</button>
+
+        </form>
+
+      </div><!-- /form-card -->
+
+      <p style="text-align:center;margin-top:24px;font-size:0.85rem;color:var(--muted);">
+        Questions? Reach us at <a href="mailto:info@twiztedjourneys.org" style="color:var(--teal);">info@twiztedjourneys.org</a>
+      </p>
+
+    </div>
+  </section>
+
+</main>
+
+<div class="crisis-band" role="complementary" aria-label="Crisis support information">
+  <div class="container">
+    <p>
+      <strong>Twizted Journeys is not a crisis hotline.</strong>
+      If you or someone you know is in immediate danger, call emergency services now.<br />
+      In the US: call or text <span class="crisis-number">988</span> or visit
+      <a href="https://988lifeline.org" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">988lifeline.org</a>.
+      Text <strong>HOME</strong> to <strong>741741</strong>.
+    </p>
+  </div>
+</div>
+
+<footer class="site-footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h2>Tw<span>;</span>zted Journeys</h2>
+        <p>A safe place for every journey. Indiana nonprofit serving Shelby, Johnson, Bartholomew, Hancock, Decatur, and Rush counties.</p>
+        <p style="margin-top:10px;"><a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
+      </div>
+      <div class="footer-col">
+        <h3>Navigate</h3>
+        <ul>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="stories.html">Share Your Story</a></li>
+          <li><a href="memorial.html">Memorial</a></li>
+          <li><a href="podcast.html">Podcast</a></li>
+          <li><a href="merch.html">Shop</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="https://988lifeline.org" target="_blank" rel="noopener">988 Crisis Lifeline</a></li>
+          <li><a href="https://crisistextline.org" target="_blank" rel="noopener">Crisis Text Line</a></li>
+          <li><a href="https://afsp.org" target="_blank" rel="noopener">AFSP</a></li>
+          <li><a href="https://nami.org" target="_blank" rel="noopener">NAMI</a></li>
+          <li><a href="https://overdoselifeline.org" target="_blank" rel="noopener">Overdose Lifeline</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Connect</h3>
+        <ul>
+          <li><a href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Facebook Community Group</a></li>
+          <li><a href="https://x.com/TonyaCrump14" target="_blank" rel="noopener">X (Twitter)</a></li>
+          <li><a href="https://www.tiktok.com/@twiztedjourneys" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="https://api.whatsapp.com/send?phone=3176043642" target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-disclaimer">
+      Twizted Journeys, Inc. is a 501(c)(3) public charity. Donations are tax-deductible as allowed by law.
+      We are not a crisis hotline, counseling service, therapy provider, medical provider, or emergency response service.
+      If you are in crisis, please call 911 or contact the 988 Suicide &amp; Crisis Lifeline.
+    </p>
+    <div class="footer-bottom">
+      <p>&copy; 2022&ndash;2026 Twizted Journeys, Inc. All rights reserved. &middot; 501(c)(3) nonprofit</p>
+      <p>Founders: Tonya Crump &amp; Tia Weaver &nbsp;|&nbsp; <a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/tj-public-config.js"></script>
+<script src="js/tj-forms.js"></script>
+</body>
+</html>

@@ -165,4 +165,80 @@
     }
   };
 
+
+  // ── TWIZTED TREASURE CHECK-IN ─────────────────────────────────────────────
+  window.handleTreasureCheckin = async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn  = form.querySelector('[type=submit]');
+    setLoading(btn, true);
+
+    const payload = {
+      nickname:  form.querySelector('[name=nickname]')?.value?.trim()   || '',
+      city:      form.querySelector('[name=city]')?.value?.trim()       || '',
+      state:     form.querySelector('[name=state]')?.value?.trim()      || '',
+      item_type: form.querySelector('[name=item_type]')?.value?.trim()  || null,
+      message:   form.querySelector('[name=message]')?.value?.trim()    || null,
+      email:     form.querySelector('[name=email]')?.value?.trim()      || null,
+      source:    'treasure-checkin'
+    };
+
+    try {
+      await postToSupabase('treasure_checkins', payload);
+      showSuccess(form, 'Thank you! The journey continues.');
+    } catch(err) {
+      if (err.message === 'not-configured') {
+        const parts = [
+          'Nickname: ' + payload.nickname,
+          'City/State: ' + payload.city + ', ' + payload.state,
+          'Item: ' + (payload.item_type || ''),
+          'Message: ' + (payload.message || ''),
+          'Email: ' + (payload.email || '')
+        ].join('%0A');
+        window.location.href = 'mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Check-In&body=' + parts;
+      } else {
+        showError(form, 'Something went wrong. Please email info@twiztedjourneys.org directly.');
+        console.error('Treasure checkin error:', err);
+      }
+      setLoading(btn, false);
+    }
+  };
+
+  // ── PAUSE SPINNER CHECK-IN ────────────────────────────────────────────────
+  window.handleSpinnerCheckin = async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn  = form.querySelector('[type=submit]');
+    setLoading(btn, true);
+
+    const payload = {
+      nickname:       form.querySelector('[name=nickname]')?.value?.trim()       || '',
+      spinner_id:     form.querySelector('[name=spinner_id]')?.value?.trim()     || null,
+      feeling_before: form.querySelector('[name=feeling_before]')?.value?.trim() || null,
+      feeling_after:  form.querySelector('[name=feeling_after]')?.value?.trim()  || null,
+      note:           form.querySelector('[name=note]')?.value?.trim()           || null,
+      source:         'spinner-checkin'
+    };
+
+    try {
+      await postToSupabase('spinner_checkins', payload);
+      showSuccess(form, 'Check-in recorded. Thanks for pausing with us.');
+    } catch(err) {
+      if (err.message === 'not-configured') {
+        const parts = [
+          'Nickname: ' + payload.nickname,
+          'Spinner: ' + (payload.spinner_id || ''),
+          'Before: ' + (payload.feeling_before || ''),
+          'After: ' + (payload.feeling_after || ''),
+          'Note: ' + (payload.note || '')
+        ].join('%0A');
+        window.location.href = 'mailto:info@twiztedjourneys.org?subject=Pause%20Spinner%20Check-In&body=' + parts;
+      } else {
+        showError(form, 'Something went wrong. Please email info@twiztedjourneys.org directly.');
+        console.error('Spinner checkin error:', err);
+      }
+      setLoading(btn, false);
+    }
+  };
+
 })();

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pause Spinner Check-In &mdash; Twizted Journeys</title>
+  <meta name="description" content="Using one of our pause spinners? Leave a quick check-in. Twizted Journeys pause spinners are small tools for grounding during hard moments." />
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .spinner-hero {
+      background: linear-gradient(160deg, #060012 0%, var(--midnight-2) 55%, #060820 100%);
+      border-bottom: 1px solid var(--card-border);
+      padding: 64px 0 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .spinner-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 30% 40%, rgba(86,224,210,0.10) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 70% 60%, rgba(138,43,239,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .spinner-hero__inner { position: relative; z-index: 1; }
+    .spinner-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 14px;
+    }
+    .spinner-hero h1 {
+      font-size: clamp(1.7rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+    .spinner-hero h1 em { font-style: normal; color: var(--teal); }
+    .spinner-hero__lead {
+      font-size: clamp(0.96rem, 2.2vw, 1.08rem);
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+    .spinner-mark {
+      display: inline-block;
+      font-size: 3rem;
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    /* Form */
+    .spinner-form-section { padding: 64px 0 80px; }
+    .spinner-form-wrap { max-width: 600px; margin: 0 auto; }
+    .form-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 40px 44px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .form-group label .opt {
+      font-weight: 400;
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-left: 4px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(10,10,20,0.6);
+      border: 1px solid rgba(138,43,239,0.25);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: var(--font-main);
+      font-size: 0.95rem;
+      padding: 11px 14px;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: rgba(86,224,210,0.5);
+      box-shadow: 0 0 0 3px rgba(86,224,210,0.08);
+    }
+    .form-group select option { background: #1a1a28; }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .privacy-note {
+      background: rgba(86,224,210,0.05);
+      border: 1px solid rgba(86,224,210,0.15);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .privacy-note strong { color: var(--white); }
+    .not-therapy-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      opacity: 0.75;
+      text-align: center;
+      margin-top: 18px;
+      line-height: 1.6;
+    }
+    .submit-btn { width: 100%; padding: 14px; font-size: 1rem; font-weight: 700; }
+    @media (max-width: 600px) {
+      .form-card { padding: 28px 20px; }
+      .spinner-hero { padding: 48px 0 36px; }
+    }
+  </style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Twizted Journeys home">
+        <img src="images/web-optimized/twizted-journeys-banner.jpg" alt="Twizted Journeys logo" style="height:44px;width:auto;border-radius:6px;" />
+        <span class="nav-logo-text">Tw<span class="semicolon-accent">;</span>zted Journeys</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">&#9776;</button>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="merch.html">Merch</a></li>
+        <li><a href="stories.html">Share Your Story</a></li>
+        <li><a href="memorial.html">Memorial</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="charm-journey.html">Twizted Treasures</a></li>
+        <li><a href="podcast.html">Podcast</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://donorbox.org/help-penetrate-the-darkness" class="btn btn-primary nav-donate" target="_blank" rel="noopener">Donate</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main id="main-content">
+
+  <!-- ═══ HERO ══════════════════════════════════════════════════════ -->
+  <header class="spinner-hero" aria-label="Pause Spinner Check-In">
+    <div class="container spinner-hero__inner">
+      <div class="spinner-mark" aria-hidden="true">&#9854;</div>
+      <p class="spinner-eyebrow">Twizted Journeys &middot; Pause Spinner</p>
+      <h1>Using a <em>Pause Spinner?</em></h1>
+      <p class="spinner-hero__lead">
+        Leave a quick check-in. These spinners are here as a simple way to help yourself pause,
+        breathe, and reset for a moment. You don&rsquo;t have to do anything with this form &mdash;
+        but if you want to leave a note, we&rsquo;d love to hear from you.
+      </p>
+    </div>
+  </header>
+
+  <!-- ═══ FORM ══════════════════════════════════════════════════════ -->
+  <section class="spinner-form-section" aria-labelledby="form-heading">
+    <div class="container spinner-form-wrap">
+
+      <p class="section-label" style="text-align:center;">Quick Check-In</p>
+      <h2 class="section-title" style="text-align:center;" id="form-heading">Scan After Your Pause</h2>
+      <p style="text-align:center;color:var(--muted);max-width:460px;margin:0 auto 36px;font-size:0.93rem;line-height:1.7;">
+        All fields are optional except your name or nickname.
+        This is not a medical form &mdash; just a way for you to record a moment.
+      </p>
+
+      <div class="form-card">
+
+        <div class="privacy-note" role="note">
+          <strong>A quick note on privacy:</strong> Please do not share medical details or anything you would not want others to see.
+          These check-ins are reviewed privately by Twizted Journeys staff only.
+          They are not shared publicly, used for clinical purposes, or connected to any treatment record.
+        </div>
+
+        <form id="spinner-form" onsubmit="handleSpinnerCheckin(event)" novalidate>
+
+          <div class="form-group">
+            <label for="sp-nickname">Name or Nickname <span aria-hidden="true">*</span></label>
+            <input type="text" id="sp-nickname" name="nickname" placeholder="Your name or a nickname" required autocomplete="name" />
+          </div>
+
+          <div class="form-group">
+            <label for="sp-spinner">Which spinner? <span class="opt">(optional &mdash; number or color)</span></label>
+            <input type="text" id="sp-spinner" name="spinner_id" placeholder="e.g. Blue, Spinner 2, the green one..." />
+          </div>
+
+          <div class="form-group">
+            <label for="sp-before">How were you feeling before? <span class="opt">(optional)</span></label>
+            <select id="sp-before" name="feeling_before">
+              <option value="">-- Choose one or skip --</option>
+              <option value="calm">Calm</option>
+              <option value="a-little-off">A little off</option>
+              <option value="anxious">Anxious or restless</option>
+              <option value="overwhelmed">Overwhelmed</option>
+              <option value="sad">Sad or heavy</option>
+              <option value="frustrated">Frustrated</option>
+              <option value="numb">Numb or disconnected</option>
+              <option value="okay">Okay, just pausing</option>
+              <option value="other">Something else</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="sp-after">How are you feeling now? <span class="opt">(optional)</span></label>
+            <select id="sp-after" name="feeling_after">
+              <option value="">-- Choose one or skip --</option>
+              <option value="better">A little better</option>
+              <option value="calmer">Calmer</option>
+              <option value="same">About the same</option>
+              <option value="still-hard">Still working through it</option>
+              <option value="grounded">More grounded</option>
+              <option value="ready">Ready to keep going</option>
+              <option value="other">Something else</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="sp-note">Anything else you want to say? <span class="opt">(optional)</span></label>
+            <textarea id="sp-note" name="note" placeholder="Leave a note if you want. No pressure."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary submit-btn">&#9854; Leave My Check-In</button>
+
+        </form>
+
+        <p class="not-therapy-note">
+          Twizted Journeys is not a clinical service, therapy provider, or crisis hotline.
+          This form is not part of any treatment or diagnosis.
+          If you need immediate help, call or text <strong>988</strong> (US, free, 24/7).
+        </p>
+
+      </div><!-- /form-card -->
+
+    </div>
+  </section>
+
+</main>
+
+<div class="crisis-band" role="complementary" aria-label="Crisis support information">
+  <div class="container">
+    <p>
+      <strong>Twizted Journeys is not a crisis hotline.</strong>
+      If you or someone you know is in immediate danger, call emergency services now.<br />
+      In the US: call or text <span class="crisis-number">988</span> or visit
+      <a href="https://988lifeline.org" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">988lifeline.org</a>.
+      Text <strong>HOME</strong> to <strong>741741</strong>.
+    </p>
+  </div>
+</div>
+
+<footer class="site-footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h2>Tw<span>;</span>zted Journeys</h2>
+        <p>A safe place for every journey. Indiana nonprofit serving Shelby, Johnson, Bartholomew, Hancock, Decatur, and Rush counties.</p>
+        <p style="margin-top:10px;"><a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
+      </div>
+      <div class="footer-col">
+        <h3>Navigate</h3>
+        <ul>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="stories.html">Share Your Story</a></li>
+          <li><a href="memorial.html">Memorial</a></li>
+          <li><a href="podcast.html">Podcast</a></li>
+          <li><a href="merch.html">Shop</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="https://988lifeline.org" target="_blank" rel="noopener">988 Crisis Lifeline</a></li>
+          <li><a href="https://crisistextline.org" target="_blank" rel="noopener">Crisis Text Line</a></li>
+          <li><a href="https://afsp.org" target="_blank" rel="noopener">AFSP</a></li>
+          <li><a href="https://nami.org" target="_blank" rel="noopener">NAMI</a></li>
+          <li><a href="https://overdoselifeline.org" target="_blank" rel="noopener">Overdose Lifeline</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Connect</h3>
+        <ul>
+          <li><a href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener">Facebook Community Group</a></li>
+          <li><a href="https://x.com/TonyaCrump14" target="_blank" rel="noopener">X (Twitter)</a></li>
+          <li><a href="https://www.tiktok.com/@twiztedjourneys" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="https://api.whatsapp.com/send?phone=3176043642" target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-disclaimer">
+      Twizted Journeys, Inc. is a 501(c)(3) public charity. Donations are tax-deductible as allowed by law.
+      We are not a crisis hotline, counseling service, therapy provider, medical provider, or emergency response service.
+      If you are in crisis, please call 911 or contact the 988 Suicide &amp; Crisis Lifeline.
+    </p>
+    <div class="footer-bottom">
+      <p>&copy; 2022&ndash;2026 Twizted Journeys, Inc. All rights reserved. &middot; 501(c)(3) nonprofit</p>
+      <p>Founders: Tonya Crump &amp; Tia Weaver &nbsp;|&nbsp; <a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/tj-public-config.js"></script>
+<script src="js/tj-forms.js"></script>
+</body>
+</html>
