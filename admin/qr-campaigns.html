@@ -546,9 +546,14 @@ twiztedjourneys.org</div>
 <script>
 // ── Auth init ──────────────────────────────────────────────────────────────
 initAdmin(function(user, db) {
-  document.getElementById('admin-loading').style.display = 'none';
-  document.getElementById('admin-shell').style.display   = 'flex';
-  document.getElementById('user-email').textContent = user.email || 'Admin';
+  const loadingEl = document.getElementById('admin-loading');
+  const shellEl = document.getElementById('admin-shell');
+  const userEmailEl = document.getElementById('user-email');
+
+  if (loadingEl) loadingEl.style.display = 'none';
+  if (shellEl) shellEl.style.display = 'flex';
+  if (userEmailEl) userEmailEl.textContent = user.email || 'Admin';
+
   window._db = db;
   loadCounts();
 });
@@ -679,3 +684,4 @@ function fmtDate(ts) {
 <script src="../js/tj-public-config.js"></script>
 </body>
 </html>
+
