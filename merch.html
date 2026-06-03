@@ -249,6 +249,13 @@
       align-items: center; justify-content: center; padding: 20px;
     }
     #th-modal.is-open { display: flex; }
+    #tc-modal {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      background: rgba(11,11,15,.88);
+      backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    #tc-modal.is-open { display: flex; }
     @media (max-width:480px) {
       .tt-grid { grid-template-columns: repeat(auto-fill,minmax(155px,1fr)); gap: 12px; }
       .tt-modal-inner { max-height: 95vh; }
@@ -996,6 +1003,224 @@
     </div>
   </div>
 
+  <!-- ── Broken Beautiful Creations ──────────────────────────────── -->
+  <section id="broken-beautiful-creations" class="tt-section"
+           aria-labelledby="tc-collection-heading" style="padding-top:0;">
+    <div class="container">
+
+      <div class="tt-heading-block">
+        <p class="section-label">Twizted Treasures</p>
+        <h2 id="tc-collection-heading">Broken Beautiful <em>Creations</em></h2>
+        <p class="tt-intro">Handmade with heart. Painted with purpose. Every piece carries its own story.</p>
+        <div class="tt-custom-note">
+          <strong>Handmade &amp; Upcycled Note</strong><br>
+          Just like life&rsquo;s journeys, our creations aren&rsquo;t perfect, and that&rsquo;s exactly what makes them special.
+          Many of our handmade items are crafted from upcycled materials, carrying their own history and character.
+          Minor imperfections are not flaws; they are reminders that beauty can be found in what others may overlook.
+          Every piece is uniquely broken beautiful.
+        </div>
+        <p class="tt-mission-note">
+          Proceeds help support Twizted Journeys&rsquo; mission of spreading awareness, compassion,
+          comfort, resources, tools, and education for mental health awareness, suicide prevention,
+          and suicide loss survivors.
+        </p>
+        <p style="font-size:0.82rem;color:var(--muted);margin-top:10px;">
+          Please message us first to confirm availability before sending payment for merch items.
+        </p>
+      </div>
+
+      <div class="tt-grid" id="tc-grid">
+
+        <!-- JB7 — Keepsake Jewelry Box Gift Set -->
+        <div class="tt-card" data-csku="JB7" role="button" tabindex="0"
+             aria-label="View details for JB7: Twizted Journeys Keepsake Jewelry Box Gift Set"
+             onclick="tcOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tcOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/jb7-keepsake-box-complete-set.png"
+                 alt="JB7 &mdash; Twizted Journeys Keepsake Jewelry Box Gift Set with semicolon artwork, dragonflies, and awareness accessories"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">JB7</p>
+            <p class="tt-card-name">Twizted Journeys Keepsake Jewelry Box Gift Set</p>
+            <p class="tt-card-short">Hand-painted keepsake jewelry box gift set with awareness accessories, semicolon artwork, dragonflies, and messages of hope, strength, and continuation.</p>
+            <p class="tt-card-meta">Approx. 7&Prime; tall &nbsp;&bull;&nbsp; Hand-painted &nbsp;&bull;&nbsp; Upcycled &amp; handcrafted</p>
+            <p class="tt-card-price">$32.99</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20JB7%20Keepsake%20Jewelry%20Box%20Gift%20Set&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20JB7%20%E2%80%94%20Twizted%20Journeys%20Keepsake%20Jewelry%20Box%20Gift%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Message to Order</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grateful Bear Shelf Sitter -->
+        <div class="tt-card" data-csku="BEAR" role="button" tabindex="0"
+             aria-label="View details for Grateful Bear Shelf Sitter"
+             onclick="tcOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tcOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/grateful-bear-shelf-sitter-showcase.png"
+                 alt="Grateful Bear Shelf Sitter &mdash; handmade teal purple and pink with two teddy bears and a heart centerpiece"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge" style="color:var(--teal);">Handmade</p>
+            <p class="tt-card-name">Grateful Bear Shelf Sitter</p>
+            <p class="tt-card-short">A quirky, one-of-a-kind handmade shelf sitter with two grateful bear companions and a colorful heart centerpiece.</p>
+            <p class="tt-card-meta">Approx. 8&Prime; wide &times; 3&Prime; tall &nbsp;&bull;&nbsp; Upcycled &amp; handcrafted</p>
+            <p class="tt-card-price">$19.99</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20Grateful%20Bear%20Shelf%20Sitter&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20the%20Grateful%20Bear%20Shelf%20Sitter.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Message to Order</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- UT4 / UT7 — Miniature Unicorn Figurines -->
+        <div class="tt-card" data-csku="UT4" role="button" tabindex="0"
+             aria-label="View details for UT4 / UT7: Miniature Unicorn Figurines"
+             onclick="tcOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tcOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/ut4-ut7-mini-unicorn-figurines-clean.png"
+                 alt="UT4 UT7 &mdash; Hand-painted miniature unicorn figurines with teal and purple Twizted Journeys details and semicolon markings"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">UT4 / UT7</p>
+            <p class="tt-card-name">Miniature Unicorn Figurines</p>
+            <p class="tt-card-short">Hand-painted miniature unicorns with glitter accents, teal or purple details, and semicolon markings.</p>
+            <p class="tt-card-meta">Approx. 2.5&Prime;&ndash;3&Prime; tall &nbsp;&bull;&nbsp; Hand-painted &nbsp;&bull;&nbsp; Each piece unique</p>
+            <p class="tt-card-price">$9.99 each</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20UT4%20UT7%20Miniature%20Unicorn%20Figurines&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20UT4%20%2F%20UT7%20%E2%80%94%20Miniature%20Unicorn%20Figurines.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Message to Order</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- VDD2 / VDD5 — Patchwork Companion Figurine -->
+        <div class="tt-card" data-csku="VDD2" role="button" tabindex="0"
+             aria-label="View details for VDD2 / VDD5: Patchwork Companion Figurine"
+             onclick="tcOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tcOpenModal(this);}">
+          <div class="tt-card-img-wrap">
+            <img src="images/merch/clean/vdd2-vdd5-patchwork-companion-front-back-clean.png"
+                 alt="VDD2 VDD5 &mdash; Glittery hand-painted patchwork companion figurine with oversized eyes, stitched details, teal purple and blue"
+                 loading="lazy" />
+            <div class="tt-card-overlay" aria-hidden="true">View Details</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">VDD2 / VDD5</p>
+            <p class="tt-card-name">Patchwork Companion Figurine</p>
+            <p class="tt-card-short">A glittery, hand-painted patchwork companion with oversized eyes, stitched details, and a wonderfully quirky personality.</p>
+            <p class="tt-card-meta">Approx. 3&Prime; tall &times; 2&Prime; wide &nbsp;&bull;&nbsp; Glossy glitter finish &nbsp;&bull;&nbsp; Each piece unique</p>
+            <p class="tt-card-price">$17.99</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20VDD2%20VDD5%20Patchwork%20Companion%20Figurine&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20VDD2%20%2F%20VDD5%20%E2%80%94%20Patchwork%20Companion%20Figurine.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Message to Order</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- U1 — Twizted Semicolon Unicorn Candle Holder (image pending) -->
+        <!-- TODO: Add cleaned product image when available. Expected path: images/merch/clean/u1-unicorn-candle-holder-clean.png -->
+        <div class="tt-card" data-csku="U1" role="button" tabindex="0"
+             aria-label="View details for U1: Twizted Semicolon Unicorn Candle Holder"
+             onclick="tcOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tcOpenModal(this);}">
+          <div class="tt-card-img-wrap" style="background:rgba(138,43,239,0.05);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+            <div style="font-size:2rem;opacity:0.45;" aria-hidden="true">&#128367;</div>
+            <div style="font-size:0.7rem;color:var(--muted);opacity:0.6;text-align:center;padding:0 12px;">Photo coming soon</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">U1</p>
+            <p class="tt-card-name">Twizted Semicolon Unicorn Candle Holder</p>
+            <p class="tt-card-short">Hand-painted unicorn candle holder with teal and purple accents, semicolon details, and a glittering candle cup.</p>
+            <p class="tt-card-meta">Approx. 7&Prime; high &times; 6&Prime; wide &nbsp;&bull;&nbsp; Hand-painted</p>
+            <p class="tt-card-price">$29.99</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20U1%20Semicolon%20Unicorn%20Candle%20Holder&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20U1%20%E2%80%94%20Twizted%20Semicolon%20Unicorn%20Candle%20Holder.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Message to Order</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Momma and Foal Figurine (image pending) -->
+        <!-- TODO: Add cleaned product image when available. Expected path: images/merch/clean/u22p-momma-foal-figurine-clean.png -->
+        <div class="tt-card" data-csku="U22P" role="button" tabindex="0"
+             aria-label="View details for Momma and Foal Figurine"
+             onclick="tcOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tcOpenModal(this);}">
+          <div class="tt-card-img-wrap" style="background:rgba(138,43,239,0.05);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+            <div style="font-size:2rem;opacity:0.45;" aria-hidden="true">&#129418;</div>
+            <div style="font-size:0.7rem;color:var(--muted);opacity:0.6;text-align:center;padding:0 12px;">Photo coming soon</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">U22P</p>
+            <p class="tt-card-name">Momma and Foal Figurine</p>
+            <p class="tt-card-short">Hand-painted momma and foal fantasy figurine in Twizted-inspired colors.</p>
+            <p class="tt-card-meta">Hand-painted &nbsp;&bull;&nbsp; Each piece unique</p>
+            <p class="tt-card-price">$24.99 each</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20U22P%20Momma%20and%20Foal%20Figurine&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20U22P%20%E2%80%94%20Momma%20and%20Foal%20Figurine.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Message to Order</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- GP5 — Gothic Fairy Statue (image pending) -->
+        <!-- TODO: Add cleaned product image when available. Expected path: images/merch/clean/gp5-gothic-fairy-statue-clean.png -->
+        <div class="tt-card" data-csku="GP5" role="button" tabindex="0"
+             aria-label="View details for GP5: Gothic Fairy Statue"
+             onclick="tcOpenModal(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tcOpenModal(this);}">
+          <div class="tt-card-img-wrap" style="background:rgba(138,43,239,0.05);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+            <div style="font-size:2rem;opacity:0.45;" aria-hidden="true">&#129498;</div>
+            <div style="font-size:0.7rem;color:var(--muted);opacity:0.6;text-align:center;padding:0 12px;">Photo coming soon</div>
+          </div>
+          <div class="tt-card-body">
+            <p class="tt-hp-badge">GP5</p>
+            <p class="tt-card-name">Gothic Fairy Statue</p>
+            <p class="tt-card-short">A mystical fairy statue resting among dark blossoms and emerald leaves, finished in metallic greens and silvers.</p>
+            <p class="tt-card-meta">Approx. 10&Prime; long &times; 6&Prime; wide &nbsp;&bull;&nbsp; Hand-finished</p>
+            <p class="tt-card-price">$29.99</p>
+            <div class="tt-card-actions" onclick="event.stopPropagation()">
+              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20GP5%20Gothic%20Fairy%20Statue&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20GP5%20%E2%80%94%20Gothic%20Fairy%20Statue.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+                 class="btn btn-secondary">Message to Order</a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.tt-grid -->
+    </div>
+  </section>
+
+  <!-- ── Broken Beautiful Creations Detail Modal ───────────────────── -->
+  <div id="tc-modal" role="dialog" aria-modal="true" aria-labelledby="tc-modal-title"
+       onclick="if(event.target===this)tcCloseModal()">
+    <div class="tt-modal-inner">
+      <button class="tt-modal-close" onclick="tcCloseModal()" aria-label="Close dialog">&times;</button>
+      <div class="tt-modal-img-col">
+        <img id="tc-modal-img" src="" alt="" />
+        <div id="tc-modal-placeholder" style="display:none;align-items:center;justify-content:center;height:100%;min-height:120px;color:var(--muted);font-size:0.8rem;text-align:center;padding:20px;opacity:0.65;">Photo coming soon</div>
+      </div>
+      <div class="tt-modal-info">
+        <p class="tt-modal-badge" id="tc-modal-badge"></p>
+        <h2 class="tt-modal-title" id="tc-modal-title"></h2>
+        <p class="tt-modal-desc" id="tc-modal-desc"></p>
+        <p class="tt-modal-specs" id="tc-modal-specs"></p>
+        <p class="tt-modal-price" id="tc-modal-price"></p>
+        <a id="tc-modal-btn" href="#" class="btn btn-secondary"
+           onclick="event.stopPropagation()">Message to Order</a>
+      </div>
+    </div>
+  </div>
+
   <!-- Twizted Treasures tracker callout -->
   <section style="padding:72px 0;" aria-labelledby="tracker-callout-heading">
     <div class="container">
@@ -1419,6 +1644,119 @@ function ttCloseModal() {
 }
 
 function ttEscHandler(e) { if (e.key === 'Escape') ttCloseModal(); }
+</script>
+<script>
+/* ── Broken Beautiful Creations catalog ─────────────────────────────── */
+const TC_DATA = {
+  "JB7": {
+    badge: "JB7",
+    name: "Twizted Journeys Keepsake Jewelry Box Gift Set",
+    img: "images/merch/clean/jb7-keepsake-box-complete-set.png",
+    alt: "JB7 — Twizted Journeys Keepsake Jewelry Box Gift Set",
+    desc: "More than a jewelry box, this handcrafted keepsake set is a reminder that every journey matters. Painted in Twizted Journeys' signature teal and purple colors, this miniature house-shaped jewelry box features uplifting messages including \"Time,\" \"Stay,\" \"Breathe,\" and \"Strong,\" along with dragonflies and semicolon-inspired artwork symbolizing hope, resilience, and continuation.\n\nIncludes: Hand-painted two-drawer keepsake jewelry box · Resin awareness ribbon keychain · Semicolon heart keychain (HP3) · Twizted semicolon pin · Awareness ribbon pin · Matching semicolon awareness bracelets",
+    specs: "Jewelry box: approx. 7\" tall × 5\" wide × 4\" deep\nTwo storage drawer compartments\nWeight: approx. 1 to 1.5 lbs\nHandmade · Upcycled materials",
+    price: "$32.99",
+    mailto: "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20JB7%20Keepsake%20Jewelry%20Box%20Gift%20Set&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20JB7%20%E2%80%94%20Twizted%20Journeys%20Keepsake%20Jewelry%20Box%20Gift%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "BEAR": {
+    badge: "Handmade",
+    name: "Grateful Bear Shelf Sitter",
+    img: "images/merch/clean/grateful-bear-shelf-sitter-showcase.png",
+    alt: "Grateful Bear Shelf Sitter",
+    desc: "A little quirky, a little spooky, and completely one-of-a-kind. This handcrafted shelf sitter features two teddy bear turned grateful bear companions protecting a vibrant heart centerpiece adorned with artwork, symbolism, and personality. Painted in bold teal, purple, and pink hues, this piece celebrates connection, individuality, and the strength found in standing together through life's twists and turns.\n\nPerfect for alternative décor lovers, collectors of the unusual, mental health advocates, or anyone who appreciates handmade creations with a story behind them.\n\nFeatures: Hand-painted · One-of-a-kind · Freestanding shelf or desk décor · Upcycled and handcrafted",
+    specs: "Size: approx. 8\" wide × 3\" tall\nWeight: approx. 7.7 oz\nHandmade · Upcycled materials",
+    price: "$19.99",
+    mailto: "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20Grateful%20Bear%20Shelf%20Sitter&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20the%20Grateful%20Bear%20Shelf%20Sitter.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "UT4": {
+    badge: "UT4 / UT7",
+    name: "Miniature Unicorn Figurines",
+    img: "images/merch/clean/ut4-ut7-mini-unicorn-figurines-clean.png",
+    alt: "UT4 / UT7 — Miniature Unicorn Figurines",
+    desc: "A tiny unicorn with a big personality. These hand-painted fantasy figurines feature a glossy midnight-black finish accented with Twizted Journeys-inspired teal or purple details, shimmering glitter highlights, and semicolon markings symbolizing hope and perseverance. The rearing pose gives each miniature unicorn a playful, magical energy — perfect for desks, shelves, fairy gardens, gift baskets, or collectible displays.\n\nEach piece is uniquely finished, making no two exactly alike.",
+    specs: "Size: approx. 2.5\" to 3\" tall\nWeight: approx. 3.4 oz\nHand-painted · Each piece unique",
+    price: "$9.99 each",
+    mailto: "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20UT4%20UT7%20Miniature%20Unicorn%20Figurines&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20UT4%20%2F%20UT7%20%E2%80%94%20Miniature%20Unicorn%20Figurines.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "VDD2": {
+    badge: "VDD2 / VDD5",
+    name: "Patchwork Companion Figurine",
+    img: "images/merch/clean/vdd2-vdd5-patchwork-companion-front-back-clean.png",
+    alt: "VDD2 / VDD5 — Patchwork Companion Figurine",
+    desc: "A tiny traveler from a galaxy stitched together with hope and imagination. This handcrafted patchwork companion features shimmering shades of teal, purple, and blue with glittering accents, oversized expressive eyes, faux stitched details, and heart-shaped patches that give it a wonderfully quirky personality.\n\nFinished with a glossy protective coating, each figure has its own unique blend of colors and markings, making no two exactly alike. Perfect for shelves, desks, altar spaces, curio cabinets, or among favorite oddities.\n\nFeatures: Hand-painted · One-of-a-kind design · Glossy glitter finish · Teal and purple color palette",
+    specs: "Size: approx. 3\" tall × 2\" wide\nWeight: approx. 2.9 oz\nHand-painted · Glossy glitter finish",
+    price: "$17.99",
+    mailto: "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20VDD2%20VDD5%20Patchwork%20Companion%20Figurine&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20VDD2%20%2F%20VDD5%20%E2%80%94%20Patchwork%20Companion%20Figurine.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "U1": {
+    badge: "U1",
+    name: "Twizted Semicolon Unicorn Candle Holder",
+    img: "",
+    alt: "U1 — Twizted Semicolon Unicorn Candle Holder",
+    desc: "Add a touch of magic, hope, and inspiration to your space with this hand-painted Twizted Semicolon Unicorn Candle Holder. Featuring a striking black unicorn accented with Twizted Journeys' signature teal and purple colors, this unique piece symbolizes strength, resilience, and the journey of continuing forward.\n\nThe unicorn is decorated with semicolon accents, representing the message that your story isn't over yet. Resting beside the unicorn is a glittering candle holder that sparkles beautifully when illuminated.\n\nFeatures: Hand-painted one-of-a-kind design · Teal and purple accents · Semicolon awareness details · Integrated glitter candle holder",
+    specs: "Size: approx. 7\" high × 6\" wide × 4\" deep\nWeight: approx. 15.2 oz / 0.95 lb\nHand-painted · One-of-a-kind",
+    price: "$29.99",
+    mailto: "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20U1%20Semicolon%20Unicorn%20Candle%20Holder&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20U1%20%E2%80%94%20Twizted%20Semicolon%20Unicorn%20Candle%20Holder.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "U22P": {
+    badge: "U22P",
+    name: "Momma and Foal Figurine",
+    img: "",
+    alt: "U22P — Momma and Foal Figurine",
+    desc: "Hand-painted momma and foal fantasy figurine in Twizted-inspired colors. A beautiful handmade piece celebrating the bond between parent and child.\n\nEach piece is uniquely finished by hand, making no two exactly alike.",
+    specs: "Hand-painted · Each piece unique",
+    price: "$24.99 each",
+    mailto: "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20U22P%20Momma%20and%20Foal%20Figurine&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20U22P%20%E2%80%94%20Momma%20and%20Foal%20Figurine.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  },
+  "GP5": {
+    badge: "GP5",
+    name: "Gothic Fairy Statue",
+    img: "",
+    alt: "GP5 — Gothic Fairy Statue",
+    desc: "A striking fantasy fairy rests among dark blossoms and emerald leaves, creating a scene that feels pulled from a forgotten enchanted forest. Hand-finished with metallic green accents, flowing silver hair, and dramatic black wings, this unique decorative piece blends beauty, mystery, and gothic elegance.\n\nPerfect for fantasy lovers, fairy collectors, gothic décor enthusiasts, and anyone who appreciates magical woodland art. The detailed flowers, textured wings, and flowing gown make this piece a captivating display.",
+    specs: "Size: approx. 10\" long × 6\" wide × 3\" tall\nWeight: approx. 1 lb 11 oz\nHand-finished",
+    price: "$29.99",
+    mailto: "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20GP5%20Gothic%20Fairy%20Statue&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20GP5%20%E2%80%94%20Gothic%20Fairy%20Statue.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+  }
+};
+
+function tcOpenModal(card) {
+  const sku = card.dataset.csku;
+  const d = TC_DATA[sku];
+  if (!d) return;
+  const imgEl = document.getElementById('tc-modal-img');
+  const placeholder = document.getElementById('tc-modal-placeholder');
+  if (d.img) {
+    imgEl.src = d.img;
+    imgEl.alt = d.alt;
+    imgEl.style.display = '';
+    placeholder.style.display = 'none';
+  } else {
+    imgEl.src = '';
+    imgEl.alt = '';
+    imgEl.style.display = 'none';
+    placeholder.style.display = 'flex';
+  }
+  document.getElementById('tc-modal-badge').textContent = d.badge;
+  document.getElementById('tc-modal-title').textContent = d.name;
+  document.getElementById('tc-modal-desc').innerHTML    = d.desc.replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+  document.getElementById('tc-modal-specs').innerHTML   = d.specs.replace(/\n/g,'<br>');
+  document.getElementById('tc-modal-price').textContent = d.price;
+  document.getElementById('tc-modal-btn').href          = d.mailto;
+  const m = document.getElementById('tc-modal');
+  m.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+  document.addEventListener('keydown', tcEscHandler);
+  m.querySelector('.tt-modal-close').focus();
+}
+
+function tcCloseModal() {
+  document.getElementById('tc-modal').classList.remove('is-open');
+  document.body.style.overflow = '';
+  document.removeEventListener('keydown', tcEscHandler);
+}
+
+function tcEscHandler(e) { if (e.key === 'Escape') tcCloseModal(); }
 </script>
 <script src="js/main.js"></script>
 
