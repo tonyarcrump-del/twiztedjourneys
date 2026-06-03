@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canva QR Asset Kit &mdash; Twizted Journeys (Internal Reference)</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0b0b0f;
+      color: #f8fbff;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      padding: 40px 20px 80px;
+    }
+    .page-header {
+      max-width: 860px;
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+    .page-header .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #56E0D2;
+      margin-bottom: 12px;
+    }
+    .page-header h1 {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .page-header h1 em { font-style: normal; color: #56E0D2; }
+    .page-header p {
+      color: #A8B4C0;
+      font-size: 0.96rem;
+      line-height: 1.7;
+      max-width: 580px;
+      margin: 0 auto;
+    }
+    .notice {
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: rgba(138,43,239,0.08);
+      border: 1px solid rgba(138,43,239,0.25);
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-size: 0.85rem;
+      color: #A8B4C0;
+      line-height: 1.6;
+    }
+    .notice strong { color: #f8fbff; }
+    .qr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto 56px;
+    }
+    .qr-card {
+      background: rgba(26,26,40,0.85);
+      border: 1px solid rgba(138,43,239,0.18);
+      border-radius: 16px;
+      padding: 28px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .qr-card:hover {
+      border-color: rgba(86,224,210,0.4);
+      transform: translateY(-2px);
+    }
+    .qr-number {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #56E0D2;
+      margin-bottom: 8px;
+    }
+    .qr-img-wrap {
+      background: #fff;
+      border-radius: 12px;
+      padding: 10px;
+      width: 180px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .qr-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .qr-label {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #f8fbff;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .qr-filename {
+      font-size: 0.74rem;
+      font-family: 'Courier New', monospace;
+      color: #56E0D2;
+      margin-bottom: 10px;
+      opacity: 0.8;
+    }
+    .qr-dest {
+      font-size: 0.75rem;
+      color: #A8B4C0;
+      margin-bottom: 10px;
+      word-break: break-all;
+      line-height: 1.5;
+    }
+    .qr-dest a { color: #56E0D2; text-decoration: none; }
+    .qr-dest a:hover { text-decoration: underline; }
+    .qr-use {
+      font-size: 0.78rem;
+      color: #A8B4C0;
+      opacity: 0.75;
+      line-height: 1.55;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+    .qr-suggested-label {
+      font-size: 0.72rem;
+      background: rgba(86,224,210,0.08);
+      border: 1px solid rgba(86,224,210,0.2);
+      border-radius: 6px;
+      padding: 6px 12px;
+      color: #56E0D2;
+      font-style: italic;
+      margin-bottom: 16px;
+      width: 100%;
+    }
+    .qr-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(138,43,239,0.15);
+      border: 1px solid rgba(138,43,239,0.3);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #f8fbff;
+      text-decoration: none;
+      transition: background 0.2s;
+      margin-top: auto;
+    }
+    .qr-dl:hover { background: rgba(138,43,239,0.28); }
+
+    /* Usage notes */
+    .usage-section {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .usage-section h2 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #f8fbff;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(138,43,239,0.2);
+    }
+    .usage-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .usage-card {
+      background: rgba(26,26,40,0.6);
+      border: 1px solid rgba(138,43,239,0.13);
+      border-radius: 12px;
+      padding: 20px 18px;
+    }
+    .usage-card h3 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #56E0D2;
+      margin-bottom: 10px;
+    }
+    .usage-card ul {
+      padding-left: 16px;
+      color: #A8B4C0;
+      font-size: 0.82rem;
+      line-height: 1.8;
+    }
+    .footer-note {
+      max-width: 860px;
+      margin: 48px auto 0;
+      font-size: 0.78rem;
+      color: #A8B4C0;
+      opacity: 0.65;
+      text-align: center;
+      line-height: 1.7;
+    }
+    @media (max-width: 480px) {
+      .qr-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .qr-card { padding: 18px 12px 16px; }
+      .qr-img-wrap { width: 130px; height: 130px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <p class="eyebrow">Twizted Journeys &middot; Internal Reference</p>
+    <h1>Canva <em>QR Asset Kit</em></h1>
+    <p>Download or drag these QR codes directly into Canva for flyers, signs, shirts, business cards, and event materials. Always test-scan before printing.</p>
+  </div>
+
+  <div class="notice">
+    <strong>Internal use only.</strong> This page is not linked from the public website.
+    All QR codes point to live pages on <strong>twiztedjourneys.org</strong>.
+    See <code>README.md</code> in this folder for full print specs and Canva usage notes.
+  </div>
+
+  <!-- QR Cards -->
+  <div class="qr-grid">
+
+    <div class="qr-card">
+      <p class="qr-number">01 &mdash; Events</p>
+      <div class="qr-img-wrap">
+        <img src="01-events-qr.png" alt="Events QR code" />
+      </div>
+      <p class="qr-label">Events QR</p>
+      <p class="qr-filename">01-events-qr.png</p>
+      <p class="qr-dest"><a href="https://twiztedjourneys.org/events.html" target="_blank" rel="noopener">twiztedjourneys.org/events.html</a></p>
+      <p class="qr-use">Event flyers, table signs, social posts, business cards, printed outreach. Permanent &mdash; old flyers still work.</p>
+      <p class="qr-suggested-label">&ldquo;Scan for Upcoming Events&rdquo;</p>
+      <a href="01-events-qr.png" download class="qr-dl">&#8659; Download</a>
+    </div>
+
+    <div class="qr-card">
+      <p class="qr-number">02 &mdash; Shoe Drive</p>
+      <div class="qr-img-wrap">
+        <img src="02-shoe-drive-qr.png" alt="Shoe Drive QR code" />
+      </div>
+      <p class="qr-label">Shoe Drive QR</p>
+      <p class="qr-filename">02-shoe-drive-qr.png</p>
+      <p class="qr-dest"><a href="https://twiztedjourneys.org/shoe-drive.html" target="_blank" rel="noopener">twiztedjourneys.org/shoe-drive.html</a></p>
+      <p class="qr-use">Shoe drive flyers, donation box signs, business outreach, table materials, social posts.</p>
+      <p class="qr-suggested-label">&ldquo;Scan for Shoe Drive Info&rdquo;</p>
+      <a href="02-shoe-drive-qr.png" download class="qr-dl">&#8659; Download</a>
+    </div>
+
+    <div class="qr-card">
+      <p class="qr-number">03 &mdash; Continue After the Pause</p>
+      <div class="qr-img-wrap">
+        <img src="03-continue-after-the-pause-qr.png" alt="Continue After the Pause QR code" />
+      </div>
+      <p class="qr-label">Continue After the Pause</p>
+      <p class="qr-filename">03-continue-after-the-pause-qr.png</p>
+      <p class="qr-dest"><a href="https://twiztedjourneys.org/continue.html" target="_blank" rel="noopener">twiztedjourneys.org/continue.html</a></p>
+      <p class="qr-use">DTF shirt transfers, awareness apparel, merch inserts, table materials. Keep at least 2&ndash;3 inches wide on shirts.</p>
+      <p class="qr-suggested-label">&ldquo;Scan to Follow the Journey&rdquo;</p>
+      <a href="03-continue-after-the-pause-qr.png" download class="qr-dl">&#8659; Download</a>
+    </div>
+
+    <div class="qr-card">
+      <p class="qr-number">04 &mdash; Treasure Tracker</p>
+      <div class="qr-img-wrap">
+        <img src="04-twizted-treasure-tracker-qr.png" alt="Twizted Treasure Tracker QR code" />
+      </div>
+      <p class="qr-label">Twizted Treasure Tracker</p>
+      <p class="qr-filename">04-twizted-treasure-tracker-qr.png</p>
+      <p class="qr-dest"><a href="https://twiztedjourneys.org/twizted-treasure-checkin.html" target="_blank" rel="noopener">twiztedjourneys.org/twizted-treasure-checkin.html</a></p>
+      <p class="qr-use">Charms, bracelets, stones, tags, small merch, giveaway items. Laminate for durability on small tags.</p>
+      <p class="qr-suggested-label">&ldquo;Scan to Continue This Treasure&rsquo;s Journey&rdquo;</p>
+      <a href="04-twizted-treasure-tracker-qr.png" download class="qr-dl">&#8659; Download</a>
+    </div>
+
+    <div class="qr-card">
+      <p class="qr-number">05 &mdash; Pause Spinner</p>
+      <div class="qr-img-wrap">
+        <img src="05-pause-spinner-checkin-qr.png" alt="Pause Spinner Check-In QR code" />
+      </div>
+      <p class="qr-label">Pause Spinner Check-In</p>
+      <p class="qr-filename">05-pause-spinner-checkin-qr.png</p>
+      <p class="qr-dest"><a href="https://twiztedjourneys.org/pause-spinner-checkin.html" target="_blank" rel="noopener">twiztedjourneys.org/pause-spinner-checkin.html</a></p>
+      <p class="qr-use">Spinner tags, PT office display cards, table signage. Repeated-use check-in. Laminate for durability.</p>
+      <p class="qr-suggested-label">&ldquo;Scan After Your Pause&rdquo;</p>
+      <a href="05-pause-spinner-checkin-qr.png" download class="qr-dl">&#8659; Download</a>
+    </div>
+
+  </div>
+
+  <!-- Usage notes -->
+  <div class="usage-section">
+    <h2>&#128247; Canva Usage Notes</h2>
+    <div class="usage-grid">
+
+      <div class="usage-card">
+        <h3>Uploading</h3>
+        <ul>
+          <li>Click <strong>Uploads</strong> in Canva</li>
+          <li>Select <strong>Upload files</strong></li>
+          <li>Choose the PNG files from this folder</li>
+          <li>All files are 600&times;600 px &mdash; print-ready</li>
+        </ul>
+      </div>
+
+      <div class="usage-card">
+        <h3>Placing &amp; Sizing</h3>
+        <ul>
+          <li>Keep the full white border around the QR</li>
+          <li>Do not crop into the code</li>
+          <li>Flyers/signs: min 1.5&Prime; square</li>
+          <li>Business cards: min 1&Prime; square</li>
+          <li>Shirts/DTF: min 2.5&Prime; wide (3&Prime; preferred)</li>
+          <li>Small tags/charms: min 0.75&Prime;</li>
+        </ul>
+      </div>
+
+      <div class="usage-card">
+        <h3>Backgrounds</h3>
+        <ul>
+          <li>Do <strong>not</strong> distort or rotate the QR</li>
+          <li>Use black QR on white or light background</li>
+          <li>On dark designs: add a white rectangle behind the QR in Canva first</li>
+          <li>Never place over a pattern or busy background</li>
+        </ul>
+      </div>
+
+      <div class="usage-card">
+        <h3>Before Printing</h3>
+        <ul>
+          <li>Test-scan with iPhone camera</li>
+          <li>Test-scan with Android camera</li>
+          <li>For DTF: print one test transfer and scan before ordering the full run</li>
+          <li>If scan fails: make the QR larger</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="footer-note">
+    Twizted Journeys, Inc. &mdash; Internal reference only. Not linked from the public site.<br>
+    QR source files: <code>images/qr/</code> &nbsp;&middot;&nbsp; Campaign docs: <code>docs/QR_DESTINATIONS.md</code> &nbsp;&middot;&nbsp; Admin: <code>admin/qr-campaigns.html</code>
+  </p>
+
+</body>
+</html>
