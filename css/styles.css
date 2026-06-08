@@ -932,5 +932,15 @@ section { padding: 80px 0; }
 .site-credit a:hover {
   opacity: 1;
 }
-
+.site-credit {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  opacity: 0.78;
 }
+
+.site-credit a {
+  color: #8A2BEF;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
