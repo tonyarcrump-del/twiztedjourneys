@@ -271,6 +271,79 @@
       .tt-grid { grid-template-columns: repeat(auto-fill,minmax(155px,1fr)); gap: 12px; }
       .tt-modal-inner { max-height: 95vh; }
     }
+    .merch-gallery-section {
+      padding: 48px 0 40px;
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      background: linear-gradient(160deg,#0d0614 0%,#0b0b0f 52%,#071614 100%);
+    }
+    .merch-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .merch-gallery-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(138,43,239,.22);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .merch-gallery-thumb {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      object-fit: cover;
+      background: rgba(248,251,255,.04);
+    }
+    .merch-gallery-card h3 {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--white);
+      line-height: 1.35;
+    }
+    .merch-gallery-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.55;
+      flex: 1;
+    }
+    .merch-gallery-card .btn {
+      width: 100%;
+      text-align: center;
+      font-size: 0.79rem;
+      padding: 8px 12px;
+    }
+    .merch-section-heading { scroll-margin-top: 88px; }
+    .back-to-gallery {
+      margin-top: 10px;
+      font-size: 0.82rem;
+    }
+    .back-to-gallery a {
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .back-to-gallery a:hover { text-decoration: underline; }
+    @media (max-width:680px) {
+      .merch-gallery-section { padding: 36px 0 30px; }
+      .merch-gallery-grid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+        gap: 10px;
+      }
+      .merch-gallery-card { padding: 10px; gap: 8px; }
+      .merch-gallery-card h3 { font-size: 0.84rem; }
+      .merch-gallery-card p { font-size: 0.74rem; line-height: 1.45; }
+      .merch-gallery-card .btn { font-size: 0.72rem; padding: 7px 9px; }
+    }
+    @media (max-width:420px) {
+      .merch-gallery-grid { grid-template-columns: 1fr; }
+    }
   </style>
 
 </head>
@@ -296,6 +369,7 @@
           <li><a href="charm-journey.html">Twizted Treasures</a></li>
         <li><a href="podcast.html">Podcast</a></li>
         <li><a href="about.html">About</a></li>
+        <!-- Verified donation URL: https://donorbox.org/help-penetrate-the-darkness -->
         <li><a href="https://donorbox.org/help-penetrate-the-darkness" class="btn btn-primary nav-donate">Donate</a></li>
       </ul>
     </div>
@@ -357,6 +431,59 @@
       </div>
     </div>
   </section>
+  <section id="merch-gallery" class="merch-gallery-section" aria-labelledby="merch-gallery-heading">
+    <div class="container">
+      <div style="max-width:760px;margin:0 auto;text-align:center;">
+        <p class="section-label">Browse by Collection</p>
+        <h2 class="section-title merch-section-heading" id="merch-gallery-heading">Merch Collection <em>Gallery</em></h2>
+        <p style="color:var(--muted);font-size:0.95rem;line-height:1.7;">Choose a collection to jump directly to that section and browse faster on mobile.</p>
+      </div>
+      <div class="merch-gallery-grid" role="list">
+        <article class="merch-gallery-card" role="listitem">
+          <img class="merch-gallery-thumb" src="images/merch/clean/hp3-heart-semicolon-charm-clean.png" alt="Pin Collection preview image" loading="lazy">
+          <h3>Pin Collection</h3>
+          <p>Awareness hat pins and semicolon-inspired designs that share hope in a small, meaningful way.</p>
+          <a href="#twizted-treasure-collection" class="btn btn-secondary">View Collection</a>
+        </article>
+        <article class="merch-gallery-card" role="listitem">
+          <img class="merch-gallery-thumb" src="images/merch/clean/hpc-pink-howlite-heart-clean.png" alt="Crystal Heart Pocket Stones preview image" loading="lazy">
+          <h3>Crystal Heart Pocket Stones</h3>
+          <p>Polished crystal hearts in unique colors and natural patterns, sized perfectly for pockets and gifting.</p>
+          <a href="#crystal-heart-collection" class="btn btn-secondary">View Collection</a>
+        </article>
+        <article class="merch-gallery-card" role="listitem">
+          <img class="merch-gallery-thumb" src="images/merch/clean/mbl-lapis-lazuli-mushrooms-clean.png" alt="Polished Stone Mushroom Collection preview image" loading="lazy">
+          <h3>Polished Stone Mushrooms</h3>
+          <p>Mini polished stone mushroom sets with one-of-a-kind colors and naturally varied details.</p>
+          <a href="#stone-mushroom-collection" class="btn btn-secondary">View Collection</a>
+        </article>
+        <article class="merch-gallery-card" role="listitem">
+          <img class="merch-gallery-thumb" src="images/merch/clean/jb7-keepsake-box-complete-set.png" alt="Broken Beautiful Creations preview image" loading="lazy">
+          <h3>Broken Beautiful</h3>
+          <p>Handmade and upcycled creations with character, color, and stories behind every piece.</p>
+          <a href="#broken-beautiful-creations" class="btn btn-secondary">View Collection</a>
+        </article>
+        <article class="merch-gallery-card" role="listitem">
+          <img class="merch-gallery-thumb" src="images/merch/clean/vdd2-vdd5-patchwork-companion-front-back-clean.png" alt="Twizted Treasures collection preview image" loading="lazy">
+          <h3>Twizted Treasures</h3>
+          <p>Explore the full Twizted Treasures catalog and track the journey behind your special finds.</p>
+          <a href="#tracker-callout-heading" class="btn btn-secondary">View Collection</a>
+        </article>
+        <article class="merch-gallery-card" role="listitem">
+          <img class="merch-gallery-thumb" src="images/merch/clean/ut4-ut7-mini-unicorn-figurines-clean.png" alt="Unicorn and specialty items preview image" loading="lazy">
+          <h3>Unicorns &amp; Specialty Items</h3>
+          <p>Playful unicorns, figurines, and specialty handmade treasures with bold personality.</p>
+          <a href="#unicorn-specialty-items" class="btn btn-secondary">View Collection</a>
+        </article>
+        <article class="merch-gallery-card" role="listitem">
+          <img class="merch-gallery-thumb" src="images/merch/clean/hp11-peace-heart-ribbon-charm-clean.png" alt="Coming soon collection preview image" loading="lazy">
+          <h3>Coming Soon / New Arrivals</h3>
+          <p>Watch for new merch additions and upcoming Twizted Treasures releases.</p>
+          <a href="#coming-soon-new-arrivals" class="btn btn-secondary">View Collection</a>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <!-- ── Twizted Treasure Charm Collection ──────────────────────────── -->
   <section id="twizted-treasure-collection" class="tt-section"
@@ -366,7 +493,7 @@
       <!-- Heading block -->
       <div class="tt-heading-block">
         <p class="section-label">Twizted Treasures</p>
-        <h2 id="tt-collection-heading">Pin <em>Collection</em></h2>
+        <h2 id="tt-collection-heading" class="merch-section-heading">Pin <em>Collection</em></h2>
         <p class="tt-intro">Small symbols. Big meaning. Every charm supports the mission of Twizted Journeys.</p>
         <p class="tt-mission-note">
           Proceeds help support Twizted Journeys&rsquo; mission of spreading awareness, compassion,
@@ -374,8 +501,9 @@
           and suicide loss survivors.
         </p>
         <p style="font-size:0.82rem;color:var(--muted);margin-top:10px;">
-          Please message us first to confirm availability before sending payment for merch items.
+          Order availability may vary. Send us a quick message and we’ll confirm your item, total, and pickup/shipping options.
         </p>
+        <p class="back-to-gallery"><a href="#merch-gallery">Back to merch gallery &uarr;</a></p>
       </div>
 
       <!-- Product grid -->
@@ -399,7 +527,7 @@
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP2%20Awareness%20Gnome%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP2%20%E2%80%94%20Awareness%20Gnome%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -422,7 +550,7 @@
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP3%20Semicolon%20Heart%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP3%20%E2%80%94%20Semicolon%20Heart%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -445,7 +573,7 @@
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP4%20Dual%20Awareness%20Ribbon%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP4%20%E2%80%94%20Dual%20Awareness%20Ribbon%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -468,7 +596,7 @@
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP5%20Wings%20of%20Hope%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP5%20%E2%80%94%20Wings%20of%20Hope%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -491,7 +619,7 @@
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP6%20Rainbow%20of%20Hope%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP6%20%E2%80%94%20Rainbow%20of%20Hope%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -514,7 +642,7 @@
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP7%20Fighting%20Together%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP7%20%E2%80%94%20Fighting%20Together%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -537,7 +665,7 @@
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP8%20Blooming%20Hope%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP8%20%E2%80%94%20Blooming%20Hope%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -560,7 +688,7 @@
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP9%20Dove%20of%20Peace%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP9%20%E2%80%94%20Dove%20of%20Peace%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -583,7 +711,7 @@
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP10%20Awareness%20Butterfly%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP10%20%E2%80%94%20Awareness%20Butterfly%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -606,13 +734,13 @@
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP11%20Love%20Hope%20and%20Awareness%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP11%20%E2%80%94%20Love%2C%20Hope%20and%20Awareness%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
 
         <!-- HP12 — Coming Soon -->
-        <div class="tt-card tt-card--coming" aria-label="HP12 Coming Soon">
+        <div id="coming-soon-new-arrivals" class="tt-card tt-card--coming" aria-label="HP12 Coming Soon">
           <p style="font-size:2rem;margin:0 0 10px;" aria-hidden="true">&#10024;</p>
           <p class="tt-hp-badge" style="text-align:center;">HP12</p>
           <p class="tt-card-name" style="text-align:center;margin-bottom:6px;">Coming Soon</p>
@@ -630,7 +758,7 @@
 
       <div class="tt-heading-block">
         <p class="section-label">Twizted Treasures</p>
-        <h2 id="tm-collection-heading">Polished Stone <em>Mushroom Collection</em></h2>
+        <h2 id="tm-collection-heading" class="merch-section-heading">Polished Stone <em>Mushroom Collection</em></h2>
         <p class="tt-intro">Small stone mushrooms with big personality. Each polished piece is unique in color, pattern, and natural character.</p>
         <p class="tt-mission-note" style="margin-bottom:18px;">
           Proceeds help support Twizted Journeys&rsquo; mission of spreading awareness, compassion,
@@ -641,6 +769,7 @@
           <strong>Natural Stone Note</strong><br>
           Due to the natural characteristics of stone, each piece is unique in color, pattern, and appearance.
         </div>
+        <p class="back-to-gallery"><a href="#merch-gallery">Back to merch gallery &uarr;</a></p>
       </div>
 
       <div class="tt-grid" id="tm-grid">
@@ -663,7 +792,7 @@
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MY2%20Yellow%20Aventurine%20Mushroom%20Set&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MY2%20%E2%80%94%20Yellow%20Aventurine%20Mushroom%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -686,7 +815,7 @@
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MGRU%20Green%20Stone%20Mushroom&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MGRU%20%E2%80%94%20Green%20Stone%20Mushroom.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -709,7 +838,7 @@
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MU2%20Unakite%20Mushroom%20Set&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MU2%20%E2%80%94%20Unakite%20Mushroom%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -732,7 +861,7 @@
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MP%20Purple%20Stone%20Mushroom&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MP%20%E2%80%94%20Purple%20Stone%20Mushroom.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -755,7 +884,7 @@
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MBL%20Lapis%20Lazuli%20Mushroom%20Set&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MBL%20%E2%80%94%20Lapis%20Lazuli%20Mushroom%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -778,7 +907,7 @@
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MOP%20Opalite%20Mushroom%20Set&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MOP%20%E2%80%94%20Opalite%20Mushroom%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -802,7 +931,7 @@
         <p class="tt-modal-specs" id="tm-modal-specs"></p>
         <p class="tt-modal-price" id="tm-modal-price"></p>
         <a id="tm-modal-btn" href="#" class="btn btn-secondary"
-           onclick="event.stopPropagation()">Message to Order</a>
+           onclick="event.stopPropagation()">Order Now</a>
       </div>
     </div>
   </div>
@@ -814,7 +943,7 @@
 
       <div class="tt-heading-block">
         <p class="section-label">Twizted Treasures</p>
-        <h2 id="th-collection-heading">Crystal Heart <em>Pocket Stones</em></h2>
+        <h2 id="th-collection-heading" class="merch-section-heading">Crystal Heart <em>Pocket Stones</em></h2>
         <p class="tt-intro">These polished crystal heart carvings are pocket-sized reminders of love, hope, strength, and healing. Each heart is crafted from genuine stone and polished to a smooth finish that highlights its natural beauty and unique patterns. Perfect for carrying in a pocket, displaying on a desk, gifting to a loved one, or adding to a crystal collection.</p>
         <p class="tt-mission-note" style="margin-bottom:18px;">
           Proceeds help support Twizted Journeys&rsquo; mission of spreading awareness, compassion,
@@ -825,6 +954,7 @@
           <strong>Natural Stone Note</strong><br>
           Due to the natural characteristics of stone, each heart is unique in color, pattern, and appearance. Availability may vary.
         </div>
+        <p class="back-to-gallery"><a href="#merch-gallery">Back to merch gallery &uarr;</a></p>
       </div>
 
       <div class="tt-grid" id="th-grid">
@@ -847,7 +977,7 @@
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HOC%20Orange%20Howlite%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HOC%20%E2%80%94%20Orange%20Howlite%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -870,7 +1000,7 @@
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HOWC%20Orange%20Imperial%20Jasper%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HOWC%20%E2%80%94%20Orange%20Imperial%20Jasper%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -893,7 +1023,7 @@
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HO%20Orange%20Aventurine%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HO%20%E2%80%94%20Orange%20Aventurine%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -916,7 +1046,7 @@
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HPBC%20Pink%20Brecciated%20Jasper%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HPBC%20%E2%80%94%20Pink%20Brecciated%20Jasper%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -939,7 +1069,7 @@
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HPC%20Pink%20Howlite%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HPC%20%E2%80%94%20Pink%20Howlite%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -962,7 +1092,7 @@
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HPC2%20Pink%20Composite%20Jasper%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HPC2%20%E2%80%94%20Pink%20Composite%20Jasper%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -985,7 +1115,7 @@
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HA%20Rainbow%20Mosaic%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HA%20%E2%80%94%20Rainbow%20Mosaic%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -1009,7 +1139,7 @@
         <p class="tt-modal-specs" id="th-modal-specs"></p>
         <p class="tt-modal-price" id="th-modal-price"></p>
         <a id="th-modal-btn" href="#" class="btn btn-secondary"
-           onclick="event.stopPropagation()">Message to Order</a>
+           onclick="event.stopPropagation()">Order Now</a>
       </div>
     </div>
   </div>
@@ -1021,7 +1151,7 @@
 
       <div class="tt-heading-block">
         <p class="section-label">Twizted Treasures</p>
-        <h2 id="tc-collection-heading">Broken Beautiful <em>Creations</em></h2>
+        <h2 id="tc-collection-heading" class="merch-section-heading">Broken Beautiful <em>Creations</em></h2>
         <p class="tt-intro">Handmade with heart. Painted with purpose. Every piece carries its own story.</p>
         <div class="tt-custom-note">
           <strong>Handmade &amp; Upcycled Note</strong><br>
@@ -1038,6 +1168,7 @@
         <p style="font-size:0.82rem;color:var(--muted);margin-top:10px;">
           Please message us first to confirm availability before sending payment for merch items.
         </p>
+        <p class="back-to-gallery"><a href="#merch-gallery">Back to merch gallery &uarr;</a></p>
       </div>
 
       <div class="tt-grid" id="tc-grid">
@@ -1061,7 +1192,7 @@
             <p class="tt-card-price">$32.99</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20JB7%20Keepsake%20Jewelry%20Box%20Gift%20Set&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20JB7%20%E2%80%94%20Twizted%20Journeys%20Keepsake%20Jewelry%20Box%20Gift%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -1085,13 +1216,13 @@
             <p class="tt-card-price">$19.99</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20Grateful%20Bear%20Shelf%20Sitter&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20the%20Grateful%20Bear%20Shelf%20Sitter.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
 
         <!-- UT4 / UT7 — Miniature Unicorn Figurines -->
-        <div class="tt-card" data-csku="UT4" role="button" tabindex="0"
+        <div id="unicorn-specialty-items" class="tt-card" data-csku="UT4" role="button" tabindex="0"
              aria-label="View details for UT4 / UT7: Miniature Unicorn Figurines"
              onclick="tcOpenModal(this)"
              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tcOpenModal(this);}">
@@ -1109,7 +1240,7 @@
             <p class="tt-card-price">$9.99 each</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20UT4%20UT7%20Miniature%20Unicorn%20Figurines&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20UT4%20%2F%20UT7%20%E2%80%94%20Miniature%20Unicorn%20Figurines.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -1133,7 +1264,7 @@
             <p class="tt-card-price">$17.99</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20VDD2%20VDD5%20Patchwork%20Companion%20Figurine&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20VDD2%20%2F%20VDD5%20%E2%80%94%20Patchwork%20Companion%20Figurine.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -1156,7 +1287,7 @@
             <p class="tt-card-price">$29.99</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20U1%20Semicolon%20Unicorn%20Candle%20Holder&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20U1%20%E2%80%94%20Twizted%20Semicolon%20Unicorn%20Candle%20Holder.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -1179,7 +1310,7 @@
             <p class="tt-card-price">$24.99 each</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20U22P%20Momma%20and%20Foal%20Figurine&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20U22P%20%E2%80%94%20Momma%20and%20Foal%20Figurine.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -1202,7 +1333,7 @@
             <p class="tt-card-price">$29.99</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
               <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20GP5%20Gothic%20Fairy%20Statue&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20GP5%20%E2%80%94%20Gothic%20Fairy%20Statue.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Message to Order</a>
+                 class="btn btn-secondary">Order Now</a>
             </div>
           </div>
         </div>
@@ -1227,7 +1358,7 @@
         <p class="tt-modal-specs" id="tc-modal-specs"></p>
         <p class="tt-modal-price" id="tc-modal-price"></p>
         <a id="tc-modal-btn" href="#" class="btn btn-secondary"
-           onclick="event.stopPropagation()">Message to Order</a>
+           onclick="event.stopPropagation()">Order Now</a>
       </div>
     </div>
   </div>
@@ -1274,7 +1405,7 @@
         <p class="tt-modal-specs" id="tt-modal-specs"></p>
         <p class="tt-modal-price">Price coming soon</p>
         <a id="tt-modal-btn" href="#" class="btn btn-secondary"
-           onclick="event.stopPropagation()">Message to Order</a>
+           onclick="event.stopPropagation()">Order Now</a>
       </div>
     </div>
   </div>
