@@ -51,9 +51,9 @@ INSERT INTO site_content (key, value) VALUES
 
   -- Homepage hero
   ('home_headline',    'Hope Rides. Grief Walks. Love Never Stops.'),
-  ('home_subheadline', 'Twizted Journeys is a grief support and suicide awareness nonprofit in Anderson, Indiana.'),
+  ('home_subheadline', 'Twizted Journeys is a grief support and suicide awareness nonprofit serving Shelby County and surrounding Indiana communities.'),
   ('home_mission',     'We believe no one should grieve alone. Through community, creativity, and action — we turn loss into legacy.'),
-  ('home_cta_text',    'RSVP for Finding Forward →'),
+  ('home_cta_text',    'RSVP for Light Up the Night →'),
   ('home_cta_url',     'events.html'),
 
   -- About / story
@@ -64,11 +64,11 @@ INSERT INTO site_content (key, value) VALUES
   ('home_988', 'If you or someone you know is struggling, help is available 24/7. Call or text 988.'),
 
   -- Event details
-  ('event_name',        'Finding Forward 2026'),
+  ('event_name',        'Light Up the Night 2026'),
   ('event_dates',       'September 12–13, 2026'),
-  ('event_location',    'Anderson, Indiana'),
+  ('event_location',    ''),
   ('event_address',     ''),
-  ('event_description', 'Finding Forward is our annual two-day awareness event bringing together riders, walkers, vendors, volunteers, and the whole community. Join us for Light Up the Night on Sept 12 and The Cause Walk on Sept 13.'),
+  ('event_description', 'Light Up the Night kicks off Twizted Journeys'' September awareness weekend on Sept. 12, followed by The Cause Walk on Sept. 13. Riders, walkers, vendors, volunteers, and the whole community are welcome.'),
   ('event_day1',        'Sept 12 — Light Up the Night (evening)'),
   ('event_day2',        'Sept 13 — The Cause Walk (daytime)'),
 
