@@ -202,6 +202,7 @@
             <button class="btn btn-teal btn-block" onclick="saveAnnouncement()" id="ann-save-btn">💾 Save &amp; Publish</button>
             <button class="btn btn-ghost" onclick="clearAnn()" style="flex-shrink:0;">Clear</button>
           </div>
+          <div id="ann-status" style="display:none;margin-top:12px;border-radius:8px;padding:10px 12px;font-size:0.82rem;line-height:1.45;"></div>
         </div>
 
         <!-- Recent Activity -->
@@ -273,4 +274,122 @@
   </main>
 </div>
 
-<script src="config.js"></script
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script>
+  let _db = null;
+
+  function setAnnStatus(message, type) {
+    const el = document.getElementById('ann-status');
+    if (!el) return;
+    el.textContent = message;
+    el.style.display = 'block';
+    if (type === 'success') {
+      el.style.background = 'rgba(86,224,210,0.08)';
+      el.style.border = '1px solid rgba(86,224,210,0.28)';
+      el.style.color = 'var(--teal)';
+    } else {
+      el.style.background = 'rgba(239,68,68,0.10)';
+      el.style.border = '1px solid rgba(239,68,68,0.30)';
+      el.style.color = '#f87171';
+    }
+  }
+
+  function fillAnn(text, type, active) {
+    const textEl = document.getElementById('ann-text');
+    const typeEl = document.getElementById('ann-type');
+    const activeEl = document.getElementById('ann-active');
+    if (textEl) textEl.value = text || '';
+    if (typeEl) typeEl.value = type || 'event';
+    if (activeEl) activeEl.checked = active !== false;
+    const status = document.getElementById('ann-status');
+    if (status) status.style.display = 'none';
+  }
+
+  function clearAnn() {
+    fillAnn('', 'event', false);
+  }
+
+  async function upsertSiteContent(pairs) {
+    if (!_db) throw new Error('Admin connection is not ready yet.');
+    for (const [key, value] of Object.entries(pairs)) {
+      const { error } = await _db.from('site_content').upsert({ key, value }, { onConflict: 'key' });
+      if (error) throw error;
+    }
+  }
+
+  async function saveAnnouncement() {
+    const btn = document.getElementById('ann-save-btn');
+    const linkEl = document.getElementById('ann-link');
+    const pairs = {
+      announcement_text: document.getElementById('ann-text')?.value.trim() || '',
+      announcement_type: document.getElementById('ann-type')?.value || 'event',
+      announcement_active: document.getElementById('ann-active')?.checked ? 'true' : 'false'
+    };
+    if (linkEl) pairs.announcement_link = linkEl.value.trim();
+
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+    }
+
+    try {
+      await upsertSiteContent(pairs);
+      setAnnStatus('Announcement saved successfully. Last saved at ' + new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) + '.', 'success');
+    } catch (e) {
+      setAnnStatus('Announcement could not be saved: ' + (e.message || e), 'error');
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = 'Save & Publish';
+      }
+    }
+  }
+
+  function signOut() {
+    adminSignOut();
+  }
+
+  function refreshAll() {
+    window.location.reload();
+  }
+
+  initAdmin(async function(user, db) {
+    _db = db;
+
+    const now = new Date();
+    const greeting = document.getElementById('greeting');
+    const topbarDate = document.getElementById('topbar-date');
+    if (greeting) greeting.textContent = now.getHours() < 12 ? 'Good morning' : (now.getHours() < 18 ? 'Good afternoon' : 'Good evening');
+    if (topbarDate) topbarDate.textContent = now.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' });
+
+    try {
+      const { count } = await db.from('memorial_submissions').select('id', { count: 'exact', head: true }).eq('status', 'pending');
+      const pending = count ?? 0;
+      const navPending = document.getElementById('nav-pending');
+      const statPending = document.getElementById('stat-pending');
+      const alert = document.getElementById('pending-alert');
+      const alertText = document.getElementById('alert-text');
+      if (navPending) navPending.textContent = pending;
+      if (statPending) statPending.textContent = pending;
+      if (alert && pending > 0) alert.style.display = 'flex';
+      if (alertText) alertText.textContent = pending + ' pending submission' + (pending === 1 ? ' is' : 's are') + ' waiting for review.';
+    } catch (e) {}
+
+    try {
+      const { data, error } = await db.from('site_content')
+        .select('key,value')
+        .in('key', ['announcement_text', 'announcement_type', 'announcement_active', 'announcement_link']);
+      if (error) throw error;
+      const kv = {};
+      (data || []).forEach(row => { kv[row.key] = row.value || ''; });
+      fillAnn(kv.announcement_text || '', kv.announcement_type || 'event', kv.announcement_active === 'true');
+      const linkEl = document.getElementById('ann-link');
+      if (linkEl) linkEl.value = kv.announcement_link || '';
+    } catch (e) {
+      setAnnStatus('Announcement could not be loaded: ' + (e.message || e), 'error');
+    }
+  });
+</script>
+</body>
+</html>
