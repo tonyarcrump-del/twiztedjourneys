@@ -103,7 +103,7 @@ Webador continues to handle **100% of**:
 - All donations (donations-matter page)
 - All product purchases (checkout/cart)
 - All existing product listings
-- PayPal and Cash App integration
+- PayPal integration
 
 GitHub Pages handles:
 - The main website (all informational pages)
