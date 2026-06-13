@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Received — Twizted Journeys</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="images/favicon.png?v=2">
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .success-section {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 72px 0;
+    }
+    .success-card {
+      max-width: 560px;
+      width: 100%;
+      margin: 0 auto;
+      background: rgba(86,224,210,.06);
+      border: 1px solid rgba(86,224,210,.28);
+      border-radius: 18px;
+      padding: 40px 36px;
+      text-align: center;
+    }
+    .success-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+    .success-card h1 {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .success-card h1 em { font-style: normal; color: var(--teal); }
+    .success-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .order-id-note {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: rgba(158,243,247,.65);
+      margin: 16px 0 24px;
+      word-break: break-all;
+    }
+    .success-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Twizted Journeys home">
+        <img src="images/web-optimized/twizted-journeys-banner.jpg" alt="Twizted Journeys logo"
+             style="height:44px;width:auto;border-radius:6px;" />
+        <span class="nav-logo-text">Tw<span class="semicolon-accent">;</span>zted Journeys</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"
+              onclick="toggleNav(this)">&#9776;</button>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="merch.html" class="active">Merch</a></li>
+        <li><a href="stories.html">Share Your Story</a></li>
+        <li><a href="memorial.html">Memorial</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="charm-journey.html">Twizted Treasures</a></li>
+        <li><a href="podcast.html">Podcast</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://donorbox.org/help-penetrate-the-darkness"
+               class="btn btn-primary nav-donate">Donate</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main id="main-content">
+  <section class="success-section" aria-labelledby="success-heading">
+    <div class="container">
+      <div class="success-card">
+        <div class="success-icon" aria-hidden="true">&#10003;</div>
+        <h1>Payment <em>Received!</em></h1>
+        <p>
+          Thank you for your purchase and for supporting Twizted Journeys.
+          Your payment has been processed and your order is confirmed.
+        </p>
+        <p>
+          Tonya will be in touch about shipping and any order details.
+          Check your email for a receipt from Stripe.
+        </p>
+        <div class="order-id-note" id="order-ref-block" aria-live="polite">
+          <!-- Order ID injected by script -->
+        </div>
+        <p style="font-size:0.85rem;">
+          Questions? Email
+          <a href="mailto:info@twiztedjourneys.org">info@twiztedjourneys.org</a>
+        </p>
+        <div class="success-actions">
+          <a href="merch.html" class="btn btn-primary">Back to Merch Shop</a>
+          <a href="index.html" class="btn btn-secondary">Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="crisis-band" role="complementary" aria-label="Crisis support information">
+  <div class="container">
+    <p>
+      <strong>If you are in crisis or need immediate help:</strong><br />
+      Call or text <span class="crisis-number">988</span> &mdash;
+      the Suicide &amp; Crisis Lifeline &mdash; free, 24/7, confidential.<br />
+      Visit <a href="https://988lifeline.org" target="_blank" rel="noopener">988lifeline.org</a>
+      &nbsp;|&nbsp; Crisis Text Line: text <strong>HOME</strong> to <strong>741741</strong>
+    </p>
+  </div>
+</div>
+
+<footer class="site-footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>&copy; 2022&ndash;2026 Twizted Journeys, Inc. All rights reserved.</p>
+    </div>
+  </div>
+  <p class="site-credit">
+    Website and digital systems by
+    <a href="https://nocapsai.com/" target="_blank" rel="noopener">NoCapsAI</a>
+  </p>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  // Show order reference from URL param
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var orderId = params.get("order_id");
+    var sessionId = params.get("session_id");
+    var block = document.getElementById("order-ref-block");
+    if (block) {
+      var parts = [];
+      if (orderId)   parts.push("Order ID: " + orderId);
+      if (sessionId) parts.push("Stripe session: " + sessionId);
+      block.textContent = parts.length
+        ? parts.join(" · ")
+        : "Keep this page URL as your order reference.";
+    }
+  })();
+</script>
+</body>
+</html>

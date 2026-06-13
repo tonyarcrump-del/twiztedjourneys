@@ -46,3 +46,9 @@ images/_legacy-image-folder/
 # google-workspace/ contains account credentials — never publish.
 admin-assets/donation-tracking/
 admin-assets/google-workspace/
+
+# Supabase Edge Function local secrets
+supabase/functions/.env
+
+# Supabase local CLI temp files
+supabase/.temp/

@@ -1,0 +1,39 @@
+# Supabase project configuration
+# Used by the Supabase CLI for local dev and function deployment.
+# Replace the project_id value with your real project ref.
+# Find it: supabase.com → your project → Settings → General → Reference ID
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+[inbucket]
+enabled = true
+port = 54324
+
+[storage]
+enabled = true
+
+[auth]
+enabled = true
+site_url = "http://localhost:8080"
+additional_redirect_urls = ["http://localhost:3000"]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+refresh_token_reuse_interval = 10
+
+[functions]
+# Edge Functions are in supabase/functions/<function-name>/index.ts
+# Deploy with: supabase functions deploy create-merch-checkout --project-ref YOUR_PROJECT_REF
