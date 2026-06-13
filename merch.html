@@ -267,6 +267,82 @@
       align-items: center; justify-content: center; padding: 20px;
     }
     #tc-modal.is-open { display: flex; }
+    #merch-order-modal {
+      display: none; position: fixed; inset: 0; z-index: 9100;
+      background: rgba(11,11,15,.9);
+      backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    #merch-order-modal.is-open { display: flex; }
+    .merch-order-inner {
+      background: #12091e;
+      border: 1px solid rgba(86,224,210,.32);
+      border-radius: 18px;
+      width: 100%; max-width: 720px; max-height: 92vh;
+      overflow-y: auto; position: relative; padding: 28px 24px;
+    }
+    .merch-order-summary {
+      background: rgba(86,224,210,.07);
+      border: 1px solid rgba(86,224,210,.24);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin: 14px 0 18px;
+      color: var(--muted);
+      font-size: .86rem;
+      line-height: 1.6;
+    }
+    .merch-order-grid {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 14px;
+    }
+    .merch-order-field { display: flex; flex-direction: column; gap: 6px; }
+    .merch-order-field label {
+      color: var(--white);
+      font-size: .78rem;
+      font-weight: 700;
+    }
+    .merch-order-field input,
+    .merch-order-field textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 8px;
+      background: rgba(255,255,255,.04);
+      color: var(--white);
+      padding: 10px 12px;
+      font: inherit;
+    }
+    .merch-order-field textarea { min-height: 92px; resize: vertical; }
+    .merch-order-field input:focus,
+    .merch-order-field textarea:focus {
+      outline: 2px solid rgba(86,224,210,.55);
+      border-color: rgba(86,224,210,.6);
+    }
+    .merch-order-field--full { grid-column: 1 / -1; }
+    .merch-order-message {
+      display: none;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-top: 14px;
+      font-size: .86rem;
+      line-height: 1.6;
+    }
+    .merch-order-message.is-success {
+      display: block;
+      background: rgba(86,224,210,.09);
+      border: 1px solid rgba(86,224,210,.28);
+      color: var(--teal);
+    }
+    .merch-order-message.is-error {
+      display: block;
+      background: rgba(239,68,68,.1);
+      border: 1px solid rgba(239,68,68,.3);
+      color: #f87171;
+    }
+    @media (max-width:600px) {
+      .merch-order-grid { grid-template-columns: 1fr; }
+      .merch-order-inner { padding: 26px 18px; }
+    }
     @media (max-width:480px) {
       .tt-grid { grid-template-columns: repeat(auto-fill,minmax(155px,1fr)); gap: 12px; }
       .tt-modal-inner { max-height: 95vh; }
@@ -501,7 +577,7 @@
           and suicide loss survivors.
         </p>
         <p style="font-size:0.82rem;color:var(--muted);margin-top:10px;">
-          Order availability may vary. Send us a quick message and we’ll confirm your item, total, and pickup/shipping options.
+          Order availability may vary. Submit your order details and Tonya will have the item, contact, and shipping information needed for follow-up.
         </p>
         <p class="back-to-gallery"><a href="#merch-gallery">Back to merch gallery &uarr;</a></p>
       </div>
@@ -526,8 +602,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP2%20Awareness%20Gnome%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP2%20%E2%80%94%20Awareness%20Gnome%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -549,8 +624,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP3%20Semicolon%20Heart%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP3%20%E2%80%94%20Semicolon%20Heart%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -572,8 +646,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP4%20Dual%20Awareness%20Ribbon%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP4%20%E2%80%94%20Dual%20Awareness%20Ribbon%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -595,8 +668,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP5%20Wings%20of%20Hope%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP5%20%E2%80%94%20Wings%20of%20Hope%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -618,8 +690,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP6%20Rainbow%20of%20Hope%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP6%20%E2%80%94%20Rainbow%20of%20Hope%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -641,8 +712,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP7%20Fighting%20Together%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP7%20%E2%80%94%20Fighting%20Together%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -664,8 +734,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP8%20Blooming%20Hope%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP8%20%E2%80%94%20Blooming%20Hope%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -687,8 +756,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP9%20Dove%20of%20Peace%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP9%20%E2%80%94%20Dove%20of%20Peace%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -710,8 +778,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP10%20Awareness%20Butterfly%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP10%20%E2%80%94%20Awareness%20Butterfly%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -733,8 +800,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Hard enamel pin</p>
             <p class="tt-card-price">Price coming soon</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP11%20Love%20Hope%20and%20Awareness%20Hat%20Pin&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP11%20%E2%80%94%20Love%2C%20Hope%20and%20Awareness%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -791,8 +857,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; tall &nbsp;&bull;&nbsp; Genuine polished stone</p>
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MY2%20Yellow%20Aventurine%20Mushroom%20Set&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MY2%20%E2%80%94%20Yellow%20Aventurine%20Mushroom%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -814,8 +879,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; tall &nbsp;&bull;&nbsp; Genuine polished stone</p>
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MGRU%20Green%20Stone%20Mushroom&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MGRU%20%E2%80%94%20Green%20Stone%20Mushroom.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -837,8 +901,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; tall &nbsp;&bull;&nbsp; Genuine polished stone</p>
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MU2%20Unakite%20Mushroom%20Set&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MU2%20%E2%80%94%20Unakite%20Mushroom%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -860,8 +923,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; tall &nbsp;&bull;&nbsp; Genuine polished stone</p>
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MP%20Purple%20Stone%20Mushroom&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MP%20%E2%80%94%20Purple%20Stone%20Mushroom.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -883,8 +945,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; tall &nbsp;&bull;&nbsp; Genuine polished stone</p>
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MBL%20Lapis%20Lazuli%20Mushroom%20Set&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MBL%20%E2%80%94%20Lapis%20Lazuli%20Mushroom%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -906,8 +967,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; tall &nbsp;&bull;&nbsp; Genuine polished stone</p>
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MOP%20Opalite%20Mushroom%20Set&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MOP%20%E2%80%94%20Opalite%20Mushroom%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -976,8 +1036,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Genuine polished stone</p>
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HOC%20Orange%20Howlite%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HOC%20%E2%80%94%20Orange%20Howlite%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -999,8 +1058,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Genuine polished stone</p>
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HOWC%20Orange%20Imperial%20Jasper%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HOWC%20%E2%80%94%20Orange%20Imperial%20Jasper%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -1022,8 +1080,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Genuine polished stone</p>
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HO%20Orange%20Aventurine%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HO%20%E2%80%94%20Orange%20Aventurine%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -1045,8 +1102,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Genuine polished stone</p>
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HPBC%20Pink%20Brecciated%20Jasper%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HPBC%20%E2%80%94%20Pink%20Brecciated%20Jasper%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -1068,8 +1124,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Genuine polished stone</p>
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HPC%20Pink%20Howlite%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HPC%20%E2%80%94%20Pink%20Howlite%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -1091,8 +1146,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Genuine polished stone</p>
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HPC2%20Pink%20Composite%20Jasper%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HPC2%20%E2%80%94%20Pink%20Composite%20Jasper%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -1114,8 +1168,7 @@
             <p class="tt-card-meta">Approx. 1&Prime; &nbsp;&bull;&nbsp; Genuine polished stone</p>
             <p class="tt-card-price">$3 each &nbsp;&middot;&nbsp; 2 for $5</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HA%20Rainbow%20Mosaic%20Heart&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HA%20%E2%80%94%20Rainbow%20Mosaic%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -1166,7 +1219,7 @@
           and suicide loss survivors.
         </p>
         <p style="font-size:0.82rem;color:var(--muted);margin-top:10px;">
-          Please message us first to confirm availability before sending payment for merch items.
+          Submit your order details first. Payment remains pending until the official merch payment link is ready.
         </p>
         <p class="back-to-gallery"><a href="#merch-gallery">Back to merch gallery &uarr;</a></p>
       </div>
@@ -1191,8 +1244,7 @@
             <p class="tt-card-meta">Approx. 7&Prime; tall &nbsp;&bull;&nbsp; Hand-painted &nbsp;&bull;&nbsp; Upcycled &amp; handcrafted</p>
             <p class="tt-card-price">$32.99</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20JB7%20Keepsake%20Jewelry%20Box%20Gift%20Set&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20JB7%20%E2%80%94%20Twizted%20Journeys%20Keepsake%20Jewelry%20Box%20Gift%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -1215,8 +1267,7 @@
             <p class="tt-card-meta">Approx. 8&Prime; wide &times; 3&Prime; tall &nbsp;&bull;&nbsp; Upcycled &amp; handcrafted</p>
             <p class="tt-card-price">$19.99</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20Grateful%20Bear%20Shelf%20Sitter&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20the%20Grateful%20Bear%20Shelf%20Sitter.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -1239,8 +1290,7 @@
             <p class="tt-card-meta">Approx. 2.5&Prime;&ndash;3&Prime; tall &nbsp;&bull;&nbsp; Hand-painted &nbsp;&bull;&nbsp; Each piece unique</p>
             <p class="tt-card-price">$9.99 each</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20UT4%20UT7%20Miniature%20Unicorn%20Figurines&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20UT4%20%2F%20UT7%20%E2%80%94%20Miniature%20Unicorn%20Figurines.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -1263,8 +1313,7 @@
             <p class="tt-card-meta">Approx. 3&Prime; tall &times; 2&Prime; wide &nbsp;&bull;&nbsp; Glossy glitter finish &nbsp;&bull;&nbsp; Each piece unique</p>
             <p class="tt-card-price">$17.99</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20VDD2%20VDD5%20Patchwork%20Companion%20Figurine&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20VDD2%20%2F%20VDD5%20%E2%80%94%20Patchwork%20Companion%20Figurine.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -1286,8 +1335,7 @@
             <p class="tt-card-meta">Approx. 7&Prime; high &times; 6&Prime; wide &nbsp;&bull;&nbsp; Hand-painted</p>
             <p class="tt-card-price">$29.99</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20U1%20Semicolon%20Unicorn%20Candle%20Holder&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20U1%20%E2%80%94%20Twizted%20Semicolon%20Unicorn%20Candle%20Holder.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -1309,8 +1357,7 @@
             <p class="tt-card-meta">Hand-painted &nbsp;&bull;&nbsp; Each piece unique</p>
             <p class="tt-card-price">$24.99 each</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20U22P%20Momma%20and%20Foal%20Figurine&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20U22P%20%E2%80%94%20Momma%20and%20Foal%20Figurine.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -1332,8 +1379,7 @@
             <p class="tt-card-meta">Approx. 10&Prime; long &times; 6&Prime; wide &nbsp;&bull;&nbsp; Hand-finished</p>
             <p class="tt-card-price">$29.99</p>
             <div class="tt-card-actions" onclick="event.stopPropagation()">
-              <a href="mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20GP5%20Gothic%20Fairy%20Statue&amp;body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20GP5%20%E2%80%94%20Gothic%20Fairy%20Statue.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
-                 class="btn btn-secondary">Order Now</a>
+              <a href="#merch-order" class="btn btn-secondary" data-merch-order-button>Order Now</a>
             </div>
           </div>
         </div>
@@ -1407,6 +1453,61 @@
         <a id="tt-modal-btn" href="#" class="btn btn-secondary"
            onclick="event.stopPropagation()">Order Now</a>
       </div>
+    </div>
+  </div>
+
+  <div id="merch-order-modal" role="dialog" aria-modal="true" aria-labelledby="merch-order-title"
+       onclick="if(event.target===this)closeMerchOrderModal()">
+    <div class="merch-order-inner">
+      <button class="tt-modal-close" type="button" onclick="closeMerchOrderModal()" aria-label="Close order form">&times;</button>
+      <p class="section-label" style="margin-bottom:6px;">Merch Order</p>
+      <h2 id="merch-order-title" class="tt-modal-title" style="font-size:1.25rem;">Order Details</h2>
+      <p class="tt-modal-desc" style="margin-bottom:0;">Send your item and shipping details first. Payment will stay pending until the official merch payment link is ready.</p>
+
+      <div class="merch-order-summary" aria-live="polite">
+        <strong id="merch-order-summary-name" style="color:var(--white);">Selected item</strong><br>
+        <span id="merch-order-summary-code"></span>
+        <span id="merch-order-summary-price"></span>
+      </div>
+
+      <form id="merch-order-form">
+        <input type="hidden" name="item_code" id="merch-order-item-code">
+        <input type="hidden" name="item_name" id="merch-order-item-name">
+        <input type="hidden" name="price_label" id="merch-order-price-label">
+
+        <div class="merch-order-grid">
+          <div class="merch-order-field">
+            <label for="merch-order-quantity">Quantity</label>
+            <input id="merch-order-quantity" name="quantity" type="number" min="1" step="1" value="1" required>
+          </div>
+          <div class="merch-order-field">
+            <label for="merch-order-name">Name</label>
+            <input id="merch-order-name" name="customer_name" autocomplete="name" required>
+          </div>
+          <div class="merch-order-field">
+            <label for="merch-order-email">Email</label>
+            <input id="merch-order-email" name="customer_email" type="email" autocomplete="email" required>
+          </div>
+          <div class="merch-order-field">
+            <label for="merch-order-phone">Phone optional</label>
+            <input id="merch-order-phone" name="customer_phone" type="tel" autocomplete="tel">
+          </div>
+          <div class="merch-order-field merch-order-field--full">
+            <label for="merch-order-shipping">Shipping address</label>
+            <textarea id="merch-order-shipping" name="shipping_address" autocomplete="shipping street-address" required></textarea>
+          </div>
+          <div class="merch-order-field merch-order-field--full">
+            <label for="merch-order-notes">Notes/details</label>
+            <textarea id="merch-order-notes" name="notes" placeholder="Color, variation, pickup note, or anything Tonya should know."></textarea>
+          </div>
+        </div>
+
+        <div id="merch-order-message" class="merch-order-message"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;">
+          <button type="submit" class="btn btn-primary">Save Order</button>
+          <button type="button" class="btn btn-secondary" onclick="closeMerchOrderModal()">Cancel</button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -1488,7 +1589,7 @@ const TH_DATA = {
     "desc": "Bright orange coloring paired with dark veining creates a bold and energetic look. A striking pocket stone that carries the warmth and vitality of its natural hues.",
     "specs": "Size: Approx. 1 inch\nMaterial: Genuine polished stone",
     "price": "$3 each · 2 for $5",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HOC%20Orange%20Howlite%20Heart&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HOC%20%E2%80%94%20Orange%20Howlite%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "HOWC": {
     "badge": "HOWC",
@@ -1498,7 +1599,7 @@ const TH_DATA = {
     "desc": "Warm orange tones mixed with cream and brown matrix patterns create a beautiful natural design. Each piece is a unique expression of stone artistry.",
     "specs": "Size: Approx. 1 inch\nMaterial: Genuine polished stone",
     "price": "$3 each · 2 for $5",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HOWC%20Orange%20Imperial%20Jasper%20Heart&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HOWC%20%E2%80%94%20Orange%20Imperial%20Jasper%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "HO": {
     "badge": "HO",
@@ -1508,7 +1609,7 @@ const TH_DATA = {
     "desc": "A smooth, warm-toned heart displaying natural orange hues and subtle shimmer. Orange Aventurine is often associated with creativity, enthusiasm, and positive energy.",
     "specs": "Size: Approx. 1 inch\nMaterial: Genuine polished stone",
     "price": "$3 each · 2 for $5",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HO%20Orange%20Aventurine%20Heart&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HO%20%E2%80%94%20Orange%20Aventurine%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "HPBC": {
     "badge": "HPBC",
@@ -1518,7 +1619,7 @@ const TH_DATA = {
     "desc": "A vibrant pink heart accented with natural matrix patterns throughout the stone. Pink Brecciated Jasper is associated with strength, vitality, and gentle healing energy.",
     "specs": "Size: Approx. 1 inch\nMaterial: Genuine polished stone",
     "price": "$3 each · 2 for $5",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HPBC%20Pink%20Brecciated%20Jasper%20Heart&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HPBC%20%E2%80%94%20Pink%20Brecciated%20Jasper%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "HPC": {
     "badge": "HPC",
@@ -1528,7 +1629,7 @@ const TH_DATA = {
     "desc": "Featuring bold pink tones and delicate dark veining, this heart combines beauty and serenity. Howlite is often associated with calming energy, patience, and reducing stress.",
     "specs": "Size: Approx. 1 inch\nMaterial: Genuine polished stone",
     "price": "$3 each · 2 for $5",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HPC%20Pink%20Howlite%20Heart&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HPC%20%E2%80%94%20Pink%20Howlite%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "HPC2": {
     "badge": "HPC2",
@@ -1538,7 +1639,7 @@ const TH_DATA = {
     "desc": "Bright pink tones with natural-looking matrix patterns create a bold and cheerful piece. A joyful pocket stone full of color and character.",
     "specs": "Size: Approx. 1 inch\nMaterial: Genuine polished stone",
     "price": "$3 each · 2 for $5",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HPC2%20Pink%20Composite%20Jasper%20Heart&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HPC2%20%E2%80%94%20Pink%20Composite%20Jasper%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "HA": {
     "badge": "HA",
@@ -1548,7 +1649,7 @@ const TH_DATA = {
     "desc": "Bright, colorful, and playful, each heart features a unique blend of vibrant colors. A celebration of diversity and joy, no two pieces are alike.",
     "specs": "Size: Approx. 1 inch\nMaterial: Genuine polished stone",
     "price": "$3 each · 2 for $5",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HA%20Rainbow%20Mosaic%20Heart&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HA%20%E2%80%94%20Rainbow%20Mosaic%20Heart.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   }
 };
 
@@ -1563,7 +1664,7 @@ function thOpenModal(card) {
   document.getElementById('th-modal-desc').textContent  = d.desc;
   document.getElementById('th-modal-specs').innerHTML   = d.specs.replace(/\n/g,'<br>');
   document.getElementById('th-modal-price').textContent = d.price;
-  document.getElementById('th-modal-btn').href          = d.mailto;
+  document.getElementById('th-modal-btn').href          = d.orderUrl;
   const m = document.getElementById('th-modal');
   m.classList.add('is-open');
   document.body.style.overflow = 'hidden';
@@ -1589,7 +1690,7 @@ const TM_DATA = {
     "desc": "Radiating warm golden-yellow hues, this Yellow Aventurine mushroom set is a cheerful and uplifting addition to any crystal collection. Yellow Aventurine is often associated with confidence, optimism, creativity, and positive energy. Each piece is unique in color, pattern, and appearance.",
     "specs": "Size: Approx. 1 inch tall\nWeight: Approx. 30 grams\nMaterial: Genuine polished stone",
     "price": "$3 each · 2 for $5",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MY2%20Yellow%20Aventurine%20Mushroom%20Set&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MY2%20%E2%80%94%20Yellow%20Aventurine%20Mushroom%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "MGRU": {
     "badge": "MGRU",
@@ -1599,7 +1700,7 @@ const TM_DATA = {
     "desc": "This polished green stone mushroom features soft green tones, natural marbling, and a smooth finish. A calming piece for crystal collections, fairy gardens, altar displays, desk décor, gift baskets, or thoughtful gifts. Exact stone type should be confirmed by Tonya before final labeling.",
     "specs": "Size: Approx. 1 inch tall\nWeight: Approx. 30 grams\nMaterial: Genuine polished stone",
     "price": "$3 each · 2 for $5",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MGRU%20Green%20Stone%20Mushroom&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MGRU%20%E2%80%94%20Green%20Stone%20Mushroom.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "MU2": {
     "badge": "MU2",
@@ -1609,7 +1710,7 @@ const TM_DATA = {
     "desc": "Featuring natural shades of green and earthy tones, this Unakite mushroom set celebrates nature’s beautiful color palette. Unakite is often associated with emotional healing, balance, and personal growth. Each piece is uniquely patterned by nature.",
     "specs": "Size: Approx. 1 inch tall\nWeight: Approx. 30 grams\nMaterial: Genuine polished stone",
     "price": "$3 each · 2 for $5",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MU2%20Unakite%20Mushroom%20Set&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MU2%20%E2%80%94%20Unakite%20Mushroom%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "MP": {
     "badge": "MP",
@@ -1619,7 +1720,7 @@ const TM_DATA = {
     "desc": "This polished purple stone mushroom brings a bold pop of color and a smooth natural-stone look. A fun and meaningful piece for crystal collections, fairy gardens, altar displays, desk décor, or gift baskets. Exact stone type should be confirmed by Tonya before final labeling.",
     "specs": "Size: Approx. 1 inch tall\nWeight: Approx. 30 grams\nMaterial: Genuine polished stone",
     "price": "$3 each · 2 for $5",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MP%20Purple%20Stone%20Mushroom&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MP%20%E2%80%94%20Purple%20Stone%20Mushroom.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "MBL": {
     "badge": "MBL",
@@ -1629,7 +1730,7 @@ const TM_DATA = {
     "desc": "Deep royal blue with natural golden flecks, this Lapis Lazuli mushroom set is truly captivating. Lapis Lazuli is associated with wisdom, truth, and self-expression. A striking addition to any crystal collection.",
     "specs": "Size: Approx. 1 inch tall\nWeight: Approx. 30 grams\nMaterial: Genuine polished stone",
     "price": "$3 each · 2 for $5",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MBL%20Lapis%20Lazuli%20Mushroom%20Set&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MBL%20%E2%80%94%20Lapis%20Lazuli%20Mushroom%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "MOP": {
     "badge": "MOP",
@@ -1639,7 +1740,7 @@ const TM_DATA = {
     "desc": "Glowing with a soft, ethereal shimmer, this Opalite mushroom set displays beautiful milky tones with flashes of blue and gold when viewed in different lighting. Opalite is often associated with peaceful energy, emotional balance, and new beginnings.",
     "specs": "Size: Approx. 1 inch tall\nWeight: Approx. 30 grams\nMaterial: Genuine polished stone",
     "price": "$3 each · 2 for $5",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20MOP%20Opalite%20Mushroom%20Set&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20MOP%20%E2%80%94%20Opalite%20Mushroom%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   }
 };
 
@@ -1654,7 +1755,7 @@ function tmOpenModal(card) {
   document.getElementById('tm-modal-desc').textContent  = d.desc;
   document.getElementById('tm-modal-specs').innerHTML   = d.specs.replace(/\n/g,'<br>');
   document.getElementById('tm-modal-price').textContent = d.price;
-  document.getElementById('tm-modal-btn').href          = d.mailto;
+  document.getElementById('tm-modal-btn').href          = d.orderUrl;
   const m = document.getElementById('tm-modal');
   m.classList.add('is-open');
   document.body.style.overflow = 'hidden';
@@ -1680,7 +1781,7 @@ const TT_DATA = {
     "alt": "HP2 — Awareness Gnome Hat Pin",
     "desc": "A whimsical gnome with a meaningful purpose. Featuring Twizted Journeys’ signature purple and teal awareness colors, this charming enamel pin symbolizes hope, healing, and support for mental health and suicide prevention. Perfect for hats, jackets, backpacks, lanyards, and memory displays.",
     "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP2%20Awareness%20Gnome%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP2%20%E2%80%94%20Awareness%20Gnome%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "3": {
     "badge": "HP3",
@@ -1689,7 +1790,7 @@ const TT_DATA = {
     "alt": "HP3 — Semicolon Heart Hat Pin",
     "desc": "A simple yet powerful design featuring a purple semicolon topped with a teal heart. This pin represents love, resilience, and the decision to continue your story. A meaningful reminder that every journey matters.",
     "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP3%20Semicolon%20Heart%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP3%20%E2%80%94%20Semicolon%20Heart%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "4": {
     "badge": "HP4",
@@ -1698,7 +1799,7 @@ const TT_DATA = {
     "alt": "HP4 — Dual Awareness Ribbon Hat Pin",
     "desc": "Show your support with this beautiful purple and teal awareness ribbon. Designed to honor mental health awareness, suicide prevention, and those affected by loss, this pin makes a meaningful statement wherever it is worn.",
     "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP4%20Dual%20Awareness%20Ribbon%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP4%20%E2%80%94%20Dual%20Awareness%20Ribbon%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "5": {
     "badge": "HP5",
@@ -1707,7 +1808,7 @@ const TT_DATA = {
     "alt": "HP5 — Wings of Hope Hat Pin",
     "desc": "This striking awareness ribbon with angel wings symbolizes remembrance, strength, and the enduring connection we carry for those we love. A beautiful tribute piece for survivors, supporters, and advocates.",
     "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP5%20Wings%20of%20Hope%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP5%20%E2%80%94%20Wings%20of%20Hope%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "6": {
     "badge": "HP6",
@@ -1716,7 +1817,7 @@ const TT_DATA = {
     "alt": "HP6 — Rainbow of Hope Hat Pin",
     "desc": "Featuring a purple and teal rainbow filled with tiny hearts and an awareness ribbon centerpiece, this pin celebrates hope after the storm. A reminder that healing, support, and brighter days are possible.",
     "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP6%20Rainbow%20of%20Hope%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP6%20%E2%80%94%20Rainbow%20of%20Hope%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "7": {
     "badge": "HP7",
@@ -1725,7 +1826,7 @@ const TT_DATA = {
     "alt": "HP7 — Fighting Together Hat Pin",
     "desc": "A pair of boxing gloves adorned with an awareness ribbon represents the courage to keep fighting and the strength found in community support. Perfect for advocates, survivors, and anyone battling life’s toughest challenges.",
     "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP7%20Fighting%20Together%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP7%20%E2%80%94%20Fighting%20Together%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "8": {
     "badge": "HP8",
@@ -1734,7 +1835,7 @@ const TT_DATA = {
     "alt": "HP8 — Blooming Hope Hat Pin",
     "desc": "A beautiful flower featuring Twizted Journeys’ signature colors and an awareness ribbon center. This design symbolizes growth, healing, and finding beauty even after life’s most difficult seasons.",
     "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP8%20Blooming%20Hope%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP8%20%E2%80%94%20Blooming%20Hope%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "9": {
     "badge": "HP9",
@@ -1743,7 +1844,7 @@ const TT_DATA = {
     "alt": "HP9 — Dove of Peace Hat Pin",
     "desc": "A graceful dove carrying an awareness ribbon symbolizes peace, comfort, remembrance, and hope. This meaningful pin honors loved ones while encouraging compassion and understanding.",
     "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP9%20Dove%20of%20Peace%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP9%20%E2%80%94%20Dove%20of%20Peace%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "10": {
     "badge": "HP10",
@@ -1752,7 +1853,7 @@ const TT_DATA = {
     "alt": "HP10 — Awareness Butterfly Hat Pin",
     "desc": "The butterfly represents transformation, healing, and new beginnings. Combined with the awareness ribbon, this elegant pin serves as a reminder that growth and hope can emerge from even the most difficult journeys.",
     "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP10%20Awareness%20Butterfly%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP10%20%E2%80%94%20Awareness%20Butterfly%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   },
   "11": {
     "badge": "HP11",
@@ -1761,7 +1862,7 @@ const TT_DATA = {
     "alt": "HP11 — Love, Hope & Awareness Hat Pin",
     "desc": "Featuring a peace sign, heart, and awareness ribbon, this pin brings together three powerful messages: peace, love, and hope. A perfect everyday reminder to spread kindness, support, and awareness.",
     "specs": "Size: Approx. 1 inch\nStyle: Hard enamel hat pin with butterfly clutch backing",
-    "mailto": "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20HP11%20Love%20Hope%20and%20Awareness%20Hat%20Pin&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20HP11%20%E2%80%94%20Love%2C%20Hope%20and%20Awareness%20Hat%20Pin.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    "orderUrl": "#merch-order"
   }
 };
 
@@ -1775,7 +1876,7 @@ function ttOpenModal(card) {
   document.getElementById('tt-modal-title').textContent = d.name;
   document.getElementById('tt-modal-desc').textContent  = d.desc;
   document.getElementById('tt-modal-specs').innerHTML   = d.specs.replace(/\n/g,'<br>');
-  document.getElementById('tt-modal-btn').href          = d.mailto;
+  document.getElementById('tt-modal-btn').href          = d.orderUrl;
   const m = document.getElementById('tt-modal');
   m.classList.add('is-open');
   document.body.style.overflow = 'hidden';
@@ -1802,7 +1903,7 @@ const TC_DATA = {
     desc: "More than a jewelry box, this handcrafted keepsake set is a reminder that every journey matters. Painted in Twizted Journeys' signature teal and purple colors, this miniature house-shaped jewelry box features uplifting messages including \"Time,\" \"Stay,\" \"Breathe,\" and \"Strong,\" along with dragonflies and semicolon-inspired artwork symbolizing hope, resilience, and continuation.\n\nIncludes: Hand-painted two-drawer keepsake jewelry box · Resin awareness ribbon keychain · Semicolon heart keychain (HP3) · Twizted semicolon pin · Awareness ribbon pin · Matching semicolon awareness bracelets",
     specs: "Jewelry box: approx. 7\" tall × 5\" wide × 4\" deep\nTwo storage drawer compartments\nWeight: approx. 1 to 1.5 lbs\nHandmade · Upcycled materials",
     price: "$32.99",
-    mailto: "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20JB7%20Keepsake%20Jewelry%20Box%20Gift%20Set&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20JB7%20%E2%80%94%20Twizted%20Journeys%20Keepsake%20Jewelry%20Box%20Gift%20Set.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    orderUrl: "#merch-order"
   },
   "BEAR": {
     badge: "Handmade",
@@ -1812,7 +1913,7 @@ const TC_DATA = {
     desc: "A little quirky, a little spooky, and completely one-of-a-kind. This handcrafted shelf sitter features two teddy bear turned grateful bear companions protecting a vibrant heart centerpiece adorned with artwork, symbolism, and personality. Painted in bold teal, purple, and pink hues, this piece celebrates connection, individuality, and the strength found in standing together through life's twists and turns.\n\nPerfect for alternative décor lovers, collectors of the unusual, mental health advocates, or anyone who appreciates handmade creations with a story behind them.\n\nFeatures: Hand-painted · One-of-a-kind · Freestanding shelf or desk décor · Upcycled and handcrafted",
     specs: "Size: approx. 8\" wide × 3\" tall\nWeight: approx. 7.7 oz\nHandmade · Upcycled materials",
     price: "$19.99",
-    mailto: "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20Grateful%20Bear%20Shelf%20Sitter&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20the%20Grateful%20Bear%20Shelf%20Sitter.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    orderUrl: "#merch-order"
   },
   "UT4": {
     badge: "UT4 / UT7",
@@ -1822,7 +1923,7 @@ const TC_DATA = {
     desc: "A tiny unicorn with a big personality. These hand-painted fantasy figurines feature a glossy midnight-black finish accented with Twizted Journeys-inspired teal or purple details, shimmering glitter highlights, and semicolon markings symbolizing hope and perseverance. The rearing pose gives each miniature unicorn a playful, magical energy — perfect for desks, shelves, fairy gardens, gift baskets, or collectible displays.\n\nEach piece is uniquely finished, making no two exactly alike.",
     specs: "Size: approx. 2.5\" to 3\" tall\nWeight: approx. 3.4 oz\nHand-painted · Each piece unique",
     price: "$9.99 each",
-    mailto: "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20UT4%20UT7%20Miniature%20Unicorn%20Figurines&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20UT4%20%2F%20UT7%20%E2%80%94%20Miniature%20Unicorn%20Figurines.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    orderUrl: "#merch-order"
   },
   "VDD2": {
     badge: "VDD2 / VDD5",
@@ -1832,7 +1933,7 @@ const TC_DATA = {
     desc: "A tiny traveler from a galaxy stitched together with hope and imagination. This handcrafted patchwork companion features shimmering shades of teal, purple, and blue with glittering accents, oversized expressive eyes, faux stitched details, and heart-shaped patches that give it a wonderfully quirky personality.\n\nFinished with a glossy protective coating, each figure has its own unique blend of colors and markings, making no two exactly alike. Perfect for shelves, desks, altar spaces, curio cabinets, or among favorite oddities.\n\nFeatures: Hand-painted · One-of-a-kind design · Glossy glitter finish · Teal and purple color palette",
     specs: "Size: approx. 3\" tall × 2\" wide\nWeight: approx. 2.9 oz\nHand-painted · Glossy glitter finish",
     price: "$17.99",
-    mailto: "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20VDD2%20VDD5%20Patchwork%20Companion%20Figurine&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20VDD2%20%2F%20VDD5%20%E2%80%94%20Patchwork%20Companion%20Figurine.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    orderUrl: "#merch-order"
   },
   "U1": {
     badge: "U1",
@@ -1842,7 +1943,7 @@ const TC_DATA = {
     desc: "Add a touch of magic, hope, and inspiration to your space with this hand-painted Twizted Semicolon Unicorn Candle Holder. Featuring a striking black unicorn accented with Twizted Journeys' signature teal and purple colors, this unique piece symbolizes strength, resilience, and the journey of continuing forward.\n\nThe unicorn is decorated with semicolon accents, representing the message that your story isn't over yet. Resting beside the unicorn is a glittering candle holder that sparkles beautifully when illuminated.\n\nFeatures: Hand-painted one-of-a-kind design · Teal and purple accents · Semicolon awareness details · Integrated glitter candle holder",
     specs: "Size: approx. 7\" high × 6\" wide × 4\" deep\nWeight: approx. 15.2 oz / 0.95 lb\nHand-painted · One-of-a-kind",
     price: "$29.99",
-    mailto: "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20U1%20Semicolon%20Unicorn%20Candle%20Holder&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20U1%20%E2%80%94%20Twizted%20Semicolon%20Unicorn%20Candle%20Holder.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    orderUrl: "#merch-order"
   },
   "U22P": {
     badge: "U22P",
@@ -1852,7 +1953,7 @@ const TC_DATA = {
     desc: "Hand-painted momma and foal fantasy figurine in Twizted-inspired colors. A beautiful handmade piece celebrating the bond between parent and child.\n\nEach piece is uniquely finished by hand, making no two exactly alike.",
     specs: "Hand-painted · Each piece unique",
     price: "$24.99 each",
-    mailto: "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20U22P%20Momma%20and%20Foal%20Figurine&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20U22P%20%E2%80%94%20Momma%20and%20Foal%20Figurine.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    orderUrl: "#merch-order"
   },
   "GP5": {
     badge: "GP5",
@@ -1862,7 +1963,7 @@ const TC_DATA = {
     desc: "A striking fantasy fairy rests among dark blossoms and emerald leaves, creating a scene that feels pulled from a forgotten enchanted forest. Hand-finished with metallic green accents, flowing silver hair, and dramatic black wings, this unique decorative piece blends beauty, mystery, and gothic elegance.\n\nPerfect for fantasy lovers, fairy collectors, gothic décor enthusiasts, and anyone who appreciates magical woodland art. The detailed flowers, textured wings, and flowing gown make this piece a captivating display.",
     specs: "Size: approx. 10\" long × 6\" wide × 3\" tall\nWeight: approx. 1 lb 11 oz\nHand-finished",
     price: "$29.99",
-    mailto: "mailto:info@twiztedjourneys.org?subject=Twizted%20Treasure%20Inquiry%20-%20GP5%20Gothic%20Fairy%20Statue&body=Hi%20Tonya%2C%0A%0AI%20am%20interested%20in%20GP5%20%E2%80%94%20Gothic%20Fairy%20Statue.%0AIs%20this%20item%20still%20available%3F%0A%0AMy%20name%20is%3A%0AMy%20preferred%20contact%20method%20is%3A%0A%0AThank%20you."
+    orderUrl: "#merch-order"
   }
 };
 
@@ -1888,7 +1989,7 @@ function tcOpenModal(card) {
   document.getElementById('tc-modal-desc').innerHTML    = d.desc.replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
   document.getElementById('tc-modal-specs').innerHTML   = d.specs.replace(/\n/g,'<br>');
   document.getElementById('tc-modal-price').textContent = d.price;
-  document.getElementById('tc-modal-btn').href          = d.mailto;
+  document.getElementById('tc-modal-btn').href          = d.orderUrl;
   const m = document.getElementById('tc-modal');
   m.classList.add('is-open');
   document.body.style.overflow = 'hidden';
@@ -1908,6 +2009,7 @@ function tcEscHandler(e) { if (e.key === 'Escape') tcCloseModal(); }
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/tj-public-config.js"></script>
+  <script src="js/merch-orders.js"></script>
   <script src="js/tj-announcement.js"></script>
 </body>
 </html>
