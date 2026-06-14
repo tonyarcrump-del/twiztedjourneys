@@ -57,75 +57,126 @@
   <main id="main-content">
 
     <!-- HERO -->
-    <header class="hero-page" style="background-image: url('images/hero-backgrounds/tj-road.png'); background-size: cover; background-position: center; background-attachment: fixed;" aria-label="Donate page hero">
-      <div class="hero-page__inner container">
-        <p class="section-label">Indiana 501(c)(3) Nonprofit</p>
-        <h1>Support the <em>Mission</em></h1>
-        <p class="hero-sub">Your generosity helps Twizted Journeys show up for the community every single day &mdash; peer support groups, awareness events, grief walks, and more. Every dollar supports the mission.</p>
+    <header class="hero-page" style="background-image:linear-gradient(135deg,rgba(11,11,15,0.70),rgba(124,58,237,0.30),rgba(13,148,136,0.24)), url('images/hero-backgrounds/tj-road.png'); background-size:cover; background-position:center; background-attachment:fixed;" aria-label="Donate page hero">
+      <div class="hero-page__inner container" style="max-width:960px;">
+        <p class="section-label">Mission Giving</p>
+        <h1>Help Penetrate the <em>Darkness</em></h1>
+        <p class="hero-sub" style="max-width:820px;">
+          Donations support Twizted Journeys awareness, comfort, community outreach, resources, events, and support for people walking through grief, suicide loss, mental health struggles, and hard pauses in life.
+        </p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;">
+          <a href="https://donorbox.org/help-penetrate-the-darkness" target="_blank" rel="noopener" class="btn btn-primary">Donate Now</a>
+          <a href="events.html" class="btn btn-secondary">View Events</a>
+          <a href="shoe-drive.html" class="btn btn-ghost">Support Shoe Drive</a>
+          <a href="about.html#contact-heading" class="btn btn-ghost">Partner With Us</a>
+        </div>
       </div>
     </header>
 
-    <!-- 501(c)(3) NOTICE -->
-    <section style="padding:40px 0 0;" aria-label="Tax deduction notice">
-      <div class="container" style="max-width:720px;margin:0 auto;">
-        <div class="disclosure-box">
-          <p><strong>Tax-Deductible Giving:</strong> Twizted Journeys is a registered 501(c)(3) nonprofit organization. Donations are tax-deductible to the extent allowed by law. You will receive a receipt for your records.</p>
+    <!-- TRUST NOTE -->
+    <section style="padding:36px 0 0;" aria-label="Nonprofit trust note">
+      <div class="container" style="max-width:960px;margin:0 auto;">
+        <div class="disclosure-box" style="border-color:rgba(86,224,210,0.34);background:linear-gradient(135deg,rgba(86,224,210,0.08),rgba(124,58,237,0.08));">
+          <p><strong>Tax-Deductible Giving:</strong> Twizted Journeys Inc. is an IRS-recognized 501(c)(3), 509(a)(2) public charity. Donations are tax-deductible to the extent allowed by law. Secure donation handled through Donorbox.</p>
         </div>
       </div>
     </section>
 
-    <!-- ONLINE GIVING LIVE -->
-    <section aria-labelledby="online-giving-heading" style="padding:64px 0 80px;">
-      <div class="container" style="max-width:680px;margin:0 auto;text-align:center;">
-        <p class="section-label">Ways to Give</p>
-        <h2 class="section-title" id="online-giving-heading">Online Giving <em>Now Available</em></h2>
-        <p class="section-intro">
-          You can now support Twizted Journeys through our secure Donorbox giving page. Donations help support community outreach, events, memorial support, awareness programs, and the mission to remind people to pause but continue.
-        </p>
-        <a href="https://donorbox.org/help-penetrate-the-darkness" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:24px;">Donate Securely &rarr;</a>
-        <p style="margin-top:24px;color:var(--muted);font-size:0.9rem;">
-          Or mail a check payable to <strong>Twizted Journeys</strong> &mdash; email us for the mailing address.
-        </p>
-      </div>
-    </section>
-
-    <!-- WHY IT MATTERS -->
-    <section class="section--alt" aria-labelledby="why-matters-heading" style="padding:80px 0;">
-      <div class="container" style="max-width:720px;margin:0 auto;">
-        <p class="section-label">Your Impact</p>
-        <h2 class="section-title" id="why-matters-heading">Why It <em>Matters</em></h2>
-        <p style="color:var(--muted);line-height:1.85;font-size:1.05rem;text-align:center;">
-          Every contribution helps Twizted Journeys provide peer support groups, host community awareness events, honor those we&rsquo;ve lost through the memorial wall, and keep showing up for our community.
-        </p>
-        <div style="display:flex;gap:32px;flex-wrap:wrap;justify-content:center;margin-top:48px;">
-          <div style="text-align:center;min-width:160px;">
-            <span style="display:block;font-size:2rem;font-weight:800;color:var(--teal);">Support</span>
-            <span style="display:block;font-size:0.85rem;color:var(--muted);margin-top:6px;">Peer support groups</span>
+    <!-- IMPACT CARDS -->
+    <section aria-labelledby="impact-heading" style="padding:64px 0 42px;">
+      <div class="container" style="max-width:1120px;margin:0 auto;">
+        <div style="text-align:center;max-width:760px;margin:0 auto 32px;">
+          <p class="section-label">Your Gift at Work</p>
+          <h2 class="section-title" id="impact-heading">Small Gifts Make <em>Real Help</em></h2>
+          <p class="section-intro">Every amount helps us show up with presence, practical supplies, and community connection.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;">
+          <div class="content-card" style="padding:24px;border-color:rgba(45,212,191,0.32);">
+            <h3 style="color:var(--teal);font-size:2rem;margin-bottom:8px;">$10</h3>
+            <p style="color:var(--text);font-weight:800;margin-bottom:8px;">Outreach materials</p>
+            <p style="color:var(--muted);line-height:1.7;">Helps provide printed cards, awareness handouts, and resource materials.</p>
           </div>
-          <div style="text-align:center;min-width:160px;">
-            <span style="display:block;font-size:2rem;font-weight:800;color:var(--teal);">Local</span>
-            <span style="display:block;font-size:0.85rem;color:var(--muted);margin-top:6px;">Every dollar stays in the community</span>
+          <div class="content-card" style="padding:24px;border-color:rgba(124,58,237,0.36);">
+            <h3 style="color:var(--teal);font-size:2rem;margin-bottom:8px;">$25</h3>
+            <p style="color:var(--text);font-weight:800;margin-bottom:8px;">Event supplies</p>
+            <p style="color:var(--muted);line-height:1.7;">Helps support event supplies and awareness resources for local gatherings.</p>
           </div>
-          <div style="text-align:center;min-width:160px;">
-            <span style="display:block;font-size:2rem;font-weight:800;color:var(--teal);">501(c)(3)</span>
-            <span style="display:block;font-size:0.85rem;color:var(--muted);margin-top:6px;">Federally recognized nonprofit</span>
+          <div class="content-card" style="padding:24px;border-color:rgba(45,212,191,0.32);">
+            <h3 style="color:var(--teal);font-size:2rem;margin-bottom:8px;">$50</h3>
+            <p style="color:var(--text);font-weight:800;margin-bottom:8px;">Community outreach</p>
+            <p style="color:var(--muted);line-height:1.7;">Helps expand outreach through flyers, QR signs, comfort items, and local support.</p>
+          </div>
+          <div class="content-card" style="padding:24px;border-color:rgba(124,58,237,0.36);">
+            <h3 style="color:var(--teal);font-size:2rem;margin-bottom:8px;">$100+</h3>
+            <p style="color:var(--text);font-weight:800;margin-bottom:8px;">Program needs</p>
+            <p style="color:var(--muted);line-height:1.7;">Helps sponsor larger event needs, survivor support activities, and future programs.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- OTHER WAYS TO SUPPORT -->
-    <section aria-labelledby="other-support-heading" style="padding:80px 0;">
-      <div class="container" style="max-width:720px;margin:0 auto;text-align:center;">
-        <p class="section-label">More Ways to Help</p>
-        <h2 class="section-title" id="other-support-heading">Support Beyond <em>Giving</em></h2>
-        <p class="section-intro">
-          Can&rsquo;t give right now? You can still make a difference.
-        </p>
-        <div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:32px;">
-          <a href="merch.html" class="btn btn-secondary">Shop Merch &rarr;</a>
-          <a href="events.html" class="btn btn-ghost">Attend an Event &rarr;</a>
-          <a href="https://www.facebook.com/groups/560290368564902/" target="_blank" rel="noopener" class="btn btn-ghost">Join Our Facebook Group &rarr;</a>
+    <!-- ACTIVE CAMPAIGNS -->
+    <section class="section--alt" aria-labelledby="campaigns-heading" style="padding:72px 0;">
+      <div class="container" style="max-width:1120px;margin:0 auto;">
+        <div style="text-align:center;max-width:760px;margin:0 auto 32px;">
+          <p class="section-label">Active Campaigns</p>
+          <h2 class="section-title" id="campaigns-heading">Where Support Is <em>Moving Now</em></h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;">
+          <a href="shoe-drive.html" class="content-card" style="display:block;padding:24px;text-decoration:none;border-color:rgba(45,212,191,0.34);">
+            <h3 style="color:var(--purple-lt);margin-bottom:10px;">Shoe Drive</h3>
+            <p style="color:var(--muted);line-height:1.7;">Collecting gently worn, used, and new shoes for outreach and recovery support.</p>
+          </a>
+          <a href="events.html" class="content-card" style="display:block;padding:24px;text-decoration:none;border-color:rgba(124,58,237,0.34);">
+            <h3 style="color:var(--purple-lt);margin-bottom:10px;">Light Up the Night</h3>
+            <p style="color:var(--muted);line-height:1.7;">Community awareness events, remembrance, and connection for people who need hope nearby.</p>
+          </a>
+          <a href="merch.html" class="content-card" style="display:block;padding:24px;text-decoration:none;border-color:rgba(45,212,191,0.34);">
+            <h3 style="color:var(--purple-lt);margin-bottom:10px;">Twizted Treasures / Merch</h3>
+            <p style="color:var(--muted);line-height:1.7;">Mission-centered items that help people carry the reminder to pause but continue.</p>
+          </a>
+          <a href="resources.html" class="content-card" style="display:block;padding:24px;text-decoration:none;border-color:rgba(124,58,237,0.34);">
+            <h3 style="color:var(--purple-lt);margin-bottom:10px;">Community Outreach / Resources</h3>
+            <p style="color:var(--muted);line-height:1.7;">Awareness, resources, and support for grief, suicide loss, mental health, and hard seasons.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHERE DONATIONS HELP -->
+    <section aria-labelledby="where-help-heading" style="padding:72px 0;">
+      <div class="container" style="max-width:1120px;margin:0 auto;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;align-items:start;">
+          <div>
+            <p class="section-label">Where Donations Help</p>
+            <h2 class="section-title" id="where-help-heading">Practical Support, <em>Human Care</em></h2>
+            <p style="color:var(--muted);line-height:1.85;margin-top:14px;">Your gift helps Twizted Journeys keep showing up with resources people can hold, events people can attend, and comfort people can feel when life gets heavy.</p>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;">
+            <div class="content-card" style="padding:18px;">Awareness materials</div>
+            <div class="content-card" style="padding:18px;">Event supplies</div>
+            <div class="content-card" style="padding:18px;">QR/flyers</div>
+            <div class="content-card" style="padding:18px;">Comfort items</div>
+            <div class="content-card" style="padding:18px;">Community outreach</div>
+            <div class="content-card" style="padding:18px;">Survivor support activities</div>
+            <div class="content-card" style="padding:18px;">Future programs</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DONATION CTA -->
+    <section class="section--alt" aria-labelledby="donate-cta-heading" style="padding:72px 0 88px;">
+      <div class="container" style="max-width:860px;margin:0 auto;text-align:center;">
+        <div class="content-card" style="padding:clamp(28px,5vw,46px);border-color:rgba(45,212,191,0.38);background:linear-gradient(135deg,rgba(13,148,136,0.14),rgba(124,58,237,0.13),rgba(11,11,15,0.86));">
+          <p class="section-label">Ready to Give?</p>
+          <h2 class="section-title" id="donate-cta-heading">Help Penetrate the <em>Darkness</em></h2>
+          <p style="color:var(--muted);line-height:1.8;max-width:620px;margin:12px auto 26px;">Secure donation handled through Donorbox. You will leave this site to complete your gift on the Donorbox donation page.</p>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;">
+            <a href="https://donorbox.org/help-penetrate-the-darkness" target="_blank" rel="noopener" class="btn btn-primary">Donate Now</a>
+            <button type="button" class="btn btn-ghost" onclick="if (navigator.clipboard) { navigator.clipboard.writeText('https://twiztedjourneys.org/donate.html'); this.textContent = 'Donation Page Copied'; }">Share this donation page</button>
+          </div>
+          <p style="margin-top:22px;color:var(--muted);font-size:0.9rem;">Or mail a check payable to <strong>Twizted Journeys</strong> &mdash; email us for the mailing address.</p>
         </div>
       </div>
     </section>
