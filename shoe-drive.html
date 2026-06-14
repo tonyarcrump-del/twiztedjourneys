@@ -17,6 +17,95 @@
  <meta name="twitter:image" content="https://twiztedjourneys.org/images/what-comes-after-the-pause-promo.png">
  <meta name="description" content="Donate your gently worn, used and new shoes to support Twizted Journeys mental health advocacy. Our Shoe Us the Love fundraiser partners with Funds2Orgs to turn donated shoes into real funding for our community.">
  <link rel="stylesheet" href="css/styles.css">
+ <style>
+  .shoe-action-grid {
+   display:grid;
+   grid-template-columns:repeat(3, minmax(0, 1fr));
+   gap:18px;
+   max-width:1120px;
+   margin:0 auto;
+  }
+
+  .shoe-action-card {
+   display:flex;
+   flex-direction:column;
+   min-height:100%;
+   padding:24px;
+   border:1px solid rgba(45,212,191,0.28);
+   border-radius:18px;
+   background:linear-gradient(135deg, rgba(15,23,42,0.88), rgba(20,16,43,0.82));
+   box-shadow:0 14px 34px rgba(2,6,23,0.24);
+   transition:transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .shoe-action-card:nth-child(even) {
+   border-color:rgba(168,85,247,0.34);
+  }
+
+  .shoe-action-icon {
+   width:46px;
+   height:46px;
+   display:grid;
+   place-items:center;
+   margin-bottom:16px;
+   border-radius:14px;
+   color:#f8fafc;
+   font-size:1.45rem;
+   background:linear-gradient(135deg, rgba(45,212,191,0.24), rgba(168,85,247,0.30));
+   border:1px solid rgba(45,212,191,0.28);
+  }
+
+  .shoe-action-card h3 {
+   color:var(--purple-lt);
+   font-size:1.12rem;
+   margin-bottom:8px;
+  }
+
+  .shoe-action-card p {
+   color:var(--muted);
+   line-height:1.7;
+   margin-bottom:18px;
+  }
+
+  .shoe-action-card .btn {
+   margin-top:auto;
+   width:max-content;
+   max-width:100%;
+   font-size:0.84rem;
+   padding:9px 14px;
+  }
+
+  .shoe-action-strip {
+   max-width:1120px;
+   margin:26px auto 0;
+   padding:20px;
+   display:flex;
+   gap:12px;
+   flex-wrap:wrap;
+   justify-content:center;
+   border:1px solid rgba(124,58,237,0.30);
+   border-radius:18px;
+   background:linear-gradient(135deg, rgba(124,58,237,0.13), rgba(13,148,136,0.10), rgba(2,6,23,0.72));
+  }
+
+  @media (hover:hover) and (pointer:fine) {
+   .shoe-action-card:hover {
+    transform:translateY(-4px);
+    border-color:rgba(45,212,191,0.58);
+    box-shadow:0 18px 44px rgba(45,212,191,0.12), 0 12px 34px rgba(124,58,237,0.12);
+   }
+  }
+
+  @media (max-width:900px) {
+   .shoe-action-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width:640px) {
+   .shoe-action-grid { grid-template-columns:1fr; }
+   .shoe-action-card .btn { width:100%; justify-content:center; }
+   .shoe-action-strip .btn { width:100%; justify-content:center; }
+  }
+ </style>
 </head>
 <body>
 
@@ -175,34 +264,57 @@
  <div class="section-header" style="text-align:center; max-width:780px; margin:0 auto 28px;">
  <p class="section-label">Choose How You Can Help</p>
  <h2 class="section-title">Small Actions, <em>Shared Impact</em></h2>
- <p class="section-sub">Pick the step that fits your home, group, workplace, or weekend plans.</p>
+ <p class="section-sub">Pick one quick action. Every pair, post, bin, and invitation helps move the campaign forward.</p>
  </div>
 
- <div style="max-width:1120px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:18px;">
- <div class="content-card" style="padding:22px; border-color:rgba(45,212,191,0.30);">
- <h3 style="color:var(--purple-lt); font-size:1.05rem; margin-bottom:8px;">Donate Shoes</h3>
- <p style="color:var(--muted); line-height:1.7;">Donate gently worn, used, and new shoes from your closet or family.</p>
+ <div class="shoe-action-grid">
+ <article class="shoe-action-card">
+ <div class="shoe-action-icon" aria-hidden="true">&#128095;</div>
+ <h3>Donate Shoes</h3>
+ <p>Gather gently worn, used, and new shoes and bring them to a campaign drop-off spot.</p>
+ <a href="#drop-off-locations" class="btn btn-ghost">Find Drop-Offs</a>
+ </article>
+
+ <article class="shoe-action-card">
+ <div class="shoe-action-icon" aria-hidden="true">&#128230;</div>
+ <h3>Host a Bin</h3>
+ <p>Give neighbors, customers, or coworkers an easy place to donate shoes together.</p>
+ <a href="mailto:info@twiztedjourneys.org?subject=Shoe%20Drive%20Collection%20Bin" class="btn btn-ghost">Contact Us</a>
+ </article>
+
+ <article class="shoe-action-card">
+ <div class="shoe-action-icon" aria-hidden="true">&#9635;</div>
+ <h3>Share the QR</h3>
+ <p>Print or post the QR so people can find drop-offs, dates, and share materials fast.</p>
+ <a href="images/qr/qr-shoe-drive.png" class="btn btn-ghost" download>Download QR</a>
+ </article>
+
+ <article class="shoe-action-card">
+ <div class="shoe-action-icon" aria-hidden="true">&#127926;</div>
+ <h3>Bring Shoes to Cornstock</h3>
+ <p>Look for the Twizted Journeys shoe donation bin during Cornstock Festival 2026.</p>
+ <a href="#drop-off-locations" class="btn btn-ghost">See Details</a>
+ </article>
+
+ <article class="shoe-action-card">
+ <div class="shoe-action-icon" aria-hidden="true">&#128226;</div>
+ <h3>Invite a Group</h3>
+ <p>Ask a church, school, workplace, or business to collect shoes and share the campaign.</p>
+ <a href="#share-campaign" class="btn btn-ghost">Copy Share Text</a>
+ </article>
+
+ <article class="shoe-action-card">
+ <div class="shoe-action-icon" aria-hidden="true">&#9993;</div>
+ <h3>Ask About Pickup</h3>
+ <p>Have a larger donation or pickup question? Send the team a quick note.</p>
+ <a href="mailto:info@twiztedjourneys.org?subject=Shoe%20Drive%20Pickup%20Question" class="btn btn-ghost">Email Pickup Question</a>
+ </article>
  </div>
- <div class="content-card" style="padding:22px; border-color:rgba(124,58,237,0.32);">
- <h3 style="color:var(--purple-lt); font-size:1.05rem; margin-bottom:8px;">Host a Bin</h3>
- <p style="color:var(--muted); line-height:1.7;">Host a collection bin at a trusted community spot or local business.</p>
- </div>
- <div class="content-card" style="padding:22px; border-color:rgba(45,212,191,0.30);">
- <h3 style="color:var(--purple-lt); font-size:1.05rem; margin-bottom:8px;">Share the QR</h3>
- <p style="color:var(--muted); line-height:1.7;">Share the Shoe Drive QR on flyers, counters, bulletins, and social posts.</p>
- </div>
- <div class="content-card" style="padding:22px; border-color:rgba(124,58,237,0.32);">
- <h3 style="color:var(--purple-lt); font-size:1.05rem; margin-bottom:8px;">Bring Shoes to Cornstock</h3>
- <p style="color:var(--muted); line-height:1.7;">Bring shoes to Cornstock Festival 2026 when Twizted Journeys has a donation bin available.</p>
- </div>
- <div class="content-card" style="padding:22px; border-color:rgba(45,212,191,0.30);">
- <h3 style="color:var(--purple-lt); font-size:1.05rem; margin-bottom:8px;">Invite a Group</h3>
- <p style="color:var(--muted); line-height:1.7;">Invite a church, school, workplace, or business to collect shoes together.</p>
- </div>
- <div class="content-card" style="padding:22px; border-color:rgba(124,58,237,0.32);">
- <h3 style="color:var(--purple-lt); font-size:1.05rem; margin-bottom:8px;">Ask About Pickup</h3>
- <p style="color:var(--muted); line-height:1.7;">Contact Twizted Journeys for larger donations or pickup questions.</p>
- </div>
+
+ <div class="shoe-action-strip" aria-label="Shoe drive campaign downloads">
+ <a href="images/shoe-drive-walk-with-a-twizt-share-qr.png" class="btn btn-primary" download>Download Share Graphic</a>
+ <a href="docs/press/twizted-journeys-walk-with-a-twizt-shoe-drive-press-release.docx" class="btn btn-ghost" download>Download Press Release</a>
+ <button type="button" class="btn btn-teal" onclick="if (navigator.share) { navigator.share({ title: 'Walk with a twizt Shoe Drive', text: 'Twizted Journeys is collecting gently worn, used, and new shoes July 15 to September 15, 2026.', url: 'https://twiztedjourneys.org/shoe-drive.html' }); } else if (navigator.clipboard) { navigator.clipboard.writeText('https://twiztedjourneys.org/shoe-drive.html'); this.textContent = 'Link Copied'; }">Share Shoe Drive Page</button>
  </div>
  </div>
 </section>
@@ -313,7 +425,7 @@
   </div>
   </div>
 
-  <div class="content-card" style="padding:28px; border-color:rgba(45,212,191,0.34); background:rgba(15,23,42,0.78);">
+  <div class="content-card" id="share-campaign" style="padding:28px; border-color:rgba(45,212,191,0.34); background:rgba(15,23,42,0.78);">
   <h3 style="color:var(--purple-lt); margin-bottom:14px;">Share This Campaign</h3>
   <label for="shoe-drive-share-copy" style="display:block; color:var(--teal-lt); font-weight:800; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:10px;">Copy/paste text</label>
   <textarea id="shoe-drive-share-copy" readonly style="width:100%; min-height:178px; resize:vertical; border-radius:14px; border:1px solid rgba(45,212,191,0.28); background:rgba(2,6,23,0.82); color:var(--text); padding:14px; line-height:1.55; font:inherit;">Help support the Twizted Journeys &ldquo;Walk with a twizt&rdquo; Shoe Drive. Donate gently worn, used, and new shoes July 15 to September 15, 2026. The community walk is September 13, 2026. Drop off shoes at Rootin 4 Ya / Salon Twenty-four, 24 Howard St, 1213 State St, or Cornstock Festival 2026, where Twizted Journeys will have a shoe donation bin available during the festival. This campaign supports suicide awareness, community outreach, and Jana Crisman&rsquo;s medical bills. Learn more: https://twiztedjourneys.org/shoe-drive.html</textarea>
