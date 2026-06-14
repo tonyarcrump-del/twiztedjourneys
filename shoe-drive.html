@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <link rel="icon" type="image/png" href="images/favicon.png?v=2">
@@ -250,6 +250,90 @@
 }
 @media (max-width: 768px) {
   .sd-hero-wrap::after { animation: none; opacity: 0.4; }
+}
+</style>
+
+<style>
+/* Shoe Drive snapshot layout repair */
+#drop-off-locations {
+  scroll-margin-top: 120px;
+}
+
+#drop-off-locations .campaign-snapshot-grid,
+#drop-off-locations .snapshot-grid,
+#drop-off-locations .shoe-drive-snapshot-grid,
+#drop-off-locations [class*="snapshot-grid"] {
+  align-items: start !important;
+}
+
+#drop-off-locations .campaign-snapshot-card,
+#drop-off-locations .snapshot-card,
+#drop-off-locations .shoe-drive-snapshot-card,
+#drop-off-locations [class*="snapshot-card"] {
+  height: auto !important;
+  min-height: 0 !important;
+  align-self: start !important;
+}
+
+#drop-off-locations .dropoff-list,
+#drop-off-locations .drop-off-list,
+#drop-off-locations [class*="dropoff-list"],
+#drop-off-locations [class*="drop-off-list"] {
+  display: grid;
+  gap: 14px;
+}
+
+#drop-off-locations .dropoff-location,
+#drop-off-locations .drop-off-location,
+#drop-off-locations [class*="dropoff-location"],
+#drop-off-locations [class*="drop-off-location"] {
+  padding: 14px;
+  border: 1px solid rgba(86,224,210,0.28);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(15,23,42,0.78), rgba(20,16,43,0.72));
+}
+
+#drop-off-locations .directions-btn,
+#drop-off-locations a[href*="google.com/maps"] {
+  display: inline-flex;
+  margin-top: 10px;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(138,43,239,0.45);
+  background: rgba(138,43,239,0.12);
+  color: #F8FBFF;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+#drop-off-locations .directions-btn:hover,
+#drop-off-locations a[href*="google.com/maps"]:hover {
+  border-color: rgba(86,224,210,0.75);
+  box-shadow: 0 0 18px rgba(86,224,210,0.18);
+  transform: translateY(-1px);
+}
+
+@media (min-width: 980px) {
+  #drop-off-locations .campaign-snapshot-grid,
+  #drop-off-locations .snapshot-grid,
+  #drop-off-locations .shoe-drive-snapshot-grid,
+  #drop-off-locations [class*="snapshot-grid"] {
+    grid-template-columns: minmax(220px, 0.85fr) minmax(220px, 0.85fr) minmax(220px, 0.85fr) minmax(300px, 1.15fr) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  #drop-off-locations .campaign-snapshot-grid,
+  #drop-off-locations .snapshot-grid,
+  #drop-off-locations .shoe-drive-snapshot-grid,
+  #drop-off-locations [class*="snapshot-grid"] {
+    grid-template-columns: 1fr !important;
+  }
 }
 </style>
 </head>
