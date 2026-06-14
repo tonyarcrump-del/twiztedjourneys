@@ -118,10 +118,104 @@
    max-width: 480px;
    margin: 0 auto 18px;
   }
+  .home-hero {
+   min-height:clamp(620px, 72vh, 760px);
+   display:flex;
+   align-items:center;
+  }
+  .home-hero::before {
+   background:linear-gradient(90deg, rgba(6,8,18,0.92) 0%, rgba(11,11,24,0.78) 42%, rgba(11,11,15,0.48) 74%, rgba(11,11,15,0.72) 100%);
+  }
+  .home-hero-panel {
+   max-width:760px;
+   padding:clamp(28px, 5vw, 54px);
+   border:1px solid rgba(86,224,210,0.28);
+   border-radius:22px;
+   background:linear-gradient(135deg, rgba(8,12,28,0.78), rgba(23,13,44,0.68));
+   box-shadow:0 24px 70px rgba(0,0,0,0.38), 0 0 44px rgba(86,224,210,0.08);
+   backdrop-filter:blur(8px);
+  }
+  .home-hero-eyebrow {
+   color:var(--teal);
+   font-size:0.78rem;
+   font-weight:800;
+   letter-spacing:0.12em;
+   text-transform:uppercase;
+   margin-bottom:16px;
+  }
+  .home-hero-panel h1 {
+   font-size:clamp(2.45rem, 6vw, 5.25rem);
+   line-height:0.96;
+   margin:0 0 18px;
+   color:#fffaf0;
+   text-shadow:0 7px 28px rgba(0,0,0,0.56);
+  }
+  .home-hero-panel h1 em {
+   font-style:normal;
+   color:#4df3e6;
+   background:linear-gradient(110deg, #5ffcf0 0%, #2dd4bf 42%, #a855f7 86%);
+   -webkit-background-clip:text;
+   background-clip:text;
+   -webkit-text-fill-color:transparent;
+  }
+  .home-hero-panel .hero-sub {
+   max-width:660px;
+   color:rgba(248,251,255,0.88);
+   font-size:clamp(1rem, 1.7vw, 1.18rem);
+   line-height:1.72;
+   margin-bottom:18px;
+  }
+  .home-hero-heartline {
+   color:#f8fafc;
+   font-weight:800;
+   margin:0 0 26px;
+   text-shadow:0 4px 18px rgba(0,0,0,0.45);
+  }
+  .home-hero-ctas {
+   display:flex;
+   gap:12px;
+   flex-wrap:wrap;
+   margin-bottom:22px;
+  }
+  .home-campaign-pill {
+   display:inline-flex;
+   align-items:center;
+   gap:10px;
+   padding:11px 14px;
+   border:1px solid rgba(86,224,210,0.34);
+   border-radius:999px;
+   color:var(--muted);
+   background:rgba(2,6,23,0.55);
+   text-decoration:none;
+   box-shadow:0 10px 28px rgba(2,6,23,0.24);
+  }
+  .home-campaign-pill strong {
+   color:var(--teal);
+  }
+  .home-campaign-pill:hover {
+   color:var(--white);
+   border-color:rgba(168,85,247,0.58);
+   transform:translateY(-1px);
+  }
   @media (max-width: 640px) {
    .impact-row { gap: 22px; }
    .mission-card { padding: 22px 18px; }
    .qr-card { padding: 24px 18px; }
+   .home-hero {
+    min-height:auto;
+    align-items:flex-end;
+    background-position:center top !important;
+   }
+   .home-hero-panel {
+    padding:24px 18px;
+    border-radius:16px;
+   }
+   .home-hero-ctas .btn,
+   .home-campaign-pill {
+    width:100%;
+    justify-content:center;
+    text-align:center;
+   }
   }
  </style>
 </head>
@@ -163,14 +257,20 @@
  <main id="main-content">
 
   <!-- ═══ HERO ════════════════════════════════════════════════════ -->
-  <header class="hero-page hero-page--light" style="background-image: url('images/what-comes-after-the-pause-promo-2.png'); background-size: cover; background-position: center top; background-attachment: fixed;" aria-label="Twizted Journeys home hero">
+  <header class="hero-page hero-page--light home-hero" style="background-image: url('images/what-comes-after-the-pause-promo-2.png'); background-size: cover; background-position: center top; background-attachment: fixed;" aria-label="Twizted Journeys home hero">
    <div class="hero-page__inner container">
-    <p class="section-label">Indiana Nonprofit &middot; Suicide Awareness &amp; Grief Support</p>
-    <h1 data-sc="home_headline">Every <em>Journey</em> Matters</h1>
-    <p class="hero-sub" data-sc="home_subheadline">A safe community for anyone continuing after a pause. It might be your own pause, or it might be a pause someone else had that ended in death, and now you carry that journey as well as your own.</p>
-    <div class="hero-ctas">
-     <a href="https://donorbox.org/help-penetrate-the-darkness" class="btn btn-primary" target="_blank" rel="noopener" data-sc-href="donate_url">Donate</a>
-     <a href="events.html" class="btn btn-secondary">Upcoming Events</a>
+    <div class="home-hero-panel">
+    <p class="home-hero-eyebrow">Indiana Nonprofit &bull; Suicide Awareness &bull; Grief Support &bull; Community Outreach</p>
+    <h1>Continue <em>After the Pause</em></h1>
+    <p class="hero-sub">Twizted Journeys helps bring awareness, connection, comfort, and community resources to people walking through grief, suicide loss, mental health struggles, and hard pauses in life.</p>
+    <p class="home-hero-heartline">You are not alone in the journey after the pause.</p>
+    <div class="home-hero-ctas">
+     <a href="resources.html" class="btn btn-primary">Get Support &amp; Resources</a>
+     <a href="events.html" class="btn btn-secondary">View Events</a>
+     <a href="donate.html" class="btn btn-ghost">Donate</a>
+     <a href="shoe-drive.html" class="btn btn-ghost">Shoe Drive</a>
+    </div>
+    <a href="shoe-drive.html" class="home-campaign-pill"><strong>Current Campaign:</strong> Walk with a twizt Shoe Drive</a>
     </div>
    </div>
   </header>
