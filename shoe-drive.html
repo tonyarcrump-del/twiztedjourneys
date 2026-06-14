@@ -216,17 +216,18 @@
  </div>
  </div>
 
- <!-- TODO: Fill in shoe drive dates and drop-off location when confirmed -->
- <div style="max-width:720px; margin:40px auto 0; display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+ <div style="max-width:840px; margin:40px auto 0; display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:24px;">
  <div class="content-card" style="text-align:center; padding:28px 24px;">
  <div style="font-size:2rem; margin-bottom:8px;">&#128197;</div>
  <h4 style="color:var(--purple-lt); margin-bottom:8px;">Collection Dates</h4>
- <p style="color:var(--muted); font-size:0.9rem; margin-top:8px;">Dates coming soon &mdash; <a href="mailto:info@twiztedjourneys.org" style="color:var(--teal-lt);">email us</a> for the current schedule.</p>
+ <p style="color:var(--text); font-weight:800; margin-top:8px;">July 15 to September 15, 2026</p>
+ <p style="color:var(--muted); font-size:0.9rem; margin-top:8px;">Community walk date: <strong style="color:var(--teal-lt);">September 13, 2026</strong></p>
  </div>
  <div class="content-card" style="text-align:center; padding:28px 24px;">
  <div style="font-size:2rem; margin-bottom:8px;">&#128205;</div>
- <h4 style="color:var(--purple-lt); margin-bottom:8px;">Drop-Off Location</h4>
- <p style="color:var(--muted); font-size:0.9rem; margin-top:8px;">Location details available on request &mdash; <a href="mailto:info@twiztedjourneys.org" style="color:var(--teal-lt);">reach out to us</a> directly.</p>
+ <h4 style="color:var(--purple-lt); margin-bottom:8px;">Drop-Off Locations</h4>
+ <p style="color:var(--text); font-weight:800; margin-top:8px;">Rootin 4 Ya / Salon Twenty-four</p>
+ <p style="color:var(--muted); font-size:0.9rem; line-height:1.6; margin-top:8px;">24 Howard St<br>1213 State St</p>
  </div>
  </div>
 
@@ -336,6 +337,54 @@
  </div>
  </div>
 </section>
+
+<!-- MEDIA & COMMUNITY SHARING KIT -->
+<section class="section" id="media-kit">
+ <div class="container">
+ <div class="section-header" style="text-align:center;">
+ <h2 class="section-title">Media &amp; Community <em>Sharing Kit</em></h2>
+ <p class="section-sub">Everything a newsroom, business, church, school, or neighbor needs to help share the drive clearly.</p>
+ </div>
+
+ <div style="max-width:960px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:28px; align-items:stretch;">
+ <div class="content-card" style="padding:34px; border-color:rgba(124,58,237,0.34); background:linear-gradient(135deg, rgba(124,58,237,0.18), rgba(13,148,136,0.11) 58%, rgba(2,6,23,0.75));">
+ <div style="display:inline-flex; align-items:center; gap:10px; padding:7px 14px; border-radius:999px; border:1px solid rgba(45,212,191,0.36); color:var(--teal-lt); font-weight:800; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;">
+ <span style="width:9px; height:9px; border-radius:999px; background:var(--teal-lt); box-shadow:0 0 16px rgba(45,212,191,0.8);"></span>
+ Press release available
+ </div>
+ <h3 style="color:var(--text); font-size:clamp(1.45rem, 3vw, 2.15rem); line-height:1.15; margin-bottom:14px;">&ldquo;Walk with a twizt&rdquo; Shoe Drive</h3>
+ <p style="color:var(--muted); line-height:1.75; margin-bottom:20px;">
+ Share the official release for Twizted Journeys&rsquo; community shoe drive, collecting gently worn, used, and new shoes from July 15 to September 15, 2026.
+ The effort supports suicide awareness and community outreach while helping Jana Crisman with medical bills.
+ </p>
+ <div style="display:flex; gap:12px; flex-wrap:wrap;">
+ <a href="docs/press/twizted-journeys-walk-with-a-twizt-shoe-drive-press-release.docx" class="btn btn-primary" download>Download Press Release DOCX</a>
+ <button type="button" class="btn btn-teal" onclick="if (navigator.share) { navigator.share({ title: 'Walk with a twizt Shoe Drive', text: 'Twizted Journeys is collecting gently worn, used, and new shoes July 15 to September 15, 2026.', url: 'https://twiztedjourneys.org/shoe-drive.html' }); } else if (navigator.clipboard) { navigator.clipboard.writeText('https://twiztedjourneys.org/shoe-drive.html'); this.textContent = 'Link Copied'; }">Share Shoe Drive Page</button>
+ </div>
+ </div>
+
+ <div class="content-card" style="padding:30px; border-color:rgba(13,148,136,0.32);">
+ <h3 style="color:var(--purple-lt); margin-bottom:18px;">Quick Facts</h3>
+ <dl style="display:grid; gap:14px; margin:0;">
+ <div>
+ <dt style="color:var(--teal-lt); font-weight:800; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase;">Campaign</dt>
+ <dd style="color:var(--text); margin:4px 0 0;">&ldquo;Walk with a twizt&rdquo; Shoe Drive</dd>
+ </div>
+ <div>
+ <dt style="color:var(--teal-lt); font-weight:800; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase;">Accepted</dt>
+ <dd style="color:var(--text); margin:4px 0 0;">Gently worn, used, and new shoes</dd>
+ </div>
+ <div>
+ <dt style="color:var(--teal-lt); font-weight:800; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase;">Contact</dt>
+ <dd style="color:var(--text); margin:4px 0 0;">Tonya Crump, CEO<br><a href="mailto:info@twiztedjourneys.org" style="color:var(--teal-lt);">info@twiztedjourneys.org</a><br>Office <a href="tel:+13176043642" style="color:var(--teal-lt);">(317) 604-3642</a></dd>
+ </div>
+ </dl>
+ </div>
+ </div>
+ </div>
+</section>
+
+<hr class="divider">
 
 <!-- GET INVOLVED: VOLUNTEERS, BUSINESSES, EVENTS -->
 <section class="section" id="get-involved">
