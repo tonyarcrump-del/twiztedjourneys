@@ -57,6 +57,8 @@
       font-size: 0.84rem;
       line-height: 1.6;
     }
+    .shop-jump-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .orders-summary-actions { display: flex; align-items: center; justify-content: center; height: 100%; }
   </style>
 </head>
 <body>
@@ -197,9 +199,14 @@
       <div>
         <div class="topbar-title">🛍️ Shop / Inventory</div>
         <div class="topbar-sub">Track products displayed on the public shop. Each product can link to checkout, an order form, a payment option, or a contact/message option.</div>
+        <div class="shop-jump-tabs" aria-label="Shop sections">
+          <button class="btn btn-ghost btn-sm" onclick="scrollToProducts()">Products</button>
+          <button class="btn btn-teal btn-sm" onclick="scrollToMerchOrders()">Merch Orders</button>
+        </div>
       </div>
       <div class="topbar-actions">
         <button class="btn btn-ghost btn-sm" onclick="refreshShopAdmin()">↻ Refresh</button>
+        <button class="btn btn-ghost btn-sm" onclick="scrollToMerchOrders()">View Merch Orders</button>
         <button class="btn btn-teal btn-sm" onclick="exportOrdersCSV()">⬇ Export Orders CSV</button>
         <button class="btn btn-primary btn-sm" onclick="openAddModal()">+ Add Product</button>
       </div>
@@ -229,6 +236,21 @@
           <div class="stat-num" id="stat-stock">—</div>
           <div class="stat-label">Units Available</div>
         </div>
+        <div class="stat-card" style="--stat-color:var(--purple);">
+          <div class="stat-icon">📋</div>
+          <div class="stat-num" id="stat-orders-new">—</div>
+          <div class="stat-label">New Orders</div>
+        </div>
+        <div class="stat-card" style="--stat-color:#fbbf24;">
+          <div class="stat-icon">⏳</div>
+          <div class="stat-num" id="stat-orders-pending">—</div>
+          <div class="stat-label">Pending Payment</div>
+        </div>
+        <div class="stat-card" style="--stat-color:var(--teal);">
+          <div class="orders-summary-actions">
+            <button class="btn btn-teal btn-sm" onclick="scrollToMerchOrders()">View Orders</button>
+          </div>
+        </div>
       </div>
 
       <!-- Info banner -->
@@ -239,7 +261,7 @@
       </div>
 
       <!-- Filter bar -->
-      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px;">
+      <div id="products-section" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px;">
         <select class="field-select" id="cat-filter" onchange="applyFilter()" style="width:auto;">
           <option value="all">All categories</option>
           <option value="charm">Charms</option>
@@ -360,6 +382,26 @@
 
   async function refreshShopAdmin() {
     await Promise.all([loadProducts(), loadMerchOrders()]);
+    scrollToHashTarget();
+  }
+
+  function scrollToProducts() {
+    const target = document.getElementById('products-section') || document.getElementById('product-grid');
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function scrollToMerchOrders() {
+    const target = document.getElementById('merch-orders');
+    if (target) {
+      if (window.location.hash !== '#merch-orders') history.replaceState(null, '', '#merch-orders');
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function scrollToHashTarget() {
+    if (window.location.hash === '#merch-orders') {
+      setTimeout(() => document.getElementById('merch-orders')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+    }
   }
 
   async function loadProducts() {
@@ -510,23 +552,33 @@
       allOrders = [];
       visibleOrders = [];
       const message = res.error.message || 'Supabase blocked this request.';
+      updateOrderSummary();
       if (note) {
         note.className = 'admin-warning';
         note.style.display = 'block';
         note.innerHTML =
-          '<strong>Orders are not readable by this admin session yet.</strong><br>' +
+          '<strong>Orders are blocked by Supabase permissions. Run admin/sql/admin-merch-orders-rls.sql in Supabase SQL Editor.</strong><br>' +
           'Supabase returned: ' + esc(message) + '<br>' +
-          'The checked-in SQL currently grants public insert only and revokes authenticated reads. ' +
-          'Safest fix: add an admin-only authenticated SELECT policy for merch_orders, plus an UPDATE policy limited to order_status only.';
+          'This keeps public checkout capture separate from admin-only order review.';
       }
-      if (tbody) tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">Orders are blocked by Supabase permissions.</td></tr>';
+      if (tbody) tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">Orders are blocked by Supabase permissions. Run admin/sql/admin-merch-orders-rls.sql in Supabase SQL Editor.</td></tr>';
       const countLabel = document.getElementById('order-count-label');
       if (countLabel) countLabel.textContent = '0 orders visible';
       return;
     }
 
     allOrders = res.data || [];
+    updateOrderSummary();
     renderOrders();
+  }
+
+  function updateOrderSummary() {
+    const newOrders = allOrders.filter(o => String(o.order_status || 'new').toLowerCase() === 'new').length;
+    const pendingPayments = allOrders.filter(o => String(o.payment_status || 'pending').toLowerCase() === 'pending').length;
+    const newEl = document.getElementById('stat-orders-new');
+    const pendingEl = document.getElementById('stat-orders-pending');
+    if (newEl) newEl.textContent = newOrders;
+    if (pendingEl) pendingEl.textContent = pendingPayments;
   }
 
   function renderOrders() {
@@ -608,6 +660,7 @@
 
     if (current) current.order_status = nextStatus;
     toast('Order status updated.', 'success');
+    updateOrderSummary();
     renderOrders();
   }
 
