@@ -9,20 +9,21 @@
   <link rel="stylesheet" href="admin.css" />
   <style>
     /* Product grid extras */
-    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-    .product-card { background: var(--surface); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; transition: box-shadow 0.2s; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+    .product-card { background: var(--surface); border: 1px solid var(--card-border); border-radius: 8px; overflow: hidden; transition: box-shadow 0.2s; }
     .product-card:hover { box-shadow: 0 0 0 1px var(--card-border), 0 4px 24px rgba(0,0,0,0.4); }
     .product-card.is-hidden { opacity: 0.45; }
     .product-thumb {
-      width: 100%; height: 160px; background: rgba(138,43,239,0.06);
+      width: 100%; height: 132px; background: rgba(138,43,239,0.06);
       display: flex; align-items: center; justify-content: center;
       font-size: 2.5rem; color: var(--muted); overflow: hidden;
     }
     .product-thumb img { width: 100%; height: 100%; object-fit: cover; }
-    .product-body { padding: 16px; }
+    .product-body { padding: 12px; }
     .product-name { font-size: 0.97rem; font-weight: 800; color: var(--white); margin-bottom: 3px; }
     .product-sku  { font-size: 0.72rem; color: var(--muted); font-family: 'Courier New', monospace; margin-bottom: 8px; }
     .product-price { font-size: 1.05rem; font-weight: 800; color: var(--teal); margin-bottom: 10px; }
+    .product-price-note { font-size: 0.78rem; color: var(--muted); margin-top: -6px; margin-bottom: 10px; }
     .stock-bar { display: flex; gap: 8px; font-size: 0.8rem; color: var(--muted); margin-bottom: 14px; flex-wrap: wrap; }
     .stock-num { font-weight: 700; }
     .stock-avail { color: var(--teal); }
@@ -407,31 +408,58 @@
     grid.innerHTML = data.map(p => {
       const avail = Math.max(0, (p.quantity_total || 0) - (p.quantity_sold || 0) - (p.quantity_held || 0));
       const stockClass = avail === 0 ? 'stock-out' : avail <= 3 ? 'stock-low' : 'stock-avail';
+      const priceCents = getProductPriceCents(p);
+      const priceNote = getProductDealLabel(p, priceCents);
+      const imageUrl = resolveAdminImageUrl(p.image_url);
       return `
         <div class="product-card${p.is_hidden ? ' is-hidden' : ''}">
           <div class="product-thumb">
-            ${p.image_url ? `<img src="${p.image_url}" alt="${esc(p.name)}" />` : '🛍️'}
+            ${imageUrl ? `<img src="${esc(imageUrl)}" alt="${esc(p.name)}" />` : '&#128717;'}
           </div>
           <div class="product-body">
             <div class="product-name">${esc(p.name)}</div>
             <div class="product-sku">${esc(p.sku || '')}</div>
-            <div class="product-price">${p.price ? '$' + Number(p.price).toFixed(2) : '—'}</div>
+            <div class="product-price">${formatProductPrice(priceCents)}</div>
+            ${priceNote ? `<div class="product-price-note">${priceNote}</div>` : ''}
             <div class="stock-bar">
               <span class="${stockClass} stock-num">${avail} avail</span>
-              ${p.is_hidden ? '<span style="color:#fbbf24;">● Hidden</span>' : ''}
-              ${p.is_sold_out ? '<span class="stock-out">● Sold Out</span>' : ''}
+              ${p.is_hidden ? '<span style="color:#fbbf24;">Hidden</span>' : ''}
+              ${p.is_sold_out ? '<span class="stock-out">Sold Out</span>' : ''}
             </div>
             <div style="display:flex;gap:8px;">
-              <button class="btn btn-ghost btn-sm" style="flex:1;" onclick="openEditModal(${JSON.stringify(p).replace(/"/g,'&quot;')})">✏️ Edit</button>
-              ${p.webador_url ? `<a href="${p.webador_url}" target="_blank" class="btn btn-ghost btn-sm" title="Open buy/order link">🔗</a>` : ''}
+              <button class="btn btn-ghost btn-sm" style="flex:1;" onclick="openEditModal(${JSON.stringify(p).replace(/"/g,'&quot;')})">&#9999; Edit</button>
+              ${p.webador_url ? `<a href="${esc(p.webador_url)}" target="_blank" class="btn btn-ghost btn-sm" title="Open buy/order link">&#128279;</a>` : ''}
             </div>
           </div>
         </div>`;
     }).join('');
   }
-
   function esc(s) {
     return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function resolveAdminImageUrl(url) {
+    const value = String(url || '').trim();
+    if (!value) return '';
+    if (/^(https?:)?\/\//i.test(value) || value.startsWith('/') || value.startsWith('data:')) return value;
+    if (value.startsWith('../')) return value;
+    return '../' + value.replace(/^\.?\//, '');
+  }
+
+  function getProductPriceCents(p) {
+    if (p.price_cents != null) return Number(p.price_cents) || 0;
+    if (p.price != null) return Math.round((Number(p.price) || 0) * 100);
+    return 0;
+  }
+
+  function formatProductPrice(priceCents) {
+    return priceCents > 0 ? '$' + (priceCents / 100).toFixed(2) : '&mdash;';
+  }
+
+  function getProductDealLabel(p, priceCents) {
+    const sku = String(p.sku || '').toUpperCase();
+    if (priceCents === 300 && /^(HP|H|M)/.test(sku)) return '$3 each &middot; 2 for $5';
+    return '';
   }
 
   function csvEscape(v) {
@@ -638,7 +666,7 @@
     document.getElementById('edit-name').value = p.name || '';
     document.getElementById('edit-sku').value = p.sku || '';
     document.getElementById('edit-category').value = p.category || 'other';
-    document.getElementById('edit-price').value = p.price != null ? p.price : '';
+    document.getElementById('edit-price').value = getProductPriceCents(p) ? (getProductPriceCents(p) / 100).toFixed(2) : '';
     document.getElementById('edit-qty-total').value = p.quantity_total != null ? p.quantity_total : '';
     document.getElementById('edit-qty-sold').value = p.quantity_sold != null ? p.quantity_sold : '';
     document.getElementById('edit-desc').value = p.description || '';
@@ -671,11 +699,12 @@
     btn.disabled = true; btn.textContent = 'Saving…';
 
     const id = document.getElementById('edit-id').value;
+    const priceDollars = parseFloat(document.getElementById('edit-price').value);
     const payload = {
       name,
       sku,
       category:       document.getElementById('edit-category').value,
-      price:          parseFloat(document.getElementById('edit-price').value) || null,
+      price_cents:    Number.isFinite(priceDollars) ? Math.round(priceDollars * 100) : 0,
       quantity_total: parseInt(document.getElementById('edit-qty-total').value) || 0,
       quantity_sold:  parseInt(document.getElementById('edit-qty-sold').value) || 0,
       description:    document.getElementById('edit-desc').value.trim() || null,
