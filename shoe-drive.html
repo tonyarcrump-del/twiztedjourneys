@@ -88,22 +88,105 @@
    background:linear-gradient(135deg, rgba(124,58,237,0.13), rgba(13,148,136,0.10), rgba(2,6,23,0.72));
   }
 
+  .shoe-snapshot {
+   scroll-margin-top:96px;
+  }
+
+  .shoe-snapshot-grid {
+   max-width:1120px;
+   margin:0 auto;
+   display:grid;
+   grid-template-columns:repeat(4, minmax(0, 1fr));
+   gap:18px;
+  }
+
+  .shoe-snapshot-card {
+   min-height:100%;
+   padding:24px;
+   border:1px solid rgba(45,212,191,0.28);
+   border-radius:18px;
+   background:linear-gradient(135deg, rgba(15,23,42,0.88), rgba(20,16,43,0.82));
+   box-shadow:0 14px 34px rgba(2,6,23,0.22);
+   transition:transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .shoe-snapshot-card:nth-child(even) {
+   border-color:rgba(168,85,247,0.34);
+  }
+
+  .shoe-snapshot-card--featured {
+   border-color:rgba(45,212,191,0.56);
+   background:linear-gradient(135deg, rgba(13,148,136,0.18), rgba(124,58,237,0.14), rgba(15,23,42,0.88));
+   box-shadow:0 18px 44px rgba(45,212,191,0.11), 0 12px 34px rgba(124,58,237,0.10);
+  }
+
+  .shoe-snapshot-icon {
+   width:44px;
+   height:44px;
+   display:grid;
+   place-items:center;
+   margin-bottom:14px;
+   border-radius:14px;
+   color:#f8fafc;
+   font-size:1.34rem;
+   background:linear-gradient(135deg, rgba(45,212,191,0.24), rgba(168,85,247,0.30));
+   border:1px solid rgba(45,212,191,0.28);
+  }
+
+  .shoe-snapshot-card h3 {
+   color:var(--purple-lt);
+   font-size:1.08rem;
+   margin-bottom:8px;
+  }
+
+  .shoe-snapshot-card p {
+   color:var(--muted);
+   line-height:1.65;
+   margin:0;
+  }
+
+  .shoe-snapshot-card strong {
+   color:var(--text);
+  }
+
+  .shoe-snapshot-cta {
+   max-width:1120px;
+   margin:24px auto 0;
+   padding:18px;
+   display:flex;
+   gap:12px;
+   flex-wrap:wrap;
+   justify-content:center;
+   border:1px solid rgba(124,58,237,0.30);
+   border-radius:18px;
+   background:linear-gradient(135deg, rgba(124,58,237,0.12), rgba(13,148,136,0.10), rgba(2,6,23,0.72));
+  }
+
   @media (hover:hover) and (pointer:fine) {
    .shoe-action-card:hover {
     transform:translateY(-4px);
     border-color:rgba(45,212,191,0.58);
     box-shadow:0 18px 44px rgba(45,212,191,0.12), 0 12px 34px rgba(124,58,237,0.12);
    }
+
+   .shoe-snapshot-card:hover {
+    transform:translateY(-3px);
+    border-color:rgba(45,212,191,0.54);
+    box-shadow:0 18px 44px rgba(45,212,191,0.10), 0 12px 34px rgba(124,58,237,0.10);
+   }
   }
 
   @media (max-width:900px) {
    .shoe-action-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+   .shoe-snapshot-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
   }
 
   @media (max-width:640px) {
    .shoe-action-grid { grid-template-columns:1fr; }
+   .shoe-snapshot-grid { grid-template-columns:1fr; }
    .shoe-action-card .btn { width:100%; justify-content:center; }
    .shoe-action-strip .btn { width:100%; justify-content:center; }
+   .shoe-snapshot-cta .btn { width:100%; justify-content:center; }
   }
  </style>
 </head>
@@ -187,30 +270,45 @@
  </div>
 </section>
 
-<!-- CAMPAIGN SUMMARY -->
-<section class="section" id="campaign-summary">
+<!-- CAMPAIGN SNAPSHOT & DROP-OFFS -->
+<section class="section shoe-snapshot" id="drop-off-locations">
  <div class="container">
- <div style="max-width:1120px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:18px;">
- <div class="content-card" style="padding:24px; border-color:rgba(124,58,237,0.34);">
- <h2 style="color:var(--purple-lt); font-size:1.2rem; margin-bottom:8px;">Campaign Window</h2>
- <p style="color:var(--text); font-weight:800;">July 15 to September 15, 2026</p>
- <p style="color:var(--muted); margin-top:6px;">Community walk date: <strong style="color:var(--teal-lt);">September 13, 2026</strong></p>
+ <div class="section-header" style="text-align:center; max-width:780px; margin:0 auto 28px;">
+ <p class="section-label">Campaign Snapshot</p>
+ <h2 class="section-title">Campaign Snapshot &amp; <em>Drop-Offs</em></h2>
+ <p class="section-sub">Here&rsquo;s when to donate, what to bring, and where shoes can be dropped off.</p>
  </div>
- <div class="content-card" style="padding:24px; border-color:rgba(13,148,136,0.34);">
- <h2 style="color:var(--purple-lt); font-size:1.2rem; margin-bottom:8px;">What to Donate</h2>
- <p style="color:var(--text); font-weight:800;">Gently worn, used, and new shoes</p>
- <p style="color:var(--muted); margin-top:6px;">Clean, dry, wearable pairs in all sizes and styles.</p>
+
+ <div class="shoe-snapshot-grid">
+ <article class="shoe-snapshot-card">
+ <div class="shoe-snapshot-icon" aria-hidden="true">&#128197;</div>
+ <h3>Campaign Window</h3>
+ <p><strong>July 15 to September 15, 2026</strong><br>Community walk date: <strong>September 13, 2026</strong></p>
+ </article>
+
+ <article class="shoe-snapshot-card">
+ <div class="shoe-snapshot-icon" aria-hidden="true">&#128095;</div>
+ <h3>What to Donate</h3>
+ <p><strong>Gently worn, used, and new shoes</strong><br>Clean, dry, wearable pairs in all sizes and styles.</p>
+ </article>
+
+ <article class="shoe-snapshot-card">
+ <div class="shoe-snapshot-icon" aria-hidden="true">&#128156;</div>
+ <h3>Why It Matters</h3>
+ <p><strong>Outreach and recovery support</strong><br>Supports Twizted Journeys suicide awareness/community outreach and Jana Crisman&rsquo;s medical bills.</p>
+ </article>
+
+ <article class="shoe-snapshot-card shoe-snapshot-card--featured">
+ <div class="shoe-snapshot-icon" aria-hidden="true">&#128205;</div>
+ <h3>Drop-Off Locations</h3>
+ <p><strong>Rootin 4 Ya / Salon Twenty-four</strong><br>24 Howard St<br>1213 State St<br>Cornstock Festival 2026 &mdash; Twizted Journeys will have a shoe donation bin available during the festival.</p>
+ </article>
  </div>
- <div class="content-card" style="padding:24px; border-color:rgba(45,212,191,0.34);">
- <h2 style="color:var(--purple-lt); font-size:1.2rem; margin-bottom:8px;">Why It Matters</h2>
- <p style="color:var(--text); font-weight:800;">Outreach and recovery support</p>
- <p style="color:var(--muted); margin-top:6px;">Supports Twizted Journeys suicide awareness/community outreach and Jana Crisman&rsquo;s medical bills.</p>
- </div>
- <div class="content-card" id="drop-off-locations" style="padding:24px; border-color:rgba(124,58,237,0.34);">
- <h2 style="color:var(--purple-lt); font-size:1.2rem; margin-bottom:8px;">Drop-Off Locations</h2>
- <p style="color:var(--text); font-weight:800;">Rootin 4 Ya / Salon Twenty-four</p>
- <p style="color:var(--muted); line-height:1.7; margin-top:6px;">24 Howard St<br>1213 State St<br>Cornstock Festival 2026 &mdash; Twizted Journeys will have a shoe donation bin available during the festival.</p>
- </div>
+
+ <div class="shoe-snapshot-cta" aria-label="Drop-off section actions">
+ <a href="images/qr/qr-shoe-drive.png" class="btn btn-ghost" download>Download Shoe Drive QR</a>
+ <a href="#share-campaign" class="btn btn-primary">Share Campaign</a>
+ <a href="mailto:info@twiztedjourneys.org?subject=Shoe%20Drive%20Pickup%20Question" class="btn btn-ghost">Ask About Pickup</a>
  </div>
  </div>
 </section>
