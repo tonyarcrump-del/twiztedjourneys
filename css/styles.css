@@ -1358,3 +1358,110 @@ section { padding: 80px 0; }
   .resource-card:hover,
   .event-card:hover { transform: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   CINEMATIC V2 — VISIBLE MOTION OVERRIDE
+   Added: 2026-06-14 pass 2
+   Strengthens the previous atmosphere layer to be actually visible.
+   Canvas effects handled by js/cinematic-atmosphere.js.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Stronger aurora glow drift — replaces v1 values ───────────── */
+.hero-page::after {
+  background:
+    radial-gradient(ellipse 60% 44% at 12% 20%, rgba(138,43,239,0.38) 0%, transparent 62%),
+    radial-gradient(ellipse 50% 36% at 86% 14%, rgba(86,224,210,0.30) 0%, transparent 58%),
+    radial-gradient(ellipse 42% 30% at 58% 80%, rgba(158,243,247,0.22) 0%, transparent 52%),
+    radial-gradient(ellipse 30% 24% at 26% 88%, rgba(138,43,239,0.26) 0%, transparent 50%);
+  animation: cineGlowDrift 14s ease-in-out infinite alternate;
+}
+
+/* ── Stronger light beams ───────────────────────────────────────── */
+.hero-beam-layer::before {
+  opacity: 0.28;
+  animation: cineBeamDrift 10s ease-in-out infinite;
+  background: linear-gradient(180deg,
+    rgba(138,43,239,0)   0%,
+    rgba(138,43,239,0.9) 35%,
+    rgba(158,243,247,0.6) 60%,
+    rgba(138,43,239,0)   100%);
+  width: 140px;
+  filter: blur(24px);
+}
+
+.hero-beam-layer::after {
+  opacity: 0.22;
+  animation: cineBeamDrift 13s ease-in-out infinite;
+  animation-delay: -4s;
+  background: linear-gradient(180deg,
+    rgba(86,224,210,0)   0%,
+    rgba(86,224,210,0.85) 40%,
+    rgba(158,243,247,0.5) 65%,
+    rgba(86,224,210,0)   100%);
+  width: 100px;
+  filter: blur(20px);
+}
+
+/* ── Headline shimmer keyframe (CSS fallback for no-JS) ─────────── */
+@keyframes tjHeadlineShimmerCSS {
+  0%   { background-position: -200% center; }
+  100% { background-position: 260% center; }
+}
+
+/* ── Pulsing glow on hero panel border ──────────────────────────── */
+.home-hero-panel {
+  animation: cinePulseGlow 6s ease-in-out infinite;
+}
+
+@keyframes cinePulseGlow {
+  0%, 100% {
+    box-shadow:
+      0 24px 70px rgba(0,0,0,0.38),
+      0 0 32px rgba(86,224,210,0.10),
+      0 0 0   rgba(138,43,239,0);
+  }
+  50% {
+    box-shadow:
+      0 28px 80px rgba(0,0,0,0.44),
+      0 0 52px rgba(86,224,210,0.22),
+      0 0 80px rgba(138,43,239,0.14);
+  }
+}
+
+/* ── Shoe-drive hero outer wrapper glow pulse ───────────────────── */
+.sd-hero-wrap::after {
+  background:
+    radial-gradient(ellipse 55% 45% at 5% 16%, rgba(45,212,191,0.34) 0%, transparent 62%),
+    radial-gradient(ellipse 44% 38% at 90% 84%, rgba(138,43,239,0.28) 0%, transparent 58%),
+    radial-gradient(ellipse 34% 30% at 52% 50%, rgba(158,243,247,0.14) 0%, transparent 52%);
+  animation: cineGlowDrift 16s ease-in-out infinite alternate;
+}
+
+/* ── Canvas element styles (created by JS) ──────────────────────── */
+canvas.tj-cine-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: screen;
+}
+
+/* ── Reduced motion override for v2 ────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-page::after          { animation: none !important; display: none; }
+  .hero-beam-layer::before,
+  .hero-beam-layer::after    { animation: none !important; opacity: 0 !important; }
+  .home-hero-panel           { animation: none !important; }
+  .sd-hero-wrap::after       { animation: none !important; display: none; }
+}
+
+/* ── Mobile v2 — reduce opacity, no blur-heavy beam ────────────── */
+@media (max-width: 768px) {
+  .hero-page::after          { opacity: 0.55; animation-duration: 22s; }
+  .hero-beam-layer::before,
+  .hero-beam-layer::after    { opacity: 0.12 !important; filter: blur(12px); }
+  .home-hero-panel           { animation-duration: 10s; }
+  .sd-hero-wrap::after       { opacity: 0.5; }
+}
