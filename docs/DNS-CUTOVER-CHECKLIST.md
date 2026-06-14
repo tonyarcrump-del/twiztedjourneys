@@ -6,7 +6,7 @@ Last updated: May 2026
 
 ## What This Does
 Moves twiztedjourneys.org from Webador to the new GitHub Pages site,
-while keeping the Webador shop/donate pages alive at shop.twiztedjourneys.org.
+while keeping public merch and donation links on the primary domain.
 
 **Nothing changes until Tonya says GO.**
 
@@ -22,25 +22,22 @@ while keeping the Webador shop/donate pages alive at shop.twiztedjourneys.org.
 
 ---
 
-## Step 2 — Create the shop. Subdomain (safe to do NOW, doesn't break anything)
+## Step 2 — Confirm Public Merch and Donation Links
 
 **In Webador dashboard:**
 1. Go to Settings → Domain → Custom Domain
-2. Add `shop.twiztedjourneys.org` as an additional domain alias
-3. Webador will now serve on both `www.twiztedjourneys.org` AND `shop.twiztedjourneys.org`
+2. Do not add a separate shop subdomain unless DNS is intentionally configured and tested first.
+3. Keep merch links on the primary domain at `https://twiztedjourneys.org/merch.html`
 
 **In OpenProvider (DNS registrar):**
 1. Log in to OpenProvider
 2. Go to twiztedjourneys.org → DNS records
-3. Add a new CNAME record:
-   - **Name:** `shop`
-   - **Value:** `website-rendering.webador.com`
-   - **TTL:** 3600
+3. Do not add a shop CNAME unless Tonya intentionally wants a separate subdomain and DNS has been fully planned.
 
-4. Wait 15-30 minutes, then test: `https://shop.twiztedjourneys.org/donations-matter`
+4. Wait 15-30 minutes, then test the approved primary-domain donation page.
    - Should load the Webador donate page ✅
 
-> **Note:** This step only ADDS a new record — it does NOT change www. or break the live site.
+> **Note:** Public merch links should use `https://twiztedjourneys.org/merch.html`.
 
 ---
 
@@ -49,7 +46,7 @@ Before proceeding to Step 4, Tonya confirms:
 - [ ] "The new site looks good on mobile and desktop"
 - [ ] "Forms are working"
 - [ ] "Admin panel works with my login"
-- [ ] "shop.twiztedjourneys.org/donations-matter loads the donate page correctly"
+- [ ] "The approved donation page loads correctly"
 - [ ] "I approve the DNS cutover"
 
 **DO NOT proceed to Step 4 without this sign-off.**
@@ -90,9 +87,8 @@ www CNAME  tonyarcrump-del.github.io
 ## Step 5 — After Cutover (verify within 1 hour)
 - [ ] `https://twiztedjourneys.org` loads the new site ✅
 - [ ] `https://www.twiztedjourneys.org` redirects to new site ✅
-- [ ] `https://shop.twiztedjourneys.org/donations-matter` still loads Webador ✅
-- [ ] `https://shop.twiztedjourneys.org/twizted-merch` still loads Webador ✅
-- [ ] All donation buttons on new site go to shop.twiztedjourneys.org ✅
+- [ ] `https://twiztedjourneys.org/merch.html` loads the merch page ✅
+- [ ] All donation buttons on new site go to the approved primary-domain donation page ✅
 - [ ] Admin panel at twiztedjourneys.org/admin/ works ✅
 - [ ] 988 crisis line visible on homepage ✅
 

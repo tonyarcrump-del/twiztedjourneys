@@ -109,7 +109,7 @@ These sections are improvements, additions, or structural upgrades that don't ex
 | memorial.html | Full memorial name list | twiztedjourneys.org/memorial-page |
 | mental-health.html | Full page body text | twiztedjourneys.org/mental-health |
 | everyone-fidgets.html | Full page body text | twiztedjourneys.org/everyone-fidgets |
-| merch.html | Shirt & awareness item products | twiztedjourneys.org/twizted-merch |
+| merch.html | Shirt & awareness item products | twiztedjourneys.org/merch.html |
 
 ---
 

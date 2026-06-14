@@ -35,7 +35,7 @@ npm start
 | 3 | Facebook Page | ~~https://www.facebook.com/twiztedjourneys~~ | ~~twizted-qr-codes.html (card 3)~~ | `facebook-page-qr-2026.png` | ❌ Removed | — | Card removed from QR hub — URL unconfirmed (goes nowhere). Re-add when real Facebook Page URL is confirmed. |
 | 4 | Donate | https://www.twiztedjourneys.org/donations-matter | twizted-qr-codes.html (card 4), all page navs | `donate-qr-2026.png` | ✅ Live URL | ⬜ No | Test that donation page loads correctly |
 | 5 | Events / Registration | https://tonyarcrump-del.github.io/twiztedjourneys/events.html | twizted-qr-codes.html (card 5) | `events-qr-2026.png` | ⚠️ GitHub preview (temporary) | ⬜ No | Update to twiztedjourneys.org/our-journeys once live site redirects |
-| 6 | Shop / Merch | https://www.twiztedjourneys.org/twizted-merch | twizted-qr-codes.html (card 6), merch.html | `merch-qr-2026.png` | ✅ Live URL | ⬜ No | Test charm product page loads |
+| 6 | Shop / Merch | https://twiztedjourneys.org/merch.html | twizted-qr-codes.html (card 6), merch.html | `merch-qr-2026.png` | ✅ Live URL | ⬜ No | Test merch page loads |
 | 7 | Memorial | https://www.twiztedjourneys.org/memorial-page | twizted-qr-codes.html (card 7) | `memorial-qr-2026.png` | ✅ Live URL | ⬜ No | Verify memorial page loads on live Webador site |
 | 8 | Share Your Journey (Twizted Treasures) | https://tonyarcrump-del.github.io/twiztedjourneys/twizted-treasures.html | twizted-qr-codes.html (card 8), merch.html callout, stories.html callout | `journey-qr-2026.png` | ⚠️ GitHub preview (temporary) | ⬜ No | Update to live URL once twizted-treasures.html is deployed |
 

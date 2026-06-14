@@ -92,8 +92,8 @@ INSERT INTO site_content (key, value) VALUES
 
   -- Contact & donation
   ('contact_email', 'tonyarcrump@gmail.com'),
-  ('donate_url',    'https://shop.twiztedjourneys.org/donations-matter'),
-  ('shop_url',      'https://shop.twiztedjourneys.org/twizted-merch'),
+  ('donate_url',    'https://twiztedjourneys.org/donations-matter'),
+  ('shop_url',      'https://twiztedjourneys.org/merch.html'),
   ('contact_phone', ''),
 
   -- Footer
