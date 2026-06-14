@@ -149,6 +149,14 @@
           </div>
           <a class="stat-mini-link" href="../podcast.html" target="_blank">View →</a>
         </div>
+        <div class="stat-mini" style="--stat-color:var(--warning);">
+          <div class="stat-mini-icon">Orders</div>
+          <div class="stat-mini-body">
+            <div class="stat-mini-num" id="stat-merch-orders">—</div>
+            <div class="stat-mini-label">New / Pending Merch Orders</div>
+          </div>
+          <a class="stat-mini-link" href="shop.html#merch-orders">View →</a>
+        </div>
       </div>
 
       <!-- Announce + Activity -->
@@ -237,6 +245,11 @@
           <div class="ac-icon">🛍️</div>
           <div class="ac-title">Shop Inventory</div>
           <div class="ac-desc">Add products, update quantities, hide or show listings, and manage the shop display.</div>
+        </a>
+        <a class="action-card" href="shop.html#merch-orders">
+          <div class="ac-icon">Orders</div>
+          <div class="ac-title">Merch Orders</div>
+          <div class="ac-desc">View customer merch orders, shipping details, payment status, and order status.</div>
         </a>
         <a class="action-card" href="content.html">
           <div class="ac-icon">✏️</div>
@@ -385,6 +398,18 @@
       if (alert && pending > 0) alert.style.display = 'flex';
       if (alertText) alertText.textContent = pending + ' pending submission' + (pending === 1 ? ' is' : 's are') + ' waiting for review.';
     } catch (e) {}
+
+    try {
+      const { count, error } = await db.from('merch_orders')
+        .select('id', { count: 'exact', head: true })
+        .or('order_status.eq.new,payment_status.eq.pending');
+      if (error) throw error;
+      const merchOrderEl = document.getElementById('stat-merch-orders');
+      if (merchOrderEl) merchOrderEl.textContent = count ?? 0;
+    } catch (e) {
+      const merchOrderEl = document.getElementById('stat-merch-orders');
+      if (merchOrderEl) merchOrderEl.textContent = 'Locked';
+    }
 
     try {
       const { data, error } = await db.from('site_content')

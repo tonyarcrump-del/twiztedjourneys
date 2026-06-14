@@ -42,6 +42,20 @@
       max-height: 90vh; overflow-y: auto;
     }
     .modal-title { font-size: 1.1rem; font-weight: 800; color: var(--white); margin-bottom: 20px; }
+    .orders-toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 18px; }
+    .order-detail { font-size: 0.78rem; color: var(--muted); line-height: 1.45; margin-top: 3px; }
+    .order-address,
+    .order-notes { max-width: 260px; white-space: pre-wrap; word-break: break-word; color: var(--muted-lt); }
+    .order-status-select { min-width: 150px; }
+    .admin-warning {
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: #fbbf24;
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
@@ -184,7 +198,8 @@
         <div class="topbar-sub">Track products displayed on the public shop. Each product can link to checkout, an order form, a payment option, or a contact/message option.</div>
       </div>
       <div class="topbar-actions">
-        <button class="btn btn-ghost btn-sm" onclick="loadProducts()">↻ Refresh</button>
+        <button class="btn btn-ghost btn-sm" onclick="refreshShopAdmin()">↻ Refresh</button>
+        <button class="btn btn-teal btn-sm" onclick="exportOrdersCSV()">⬇ Export Orders CSV</button>
         <button class="btn btn-primary btn-sm" onclick="openAddModal()">+ Add Product</button>
       </div>
     </div>
@@ -249,6 +264,62 @@
         <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted);">Loading…</div>
       </div>
 
+      <!-- Merch Orders -->
+      <div class="card" id="merch-orders" style="margin-top:28px;">
+        <div class="section-header" style="margin-bottom:16px;">
+          <div>
+            <div class="card-title" style="margin-bottom:6px;">Merch Orders</div>
+            <div class="card-desc" style="margin-bottom:0;">View customer order details without opening Supabase. No payment card data is stored or shown here.</div>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="loadMerchOrders()">↻ Refresh Orders</button>
+        </div>
+
+        <div class="orders-toolbar">
+          <input type="search" class="field-input" id="order-search-input" placeholder="Search customer, email, item…"
+            oninput="renderOrders()" style="flex:1;min-width:220px;max-width:360px;" />
+          <select class="field-select" id="order-status-filter" onchange="renderOrders()" style="width:auto;">
+            <option value="all">All order statuses</option>
+            <option value="new">New</option>
+            <option value="contacted">Contacted</option>
+            <option value="awaiting_payment">Awaiting payment</option>
+            <option value="paid">Paid</option>
+            <option value="fulfilled">Fulfilled</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <select class="field-select" id="payment-status-filter" onchange="renderOrders()" style="width:auto;">
+            <option value="all">All payment statuses</option>
+            <option value="pending">Pending</option>
+            <option value="paid">Paid</option>
+            <option value="failed">Failed</option>
+            <option value="refunded">Refunded</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <span id="order-count-label" style="font-size:0.82rem;color:var(--muted);margin-left:auto;"></span>
+        </div>
+
+        <div id="orders-access-note" style="display:none;margin-bottom:16px;"></div>
+
+        <div class="table-wrap">
+          <table class="data-table" id="orders-table">
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th>Item</th>
+                <th>Qty</th>
+                <th>Shipping / Notes</th>
+                <th>Payment</th>
+                <th>Order Status</th>
+                <th>Stripe Session</th>
+                <th>Created</th>
+              </tr>
+            </thead>
+            <tbody id="orders-tbody">
+              <tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">Loading orders…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
   </main>
 </div>
@@ -257,7 +328,10 @@
 <script src="auth.js"></script>
 <script>
   let allProducts = [];
+  let allOrders = [];
+  let visibleOrders = [];
   let _db = null;
+  const ORDER_STATUSES = ['new', 'contacted', 'awaiting_payment', 'paid', 'fulfilled', 'cancelled'];
 
   function toast(msg, type = 'info') {
     const t = document.getElementById('tj-toast');
@@ -278,10 +352,14 @@
       badge.className = 'nav-badge' + ((count ?? 0) === 0 ? ' zero' : '');
     } catch(e) {}
 
-    await loadProducts();
+    await refreshShopAdmin();
   });
 
   function signOut() { adminSignOut(); }
+
+  async function refreshShopAdmin() {
+    await Promise.all([loadProducts(), loadMerchOrders()]);
+  }
 
   async function loadProducts() {
     if (!_db) return;
@@ -354,6 +432,184 @@
 
   function esc(s) {
     return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function csvEscape(v) {
+    return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
+  }
+
+  function formatDate(value) {
+    if (!value) return '—';
+    return new Date(value).toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit'
+    });
+  }
+
+  function badgeClass(value, type) {
+    const v = String(value || '').toLowerCase();
+    if (type === 'payment') {
+      if (v === 'paid') return 'badge-success';
+      if (v === 'failed' || v === 'cancelled') return 'badge-danger';
+      if (v === 'refunded') return 'badge-info';
+      return 'badge-warning';
+    }
+    if (v === 'fulfilled' || v === 'paid') return 'badge-success';
+    if (v === 'cancelled') return 'badge-danger';
+    if (v === 'contacted' || v === 'awaiting_payment') return 'badge-info';
+    return 'badge-purple';
+  }
+
+  async function loadMerchOrders() {
+    if (!_db) return;
+    const tbody = document.getElementById('orders-tbody');
+    const note = document.getElementById('orders-access-note');
+    if (tbody) tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">Loading orders…</td></tr>';
+    if (note) note.style.display = 'none';
+
+    const columns = 'id,item_code,item_name,price_label,quantity,customer_name,customer_email,customer_phone,shipping_address,notes,payment_status,order_status,stripe_session_id,created_at';
+    let res = await _db.from('merch_orders').select(columns).order('created_at', { ascending: false });
+
+    if (res.error && /stripe_session_id/i.test(res.error.message || '')) {
+      const fallbackColumns = columns.replace(',stripe_session_id', '');
+      res = await _db.from('merch_orders').select(fallbackColumns).order('created_at', { ascending: false });
+    }
+
+    if (res.error) {
+      allOrders = [];
+      visibleOrders = [];
+      const message = res.error.message || 'Supabase blocked this request.';
+      if (note) {
+        note.className = 'admin-warning';
+        note.style.display = 'block';
+        note.innerHTML =
+          '<strong>Orders are not readable by this admin session yet.</strong><br>' +
+          'Supabase returned: ' + esc(message) + '<br>' +
+          'The checked-in SQL currently grants public insert only and revokes authenticated reads. ' +
+          'Safest fix: add an admin-only authenticated SELECT policy for merch_orders, plus an UPDATE policy limited to order_status only.';
+      }
+      if (tbody) tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">Orders are blocked by Supabase permissions.</td></tr>';
+      const countLabel = document.getElementById('order-count-label');
+      if (countLabel) countLabel.textContent = '0 orders visible';
+      return;
+    }
+
+    allOrders = res.data || [];
+    renderOrders();
+  }
+
+  function renderOrders() {
+    const tbody = document.getElementById('orders-tbody');
+    if (!tbody) return;
+
+    const q = (document.getElementById('order-search-input')?.value || '').toLowerCase().trim();
+    const orderStatus = document.getElementById('order-status-filter')?.value || 'all';
+    const paymentStatus = document.getElementById('payment-status-filter')?.value || 'all';
+
+    visibleOrders = allOrders.filter(o => {
+      if (orderStatus !== 'all' && o.order_status !== orderStatus) return false;
+      if (paymentStatus !== 'all' && o.payment_status !== paymentStatus) return false;
+      if (!q) return true;
+      return [
+        o.customer_name,
+        o.customer_email,
+        o.customer_phone,
+        o.item_name,
+        o.item_code,
+        o.shipping_address,
+        o.notes
+      ].some(v => String(v || '').toLowerCase().includes(q));
+    });
+
+    const countLabel = document.getElementById('order-count-label');
+    if (countLabel) countLabel.textContent = visibleOrders.length + ' order' + (visibleOrders.length === 1 ? '' : 's');
+
+    if (!visibleOrders.length) {
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted);">No merch orders found.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = visibleOrders.map(o => `
+      <tr>
+        <td>
+          <div style="font-weight:800;color:var(--white);">${esc(o.customer_name || '—')}</div>
+          <div class="order-detail"><a href="mailto:${esc(o.customer_email || '')}" style="color:var(--teal);">${esc(o.customer_email || '—')}</a></div>
+          <div class="order-detail">${esc(o.customer_phone || 'No phone')}</div>
+        </td>
+        <td>
+          <div style="font-weight:700;color:var(--white);">${esc(o.item_name || '—')}</div>
+          <div class="order-detail">${esc(o.item_code || '—')}${o.price_label ? ' · ' + esc(o.price_label) : ''}</div>
+        </td>
+        <td>${esc(o.quantity || 1)}</td>
+        <td>
+          <div class="order-address">${esc(o.shipping_address || '—')}</div>
+          ${o.notes ? '<div class="order-notes" style="margin-top:8px;">Note: ' + esc(o.notes) + '</div>' : ''}
+        </td>
+        <td><span class="badge ${badgeClass(o.payment_status, 'payment')}">${esc(o.payment_status || 'pending')}</span></td>
+        <td>
+          <select class="field-select order-status-select" data-order-id="${esc(o.id)}" onchange="updateOrderStatus(this)">
+            ${ORDER_STATUSES.map(status => `<option value="${status}"${status === o.order_status ? ' selected' : ''}>${status.replace(/_/g, ' ')}</option>`).join('')}
+          </select>
+          <div class="order-detail"><span class="badge ${badgeClass(o.order_status, 'order')}">${esc(o.order_status || 'new')}</span></div>
+        </td>
+        <td class="muted">${esc(o.stripe_session_id || '—')}</td>
+        <td style="white-space:nowrap;">${formatDate(o.created_at)}</td>
+      </tr>
+    `).join('');
+  }
+
+  async function updateOrderStatus(selectEl) {
+    if (!_db || !selectEl) return;
+    const id = selectEl.dataset.orderId;
+    const nextStatus = selectEl.value;
+    const current = allOrders.find(o => o.id === id);
+    const previous = current?.order_status || 'new';
+
+    selectEl.disabled = true;
+    const { error } = await _db.from('merch_orders').update({ order_status: nextStatus }).eq('id', id);
+    selectEl.disabled = false;
+
+    if (error) {
+      selectEl.value = previous;
+      toast('Order status was not updated: ' + error.message, 'error');
+      return;
+    }
+
+    if (current) current.order_status = nextStatus;
+    toast('Order status updated.', 'success');
+    renderOrders();
+  }
+
+  function exportOrdersCSV() {
+    const rows = visibleOrders;
+    if (!rows.length) {
+      toast('No merch orders to export.', 'info');
+      return;
+    }
+
+    const headers = [
+      'Customer Name','Email','Phone','Item Name','Item Code','Quantity','Price Label',
+      'Shipping Address','Notes','Payment Status','Order Status','Stripe Session ID','Created At'
+    ];
+    const csvRows = rows.map(o => [
+      o.customer_name, o.customer_email, o.customer_phone, o.item_name, o.item_code,
+      o.quantity, o.price_label, o.shipping_address, o.notes, o.payment_status,
+      o.order_status, o.stripe_session_id, o.created_at
+    ].map(csvEscape).join(','));
+
+    const csv = [headers.map(csvEscape).join(','), ...csvRows].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'merch-orders-' + new Date().toISOString().slice(0,10) + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
   }
 
   // ── Modal: open for Add ──────────────────────────────────────
