@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <link rel="icon" type="image/png" href="images/favicon.png?v=2">
@@ -446,6 +446,58 @@
    }
   }
  </style>
+
+<style>
+/* Homepage hero composition final: title-card left, artwork open on right */
+@media (min-width: 980px) {
+  .home-hero-panel {
+    width: min(620px, 43vw) !important;
+    max-width: 620px !important;
+    margin-left: clamp(56px, 7vw, 130px) !important;
+    margin-right: auto !important;
+    transform: none !important;
+    padding: clamp(30px, 3vw, 42px) !important;
+  }
+
+  .home-hero-panel h1 {
+    font-size: clamp(3rem, 4.25vw, 4.65rem) !important;
+    line-height: 1 !important;
+    letter-spacing: -0.045em !important;
+    margin-bottom: 20px !important;
+  }
+
+  .home-hero-panel p {
+    max-width: 520px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .home-hero-panel .btn,
+  .home-hero-panel a[class*="btn"] {
+    white-space: nowrap !important;
+  }
+}
+
+@media (min-width: 1400px) {
+  .home-hero-panel {
+    margin-left: clamp(80px, 9vw, 170px) !important;
+  }
+}
+
+@media (max-width: 979px) {
+  .home-hero-panel {
+    width: min(92vw, 620px) !important;
+    max-width: 620px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .home-hero-panel h1 {
+    font-size: clamp(2.65rem, 10vw, 4.1rem) !important;
+    line-height: 1 !important;
+  }
+}
+</style>
 </head>
 <body>
  <a href="#main-content" class="skip-link">Skip to main content</a>
