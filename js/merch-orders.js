@@ -101,23 +101,6 @@
       return (pairs * 500) + (leftover * 300);
     }
 
-    // Semicolon charm pricing: "1 for $5 · 3 for $12 · 10 for $30"
-    if (label.indexOf("1 for $5") !== -1 &&
-        label.indexOf("3 for $12") !== -1 &&
-        label.indexOf("10 for $30") !== -1) {
-      var best = new Array(quantity + 1).fill(Infinity);
-      best[0] = 0;
-      for (var i = 1; i <= quantity; i += 1) {
-        best[i] = Math.min(
-          best[i],
-          best[i - 1] + 500,
-          i >= 3 ? best[i - 3] + 1200 : Infinity,
-          i >= 10 ? best[i - 10] + 3000 : Infinity
-        );
-      }
-      return best[quantity];
-    }
-
     // Fixed-price label — extract first dollar amount
     var m = label.match(/\$(\d+(?:\.\d{1,2})?)/);
     if (m) {
