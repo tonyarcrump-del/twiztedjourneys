@@ -1,4 +1,4 @@
-/* ═══════════════════════════════════════════════════════════════
+﻿/* ═══════════════════════════════════════════════════════════════
    Twizted Journeys — Main Stylesheet
    Brand Colors:
      Twizted Purple  : #8A2BEF
@@ -1032,3 +1032,329 @@ section { padding: 80px 0; }
 }
 
 
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CINEMATIC ATMOSPHERE LAYER
+   Added: 2026-06-14
+   Pure visual/atmosphere enhancement — no layout changes.
+   All animations respect prefers-reduced-motion.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Keyframes ─────────────────────────────────────────────────── */
+@keyframes cineGlowDrift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); opacity: 0.72; }
+  50%  { transform: translate3d(1.4%, 0.8%, 0) scale(1.035); opacity: 0.88; }
+  100% { transform: translate3d(-0.8%, 1.2%, 0) scale(1.02); opacity: 0.72; }
+}
+
+@keyframes cineStarFlicker {
+  0%, 100% { opacity: 0.55; }
+  33%       { opacity: 0.90; }
+  66%       { opacity: 0.38; }
+}
+
+@keyframes cinePulseGlow {
+  0%, 100% { box-shadow: 0 0 18px rgba(86,224,210,0.18), 0 0 44px rgba(138,43,239,0.12); }
+  50%       { box-shadow: 0 0 32px rgba(86,224,210,0.32), 0 0 68px rgba(138,43,239,0.22); }
+}
+
+@keyframes cineShine {
+  0%   { transform: translateX(-140%) skewX(-18deg); }
+  100% { transform: translateX(240%) skewX(-18deg); }
+}
+
+@keyframes cineBeamDrift {
+  0%   { opacity: 0.08; transform: rotate(22deg) translateY(-6%); }
+  50%  { opacity: 0.16; transform: rotate(22deg) translateY(4%); }
+  100% { opacity: 0.08; transform: rotate(22deg) translateY(-6%); }
+}
+
+@keyframes cineFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}
+
+/* ── Hero Cinematic Atmosphere Base ────────────────────────────── */
+/* Applies to ALL .hero-page elements site-wide */
+.hero-page {
+  isolation: isolate;
+}
+
+/* Replace the plain gradient overlay with a richer cinematic one */
+.hero-page::before {
+  background:
+    linear-gradient(180deg,
+      rgba(11,11,15,0.30) 0%,
+      rgba(11,11,15,0.68) 55%,
+      rgba(11,11,15,0.94) 100%),
+    linear-gradient(90deg,
+      rgba(138,43,239,0.14) 0%,
+      transparent 40%,
+      transparent 60%,
+      rgba(86,224,210,0.08) 100%);
+  z-index: 1;
+}
+
+/* Animated glow field layer behind all hero content */
+.hero-page::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 38% at 14% 22%, rgba(138,43,239,0.22) 0%, transparent 65%),
+    radial-gradient(ellipse 44% 32% at 84% 16%, rgba(86,224,210,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 36% 28% at 62% 78%, rgba(158,243,247,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 26% 22% at 28% 86%, rgba(138,43,239,0.14) 0%, transparent 52%);
+  animation: cineGlowDrift 18s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
+/* Vignette edges — pure CSS pseudo on the hero outer wrapper */
+.hero-page .hero-page__inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 100% 100% at 50% 50%,
+      transparent 48%,
+      rgba(11,11,15,0.64) 100%);
+}
+
+/* Subtle star/particle field — SVG data URI, zero extra HTTP requests */
+.hero-page .hero-page__inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(158,243,247,0.85) 1px, transparent 1px),
+    radial-gradient(circle, rgba(86,224,210,0.65) 1px, transparent 1px),
+    radial-gradient(circle, rgba(248,251,255,0.50) 1px, transparent 1px);
+  background-size: 340px 340px, 220px 220px, 160px 160px;
+  background-position: 12px 18px, 74px 52px, 140px 96px;
+  animation: cineStarFlicker 7s ease-in-out infinite;
+  opacity: 0.38;
+}
+
+/* ── Cinematic Light Beam ───────────────────────────────────────── */
+/* Opt-in class: add .hero-beams to any hero <header> element */
+.hero-beams::before {
+  background:
+    linear-gradient(180deg, rgba(11,11,15,0.30) 0%, rgba(11,11,15,0.68) 55%, rgba(11,11,15,0.94) 100%),
+    linear-gradient(90deg, rgba(138,43,239,0.14) 0%, transparent 40%, transparent 60%, rgba(86,224,210,0.08) 100%);
+}
+
+.hero-beam-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-beam-layer::before,
+.hero-beam-layer::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  width: 2px;
+  height: 160%;
+  opacity: 0.10;
+  animation: cineBeamDrift 12s ease-in-out infinite;
+  filter: blur(18px);
+}
+
+.hero-beam-layer::before {
+  left: 22%;
+  background: linear-gradient(180deg, rgba(138,43,239,0), rgba(138,43,239,0.9), rgba(138,43,239,0));
+  width: 120px;
+  animation-delay: 0s;
+}
+
+.hero-beam-layer::after {
+  left: 64%;
+  background: linear-gradient(180deg, rgba(86,224,210,0), rgba(86,224,210,0.8), rgba(86,224,210,0));
+  width: 80px;
+  animation-delay: -5s;
+}
+
+/* ── Button Shine ──────────────────────────────────────────────── */
+.btn-primary,
+.btn-secondary,
+.btn-ghost {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after,
+.btn-secondary::after,
+.btn-ghost::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transform: translateX(-150%) skewX(-18deg);
+  transition: none;
+  pointer-events: none;
+}
+
+.btn-primary:hover::after,
+.btn-secondary:hover::after,
+.btn-ghost:hover::after {
+  animation: cineShine 0.52s ease forwards;
+}
+
+/* Stronger donate / primary button glow */
+.btn-primary:hover {
+  box-shadow: 0 0 22px rgba(138,43,239,0.42), 0 4px 18px rgba(0,0,0,0.28);
+}
+
+.btn-secondary:hover {
+  box-shadow: 0 0 18px rgba(86,224,210,0.30);
+}
+
+/* ── Card Dimensional Lift ─────────────────────────────────────── */
+.card,
+.card--calm,
+.pillar-card,
+.resource-card {
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  will-change: transform;
+}
+
+.card:hover {
+  border-color: rgba(138,43,239,0.50);
+  box-shadow: 0 16px 44px rgba(0,0,0,0.32), 0 0 24px rgba(138,43,239,0.18);
+  transform: translateY(-4px);
+}
+
+.card--calm:hover {
+  border-color: rgba(86,224,210,0.38);
+  box-shadow: 0 14px 38px rgba(0,0,0,0.28), 0 0 18px rgba(86,224,210,0.14);
+  transform: translateY(-4px);
+}
+
+.pillar-card:hover {
+  border-color: var(--teal);
+  box-shadow: 0 18px 48px rgba(0,0,0,0.30), 0 0 26px rgba(86,224,210,0.16);
+  transform: translateY(-5px);
+}
+
+.resource-card:hover {
+  box-shadow: 0 12px 34px rgba(0,0,0,0.26), 0 0 16px rgba(86,224,210,0.14);
+  transform: translateY(-3px);
+}
+
+/* ── Section Glow Dividers ─────────────────────────────────────── */
+/* Insert a glow line between key sections by adding .section-glow-top */
+.section-glow-top {
+  border-top: 1px solid transparent;
+  background-image: linear-gradient(var(--midnight-2), var(--midnight-2)),
+                    linear-gradient(90deg, transparent 0%, rgba(86,224,210,0.30) 28%, rgba(138,43,239,0.30) 72%, transparent 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+/* Ambient section glow field — opt-in with .section-ambient */
+.section-ambient {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-ambient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 45% at 8% 14%, rgba(138,43,239,0.09) 0%, transparent 65%),
+    radial-gradient(ellipse 48% 38% at 92% 88%, rgba(86,224,210,0.08) 0%, transparent 60%);
+}
+
+.section-ambient > .container { position: relative; z-index: 1; }
+
+/* ── Event Card Glow ───────────────────────────────────────────── */
+.event-card:hover {
+  border-color: rgba(138,43,239,0.44);
+  box-shadow: 0 14px 38px rgba(0,0,0,0.26), 0 0 20px rgba(138,43,239,0.16);
+  transform: translateY(-2px);
+}
+
+/* ── Cinematic Panel — glass depth for hero inner panels ────────── */
+/* Used by index.html .home-hero-panel already; generalized here */
+.cine-panel {
+  position: relative;
+  border: 1px solid rgba(86,224,210,0.28);
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(8,12,28,0.80), rgba(23,13,44,0.70));
+  box-shadow: 0 24px 70px rgba(0,0,0,0.40), 0 0 44px rgba(86,224,210,0.09);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: cinePulseGlow 8s ease-in-out infinite;
+}
+
+/* Shoe-drive hero panel variant */
+.cine-panel--teal {
+  border-color: rgba(45,212,191,0.32);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.40), 0 0 44px rgba(86,224,210,0.12);
+  background: linear-gradient(135deg, rgba(2,6,23,0.88), rgba(7,18,32,0.72));
+  animation: cinePulseGlow 9s ease-in-out infinite;
+}
+
+/* ── Snapshot / stat cards inner glow ──────────────────────────── */
+.home-snapshot-card {
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+}
+.home-snapshot-card:hover {
+  border-color: rgba(86,224,210,0.42);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.22), 0 0 14px rgba(86,224,210,0.14);
+  transform: translateY(-2px);
+}
+
+/* ── Reduced Motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-page::after,
+  .hero-page .hero-page__inner::after,
+  .hero-beam-layer::before,
+  .hero-beam-layer::after,
+  .cine-panel,
+  .cine-panel--teal,
+  .home-snapshot-card,
+  .card,
+  .card--calm,
+  .pillar-card,
+  .resource-card,
+  .event-card,
+  .btn-primary::after,
+  .btn-secondary::after,
+  .btn-ghost::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .hero-page::after { display: none; }
+  .hero-page .hero-page__inner::after { display: none; }
+  .hero-beam-layer { display: none; }
+}
+
+/* ── Mobile — keep clean, no heavy effects ─────────────────────── */
+@media (max-width: 768px) {
+  .hero-page::after { opacity: 0.45; animation: none; }
+  .hero-page .hero-page__inner::after { opacity: 0.22; animation: none; }
+  .hero-beam-layer { display: none; }
+  .cine-panel,
+  .cine-panel--teal { animation: none; }
+  .card:hover,
+  .card--calm:hover,
+  .pillar-card:hover,
+  .resource-card:hover,
+  .event-card:hover { transform: none; }
+}

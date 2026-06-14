@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <link rel="icon" type="image/png" href="images/favicon.png?v=2">
@@ -226,6 +226,32 @@
    .shoe-dropoff-actions .btn { width:100%; justify-content:center; }
   }
  </style>
+<style>
+/* ── Shoe Drive Cinematic Hero Enhancement ── */
+.sd-hero-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.sd-hero-wrap::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 50% 40% at 6% 18%, rgba(45,212,191,0.22) 0%, transparent 65%),
+    radial-gradient(ellipse 42% 35% at 88% 82%, rgba(138,43,239,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 28% at 50% 50%, rgba(158,243,247,0.08) 0%, transparent 55%);
+  animation: cineGlowDrift 20s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sd-hero-wrap::after { animation: none; display: none; }
+}
+@media (max-width: 768px) {
+  .sd-hero-wrap::after { animation: none; opacity: 0.4; }
+}
+</style>
 </head>
 <body>
 
@@ -269,7 +295,7 @@
  <main id="main-content">
 
 <!-- CAMPAIGN HERO -->
-<section aria-label="Walk with a twizt Shoe Drive campaign hero" style="padding:28px 0 18px;">
+<section aria-label="Walk with a twizt Shoe Drive campaign hero" class="sd-hero-wrap" style="padding:28px 0 18px;">
  <div class="container">
  <div style="max-width:1180px; min-height:clamp(520px, 48vw, 640px); margin:0 auto; border-radius:22px; border:1px solid rgba(45,212,191,0.28); overflow:hidden; background-image:linear-gradient(90deg, rgba(2,6,23,0.94) 0%, rgba(2,6,23,0.82) 30%, rgba(2,6,23,0.34) 58%, rgba(2,6,23,0.08) 100%), url('images/shoe-drive-hero-global-impact.png'); background-size:cover; background-position:center right; box-shadow:0 24px 74px rgba(2,6,23,0.48); display:flex; align-items:center;">
  <div style="width:min(100%, 590px); padding:clamp(28px, 5vw, 52px);">
