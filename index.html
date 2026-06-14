@@ -447,27 +447,31 @@
   }
  </style>
 
+
 <style>
-/* Homepage hero composition final: title-card left, artwork open on right */
+/* Homepage hero composition final v2: smaller title card, more artwork visible */
 @media (min-width: 980px) {
   .home-hero-panel {
-    width: min(620px, 43vw) !important;
-    max-width: 620px !important;
-    margin-left: clamp(56px, 7vw, 130px) !important;
+    width: min(540px, 38vw) !important;
+    max-width: 540px !important;
+    margin-left: clamp(36px, 5.5vw, 96px) !important;
     margin-right: auto !important;
     transform: none !important;
-    padding: clamp(30px, 3vw, 42px) !important;
+    padding: clamp(24px, 2.4vw, 34px) !important;
+    border-radius: 24px !important;
   }
 
   .home-hero-panel h1 {
-    font-size: clamp(3rem, 4.25vw, 4.65rem) !important;
-    line-height: 1 !important;
-    letter-spacing: -0.045em !important;
-    margin-bottom: 20px !important;
+    font-size: clamp(2.65rem, 3.65vw, 4rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.04em !important;
+    margin-bottom: 18px !important;
   }
 
   .home-hero-panel p {
-    max-width: 520px !important;
+    max-width: 470px !important;
+    font-size: clamp(0.98rem, 1vw, 1.08rem) !important;
+    line-height: 1.55 !important;
     margin-left: auto !important;
     margin-right: auto !important;
   }
@@ -475,12 +479,13 @@
   .home-hero-panel .btn,
   .home-hero-panel a[class*="btn"] {
     white-space: nowrap !important;
+    padding: 0.9rem 1.35rem !important;
   }
 }
 
 @media (min-width: 1400px) {
   .home-hero-panel {
-    margin-left: clamp(80px, 9vw, 170px) !important;
+    margin-left: clamp(44px, 6vw, 115px) !important;
   }
 }
 
