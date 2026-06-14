@@ -254,8 +254,9 @@
 </style>
 
 
+
 <style>
-/* Shoe Drive snapshot redesign: make drop-offs feel intentional, not like school columns */
+/* Shoe Drive snapshot redesign v2: 3 info cards + horizontal drop-off locations */
 #drop-off-locations {
   scroll-margin-top: 120px;
 }
@@ -264,9 +265,9 @@
   max-width: 1120px !important;
   margin: 28px auto 0 !important;
   display: grid !important;
-  grid-template-columns: minmax(280px, 0.9fr) minmax(280px, 0.9fr) minmax(320px, 1.35fr) !important;
+  grid-template-columns: repeat(3, minmax(220px, 1fr)) !important;
   gap: 18px !important;
-  align-items: stretch !important;
+  align-items: start !important;
 }
 
 #drop-off-locations [class*="snapshot-card"] {
@@ -277,17 +278,16 @@
   border-radius: 22px !important;
   background:
     radial-gradient(circle at 20% 0%, rgba(86,224,210,0.14), transparent 36%),
-    linear-gradient(145deg, rgba(13,18,40,0.96), rgba(22,13,43,0.9)) !important;
+    linear-gradient(145deg, rgba(13,18,40,0.96), rgba(22,13,43,0.90)) !important;
   border: 1px solid rgba(86,224,210,0.28) !important;
   box-shadow: 0 18px 48px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04) !important;
 }
 
 #drop-off-locations [class*="snapshot-card"]:nth-child(4) {
-  grid-column: span 1 !important;
-  grid-row: span 2 !important;
+  grid-column: 1 / -1 !important;
   background:
-    radial-gradient(circle at 15% 0%, rgba(86,224,210,0.18), transparent 36%),
-    radial-gradient(circle at 90% 18%, rgba(138,43,239,0.18), transparent 34%),
+    radial-gradient(circle at 8% 0%, rgba(86,224,210,0.18), transparent 34%),
+    radial-gradient(circle at 92% 10%, rgba(138,43,239,0.18), transparent 34%),
     linear-gradient(145deg, rgba(11,25,35,0.96), rgba(20,13,43,0.93)) !important;
   border-color: rgba(86,224,210,0.42) !important;
   box-shadow: 0 24px 70px rgba(0,0,0,0.42), 0 0 34px rgba(86,224,210,0.08) !important;
@@ -307,18 +307,23 @@
 #drop-off-locations [class*="dropoff-list"],
 #drop-off-locations [class*="drop-off-list"] {
   display: grid !important;
+  grid-template-columns: repeat(4, minmax(180px, 1fr)) !important;
   gap: 14px !important;
-  margin-top: 14px !important;
+  margin-top: 16px !important;
 }
 
 #drop-off-locations [class*="dropoff-location"],
 #drop-off-locations [class*="drop-off-location"] {
+  min-height: 150px !important;
   padding: 16px !important;
   border-radius: 16px !important;
   border: 1px solid rgba(86,224,210,0.30) !important;
   background:
     linear-gradient(135deg, rgba(9,17,34,0.92), rgba(24,14,47,0.78)) !important;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.04) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
 }
 
 #drop-off-locations [class*="dropoff-location"] strong,
@@ -356,8 +361,7 @@
 }
 
 #drop-off-locations .sd-snapshot-actions,
-#drop-off-locations [class*="snapshot-actions"],
-#drop-off-locations [class*="cta"] {
+#drop-off-locations [class*="snapshot-actions"] {
   max-width: 1120px !important;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -370,12 +374,18 @@
 
   #drop-off-locations [class*="snapshot-card"]:nth-child(4) {
     grid-column: 1 / -1 !important;
-    grid-row: auto !important;
+  }
+
+  #drop-off-locations [class*="dropoff-list"],
+  #drop-off-locations [class*="drop-off-list"] {
+    grid-template-columns: 1fr 1fr !important;
   }
 }
 
 @media (max-width: 700px) {
-  #drop-off-locations [class*="snapshot-grid"] {
+  #drop-off-locations [class*="snapshot-grid"],
+  #drop-off-locations [class*="dropoff-list"],
+  #drop-off-locations [class*="drop-off-list"] {
     grid-template-columns: 1fr !important;
   }
 
