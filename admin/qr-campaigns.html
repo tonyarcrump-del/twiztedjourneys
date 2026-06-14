@@ -325,13 +325,13 @@
           </div>
           <div class="cc-label-text">Label: Scan for Shoe Drive Info</div>
           <p class="cc-purpose">
-            Reusable QR for all shoe drive campaign materials &mdash; donation info, accepted shoes,
-            volunteer sign-up, donation box hosting, and event table requests.
+            Scan for shoe drive details, drop-off locations, press release, and share materials.
           </p>
-          <div class="cc-use-cases"><strong>Use on:</strong> Shoe drive flyers &middot; Donation box signage &middot; Business outreach &middot; Social posts &middot; Event table materials</div>
+          <div class="cc-use-cases"><strong>Use on:</strong> Shoe bins &middot; Flyers &middot; Press release &middot; Cornstock materials &middot; Business counters &middot; Churches &middot; Schools &middot; Workplaces &middot; Facebook graphics</div>
           <div class="cc-actions">
-            <a href="../shoe-drive.html" target="_blank" class="btn btn-secondary btn-sm">&#127760; Open Page</a>
+            <a href="../shoe-drive.html" target="_blank" class="btn btn-secondary btn-sm">&#127760; View Page</a>
             <a href="../images/qr/qr-shoe-drive.png" download="qr-shoe-drive.png" class="btn btn-ghost btn-sm">&#8659; Download QR</a>
+            <button class="btn btn-ghost btn-sm" onclick="copyQrLink('https://twiztedjourneys.org/shoe-drive.html', this)">Copy Link</button>
           </div>
         </div>
 
@@ -679,6 +679,16 @@ function fmtDate(ts) {
   if (!ts) return '&mdash;';
   try { return new Date(ts).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }); }
   catch(e) { return ts.substring(0,10); }
+}
+
+function copyQrLink(url, btn) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(function() {
+      btn.textContent = 'Copied';
+    });
+  } else {
+    window.prompt('Copy this link:', url);
+  }
 }
 </script>
 <script src="../js/tj-public-config.js"></script>

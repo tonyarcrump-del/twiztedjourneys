@@ -36,10 +36,10 @@ and replace any printed materials that use that code.
 | **Destination URL** | `https://twiztedjourneys.org/shoe-drive.html` |
 | **Collects Form Data** | No |
 | **Admin View** | `admin/qr-campaigns.html` |
-| **Recommended Label Text** | Scan for Shoe Drive Info |
-| **Recommended Use** | Shoe drive flyers, donation box signage, business outreach, social posts, event table materials |
+| **Recommended Label Text** | Scan for shoe drive details, drop-off locations, press release, and share materials. |
+| **Recommended Use** | Shoe bins, flyers, press release, Cornstock materials, business counters, churches, schools, workplaces, Facebook graphics |
 | **Print Notes** | Minimum 2–2.5 inches square. Black QR on white background. Place on front of donation box. Test scan before printing. |
-| **Purpose** | Reusable QR for all shoe drive campaign materials — donation info, accepted shoes, volunteer sign-up, donation box hosting, and event table requests. |
+| **Purpose** | Reusable QR for the active "Walk with a twizt" Shoe Drive campaign, including donation details, drop-off locations, press release, and share materials. |
 
 ---
 

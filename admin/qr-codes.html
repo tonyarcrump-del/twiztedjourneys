@@ -195,12 +195,13 @@
           </div>
           <div class="qr-label">👟 Shoe Drive QR</div>
           <div class="qr-dest">twiztedjourneys.org/shoe-drive.html</div>
-          <p class="qr-desc">Reusable QR for shoe drive flyers, donation box signage, outreach, and event table materials.</p>
+          <p class="qr-desc">Scan for shoe drive details, drop-off locations, press release, and share materials.</p>
           <div class="qr-actions">
             <a href="../shoe-drive.html" target="_blank" class="btn btn-secondary btn-sm">View Page</a>
             <a href="../images/qr/qr-shoe-drive.png" download="qr-shoe-drive.png" class="btn btn-ghost btn-sm">Download QR</a>
+            <button class="btn btn-ghost btn-sm" onclick="copyQrLink('https://twiztedjourneys.org/shoe-drive.html', this)">Copy Link</button>
           </div>
-          <div class="qr-hint">Label: "Scan for Shoe Drive Info"</div>
+          <div class="qr-hint">Use on shoe bins, flyers, press release, Cornstock materials, business counters, churches, schools, workplaces, Facebook graphics.</div>
         </div>
 
       </div>
@@ -276,6 +277,15 @@
   function signOut() {
     if (window._db) window._db.auth.signOut().then(() => { window.location.href = 'index.html'; });
     else window.location.href = 'index.html';
+  }
+  function copyQrLink(url, btn) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(function() {
+        btn.textContent = 'Copied';
+      });
+    } else {
+      window.prompt('Copy this link:', url);
+    }
   }
   // Load pending count
   document.addEventListener('DOMContentLoaded', function() {

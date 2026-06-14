@@ -271,6 +271,22 @@
             <p class="qr-card-cta">Label as: &ldquo;Shop Twizted Merch&rdquo;</p>
           </div>
 
+          <!-- Shoe Drive -->
+          <div class="qr-card">
+            <div class="qr-img-wrap">
+              <img src="images/qr/qr-shoe-drive.png" alt="QR code &mdash; Shoe Drive QR" loading="lazy" />
+            </div>
+            <div class="qr-card-label">Shoe Drive QR</div>
+            <div class="qr-card-dest">https://twiztedjourneys.org/shoe-drive.html</div>
+            <p class="qr-card-desc">Scan for shoe drive details, drop-off locations, press release, and share materials.</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:10px;">
+              <a href="https://twiztedjourneys.org/shoe-drive.html" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size:0.82rem;padding:8px 16px;">View Page</a>
+              <a href="images/qr/qr-shoe-drive.png" download="qr-shoe-drive.png" class="btn btn-ghost" style="font-size:0.82rem;padding:8px 16px;">Download QR</a>
+              <button class="btn btn-ghost" style="font-size:0.82rem;padding:8px 16px;" onclick="copyQrLink('https://twiztedjourneys.org/shoe-drive.html', this)">Copy Link</button>
+            </div>
+            <p class="qr-card-cta">Use on shoe bins, flyers, press release, Cornstock materials, business counters, churches, schools, workplaces, Facebook graphics.</p>
+          </div>
+
         </div>
 
         <!-- GROUP 3: Events & Stories -->
@@ -402,6 +418,15 @@
       const expanded = btn.getAttribute('aria-expanded') === 'true';
       btn.setAttribute('aria-expanded', !expanded);
       links.classList.toggle('open', !expanded);
+    }
+    function copyQrLink(url, btn) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(function() {
+          btn.textContent = 'Copied';
+        });
+      } else {
+        window.prompt('Copy this link:', url);
+      }
     }
   </script>
 
