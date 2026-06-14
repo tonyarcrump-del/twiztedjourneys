@@ -37,7 +37,7 @@ and replace any printed materials that use that code.
 | **Collects Form Data** | No |
 | **Admin View** | `admin/qr-campaigns.html` |
 | **Recommended Label Text** | Scan for shoe drive details, drop-off locations, press release, and share materials. |
-| **Recommended Use** | Shoe bins, flyers, press release, Cornstock Festival 2026 materials/signage, business counters, churches, schools, workplaces, Facebook graphics |
+| **Recommended Use** | Shoe bins, flyers, press release, Cornstock Festival 2026 materials/signage, Waldron General Store counter/signage, business counters, churches, schools, workplaces, Facebook graphics |
 | **Print Notes** | Minimum 2–2.5 inches square. Black QR on white background. Place on front of donation box. Test scan before printing. |
 | **Purpose** | Reusable QR for the active "Walk with a twizt" Shoe Drive campaign, including donation details, drop-off locations, press release, and share materials. |
 

@@ -149,6 +149,42 @@
    color:var(--text);
   }
 
+  .shoe-dropoff-list {
+   display:grid;
+   gap:12px;
+   margin-top:14px;
+  }
+
+  .shoe-dropoff-item {
+   padding:14px;
+   border:1px solid rgba(45,212,191,0.22);
+   border-radius:14px;
+   background:rgba(2,6,23,0.36);
+  }
+
+  .shoe-dropoff-item span {
+   display:block;
+   color:var(--muted);
+   line-height:1.55;
+   margin-top:4px;
+  }
+
+  .shoe-dropoff-item a:not(.btn) {
+   color:var(--teal-lt);
+  }
+
+  .shoe-dropoff-actions {
+   display:flex;
+   flex-wrap:wrap;
+   gap:8px;
+   margin-top:10px;
+  }
+
+  .shoe-dropoff-actions .btn {
+   font-size:0.8rem;
+   padding:8px 12px;
+  }
+
   .shoe-snapshot-cta {
    max-width:1120px;
    margin:24px auto 0;
@@ -187,6 +223,7 @@
    .shoe-action-card .btn { width:100%; justify-content:center; }
    .shoe-action-strip .btn { width:100%; justify-content:center; }
    .shoe-snapshot-cta .btn { width:100%; justify-content:center; }
+   .shoe-dropoff-actions .btn { width:100%; justify-content:center; }
   }
  </style>
 </head>
@@ -301,7 +338,34 @@
  <article class="shoe-snapshot-card shoe-snapshot-card--featured">
  <div class="shoe-snapshot-icon" aria-hidden="true">&#128205;</div>
  <h3>Drop-Off Locations</h3>
- <p><strong>Rootin 4 Ya / Salon Twenty-four</strong><br>24 Howard St<br>1213 State St<br>Cornstock Festival 2026 &mdash; Twizted Journeys will have a shoe donation bin available during the festival.</p>
+ <div class="shoe-dropoff-list">
+ <div class="shoe-dropoff-item">
+ <strong>Rootin 4 Ya / Salon Twenty-four</strong>
+ <span>24 Howard St, Shelbyville, IN</span>
+ <div class="shoe-dropoff-actions">
+ <a href="https://www.google.com/maps/search/?api=1&amp;query=24+Howard+St+Shelbyville+IN" class="btn btn-ghost" target="_blank" rel="noopener">Get Directions</a>
+ </div>
+ </div>
+ <div class="shoe-dropoff-item">
+ <strong>1213 State St</strong>
+ <span>Shelbyville, IN 46176</span>
+ <div class="shoe-dropoff-actions">
+ <a href="https://www.google.com/maps/search/?api=1&amp;query=1213+State+St+Shelbyville+IN+46176" class="btn btn-ghost" target="_blank" rel="noopener">Get Directions</a>
+ </div>
+ </div>
+ <div class="shoe-dropoff-item">
+ <strong>Waldron General Store</strong>
+ <span>110 W Washington St, Waldron, IN 46182</span>
+ <span>Phone: <a href="tel:+17655259159">(765) 525-9159</a></span>
+ <div class="shoe-dropoff-actions">
+ <a href="https://www.google.com/maps/search/?api=1&amp;query=110+W+Washington+St+Waldron+IN+46182" class="btn btn-ghost" target="_blank" rel="noopener">Get Directions</a>
+ </div>
+ </div>
+ <div class="shoe-dropoff-item">
+ <strong>Cornstock Festival 2026</strong>
+ <span>Twizted Journeys will have a shoe donation bin available during the festival.</span>
+ </div>
+ </div>
  </article>
  </div>
 
@@ -344,7 +408,7 @@
  </div>
  <div>
  <dt style="color:var(--teal-lt); font-weight:800; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase;">Drop-Offs</dt>
- <dd style="color:var(--text); margin:4px 0 0;">Rootin 4 Ya / Salon Twenty-four, 1213 State St, Cornstock Festival 2026</dd>
+ <dd style="color:var(--text); margin:4px 0 0;">Rootin 4 Ya / Salon Twenty-four, 1213 State St, Waldron General Store, Cornstock Festival 2026</dd>
  </div>
  <div>
  <dt style="color:var(--teal-lt); font-weight:800; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase;">Accepted</dt>
@@ -503,7 +567,7 @@
   </div>
   <div>
   <dt style="color:var(--teal-lt); font-weight:800; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase;">Drop-Off Locations</dt>
-  <dd style="color:var(--text); margin:4px 0 0;">Rootin 4 Ya / Salon Twenty-four<br>24 Howard St<br>1213 State St<br>Cornstock Festival 2026 &mdash; Twizted Journeys will have a shoe donation bin available during the festival.</dd>
+  <dd style="color:var(--text); margin:4px 0 0;">Rootin 4 Ya / Salon Twenty-four<br>24 Howard St<br>1213 State St<br>Waldron General Store, 110 W Washington St, Waldron, IN 46182<br>Cornstock Festival 2026 &mdash; Twizted Journeys will have a shoe donation bin available during the festival.</dd>
   </div>
   </dl>
   </div>
@@ -526,14 +590,14 @@
   <div class="content-card" id="share-campaign" style="padding:28px; border-color:rgba(45,212,191,0.34); background:rgba(15,23,42,0.78);">
   <h3 style="color:var(--purple-lt); margin-bottom:14px;">Share This Campaign</h3>
   <label for="shoe-drive-share-copy" style="display:block; color:var(--teal-lt); font-weight:800; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:10px;">Copy/paste text</label>
-  <textarea id="shoe-drive-share-copy" readonly style="width:100%; min-height:178px; resize:vertical; border-radius:14px; border:1px solid rgba(45,212,191,0.28); background:rgba(2,6,23,0.82); color:var(--text); padding:14px; line-height:1.55; font:inherit;">Help support the Twizted Journeys &ldquo;Walk with a twizt&rdquo; Shoe Drive. Donate gently worn, used, and new shoes July 15 to September 15, 2026. The community walk is September 13, 2026. Drop off shoes at Rootin 4 Ya / Salon Twenty-four, 24 Howard St, 1213 State St, or Cornstock Festival 2026, where Twizted Journeys will have a shoe donation bin available during the festival. This campaign supports suicide awareness, community outreach, and Jana Crisman&rsquo;s medical bills. Learn more: https://twiztedjourneys.org/shoe-drive.html</textarea>
+  <textarea id="shoe-drive-share-copy" readonly style="width:100%; min-height:178px; resize:vertical; border-radius:14px; border:1px solid rgba(45,212,191,0.28); background:rgba(2,6,23,0.82); color:var(--text); padding:14px; line-height:1.55; font:inherit;">Help support the Twizted Journeys &ldquo;Walk with a twizt&rdquo; Shoe Drive. Donate gently worn, used, and new shoes July 15 to September 15, 2026. The community walk is September 13, 2026. Drop off shoes at Rootin 4 Ya / Salon Twenty-four, 24 Howard St; 1213 State St; Waldron General Store, 110 W Washington St, Waldron, IN 46182; or Cornstock Festival 2026, where Twizted Journeys will have a shoe donation bin available during the festival. This campaign supports suicide awareness, community outreach, and Jana Crisman&rsquo;s medical bills. Learn more: https://twiztedjourneys.org/shoe-drive.html</textarea>
   <button type="button" class="btn btn-ghost" style="margin-top:14px;" onclick="const copy = document.getElementById('shoe-drive-share-copy'); copy.select(); copy.setSelectionRange(0, 99999); navigator.clipboard ? navigator.clipboard.writeText(copy.value) : document.execCommand('copy'); this.textContent = 'Text Copied';">Copy Share Text</button>
   </div>
 
   <div class="content-card" style="padding:28px; border-color:rgba(45,212,191,0.34); background:rgba(15,23,42,0.78); text-align:center;">
   <h3 style="color:var(--purple-lt); margin-bottom:14px;">Shoe Drive QR</h3>
   <img src="images/qr/qr-shoe-drive.png" alt="QR code for the Twizted Journeys shoe drive page" style="width:160px; max-width:100%; border-radius:14px; border:1px solid rgba(45,212,191,0.30); background:#fff; padding:10px; margin:0 auto 16px;">
-  <p style="color:var(--muted); line-height:1.7; margin-bottom:16px;">Use this QR on flyers, Cornstock Festival 2026 materials/signage, bulletin boards, partner counters, and social graphics.</p>
+  <p style="color:var(--muted); line-height:1.7; margin-bottom:16px;">Use this QR on flyers, Cornstock Festival 2026 materials/signage, Waldron General Store counter/signage, bulletin boards, partner counters, and social graphics.</p>
   <a href="images/qr/qr-shoe-drive.png" class="btn btn-ghost" download>Download Shoe Drive QR</a>
   </div>
 
