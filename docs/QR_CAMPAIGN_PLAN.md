@@ -4,7 +4,7 @@ Recommended QR destinations for active Twizted Journeys print and online sharing
 
 - Shoe Drive: https://twiztedjourneys.org/shoe-drive.html
   - QR image: `images/qr/qr-shoe-drive.png`
-  - Suggested uses: shoe bins, flyers, press release, Cornstock materials, business counters, churches, schools, workplaces, Facebook graphics.
+  - Suggested uses: shoe bins, flyers, press release, Cornstock Festival 2026 materials/signage, business counters, churches, schools, workplaces, Facebook graphics.
 - Donate: https://donorbox.org/help-penetrate-the-darkness
 - Events: https://twiztedjourneys.org/events.html
 - Light Up the Night: https://twiztedjourneys.org/events.html
