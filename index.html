@@ -293,8 +293,7 @@
   }
   .home-live-card,
   .home-path-card,
-  .home-snapshot-card,
-  .home-feature-card {
+  .home-snapshot-card {
    border:1px solid rgba(86,224,210,0.24);
    background:linear-gradient(135deg, rgba(15,23,42,0.86), rgba(20,16,43,0.76));
    border-radius:18px;
@@ -306,6 +305,31 @@
   .home-snapshot-card {
    padding:20px;
    text-decoration:none;
+  }
+  .home-live-card--with-thumb {
+   display:grid;
+   grid-template-rows:auto 1fr;
+   gap:14px;
+  }
+  .home-card-thumb {
+   width:100%;
+   aspect-ratio:16 / 9;
+   object-fit:cover;
+   border-radius:12px;
+   border:1px solid rgba(86,224,210,0.24);
+   box-shadow:0 12px 28px rgba(0,0,0,0.22);
+  }
+  .home-card-symbol {
+   width:44px;
+   height:44px;
+   display:grid;
+   place-items:center;
+   margin-bottom:14px;
+   border-radius:14px;
+   color:#fff;
+   font-size:1.35rem;
+   background:linear-gradient(135deg, rgba(86,224,210,0.22), rgba(168,85,247,0.28));
+   border:1px solid rgba(86,224,210,0.24);
   }
   .home-card-kicker {
    color:var(--teal);
@@ -334,39 +358,6 @@
    color:var(--teal);
    font-weight:900;
    margin-top:16px;
-  }
-  .home-feature-card {
-   display:grid;
-   grid-template-columns:minmax(0, 0.95fr) minmax(0, 1.05fr);
-   gap:24px;
-   align-items:center;
-   margin-top:22px;
-   padding:22px;
-   border-color:rgba(168,85,247,0.34);
-   background:
-    radial-gradient(circle at 18% 18%, rgba(86,224,210,0.16), transparent 32%),
-    linear-gradient(135deg, rgba(18,14,36,0.92), rgba(7,13,24,0.90));
-  }
-  .home-feature-card img {
-   width:100%;
-   border-radius:14px;
-   border:1px solid rgba(86,224,210,0.24);
-   box-shadow:0 18px 42px rgba(0,0,0,0.26);
-  }
-  .home-feature-copy h2 {
-   color:#fffaf0;
-   font-size:clamp(1.55rem, 3vw, 2.45rem);
-   margin:0 0 12px;
-  }
-  .home-feature-copy p {
-   color:var(--muted);
-   line-height:1.7;
-   margin:0 0 18px;
-  }
-  .home-feature-actions {
-   display:flex;
-   gap:10px;
-   flex-wrap:wrap;
   }
   .home-path-section {
    padding:48px 0 58px;
@@ -397,8 +388,7 @@
   }
   @media (hover:hover) and (pointer:fine) {
    .home-live-card:hover,
-   .home-path-card:hover,
-   .home-feature-card:hover {
+   .home-path-card:hover {
     transform:translateY(-4px);
     border-color:rgba(86,224,210,0.52);
     box-shadow:0 20px 48px rgba(86,224,210,0.11), 0 14px 38px rgba(138,43,239,0.12);
@@ -408,8 +398,7 @@
    .home-hero::after,
    .home-hero-donate::after,
    .home-live-card,
-   .home-path-card,
-   .home-feature-card {
+   .home-path-card {
     animation:none;
     transition:none;
    }
@@ -419,9 +408,6 @@
    .home-path-grid,
    .home-snapshot-grid {
     grid-template-columns:repeat(2, minmax(0, 1fr));
-   }
-   .home-feature-card {
-    grid-template-columns:1fr;
    }
   }
   @media (max-width: 640px) {
@@ -457,10 +443,6 @@
    .home-path-grid,
    .home-snapshot-grid {
     grid-template-columns:1fr;
-   }
-   .home-feature-actions .btn {
-    width:100%;
-    justify-content:center;
    }
   }
  </style>
@@ -532,46 +514,36 @@
     </div>
 
     <div class="home-live-grid" role="list" aria-label="Active Twizted Journeys actions">
-     <a href="shoe-drive.html" class="home-live-card" role="listitem">
+     <a href="shoe-drive.html" class="home-live-card home-live-card--with-thumb" role="listitem">
+      <img src="images/shoe-drive-hero-global-impact.png" alt="Walk with a twizt Shoe Drive campaign artwork" class="home-card-thumb" loading="lazy">
+      <div>
       <div class="home-card-kicker">Featured Campaign</div>
       <h3>Walk with a twizt Shoe Drive</h3>
       <p>Donate gently worn, used, and new shoes through Sept. 15, 2026.</p>
       <span class="home-card-arrow">View campaign &rarr;</span>
+      </div>
      </a>
      <a href="events.html" class="home-live-card" role="listitem">
+      <div class="home-card-symbol" aria-hidden="true">&#10022;</div>
       <div class="home-card-kicker">September 12-13</div>
       <h3>Light Up the Night 2026</h3>
       <p>Ride, walk, volunteer, vend, or show up with the community.</p>
       <span class="home-card-arrow">See events &rarr;</span>
      </a>
      <a href="donate.html" class="home-live-card" role="listitem">
+      <div class="home-card-symbol" aria-hidden="true">&#9829;</div>
       <div class="home-card-kicker">Give Today</div>
       <h3>Help Penetrate the Darkness</h3>
       <p>Support awareness, comfort, outreach materials, events, and future programs.</p>
       <span class="home-card-arrow">Donate &rarr;</span>
      </a>
-     <a href="resources.html" class="home-live-card" role="listitem">
-      <div class="home-card-kicker">Partner / Volunteer</div>
-      <h3>Help Carry It Forward</h3>
-      <p>Connect with ways to share, support, volunteer, and point people toward help.</p>
-      <span class="home-card-arrow">Start here &rarr;</span>
+     <a href="twizted-qr-codes.html" class="home-live-card" role="listitem">
+      <div class="home-card-symbol" aria-hidden="true">&#9635;</div>
+      <div class="home-card-kicker">Share / Partner</div>
+      <h3>QR Tools</h3>
+      <p>Use campaign QR codes and printable share tools for tables, bins, flyers, and partner counters.</p>
+      <span class="home-card-arrow">Open QR tools &rarr;</span>
      </a>
-    </div>
-
-    <div class="home-feature-card" aria-labelledby="featured-shoe-drive-heading">
-     <div>
-      <img src="images/shoe-drive-walk-with-a-twizt-share-qr.png" alt="Walk with a twizt Shoe Drive share graphic with QR code" loading="lazy">
-     </div>
-     <div class="home-feature-copy">
-      <p class="section-label">Current Campaign</p>
-      <h2 id="featured-shoe-drive-heading">Turn Extra Shoes Into Real Support</h2>
-      <p>The Shoe Drive supports Twizted Journeys awareness and community outreach while helping Jana Crisman during her recovery. Share the graphic, post the QR, or send people straight to the campaign page.</p>
-      <div class="home-feature-actions">
-       <a href="shoe-drive.html" class="btn btn-primary">View Shoe Drive</a>
-       <a href="images/shoe-drive-walk-with-a-twizt-share-qr.png" class="btn btn-secondary" download>Download Share Graphic</a>
-       <a href="images/qr/qr-shoe-drive.png" class="btn btn-ghost" download>Download QR</a>
-      </div>
-     </div>
     </div>
 
     <div class="home-snapshot-grid" aria-label="Campaign snapshot">
@@ -738,13 +710,6 @@
     <p class="section-label">Community Events &middot; September 2026</p>
     <h2 class="section-title" id="events-heading" data-sc="event_name">What Comes After the Pause</h2>
     <p class="events-intro" data-sc="event_description">Two powerful days at the 40 &amp; 8 Building in Shelbyville, Indiana &#8212; awareness ride, community walk, vendors, and community.</p>
-
-    <div style="margin:32px 0;text-align:center;">
-     <img src="images/what-comes-after-the-pause-promo-2.png"
-          alt="What Comes After the Pause &#8212; September 12&#8211;13, 2026 event art"
-          style="max-width:540px;width:100%;border-radius:10px;"
-          loading="lazy">
-    </div>
 
     <div style="display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:8px;">
 
