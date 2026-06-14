@@ -177,6 +177,37 @@
    flex-wrap:wrap;
    margin-bottom:22px;
   }
+  .home-hero-donate {
+   position:relative;
+   overflow:hidden;
+   color:#fff;
+   border:1px solid rgba(86,224,210,0.72);
+   background:
+    radial-gradient(circle at 22% 18%, rgba(86,224,210,0.42), transparent 30%),
+    linear-gradient(135deg, #7c2ff4 0%, #9b2cf3 42%, #14b8a6 100%);
+   box-shadow:0 0 0 1px rgba(255,255,255,0.08) inset, 0 16px 38px rgba(138,43,239,0.34), 0 0 28px rgba(86,224,210,0.22);
+  }
+  .home-hero-donate::after {
+   content:"";
+   position:absolute;
+   inset:0;
+   background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.24) 45%, transparent 72%);
+   transform:translateX(-120%);
+   transition:transform 220ms ease;
+  }
+  .home-hero-donate:hover {
+   color:#fff;
+   border-color:rgba(255,255,255,0.86);
+   transform:translateY(-2px);
+   box-shadow:0 0 0 1px rgba(255,255,255,0.12) inset, 0 20px 46px rgba(138,43,239,0.42), 0 0 34px rgba(86,224,210,0.30);
+  }
+  .home-hero-donate:hover::after {
+   transform:translateX(120%);
+  }
+  .home-hero-donate:focus-visible {
+   outline:3px solid var(--teal);
+   outline-offset:3px;
+  }
   .home-campaign-pill {
    display:inline-flex;
    align-items:center;
@@ -266,8 +297,8 @@
     <p class="home-hero-heartline">You are not alone in the journey after the pause.</p>
     <div class="home-hero-ctas">
      <a href="resources.html" class="btn btn-primary">Get Support &amp; Resources</a>
+     <a href="donate.html" class="btn home-hero-donate">Donate</a>
      <a href="events.html" class="btn btn-secondary">View Events</a>
-     <a href="donate.html" class="btn btn-ghost">Donate</a>
      <a href="shoe-drive.html" class="btn btn-ghost">Shoe Drive</a>
     </div>
     <a href="shoe-drive.html" class="home-campaign-pill"><strong>Current Campaign:</strong> Walk with a twizt Shoe Drive</a>
