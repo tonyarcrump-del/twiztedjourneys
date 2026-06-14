@@ -73,6 +73,20 @@
  </div>
 </section>
 
+<!-- SHOE DRIVE QR -->
+<section class="section" aria-label="Shoe drive QR code" style="padding-top:36px; padding-bottom:36px;">
+ <div class="container">
+ <div class="content-card" style="max-width:760px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:24px; align-items:center; border-color:rgba(45,212,191,0.34); background:linear-gradient(135deg, rgba(13,148,136,0.13), rgba(124,58,237,0.11));">
+ <img src="images/qr/qr-shoe-drive.png" alt="QR code for the Twizted Journeys shoe drive page" style="width:100%; max-width:180px; border-radius:14px; border:1px solid rgba(45,212,191,0.30); background:#fff; padding:10px; margin:0 auto;">
+ <div>
+ <h2 style="color:var(--purple-lt); font-size:1.3rem; margin-bottom:8px;">Scan &amp; Share the Campaign</h2>
+ <p style="color:var(--muted); line-height:1.7; margin-bottom:16px;">Scan for shoe drive details, drop-off locations, and share materials.</p>
+ <a href="images/qr/qr-shoe-drive.png" class="btn btn-ghost" download>Download Shoe Drive QR</a>
+ </div>
+ </div>
+ </div>
+</section>
+
 <!-- CAMPAIGN SUMMARY -->
 <section class="section" id="campaign-summary">
  <div class="container">
@@ -301,6 +315,13 @@
   <label for="shoe-drive-share-copy" style="display:block; color:var(--teal-lt); font-weight:800; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:10px;">Copy/paste text</label>
   <textarea id="shoe-drive-share-copy" readonly style="width:100%; min-height:178px; resize:vertical; border-radius:14px; border:1px solid rgba(45,212,191,0.28); background:rgba(2,6,23,0.82); color:var(--text); padding:14px; line-height:1.55; font:inherit;">Help support the Twizted Journeys &ldquo;Walk with a twizt&rdquo; Shoe Drive. Donate gently worn, used, and new shoes July 15 to September 15, 2026. The community walk is September 13, 2026. Drop off shoes at Rootin 4 Ya / Salon Twenty-four, 24 Howard St, or 1213 State St. This campaign supports suicide awareness, community outreach, and Jana Crisman&rsquo;s medical bills. Learn more: https://twiztedjourneys.org/shoe-drive.html</textarea>
   <button type="button" class="btn btn-ghost" style="margin-top:14px;" onclick="const copy = document.getElementById('shoe-drive-share-copy'); copy.select(); copy.setSelectionRange(0, 99999); navigator.clipboard ? navigator.clipboard.writeText(copy.value) : document.execCommand('copy'); this.textContent = 'Text Copied';">Copy Share Text</button>
+  </div>
+
+  <div class="content-card" style="padding:28px; border-color:rgba(45,212,191,0.34); background:rgba(15,23,42,0.78); text-align:center;">
+  <h3 style="color:var(--purple-lt); margin-bottom:14px;">Shoe Drive QR</h3>
+  <img src="images/qr/qr-shoe-drive.png" alt="QR code for the Twizted Journeys shoe drive page" style="width:160px; max-width:100%; border-radius:14px; border:1px solid rgba(45,212,191,0.30); background:#fff; padding:10px; margin:0 auto 16px;">
+  <p style="color:var(--muted); line-height:1.7; margin-bottom:16px;">Use this QR on flyers, bulletin boards, partner counters, and social graphics.</p>
+  <a href="images/qr/qr-shoe-drive.png" class="btn btn-ghost" download>Download Shoe Drive QR</a>
   </div>
   </div>
   </div>
