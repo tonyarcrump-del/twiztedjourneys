@@ -7,3 +7,4 @@ window.TJ_CONFIG = {
   supabaseKey: 'sb_publishable_q2u4RkabDzM3kQxs1jDprQ_UYr1hONz',
   supabaseAnonKey: 'sb_publishable_q2u4RkabDzM3kQxs1jDprQ_UYr1hONz'
 };
+

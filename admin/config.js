@@ -19,3 +19,4 @@ const TJ_CONFIG = {
 };
 
 window.TJ_CONFIG = TJ_CONFIG;
+

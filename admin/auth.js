@@ -54,3 +54,4 @@ async function adminSignOut() {
   const base = window.location.pathname.replace(/\/[^/]+\.html$/, '');
   window.location.href = base + '/index.html';
 }
+

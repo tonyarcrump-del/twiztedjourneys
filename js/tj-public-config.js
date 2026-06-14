@@ -13,3 +13,4 @@ window.TJ_PUBLIC_CONFIG = {
   supabaseUrl:     'https://ypzmckccroiffhtoofgr.supabase.co',
   supabaseAnonKey: 'sb_publishable_q2u4RkabDzM3kQxs1jDprQ_UYr1hONz'
 };
+
