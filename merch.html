@@ -463,8 +463,13 @@
           <h1>Wear the <em>Message</em></h1>
           <p>Every purchase supports mental health awareness, suicide prevention, and community outreach. Handmade with intention &mdash; each piece carries a story.</p>
           <div style="display:flex;gap:12px;flex-wrap:wrap;">
-            <a href="merch.html" class="btn btn-primary">Shop Our Store &rarr;</a>
-            <a href="merch.html" class="btn btn-secondary">Order Semicolon Charm</a>
+            <a href="#merch-shop" class="btn btn-primary">Shop Our Store &rarr;</a>
+            <a href="#merch-order"
+               class="btn btn-secondary"
+               data-merch-order-button
+               data-order-code="CHARM-12MM"
+               data-order-name="12mm Stainless Steel Semicolon Charm"
+               data-order-price="1 for $5 &middot; 3 for $12 &middot; 10 for $30">Order Semicolon Charm</a>
           </div>
         </div>
         <div class="merch-hero-image">
@@ -477,7 +482,7 @@
   </header>
 
   <!-- Available Now -->
-  <section style="padding:80px 0;" aria-labelledby="shop-status-heading">
+  <section id="merch-shop" style="padding:80px 0;" aria-labelledby="shop-status-heading">
     <div class="container">
       <div style="max-width:620px;margin:0 auto;text-align:center;">
         <p class="section-label">Available Now</p>
@@ -499,7 +504,7 @@
           </div>
         </div>
 
-        <a href="merch.html"
+        <a href="#merch-shop"
            class="btn btn-primary">Shop Our Store &rarr;</a>
         <p style="margin-top:16px;font-size:0.88rem;color:var(--muted);">
           Full store: <a href="merch.html">twiztedjourneys.org/merch</a>

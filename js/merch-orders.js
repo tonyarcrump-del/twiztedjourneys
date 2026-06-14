@@ -101,6 +101,23 @@
       return (pairs * 500) + (leftover * 300);
     }
 
+    // Semicolon charm pricing: "1 for $5 · 3 for $12 · 10 for $30"
+    if (label.indexOf("1 for $5") !== -1 &&
+        label.indexOf("3 for $12") !== -1 &&
+        label.indexOf("10 for $30") !== -1) {
+      var best = new Array(quantity + 1).fill(Infinity);
+      best[0] = 0;
+      for (var i = 1; i <= quantity; i += 1) {
+        best[i] = Math.min(
+          best[i],
+          best[i - 1] + 500,
+          i >= 3 ? best[i - 3] + 1200 : Infinity,
+          i >= 10 ? best[i - 10] + 3000 : Infinity
+        );
+      }
+      return best[quantity];
+    }
+
     // Fixed-price label — extract first dollar amount
     var m = label.match(/\$(\d+(?:\.\d{1,2})?)/);
     if (m) {
@@ -147,6 +164,15 @@
       code:  el.dataset.orderCode || text(info.querySelector(".tt-modal-badge"), "Merch"),
       name:  text(info.querySelector(".tt-modal-title"),  "Twizted Journeys merch item"),
       price: text(info.querySelector(".tt-modal-price"),  "Price pending")
+    };
+  }
+
+  function getItemFromButton(el) {
+    if (!el || (!el.dataset.orderCode && !el.dataset.orderName && !el.dataset.orderPrice)) return null;
+    return {
+      code:  el.dataset.orderCode || "Merch",
+      name:  el.dataset.orderName || "Twizted Journeys merch item",
+      price: el.dataset.orderPrice || "Price pending"
     };
   }
 
@@ -242,7 +268,7 @@
     e.preventDefault();
     e.stopPropagation();
 
-    var item = getItemFromCard(button) || getItemFromModal(button);
+    var item = getItemFromButton(button) || getItemFromCard(button) || getItemFromModal(button);
     window.openMerchOrderModal(item);
   }, true);
 
