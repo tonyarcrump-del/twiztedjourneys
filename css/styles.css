@@ -453,6 +453,87 @@ section { padding: 80px 0; }
   border-bottom: 1px solid var(--card-border);
 }
 
+/* Homepage Radio Interview */
+.home-radio-section {
+  padding: 58px 0;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(86,224,210,0.12), transparent 28%),
+    radial-gradient(circle at 86% 24%, rgba(138,43,239,0.16), transparent 32%),
+    linear-gradient(180deg, rgba(7,10,20,0.98), rgba(11,11,18,0.99));
+}
+
+.home-radio-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(280px, 1.05fr);
+  gap: 28px;
+  align-items: center;
+  border: 1px solid rgba(86,224,210,0.26);
+  border-radius: 22px;
+  padding: clamp(24px, 4vw, 38px);
+  background:
+    linear-gradient(135deg, rgba(15,23,42,0.88), rgba(23,13,44,0.78)),
+    var(--card-bg);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.36), 0 0 42px rgba(86,224,210,0.10), 0 0 38px rgba(138,43,239,0.10);
+}
+
+.home-radio-content h2 {
+  color: var(--white);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.05;
+  margin: 0 0 14px;
+}
+
+.home-radio-content > p:last-child {
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 560px;
+  margin: 0;
+}
+
+.home-radio-player {
+  border: 1px solid rgba(138,43,239,0.26);
+  border-radius: 16px;
+  padding: 20px;
+  background: rgba(2,6,23,0.52);
+  box-shadow: inset 0 0 28px rgba(86,224,210,0.05);
+}
+
+.home-radio-player audio {
+  display: block;
+  width: 100%;
+  accent-color: var(--teal);
+}
+
+.home-radio-note {
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid rgba(86,224,210,0.18);
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.home-radio-note a {
+  color: var(--teal);
+  font-weight: 800;
+}
+
+@media (max-width: 760px) {
+  .home-radio-section {
+    padding: 38px 0;
+  }
+
+  .home-radio-card {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    border-radius: 16px;
+  }
+
+  .home-radio-player {
+    padding: 16px;
+  }
+}
+
 /* ── Cards ──────────────────────────────────────────────────────── */
 .card {
   background: var(--card-bg);
