@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donor Outreach Helper - TJ Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="admin.css" />
+  <style>
+    .outreach-layout {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.8fr) minmax(360px, 1.2fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .outreach-warning {
+      margin-bottom: 22px;
+      padding: 14px 16px;
+      border: 1px solid rgba(245, 158, 11, 0.42);
+      border-radius: 8px;
+      color: #f8d28b;
+      background: rgba(245, 158, 11, 0.1);
+      font-size: 0.86rem;
+      line-height: 1.6;
+    }
+
+    .outreach-preview {
+      width: 100%;
+      min-height: 560px;
+      resize: vertical;
+      white-space: pre-wrap;
+      font-family: Consolas, "Courier New", monospace;
+      line-height: 1.55;
+    }
+
+    .outreach-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .outreach-status {
+      min-height: 22px;
+      margin-top: 10px;
+      color: var(--teal);
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 900px) {
+      .outreach-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .outreach-preview {
+        min-height: 480px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-glyph">;</div>
+      <div>
+        <div class="wordmark">Tw<span>;</span>zted</div>
+        <div class="subtitle">Admin Panel</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section">Main</div>
+      <a href="dashboard.html" class="nav-link">
+        <span class="nav-icon">&larr;</span> Dashboard
+      </a>
+      <a href="donor-outreach.html" class="nav-link active">
+        <span class="nav-icon">@</span> Donor Outreach
+      </a>
+
+      <div class="nav-section">Public Pages</div>
+      <a href="../index.html" target="_blank" class="nav-link">
+        <span class="nav-icon">WEB</span> View Full Site
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-version">Local drafting helper only</div>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div>
+        <div class="topbar-title">Donor Outreach Helper</div>
+        <div class="topbar-sub">Prepare one personalized business message at a time.</div>
+      </div>
+      <div class="topbar-actions">
+        <a href="dashboard.html" class="btn btn-ghost btn-sm">Back to Dashboard</a>
+      </div>
+    </div>
+
+    <div class="admin-content">
+      <div class="outreach-warning" role="alert">
+        <strong>Send outreach responsibly.</strong> This helper does not mass-send emails. It only creates one message at a time.
+      </div>
+
+      <div class="outreach-layout">
+        <section class="card" aria-labelledby="outreach-details-heading">
+          <div class="card-title" id="outreach-details-heading">Business Details</div>
+
+          <div class="field">
+            <label class="field-label" for="business-name">Business Name</label>
+            <input class="field-input" id="business-name" type="text" autocomplete="organization" placeholder="Example Business" />
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="contact-name">Contact Name</label>
+            <input class="field-input" id="contact-name" type="text" autocomplete="name" placeholder="Owner or manager name" />
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="business-email">Business Email</label>
+            <input class="field-input" id="business-email" type="email" autocomplete="email" placeholder="contact@example.com" />
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="ask-type">Ask Type</label>
+            <select class="field-select" id="ask-type">
+              <option value="gift card or raffle item">Gift card / raffle item</option>
+              <option value="sponsorship donation">Sponsorship donation</option>
+              <option value="flyer placement">Flyer placement</option>
+              <option value="donation box placement">Donation box placement</option>
+              <option value="sharing our fundraiser">Share our fundraiser</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary btn-block" id="generate-button" type="button">Generate Personalized Preview</button>
+        </section>
+
+        <section class="card" aria-labelledby="outreach-preview-heading">
+          <div class="card-title" id="outreach-preview-heading">Email Preview</div>
+          <p style="font-size:0.83rem;color:var(--muted);margin-bottom:14px;line-height:1.6;">
+            Review and edit the message before opening your email client.
+          </p>
+          <textarea class="field-textarea outreach-preview" id="email-preview" aria-label="Personalized email preview"></textarea>
+          <div class="outreach-actions">
+            <button class="btn btn-teal" id="copy-button" type="button">Copy Email</button>
+            <a class="btn btn-primary" id="mailto-button" href="#">Open Email App</a>
+          </div>
+          <div class="outreach-status" id="outreach-status" aria-live="polite"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  (function () {
+    "use strict";
+
+    var subject = "Local donation request for Twizted Journeys";
+    var businessInput = document.getElementById("business-name");
+    var contactInput = document.getElementById("contact-name");
+    var emailInput = document.getElementById("business-email");
+    var askInput = document.getElementById("ask-type");
+    var preview = document.getElementById("email-preview");
+    var mailtoButton = document.getElementById("mailto-button");
+    var status = document.getElementById("outreach-status");
+
+    function buildMessage() {
+      var business = businessInput.value.trim() || "[Business Name]";
+      var selectedAsk = askInput.value;
+
+      return [
+        "Subject: " + subject,
+        "",
+        "Hello " + business + ",",
+        "",
+        "My name is Tonya Crump, and I am reaching out on behalf of Twizted Journeys, Inc., a Shelbyville-based 501(c)(3) nonprofit focused on suicide awareness, mental health awareness, community support, and resources for people and families walking through difficult seasons.",
+        "",
+        "We are currently gathering local support for upcoming Twizted Journeys outreach events and fundraisers. We would be grateful if your business would consider helping with " + selectedAsk + ".",
+        "",
+        "Your support would help us continue creating awareness, offering comfort, connecting people to resources, and showing local families that they are not alone.",
+        "",
+        "You can learn more about Twizted Journeys at:",
+        "https://twiztedjourneys.org",
+        "",
+        "If your business is interested in helping, please reply to this email or contact us at info@twiztedjourneys.org.",
+        "",
+        "Thank you for considering this request and for supporting community-based awareness and outreach.",
+        "",
+        "Sincerely,",
+        "",
+        "Tonya Crump",
+        "Twizted Journeys, Inc.",
+        "info@twiztedjourneys.org",
+        "https://twiztedjourneys.org"
+      ].join("\n");
+    }
+
+    function updateDraft() {
+      preview.value = buildMessage();
+      updateMailtoLink();
+      status.textContent = "Draft updated. Review it carefully before opening your email client.";
+    }
+
+    function updateMailtoLink() {
+      var recipient = emailInput.value.trim();
+      var body = preview.value.replace("Subject: " + subject + "\n\n", "");
+      mailtoButton.href = "mailto:" + recipient +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
+    }
+
+    document.getElementById("generate-button").addEventListener("click", updateDraft);
+
+    document.getElementById("copy-button").addEventListener("click", function () {
+      var text = preview.value;
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(function () {
+          status.textContent = "Message copied to the clipboard.";
+        }).catch(function () {
+          preview.select();
+          status.textContent = "Copy was unavailable. The message has been selected for manual copying.";
+        });
+        return;
+      }
+
+      preview.select();
+      try {
+        document.execCommand("copy");
+        status.textContent = "Message copied to the clipboard.";
+      } catch (error) {
+        status.textContent = "Copy was unavailable. The message has been selected for manual copying.";
+      }
+    });
+
+    mailtoButton.addEventListener("click", function (event) {
+      updateMailtoLink();
+      if (!emailInput.value.trim()) {
+        event.preventDefault();
+        status.textContent = "Enter the business email address before opening your email client.";
+      }
+    });
+
+    emailInput.addEventListener("input", updateMailtoLink);
+    preview.addEventListener("input", updateMailtoLink);
+
+    updateDraft();
+  }());
+</script>
+</body>
+</html>
