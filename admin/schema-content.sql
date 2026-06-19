@@ -85,7 +85,7 @@ INSERT INTO site_content (key, value) VALUES
   ('rsvp_type_volunteer', 'true'),
 
   -- Social links
-  ('social_facebook',  'https://www.facebook.com/twiztedjourneys'),
+  ('social_facebook',  'https://www.facebook.com/groups/560290368564902/'),
   ('social_instagram', ''),
   ('social_tiktok',    ''),
   ('social_youtube',   ''),
