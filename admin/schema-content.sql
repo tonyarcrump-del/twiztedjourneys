@@ -87,7 +87,7 @@ INSERT INTO site_content (key, value) VALUES
   -- Social links
   ('social_facebook',  'https://www.facebook.com/groups/560290368564902/'),
   ('social_instagram', ''),
-  ('social_tiktok',    ''),
+  ('social_tiktok',    'https://www.tiktok.com/@everything_twizted'),
   ('social_youtube',   ''),
 
   -- Contact & donation
