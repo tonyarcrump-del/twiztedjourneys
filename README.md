@@ -7,6 +7,9 @@
 **Founded:** 2021 | **Status:** 501(c)(3) Nonprofit  
 **Founders:** Tonya Crump (CEO) & Tia Weaver (Co-Founder)
 
+**Platform provider:** [NoCapsAI LLC](https://nocapsai.com)
+**Provider support:** njwhitt@nocapsai.com
+
 ---
 
 ## Project Status
@@ -138,6 +141,17 @@ If pointing twiztedjourneys.org to GitHub Pages:
 - **Email:** info@twiztedjourneys.org
 - **WhatsApp:** (317) 604-3642
 - **Facebook:** facebook.com/groups/560290368564902/
+
+---
+
+## Rights & Ownership
+
+Copyright © 2026 NoCapsAI LLC. All rights reserved.
+
+Twizted Journeys, Inc. retains ownership of its organization name, logos, mission language, stories, voice, approved podcast episodes, photos, videos, public descriptions, event information, nonprofit-specific materials, donor information, grant information, and other client-provided content. NoCapsAI LLC owns the underlying platform, reusable code, workflow systems, admin dashboards, interface structure, templates, prompts, safety review process, automation logic, publishing workflow, documentation structure, and implementation unless a separate written agreement states otherwise.
+
+See [docs/LEGAL.md](docs/LEGAL.md) for the full ownership notice.
+See [docs/NOCAPSAI_PLATFORM_DOMAINS.md](docs/NOCAPSAI_PLATFORM_DOMAINS.md) for approved grant writer, podcast workflow, and future studio domain notes.
 
 ---
 

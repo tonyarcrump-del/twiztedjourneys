@@ -100,10 +100,20 @@
 
 **Current state:** Full codebase exists locally. node_modules present. Not yet deployed.
 
-**Connection to website:** podcast.html currently shows "Coming Soon." Once hope-signal-ai is deployed, that page links to the live platform.
+**Connection to website:** Public podcast and media content remains under the Twizted Journeys domain at `https://twiztedjourneys.org/podcast` or `https://twiztedjourneys.org/media`. The private workflow/admin application should be hosted under NoCapsAI at `https://podcast.nocapsai.com/twizted-journeys` or, if the multi-client studio is selected, `https://studio.nocapsai.com/twizted-journeys`.
 
 **Before Wednesday:** Keep "Coming Soon" teaser. Do not deploy hope-signal-ai before the meeting.
-**After Wednesday:** Choose a host (Vercel recommended for Next.js). Set up production env variables. Deploy and test. Update podcast.html. Rotate credentials in .env files before any public deployment.
+**After Wednesday:** Choose a host (Vercel recommended for Next.js). Set up production env variables. Deploy and test the private workflow under the approved NoCapsAI domain. Update podcast.html only with public Twizted Journeys episode/media links. Rotate credentials in .env files before any deployment.
+
+### Podcast Access & Ownership
+
+Public podcast/media content for Twizted Journeys should live on `https://twiztedjourneys.org/podcast` or `https://twiztedjourneys.org/media`.
+
+Private podcast workflow/admin access for Tonya should live under NoCapsAI at `https://podcast.nocapsai.com/twizted-journeys` or `https://studio.nocapsai.com/twizted-journeys`.
+
+Twizted Journeys owns its public-facing content, including its name, logo, stories, voice, approved episodes, photos, videos, public descriptions, event information, nonprofit-specific materials, donor information, grant information, and other supplied materials.
+
+NoCapsAI LLC owns the podcast workflow system, admin dashboard, templates, prompts, safety review process, automation logic, reusable code, publishing workflow, documentation structure, and implementation unless a separate written agreement says otherwise.
 
 ---
 
@@ -169,11 +179,12 @@ stories.twiztedjourneys.org
   qr-tag.html        QR landing for physical handmade items
   admin.html         Tonya review dashboard
 
-PODCAST PLATFORM (Vercel / hope-signal-ai)
-podcast.twiztedjourneys.org
+PRIVATE PODCAST WORKFLOW (Vercel / hope-signal-ai)
+podcast.nocapsai.com/twizted-journeys
+or studio.nocapsai.com/twizted-journeys
   Next.js app
-  Episode pages, show notes, transcripts
-  Admin: episode management, captions, show notes
+  Private admin: episode management, captions, show notes
+  Public approved content publishes to twiztedjourneys.org/podcast or /media
 
 PROMO & QR AGENT (Claude / internal tool)
   Used by Tonya/Nate to generate:

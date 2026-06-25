@@ -208,7 +208,7 @@ Confirmed vs. still needed:
 | `C:\Twisted Journeys\Twizted Promo Builder` | ✅ Has docs only | INSTRUCTIONS.md = Claude AI system prompt for promo content. No runnable app. |
 | `C:\Twisted Journeys\TJ_Event_Agent` | ✅ Has docs only | SKILL.md + INTAKE_TEMPLATE.md. Agent spec — not a running process. |
 | `C:\Twisted Journeys\TJ_Story_System` | ✅ Files ready | All HTML/JS files complete. Needs Supabase + Netlify to deploy. See SETUP.md. |
-| `C:\Twisted Journeys\hope-signal-ai` | ✅ Next.js app | Has .env files with secrets. SENSITIVE — do not expose. Ask Nate before touching. |
+| `C:\Twisted Journeys\hope-signal-ai` | ✅ Next.js app | Private workflow target: `https://podcast.nocapsai.com/twizted-journeys` or `https://studio.nocapsai.com/twizted-journeys`. Has .env files with secrets. SENSITIVE — do not expose. Ask Nate before touching. |
 
 **Decision:** No folder merging was done. Hub is a single static HTML file added to the main project. This is the correct approach for today — safe, reversible, no risk to existing project.
 
