@@ -312,7 +312,7 @@
           <button class="preset-btn" onclick="setPreset('https://www.twiztedjourneys.org/stories.html')">Stories</button>
           <button class="preset-btn" onclick="setPreset('https://www.twiztedjourneys.org/podcast.html')">Podcast</button>
           <button class="preset-btn" onclick="setPreset('https://www.twiztedjourneys.org/twizted-treasures.html')">Twizted Treasures</button>
-          <button class="preset-btn" onclick="alert('Vendor signup URL not confirmed yet. Add the real link when ready.')">Vendor Signup &mdash; TODO</button>
+          <button class="preset-btn" onclick="setPreset('https://www.twiztedjourneys.org/vendor-registration.html')">Vendor Signup</button>
         </div>
       </div>
     </div>
@@ -383,7 +383,7 @@
         <div class="card-icon icon-purple">&#128197;</div>
         <div><div class="card-title">September Event Flyer</div><span class="badge badge-live">Confirmed &#9989;</span></div>
       </div>
-      <p class="card-desc"><strong>Sept 12, 2026 &mdash; Light Up the Night</strong> &nbsp;|&nbsp; Shelby County Fairgrounds, 40 & 8 Building, 500 Frank Street, Shelbyville IN &nbsp;|&nbsp; Registration 11AM &nbsp;|&nbsp; Vendors $50/day</p>
+      <p class="card-desc"><strong>Sept 12, 2026 &mdash; Light Up the Night</strong> &nbsp;|&nbsp; Shelby County Fairgrounds, 40 & 8 Building, 500 Frank Street, Shelbyville IN &nbsp;|&nbsp; Registration 11AM &nbsp;|&nbsp; Regular vendors $30 / food vendors $75</p>
       <ul class="todo-list">
         <li>&#10003; Asset: <code>images/vendor-event-flyer.png</code></li>
         <li>&#10003; Event date &amp; location confirmed</li>
@@ -402,16 +402,16 @@
         <div class="card-icon icon-purple">&#127978;</div>
         <div><div class="card-title">September Vendor Flyer</div><span class="badge badge-live">Confirmed &#9989;</span></div>
       </div>
-      <p class="card-desc">Sept 12 &amp; 13, 2026 &mdash; Shelby County Fairgrounds, 40 & 8 Building, 500 Frank Street, Shelbyville IN &nbsp;|&nbsp; <strong>$50/day per vendor</strong>. Makers, food vendors, resource tables, and awareness orgs welcome.</p>
+      <p class="card-desc">Sept 12 &amp; 13, 2026 &mdash; Shelby County Fairgrounds, 40 & 8 Building, 500 Frank Street, Shelbyville IN &nbsp;|&nbsp; <strong>$30 regular vendor / $75 food vendor</strong>. Makers, food vendors, resource tables, and awareness orgs welcome.</p>
       <ul class="todo-list">
-        <li>&#10003; Vendor fee confirmed: $50/day</li>
+        <li>&#10003; Vendor fees confirmed: $30 regular vendor / $75 food vendor</li>
         <li>&#10003; Asset: <code>images/vendor-event-flyer.png</code></li>
         <li>&#10003; Contact: email info@twiztedjourneys.org to reserve</li>
-        <li class="todo">TODO: Formal vendor signup URL (email used for now)</li>
+        <li>&#10003; Vendor signup URL: https://www.twiztedjourneys.org/vendor-registration.html</li>
       </ul>
-      <button class="card-qr-toggle" onclick="toggleMiniQR(this,'https://www.twiztedjourneys.org/events.html')">&#9724; Generate QR (Vendor Signup)</button>
+      <button class="card-qr-toggle" onclick="toggleMiniQR(this,'https://www.twiztedjourneys.org/vendor-registration.html')">&#9724; Generate QR (Vendor Signup)</button>
       <div class="card-qr-panel">
-        <input class="mini-qr-url" type="text" value="https://www.twiztedjourneys.org/events.html" placeholder="Or paste vendor signup URL" />
+        <input class="mini-qr-url" type="text" value="https://www.twiztedjourneys.org/vendor-registration.html" placeholder="Or paste vendor signup URL" />
         <button class="btn btn-teal btn-sm" onclick="generateMiniQR(this)">Generate</button>
         <div class="mini-qr-output"><div></div><p class="qr-scan-note">Test before printing.</p><button class="btn btn-ghost btn-sm" onclick="downloadMiniQR(this)">&#8595; Download</button></div>
       </div>
@@ -721,7 +721,7 @@ function routeHub(q, raw) {
 
 Sept 12, 2026 — Light Up the Night
 Shelby County Fairgrounds, 40 & 8 Building, 500 Frank Street, Shelbyville IN
-Registration: 11AM | Vendors: $50/day
+Registration: 11AM | Regular vendors $30 | Food vendors $75
 RSVP: info@twiztedjourneys.org
 
 QR target: events.html (already set in card below)
@@ -734,7 +734,7 @@ Flyer asset: images/vendor-event-flyer.png',
   if (contains(q,['september','sept']) && contains(q,['vendor'])) {
     return {
       tag: '&#127978; September Vendor Flyer',
-      body: 'The September Vendor Flyer card is below.\n\nStatus: Ready to Build\nNeeded before building:\n&rdquo;¢ Vendor signup / contact URL (for the QR)\n&rdquo;¢ Vendor fee / table cost\n&rdquo;¢ Event date to put on the flyer',
+      body: 'The September Vendor Flyer card is below.\n\nStatus: Ready to Build\nConfirmed:\n&rdquo;¢ Vendor signup URL: twiztedjourneys.org/vendor-registration.html\n&rdquo;¢ Vendor fees: $30 regular / $75 food\n&rdquo;¢ Event dates: Sept 12-13, 2026',
       actions: [{ label: 'Go to Vendor Flyer', scroll: 'card-sept-vendor' }, { label: 'Open Canva', href: 'https://www.canva.com/' }]
     };
   }

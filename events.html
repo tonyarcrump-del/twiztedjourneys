@@ -321,9 +321,13 @@
       <div style="max-width:640px;margin:0 auto;">
         <p class="section-label">RSVP &amp; Contact</p>
         <h2 class="section-title" id="contact-heading">Get in <em>Touch</em></h2>
-        <p style="color:var(--muted);font-size:1rem;line-height:1.75;margin-bottom:28px;" data-sc="event_rsvp_confirm">Questions about events, vendor spaces, or registration? Reach out &mdash; we&rsquo;re real people and we always respond.</p>
+        <p style="color:var(--muted);font-size:1rem;line-height:1.75;margin-bottom:18px;" data-sc="event_rsvp_confirm">Questions about events, vendor spaces, or registration? Reach out &mdash; we&rsquo;re real people and we always respond.</p>
+        <p style="color:var(--muted);font-size:0.95rem;line-height:1.7;margin-bottom:28px;">Vendors should use the dedicated <a href="vendor-registration.html" style="color:var(--teal);font-weight:700;">vendor registration page</a> so the correct regular vendor or food vendor fee is clear.</p>
                 <!-- RSVP Form — powered by Forms -->
-        <form onsubmit="handleRsvpSubmit(event)"-honeypot="bot-field" style="margin-bottom:28px;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+        <form onsubmit="handleRsvpSubmit(event)" data-netlify-honeypot="bot-field" style="margin-bottom:28px;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+            <p style="display:none;">
+              <label>Do not fill this out: <input name="bot-field" /></label>
+            </p>
             <div>
               <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">Full Name *</label>
               <input type="text" name="name" required style="width:100%;background:var(--midnight-3,#1A1A28);border:1px solid var(--card-border);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.9rem;font-family:inherit;" />
@@ -358,7 +362,7 @@
               <option value="attendee">Attendee / Community Member</option>
               <option value="rider">Motorcycle Rider (Day 1 - Light Up the Night)</option>
               <option value="walker">Awareness Walker (Day 2 - The Cause)</option>
-              <option value="vendor">Vendor ($30 registration / $75 food vendor)</option>
+              <option value="vendor">Vendor - use vendor registration page ($30 regular / $75 food)</option>
               <option value="volunteer">Volunteer</option>
             </select>
           </div>

@@ -69,8 +69,8 @@ INSERT INTO site_content (key, value) VALUES
   ('event_location',    ''),
   ('event_address',     ''),
   ('event_description', 'Light Up the Night kicks off Twizted Journeys'' September awareness weekend on Sept. 12, followed by The Cause Walk on Sept. 13. Riders, walkers, vendors, volunteers, and the whole community are welcome.'),
-  ('event_day1',        'Sept 12 — Light Up the Night (evening)'),
-  ('event_day2',        'Sept 13 — The Cause Walk (daytime)'),
+  ('event_day1',        'Sept 12 — Light Up the Night'),
+  ('event_day2',        'Sept 13 — The Cause Walk'),
 
   -- RSVP settings
   ('event_rsvp_open',       'true'),
@@ -92,7 +92,7 @@ INSERT INTO site_content (key, value) VALUES
 
   -- Contact & donation
   ('contact_email', 'tonyarcrump@gmail.com'),
-  ('donate_url',    'https://twiztedjourneys.org/donations-matter'),
+  ('donate_url',    'https://donorbox.org/help-penetrate-the-darkness'),
   ('shop_url',      'https://twiztedjourneys.org/merch.html'),
   ('contact_phone', ''),
 

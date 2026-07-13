@@ -96,7 +96,7 @@ www CNAME  tonyarcrump-del.github.io
 
 ## What Webador Keeps Running
 Webador continues to handle **100% of**:
-- All donations (donations-matter page)
+- All donations (Donorbox donation page)
 - All product purchases (checkout/cart)
 - All existing product listings
 - PayPal integration

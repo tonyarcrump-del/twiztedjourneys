@@ -604,7 +604,7 @@ Run these in order. Do not skip or reorder.
 ## Key Constraints (Permanent)
 
 - **Do NOT touch:** Webador payment settings, checkout, shipping, donation settings, private links
-- **Donate link:** Always https://www.twiztedjourneys.org/donations-matter — never changes
+- **Donate link:** Use https://donorbox.org/help-penetrate-the-darkness unless Tonya approves a replacement donation page.
 - **Social links:** Only Facebook Community Group (/groups/560290368564902/) is confirmed.
   No other social platforms until Tonya confirms exact URLs.
 - **Credentials:** Supabase anon key in config.js is safe to expose (RLS protects data).

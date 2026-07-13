@@ -151,6 +151,11 @@
       source:            'website-form'
     };
 
+    if (payload.registration_type === 'vendor') {
+      window.location.href = 'vendor-registration.html';
+      return;
+    }
+
     try {
       await postToSupabase('event_registrations', payload);
       showSuccess(form, "You're registered! See you in September.");

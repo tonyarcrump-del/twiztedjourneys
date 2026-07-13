@@ -32,7 +32,7 @@
 - Homepage: parallax hero (what-comes-after-the-pause-promo.png), mission, what we do, upcoming events, donate, resources, stories, QR placeholder, podcast teaser
 - Events page: Sept. 12-13 artwork attached to event cards, vendor flyer in vendor section
 - Zero broken image references; zero forbidden phrases; zero unconfirmed social links
-- Donate links point to https://www.twiztedjourneys.org/donations-matter (Webador)
+- Donate links point to https://donorbox.org/help-penetrate-the-darkness
 - Facebook Group link confirmed: https://www.facebook.com/groups/560290368564902/
 
 **Before Wednesday:** Final review by Nate and Tonya, then git push.
@@ -133,7 +133,7 @@ NoCapsAI LLC owns the podcast workflow system, admin dashboard, templates, promp
 
 1. Homepage -- parallax hero, mission, what we do, upcoming events, donate, resources, stories, scan & share placeholder, podcast teaser
 2. Events page -- Sept. 12-13 artwork in event cards, vendor flyer in vendor callout, all RSVP/vendor email links working
-3. All donate links pointing to https://www.twiztedjourneys.org/donations-matter
+3. All donate links pointing to https://donorbox.org/help-penetrate-the-darkness
 4. Crisis band (988) compact and consistent on all pages
 5. Zero broken images, zero forbidden phrases, zero unconfirmed social links
 6. Nate reviews, then git push to GitHub Pages
@@ -236,7 +236,7 @@ Once the official repo is live and Tonya confirms it looks correct, TJ_Website_L
 ## Key Constraints (always)
 
 - Do not touch DNS, CNAME.hold, Webador settings, payment settings, shipping, checkout, or private links
-- Donate always links to https://www.twiztedjourneys.org/donations-matter
+- Donate links use https://donorbox.org/help-penetrate-the-darkness unless Tonya approves a replacement donation page
 - Only confirmed social link: Facebook Group https://www.facebook.com/groups/560290368564902/
 - Do not add Instagram, TikTok, Tumblr, or X until Tonya confirms exact URLs
 - hope-signal-ai/.env and .env.local must NEVER be committed to a public repo

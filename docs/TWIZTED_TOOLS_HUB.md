@@ -86,7 +86,7 @@ Tonya will eventually be able to type or speak anything — "Make this flyer sou
 |---|---|---|
 | **QR Code Builder** | ✅ Working | Type URL → Generate → Download PNG |
 | **Website Preview** | ✅ Live | Click to open twiztedjourneys.org |
-| **Donate Page** | ✅ Live | Click to open donations-matter page |
+| **Donate Page** | ✅ Live | Click to open the Donorbox donation page |
 | **Facebook Group** | ✅ Live | Click to open Facebook group |
 | **Ask the Hub** | ✅ Working | Type request → get output or routing |
 | **September Event Flyer card** | ✅ Ready to build (needs date + RSVP URL from Tonya) | Open card, add URL, generate QR |
@@ -129,11 +129,11 @@ Tonya will eventually be able to type or speak anything — "Make this flyer sou
 |---|---|
 | Main site | https://www.twiztedjourneys.org/ |
 | Events | https://www.twiztedjourneys.org/events.html |
-| Donate | https://www.twiztedjourneys.org/donations-matter |
+| Donate | https://donorbox.org/help-penetrate-the-darkness |
 | Facebook Group | https://www.facebook.com/groups/560290368564902/ |
 | Shoe Drive | https://www.twiztedjourneys.org/shoe-drive.html |
 | Merch / Charm | https://www.twiztedjourneys.org/merch.html |
-| Vendor signup | TODO — not confirmed yet |
+| Vendor signup | https://www.twiztedjourneys.org/vendor-registration.html |
 | Sept event RSVP | TODO — not confirmed yet |
 | Nov event RSVP | TODO — not confirmed yet |
 
@@ -148,7 +148,7 @@ Confirmed vs. still needed:
 - [x] Date: September 12, 2026
 - [x] Venue: Shelby County Fairgrounds, 40 & 8 Building, 500 Frank Street, Shelbyville IN
 - [x] Registration: 11AM
-- [x] Vendors: $50/day
+- [x] Vendors: $30 regular vendor / $75 food vendor
 - [x] RSVP: mailto:info@twiztedjourneys.org (subject: RSVP - Ride Registration)
 - [x] QR target: https://www.twiztedjourneys.org/events.html
 - [ ] TODO: Formal RSVP/registration URL (email works for now)
@@ -156,11 +156,11 @@ Confirmed vs. still needed:
 **September Vendor Flyer — CONFIRMED**
 - [x] Event dates: Sept 12-13, 2026
 - [x] Venue: Shelby County Fairgrounds, 40 & 8 Building, 500 Frank Street, Shelbyville IN
-- [x] Vendor fee: $50/day
-- [x] Contact: mailto:info@twiztedjourneys.org (subject: Vendor Signup - September 2026)
-- [x] QR target: https://www.twiztedjourneys.org/events.html
+- [x] Vendor fee: $30 regular vendor / $75 food vendor
+- [x] Signup URL: https://www.twiztedjourneys.org/vendor-registration.html
+- [x] QR target: https://www.twiztedjourneys.org/vendor-registration.html
 - [x] Asset: images/vendor-event-flyer.png
-- [ ] TODO: Formal vendor signup URL (email used for now)
+- [x] Formal vendor signup URL confirmed
 
 **November Event Flyer — NOTHING IN SOURCE FILES**
 - [ ] No event details found in any project folder
