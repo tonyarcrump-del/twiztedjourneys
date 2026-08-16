@@ -65,7 +65,14 @@ const FIXED_ITEMS: Record<string, number> = {
   GP5:  2999, // $29.99
   "STANDING-SOLDIER-KEYCHAIN": 599, // $5.99
   "KNEELING-SOLDIER-KEYCHAIN": 999, // $9.99
-  SUNFLOWERS: 699, // $6.99
+  SF1: 699, // $6.99
+  SF2: 699, // $6.99
+  SF3: 699, // $6.99
+  SF4: 699, // $6.99
+  SF5: 699, // $6.99
+  FD11: 399, // $3.99
+  FD21: 499, // $4.99
+  FD22: 499, // $4.99
   SHK01: 599, // $5.99
   SHK02: 599, // $5.99
   SHK03: 599, // $5.99
