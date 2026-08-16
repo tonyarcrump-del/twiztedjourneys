@@ -60,11 +60,11 @@ const FIXED_ITEMS: Record<string, number> = {
   BEAR: 1999, // $19.99
   UT4:   999, // $9.99
   VDD2: 1799, // $17.99
-  U1:   2999, // $29.99
-  U22P: 2499, // $24.99
-  GP5:  2999, // $29.99
+  KEYCHAINS: 599, // $5.99
   "STANDING-SOLDIER-KEYCHAIN": 599, // $5.99
   "KNEELING-SOLDIER-KEYCHAIN": 999, // $9.99
+  BRACELETS: 200, // $2.00
+  SKULL: 1999, // $19.99
   SF1: 699, // $6.99
   SF2: 699, // $6.99
   SF3: 699, // $6.99
