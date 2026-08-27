@@ -128,11 +128,18 @@ in the checkout session. However, in your Stripe Dashboard you should:
 6. Use Stripe test card: `4242 4242 4242 4242` · any future expiry · any CVC
 7. After payment, you should land on `merch-payment-success.html`
 
-### Test "Price coming soon" items
+### Test limited-quantity items
 
-1. Click **Order Now** on HP2–HP11 (the hat pins — "Price coming soon")
+1. Click **Order Now** on HP2–HP11 (the hat pins — $3 each / 2 for $5)
 2. Fill form, click **Save & Pay**
-3. Expected: order saves to Supabase, modal shows inquiry-received message, **no** Stripe redirect
+3. Expected for quantity 1 or 2: order saves to Supabase and redirects to Stripe Checkout
+4. Expected for quantity 3 or more: checkout is rejected, with **no** Stripe session
+
+### Test semicolon charm bundles
+
+1. Click **Order Semicolon Charm**
+2. Expected for quantity 1, 3, or 10: order saves to Supabase and redirects to Stripe Checkout
+3. Expected for any other quantity: checkout is rejected, with **no** Stripe session
 
 ### Verify order in Supabase
 
@@ -183,7 +190,9 @@ to send a confirmation email via Resend or SendGrid.
 | `$24.99 each` | $24.99 × quantity |
 | `$29.99` | $29.99 × quantity |
 | `$32.99` | $32.99 × quantity |
-| `$3 each · 2 for $5` | pairs × $5.00 + leftover × $3.00 |
+| HP2–HP11 hat pins | quantity 1 = $3.00; quantity 2 = $5.00; quantity 3+ rejected |
+| `CHARM-12MM` semicolon charm | quantity 1 = $5.00; quantity 3 = $12.00; quantity 10 = $30.00; other quantities rejected |
+| `$3 each · 2 for $5` mushrooms/hearts | pairs × $5.00 + leftover × $3.00 |
 | `Price coming soon` | Save inquiry only, no Stripe redirect |
 
 The pricing logic lives in both `js/merch-orders.js` (frontend, for display)

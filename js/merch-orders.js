@@ -4,6 +4,8 @@
  *
  * Pricing tiers (mirrored server-side in the Edge Function):
  *   Fixed:  $9.99 · $17.99 · $19.99 · $24.99 · $29.99 · $32.99
+ *   Charm:  CHARM-12MM qty 1 → $5.00 · qty 3 → $12.00 · qty 10 → $30.00
+ *   Hat pins: HP2–HP11 qty 1 → $3.00 · qty 2 → $5.00
  *   Bundle: "$3 each · 2 for $5"
  *             qty 1 → $3.00    qty 2 → $5.00    qty 3 → $8.00
  *             qty 4 → $10.00   qty 5 → $13.00   (pairs=$5, odd=$3)
@@ -87,10 +89,24 @@
   /* ── Pricing logic ───────────────────────────────────────────────────── */
 
   // Returns price in cents, or null if price is unknown/coming-soon
-  function calcAmountCents(priceLabel, quantity) {
+  function calcAmountCents(priceLabel, quantity, itemCode) {
     var label = (priceLabel || "").toLowerCase().trim();
+    var code = (itemCode || "").toUpperCase().trim();
 
     if (!label || label === "price coming soon" || label === "price pending") {
+      return null;
+    }
+
+    if (code === "CHARM-12MM") {
+      if (quantity === 1) return 500;
+      if (quantity === 3) return 1200;
+      if (quantity === 10) return 3000;
+      return null;
+    }
+
+    if (/^HP(?:[2-9]|10|11)$/.test(code)) {
+      if (quantity === 1) return 300;
+      if (quantity === 2) return 500;
       return null;
     }
 
@@ -114,6 +130,17 @@
   // Human-readable price display for the order summary
   function formatCents(cents) {
     return "$" + (cents / 100).toFixed(2);
+  }
+
+  function getInvalidQuantityMessage(itemCode, quantity) {
+    var code = (itemCode || "").toUpperCase().trim();
+    if (code === "CHARM-12MM" && [1, 3, 10].indexOf(quantity) === -1) {
+      return "Semicolon charms can be ordered in quantities of 1, 3, or 10.";
+    }
+    if (/^HP(?:[2-9]|10|11)$/.test(code) && [1, 2].indexOf(quantity) === -1) {
+      return "Hat pins can be ordered in quantities of 1 or 2 per checkout line.";
+    }
+    return "";
   }
 
   /* ── DOM helpers ─────────────────────────────────────────────────────── */
@@ -151,7 +178,7 @@
   }
 
   function getItemFromButton(el) {
-    if (!el || (!el.dataset.orderCode && !el.dataset.orderName && !el.dataset.orderPrice)) return null;
+    if (!el || (!el.dataset.orderName && !el.dataset.orderPrice)) return null;
     return {
       code:  el.dataset.orderCode || "Merch",
       name:  el.dataset.orderName || "Twizted Journeys merch item",
@@ -204,7 +231,7 @@
     document.getElementById("merch-order-summary-price").textContent = item.price ? " | " + item.price : "";
 
     // Show or hide price note based on whether we can calculate amount
-    updatePriceNote(item.price, 1);
+    updatePriceNote(item.price, 1, item.code);
 
     modal.classList.add("is-open");
     document.body.style.overflow = "hidden";
@@ -223,10 +250,10 @@
   };
 
   // Update the calculated price note when quantity changes
-  function updatePriceNote(priceLabel, quantity) {
+  function updatePriceNote(priceLabel, quantity, itemCode) {
     var noteEl = document.getElementById("merch-order-price-note");
     if (!noteEl) return;
-    var cents = calcAmountCents(priceLabel, quantity);
+    var cents = calcAmountCents(priceLabel, quantity, itemCode);
     if (cents !== null) {
       noteEl.textContent = "Calculated total: " + formatCents(cents);
       noteEl.style.display = "";
@@ -266,8 +293,9 @@
     if (qtyInput) {
       qtyInput.addEventListener("input", function () {
         var priceLabel = (document.getElementById("merch-order-price-label") || {}).value || "";
+        var itemCode = (document.getElementById("merch-order-item-code") || {}).value || "";
         var qty = parseInt(this.value, 10) || 1;
-        updatePriceNote(priceLabel, qty);
+        updatePriceNote(priceLabel, qty, itemCode);
       });
     }
   });
@@ -288,7 +316,9 @@
 
       var priceLabel = form.elements.price_label.value.trim();
       var quantity   = Number(form.elements.quantity.value || 1);
-      var amountCents = calcAmountCents(priceLabel, quantity);
+      var itemCode    = form.elements.item_code.value.trim();
+      var amountCents = calcAmountCents(priceLabel, quantity, itemCode);
+      var invalidQuantityMessage = getInvalidQuantityMessage(itemCode, quantity);
       var hasPriceComingSoon = !priceLabel ||
         priceLabel.toLowerCase() === "price coming soon" ||
         priceLabel.toLowerCase() === "price pending";
@@ -298,10 +328,15 @@
       var payload = null;
 
       try {
+        if (invalidQuantityMessage) {
+          setMessage("error", invalidQuantityMessage);
+          return;
+        }
+
         orderId = generateOrderId();
         payload = {
           id:               orderId,
-          item_code:        form.elements.item_code.value.trim(),
+          item_code:        itemCode,
           item_name:        form.elements.item_name.value.trim(),
           price_label:      priceLabel,
           quantity:         quantity,

@@ -41,12 +41,14 @@ function corsHeaders(origin: string | null): Record<string, string> {
 // This is the ONLY place that determines what Stripe charges.
 // Frontend price fields are never used to set the charge amount.
 
-type BundleItem  = { kind: "bundle" };
-type FixedItem   = { kind: "fixed"; cents: number }; // per-unit, before qty
-type ShirtItem   = { kind: "shirt" };
+type BundleItem = { kind: "bundle" };
+type CharmBundleItem = { kind: "charm-bundle" };
+type HatPinItem = { kind: "hat-pin" };
+type FixedItem = { kind: "fixed"; cents: number }; // per-unit, before qty
+type ShirtItem = { kind: "shirt" };
 type InquiryItem = { kind: "inquiry" };
 
-type CatalogEntry = BundleItem | FixedItem | ShirtItem | InquiryItem;
+type CatalogEntry = BundleItem | CharmBundleItem | HatPinItem | FixedItem | ShirtItem | InquiryItem;
 
 // Bundle pricing: every pair of units = 500 cents, every leftover single = 300 cents
 // qty 1 → $3.00  qty 2 → $5.00  qty 3 → $8.00  qty 4 → $10.00  qty 5 → $13.00
@@ -54,6 +56,24 @@ const BUNDLE_ITEMS = new Set([
   "HOC", "HOWC", "HO", "HPBC", "HPC", "HPC2", "HA",  // crystal hearts
   "MY2", "MGRU", "MU2", "MP", "MBL", "MOP",           // stone mushrooms
 ]);
+
+// Hat pins are limited to one or two per checkout line.
+const HAT_PIN_ITEMS = new Set([
+  "HP2", "HP3", "HP4", "HP5", "HP6",
+  "HP7", "HP8", "HP9", "HP10", "HP11",
+]);
+
+const HAT_PIN_PRICES: Record<number, number> = {
+  1: 300,
+  2: 500,
+};
+
+// Signature semicolon charm pricing. Only these package quantities are allowed.
+const CHARM_12MM_BUNDLE_PRICES: Record<number, number> = {
+  1: 500,
+  3: 1200,
+  10: 3000,
+};
 
 // Fixed-price items: unit price in cents (quantity multiplier applied below)
 const FIXED_ITEMS: Record<string, number> = {
@@ -108,14 +128,13 @@ const LUN_SHIRT_SIZE_PRICES: Record<string, number> = {
 };
 
 // Price-coming-soon items: save inquiry, skip Stripe
-const INQUIRY_ITEMS = new Set([
-  "HP2", "HP3", "HP4", "HP5", "HP6",
-  "HP7", "HP8", "HP9", "HP10", "HP11",
-]);
+const INQUIRY_ITEMS = new Set<string>([]);
 
 function lookupItem(itemCode: string): CatalogEntry | null {
   const code = itemCode.trim().toUpperCase();
   if (BUNDLE_ITEMS.has(code))        return { kind: "bundle" };
+  if (code === "CHARM-12MM")         return { kind: "charm-bundle" };
+  if (HAT_PIN_ITEMS.has(code))       return { kind: "hat-pin" };
   if (code === "LUN-SHIRT")          return { kind: "shirt" };
   if (FIXED_ITEMS[code] !== undefined) return { kind: "fixed", cents: FIXED_ITEMS[code] };
   if (INQUIRY_ITEMS.has(code))       return { kind: "inquiry" };
@@ -141,6 +160,14 @@ function calcAmountCents(
     const pairs    = Math.floor(quantity / 2);
     const leftover = quantity % 2;
     return pairs * 500 + leftover * 300;
+  }
+
+  if (entry.kind === "charm-bundle") {
+    return CHARM_12MM_BUNDLE_PRICES[quantity] ?? null;
+  }
+
+  if (entry.kind === "hat-pin") {
+    return HAT_PIN_PRICES[quantity] ?? null;
   }
 
   if (entry.kind === "shirt") {
@@ -254,6 +281,22 @@ serve(async (req: Request) => {
   if (catalogEntry.kind === "shirt" && !shirtSize) {
     console.warn("Invalid LUN-SHIRT size:", { item_code, item_name });
     return json({ error: "Invalid or missing shirt size for LUN-SHIRT" }, 400, cors);
+  }
+
+  if (
+    catalogEntry.kind === "charm-bundle" &&
+    CHARM_12MM_BUNDLE_PRICES[quantity] === undefined
+  ) {
+    console.warn("Invalid CHARM-12MM bundle quantity:", { item_code, quantity });
+    return json({ error: "Invalid bundle quantity for CHARM-12MM" }, 400, cors);
+  }
+
+  if (
+    catalogEntry.kind === "hat-pin" &&
+    HAT_PIN_PRICES[quantity] === undefined
+  ) {
+    console.warn("Invalid hat pin quantity:", { item_code, quantity });
+    return json({ error: "Hat pin quantity must be 1 or 2" }, 400, cors);
   }
 
   // ── Calculate authoritative charge amount ───────────────────────────────────
