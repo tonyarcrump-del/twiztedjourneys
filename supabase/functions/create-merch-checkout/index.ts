@@ -43,9 +43,10 @@ function corsHeaders(origin: string | null): Record<string, string> {
 
 type BundleItem  = { kind: "bundle" };
 type FixedItem   = { kind: "fixed"; cents: number }; // per-unit, before qty
+type ShirtItem   = { kind: "shirt" };
 type InquiryItem = { kind: "inquiry" };
 
-type CatalogEntry = BundleItem | FixedItem | InquiryItem;
+type CatalogEntry = BundleItem | FixedItem | ShirtItem | InquiryItem;
 
 // Bundle pricing: every pair of units = 500 cents, every leftover single = 300 cents
 // qty 1 → $3.00  qty 2 → $5.00  qty 3 → $8.00  qty 4 → $10.00  qty 5 → $13.00
@@ -94,6 +95,18 @@ const FIXED_ITEMS: Record<string, number> = {
   PG10: 1000, // $10.00
 };
 
+// Variant-priced apparel. The selected size is parsed from item_name and
+// validated against this server-side allowlist before Stripe checkout.
+const LUN_SHIRT_SIZE_PRICES: Record<string, number> = {
+  S: 3000,
+  M: 3000,
+  L: 3000,
+  XL: 3000,
+  "2X": 3500,
+  "3X": 3500,
+  "4X": 3500,
+};
+
 // Price-coming-soon items: save inquiry, skip Stripe
 const INQUIRY_ITEMS = new Set([
   "HP2", "HP3", "HP4", "HP5", "HP6",
@@ -103,18 +116,36 @@ const INQUIRY_ITEMS = new Set([
 function lookupItem(itemCode: string): CatalogEntry | null {
   const code = itemCode.trim().toUpperCase();
   if (BUNDLE_ITEMS.has(code))        return { kind: "bundle" };
+  if (code === "LUN-SHIRT")          return { kind: "shirt" };
   if (FIXED_ITEMS[code] !== undefined) return { kind: "fixed", cents: FIXED_ITEMS[code] };
   if (INQUIRY_ITEMS.has(code))       return { kind: "inquiry" };
   return null; // unknown item
 }
 
-function calcAmountCents(entry: CatalogEntry, quantity: number): number | null {
+function getLunShirtSize(itemName: string): string | null {
+  const match = itemName.match(/\bSize\s+(S|M|L|XL|2X|3X|4X)\b/i);
+  if (!match) return null;
+
+  const size = match[1].toUpperCase();
+  return LUN_SHIRT_SIZE_PRICES[size] !== undefined ? size : null;
+}
+
+function calcAmountCents(
+  entry: CatalogEntry,
+  quantity: number,
+  shirtSize: string | null = null,
+): number | null {
   if (entry.kind === "inquiry") return null;
 
   if (entry.kind === "bundle") {
     const pairs    = Math.floor(quantity / 2);
     const leftover = quantity % 2;
     return pairs * 500 + leftover * 300;
+  }
+
+  if (entry.kind === "shirt") {
+    if (!shirtSize || LUN_SHIRT_SIZE_PRICES[shirtSize] === undefined) return null;
+    return LUN_SHIRT_SIZE_PRICES[shirtSize] * quantity;
   }
 
   // fixed
@@ -199,6 +230,7 @@ serve(async (req: Request) => {
   console.log("create-merch-checkout request:", {
     order_id,
     item_code,
+    item_name,
     quantity,
     frontend_price_label: body.price_label ?? "(not sent)",
     frontend_amount_cents: body.amount_cents ?? "(not sent)",
@@ -218,8 +250,14 @@ serve(async (req: Request) => {
     return json({ skip_checkout: true, reason: "price_coming_soon" }, 200, cors);
   }
 
+  const shirtSize = catalogEntry.kind === "shirt" ? getLunShirtSize(item_name) : null;
+  if (catalogEntry.kind === "shirt" && !shirtSize) {
+    console.warn("Invalid LUN-SHIRT size:", { item_code, item_name });
+    return json({ error: "Invalid or missing shirt size for LUN-SHIRT" }, 400, cors);
+  }
+
   // ── Calculate authoritative charge amount ───────────────────────────────────
-  const amountCents = calcAmountCents(catalogEntry, quantity)!;
+  const amountCents = calcAmountCents(catalogEntry, quantity, shirtSize)!;
 
   // Stripe minimum charge is $0.50 (50 cents)
   if (amountCents < 50) {
@@ -274,7 +312,8 @@ serve(async (req: Request) => {
             product_data: {
               name: `${item_name.trim()} (×${quantity})`,
               description:
-                `Twizted Journeys merch · Item ${item_code.toUpperCase().trim()} · Qty ${quantity}`,
+                `Twizted Journeys merch · Item ${item_code.toUpperCase().trim()} · Qty ${quantity}` +
+                (shirtSize ? ` · Size ${shirtSize}` : ""),
             },
           },
           quantity: 1, // amountCents already incorporates quantity math
@@ -285,6 +324,7 @@ serve(async (req: Request) => {
         item_code:  item_code.toUpperCase().trim(),
         item_name:  item_name.trim().substring(0, 500),
         quantity:   String(quantity),
+        ...(shirtSize ? { shirt_size: shirtSize } : {}),
         amount_cents: String(amountCents), // record the server-authoritative amount
         source:     "twizted-merch-page",
       },
@@ -308,6 +348,7 @@ serve(async (req: Request) => {
     order_id,
     item_code,
     quantity,
+    shirtSize,
     amountCents,
   });
 
