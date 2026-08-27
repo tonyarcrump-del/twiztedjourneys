@@ -571,7 +571,94 @@
           <p>Watch for new merch additions and upcoming Twizted Treasures releases.</p>
           <a href="#coming-soon-new-arrivals" class="btn btn-secondary">View Collection</a>
         </article>
+        <article class="merch-gallery-card" role="listitem">
+          <img class="merch-gallery-thumb" src="images/light-up-night-shirt-back.jpg" alt="Light Up the Night Memorial Shirt preview image" loading="lazy">
+          <h3>Apparel</h3>
+          <p>The Light Up the Night Memorial Shirt, remembering lives lost to suicide.</p>
+          <a href="#apparel-collection" class="btn btn-secondary">View Collection</a>
+        </article>
       </div>
+    </div>
+  </section>
+
+  <!-- ── Apparel: Light Up the Night Memorial Shirt ────────────────────── -->
+  <section id="apparel-collection" class="tt-section" aria-labelledby="apparel-heading">
+    <div class="container">
+
+      <div class="tt-heading-block">
+        <p class="section-label">Apparel</p>
+        <h2 id="apparel-heading" class="merch-section-heading">Light Up the Night <em>Memorial Shirt</em></h2>
+        <p class="tt-intro">Remembering Lives Lost to Suicide</p>
+        <p class="tt-mission-note">
+          Proceeds help support Twizted Journeys&rsquo; mission of spreading awareness, compassion,
+          comfort, resources, tools, and education for mental health awareness, suicide prevention,
+          and suicide loss survivors.
+        </p>
+        <p class="back-to-gallery"><a href="#merch-gallery">Back to merch gallery &uarr;</a></p>
+      </div>
+
+      <div class="lun-shirt" data-lun-shirt-widget>
+        <div class="lun-shirt-gallery">
+          <div class="lun-shirt-frame">
+            <img data-lun-main-img
+                 src="images/light-up-night-shirt-back.jpg"
+                 alt="Light Up the Night Memorial Shirt back design listing the names of loved ones lost to suicide, Twizted Journeys"
+                 loading="lazy">
+          </div>
+          <div class="lun-shirt-thumbs" role="list">
+            <button type="button" class="lun-thumb is-active" data-lun-thumb role="listitem"
+                    data-img="images/light-up-night-shirt-back.jpg"
+                    data-alt="Light Up the Night Memorial Shirt back design listing the names of loved ones lost to suicide, Twizted Journeys"
+                    aria-label="View back design">
+              <img src="images/light-up-night-shirt-back.jpg" alt="" loading="lazy">
+            </button>
+            <button type="button" class="lun-thumb" data-lun-thumb role="listitem"
+                    data-img="images/light-up-night-shirt-front.jpg"
+                    data-alt="Light Up the Night Memorial Shirt front view with Twizted Journeys logo"
+                    aria-label="View front design">
+              <img src="images/light-up-night-shirt-front.jpg" alt="" loading="lazy">
+            </button>
+            <button type="button" class="lun-thumb" data-lun-thumb role="listitem"
+                    data-img="images/light-up-night-shirt-logo.jpg"
+                    data-alt="Light Up the Night Memorial Shirt Twizted Journeys logo detail"
+                    aria-label="View logo detail">
+              <img src="images/light-up-night-shirt-logo.jpg" alt="" loading="lazy">
+            </button>
+          </div>
+        </div>
+
+        <div class="lun-shirt-info">
+          <p class="lun-shirt-desc">
+            The back of this shirt carries the names of loved ones lost to suicide &mdash;
+            worn in their memory and in support of everyone still fighting. Every shirt
+            helps fund Twizted Journeys&rsquo; awareness, remembrance, and survivor support work.
+          </p>
+
+          <div class="lun-shirt-size-row">
+            <label for="lun-size-select-merch">Size</label>
+            <select id="lun-size-select-merch" class="lun-size-select" data-lun-size-select>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="2X">2X</option>
+              <option value="3X">3X</option>
+              <option value="4X">4X</option>
+            </select>
+            <span class="lun-shirt-price" data-lun-price-display>$30</span>
+          </div>
+          <p class="lun-size-note">Sizes S&ndash;XL are $30. Sizes 2X&ndash;4X are $35.</p>
+
+          <div class="lun-shirt-actions">
+            <a href="#merch-order" class="btn btn-primary"
+               data-merch-order-button data-lun-order-button
+               data-order-code="LUN-SHIRT"
+               data-order-name="Light Up the Night Memorial Shirt &mdash; Size S"
+               data-order-price="$30">Order Now</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -2402,6 +2489,7 @@ function tcEscHandler(e) { if (e.key === 'Escape') tcCloseModal(); }
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/tj-public-config.js"></script>
   <script src="js/merch-orders.js"></script>
+  <script src="js/light-up-night-shirt.js"></script>
   <script src="js/tj-announcement.js"></script>
 </body>
 </html>

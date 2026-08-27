@@ -1859,3 +1859,127 @@ canvas.tj-cine-canvas {
     text-align: center;
   }
 }
+
+/* ── Light Up the Night Memorial Shirt ─────────────────────────────── */
+.lun-shirt {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.95fr);
+  gap: 40px;
+  align-items: start;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(138, 43, 239, 0.22);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.lun-shirt-frame {
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(248, 251, 255, 0.04);
+  border: 1px solid var(--card-border);
+}
+
+.lun-shirt-frame img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+}
+
+.lun-shirt-thumbs {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.lun-thumb {
+  flex: 1;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(248, 251, 255, 0.04);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.lun-thumb img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+.lun-thumb.is-active,
+.lun-thumb:hover,
+.lun-thumb:focus-visible {
+  border-color: var(--teal);
+  outline: none;
+}
+
+.lun-shirt-desc {
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+
+.lun-shirt-size-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.lun-shirt-size-row label {
+  color: var(--white);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.lun-size-select {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--white);
+  padding: 9px 14px;
+  font: inherit;
+  font-weight: 700;
+}
+
+.lun-size-select:focus {
+  outline: 2px solid rgba(86, 224, 210, 0.55);
+  border-color: rgba(86, 224, 210, 0.6);
+}
+
+.lun-shirt-price {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--teal);
+}
+
+.lun-size-note {
+  font-size: 0.78rem;
+  color: rgba(158, 243, 247, 0.62);
+  margin-bottom: 20px;
+}
+
+.lun-shirt-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 820px) {
+  .lun-shirt {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lun-shirt-thumbs { gap: 8px; }
+  .lun-shirt-size-row { gap: 10px; }
+}
