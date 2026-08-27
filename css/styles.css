@@ -1059,6 +1059,14 @@ section { padding: 80px 0; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
 }
 
+@media (min-width: 769px) and (max-width: 940px) {
+  .nav-inner { gap: 10px; }
+  .nav-logo-text { font-size: 1rem; }
+  .nav-links { gap: 3px; }
+  .nav-links a,
+  .nav-more-toggle { padding: 6px 8px; font-size: 0.84rem; }
+}
+
 @media (max-width: 480px) {
   .footer-grid { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
