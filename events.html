@@ -71,6 +71,26 @@
       object-fit: cover;
       aspect-ratio: 4/3;
     }
+    /* Compact Light Up the Night Memorial Shirt promo (full order flow lives on light-up-the-night.html) */
+    .lun-shirt-promo {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+    .lun-shirt-promo img {
+      width: 160px;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .lun-shirt-promo-body { flex: 1; min-width: 240px; }
+    @media (max-width: 480px) {
+      .lun-shirt-promo { justify-content: center; text-align: center; }
+      .lun-shirt-promo img { width: 140px; height: 166px; }
+    }
   </style>
 </head>
 <body>
@@ -186,6 +206,21 @@
           </div>
         </div>
 
+      </div>
+
+      <!-- Light Up the Night Memorial Shirt promo (compact — full order flow on light-up-the-night.html) -->
+      <div class="card--calm lun-shirt-promo">
+        <img src="images/light-up-night-shirt-back.jpg"
+             alt="Light Up the Night Memorial Shirt back design listing the names of loved ones lost to suicide, Twizted Journeys"
+             loading="lazy">
+        <div class="lun-shirt-promo-body">
+          <span class="event-tag" style="display:inline-block;background:rgba(138,43,239,0.12);color:var(--purple);border-radius:20px;padding:3px 12px;font-size:0.78rem;font-weight:700;margin-bottom:10px;">Light Up the Night Merch</span>
+          <h3 style="font-size:1.15rem;font-weight:800;color:var(--white);margin-bottom:4px;">Light Up the Night <em>Memorial Shirt</em></h3>
+          <p style="color:var(--teal);font-weight:700;font-size:0.85rem;margin-bottom:10px;">Remembering Lives Lost to Suicide</p>
+          <p style="color:var(--muted);font-size:0.9rem;line-height:1.65;margin-bottom:12px;">This memorial shirt honors loved ones lost to suicide, carrying their names on the back in remembrance.</p>
+          <p style="color:var(--muted);font-size:0.85rem;font-weight:700;margin-bottom:16px;">S&ndash;XL: $30 &nbsp;&middot;&nbsp; 2X &amp; up: $35</p>
+          <a href="light-up-the-night.html#memorial-shirt" class="btn btn-primary">View &amp; Order Memorial Shirt</a>
+        </div>
       </div>
 
       <!-- Event promo images -->
