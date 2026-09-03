@@ -48,6 +48,24 @@
       padding-left: 1.2em;
       margin: 0;
     }
+    .vendor-fee-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .vendor-fee-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 8px;
+    }
+    .vendor-fee-list li:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
     .vendor-cta-block {
       text-align: center;
       padding: 56px 0 40px;
@@ -170,7 +188,8 @@
         <div style="display:inline-block;text-align:left;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:24px 28px;margin-bottom:28px;max-width:460px;width:100%;">
           <div class="vendor-event-detail">&#128197;&nbsp;<span><strong>September 12&ndash;13, 2026</strong></span></div>
           <div class="vendor-event-detail">&#127970;&nbsp;<span><strong>40 &amp; 8 Building</strong><br />500 Frank Street, Shelbyville, IN 46176</span></div>
-          <div class="vendor-event-detail">&#127989;&nbsp;<span>Regular vendor fee: <strong>$30</strong><br />Food vendor fee: <strong>$75</strong></span></div>
+          <div class="vendor-event-detail">&#128336;&nbsp;<span>Vendor setup begins at <strong>10:00 AM</strong></span></div>
+          <div class="vendor-event-detail">&#127989;&nbsp;<span>Regular vendor: <strong>$30 one day / $50 both days</strong><br />Food vendor: <strong>$50 one day / $75 both days</strong></span></div>
         </div>
 
         <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
@@ -179,7 +198,7 @@
         </div>
 
         <p class="vendor-donorbox-note" style="max-width:500px;margin:14px auto 0;">
-          <strong>Important:</strong> Please include &ldquo;Vendor Registration Fee &mdash; Light Up the Night&rdquo; and your vendor type in the note or comment field on the Donorbox page so we can identify your registration fee payment.
+          <strong>Important:</strong> Please include &ldquo;Vendor Registration Fee &mdash; Light Up the Night,&rdquo; your vendor type, and whether you are attending one day or both days in the Donorbox note or comment field so we can identify your registration fee payment.
         </p>
 
         <div class="vendor-notice" style="max-width:540px;margin:20px auto 0;">
@@ -211,11 +230,19 @@
 
         <div class="vendor-info-card">
           <h3>&#127881; What Registration Covers</h3>
-          <p>Regular vendor registration is <strong style="color:var(--white);">$30</strong>. Food vendor registration is <strong style="color:var(--white);">$75</strong>. Register through the Donorbox page for now and label the payment as a vendor registration fee.</p>
+          <ul class="vendor-fee-list" aria-label="Light Up the Night vendor fees">
+            <li><span>Regular Vendor &mdash; One Day</span><strong style="color:var(--white);">$30</strong></li>
+            <li><span>Regular Vendor &mdash; Both Days</span><strong style="color:var(--white);">$50</strong></li>
+            <li><span>Food Vendor &mdash; One Day</span><strong style="color:var(--white);">$50</strong></li>
+            <li><span>Food Vendor &mdash; Both Days</span><strong style="color:var(--white);">$75</strong></li>
+          </ul>
+          <p style="margin-top:12px;">Register through the Donorbox page for now and label the payment as a vendor registration fee with your vendor type and day selection.</p>
           <ul style="margin-top:8px;">
-            <li>One vendor space per day registered</li>
+            <li>One vendor space for each day registered</li>
             <li>Access to the 40 &amp; 8 Building grounds</li>
             <li>Participation in a community-first awareness event</li>
+            <li>Setup begins at 10:00 AM</li>
+            <li>Vendors attending both days may secure their items and leave them overnight</li>
           </ul>
         </div>
 
