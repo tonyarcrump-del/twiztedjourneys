@@ -223,83 +223,9 @@
     </div>
   </section>
 
-  <!-- CONTACT & RSVP -->
-  <section aria-labelledby="contact-heading" style="padding:80px 0;">
-    <div class="container">
-      <div style="max-width:640px;margin:0 auto;">
-        <p class="section-label">RSVP &amp; Contact</p>
-        <h2 class="section-title" id="contact-heading">Get in <em>Touch</em></h2>
-        <p style="color:var(--muted);font-size:1rem;line-height:1.75;margin-bottom:18px;" data-sc="event_rsvp_confirm">Questions about events, vendor spaces, or registration? Reach out &mdash; we&rsquo;re real people and we always respond.</p>
-        <p style="color:var(--muted);font-size:0.95rem;line-height:1.7;margin-bottom:28px;">Vendors should use the dedicated <a href="vendor-registration.html" style="color:var(--teal);font-weight:700;">vendor registration page</a> so the correct regular vendor or food vendor fee is clear.</p>
-                <!-- RSVP Form — powered by Forms -->
-        <form onsubmit="handleRsvpSubmit(event)" data-netlify-honeypot="bot-field" style="margin-bottom:28px;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
-            <p style="display:none;">
-              <label>Do not fill this out: <input name="bot-field" /></label>
-            </p>
-            <div>
-              <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">Full Name *</label>
-              <input type="text" name="name" required style="width:100%;background:var(--midnight-3,#1A1A28);border:1px solid var(--card-border);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.9rem;font-family:inherit;" />
-            </div>
-            <div>
-              <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">Email *</label>
-              <input type="email" name="email" required style="width:100%;background:var(--midnight-3,#1A1A28);border:1px solid var(--card-border);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.9rem;font-family:inherit;" />
-            </div>
-          </div>
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
-            <div>
-              <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">Phone (optional)</label>
-              <input type="tel" name="phone" style="width:100%;background:var(--midnight-3,#1A1A28);border:1px solid var(--card-border);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.9rem;font-family:inherit;" />
-            </div>
-            <div>
-              <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">Guest Count</label>
-              <select name="guests" style="width:100%;background:var(--midnight-3,#1A1A28);border:1px solid var(--card-border);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.9rem;font-family:inherit;">
-                <option value="1">Just me</option>
-                <option value="2">2 people</option>
-                <option value="3">3 people</option>
-                <option value="4">4 people</option>
-                <option value="5+">5 or more</option>
-              </select>
-            </div>
-          </div>
-
-          <div style="margin-bottom:14px;">
-            <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">I am registering as *</label>
-            <select name="registration_type" required style="width:100%;background:var(--midnight-3,#1A1A28);border:1px solid var(--card-border);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.9rem;font-family:inherit;">
-              <option value="">-- Select your role --</option>
-              <option value="attendee">Attendee / Community Member</option>
-              <option value="rider">Motorcycle Rider (Day 1 - Light Up the Night)</option>
-              <option value="walker">Awareness Walker (Day 2 - The Cause)</option>
-              <option value="vendor">Vendor - use vendor registration page</option>
-              <option value="volunteer">Volunteer</option>
-            </select>
-          </div>
-
-          <div style="margin-bottom:16px;">
-            <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">Which day(s)?</label>
-            <div style="display:flex;gap:16px;flex-wrap:wrap;">
-              <label style="display:flex;align-items:center;gap:6px;color:var(--muted);font-size:0.9rem;cursor:pointer;">
-                <input type="checkbox" name="day1" value="Sept 12 - Light Up the Night" style="accent-color:var(--purple);" /> Sept 12 - Light Up the Night
-              </label>
-              <label style="display:flex;align-items:center;gap:6px;color:var(--muted);font-size:0.9rem;cursor:pointer;">
-                <input type="checkbox" name="day2" value="Sept 13 - The Cause Walk" style="accent-color:var(--purple);" /> Sept 13 - The Cause Walk
-              </label>
-            </div>
-          </div>
-
-          <div style="margin-bottom:16px;">
-            <label style="display:block;font-size:0.83rem;color:var(--muted);margin-bottom:5px;">Notes or questions (optional)</label>
-            <textarea name="notes" rows="3" style="width:100%;background:var(--midnight-3,#1A1A28);border:1px solid var(--card-border);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.9rem;font-family:inherit;resize:vertical;"></textarea>
-          </div>
-
-          <button type="submit" class="btn btn-primary" style="width:100%;font-size:1rem;padding:13px;">Register for the Event</button>
-        </form>
-
-        <div style="display:flex;flex-direction:column;gap:14px;">
-          <a href="mailto:info@twiztedjourneys.org" class="btn btn-ghost" style="display:inline-flex;align-items:center;gap:8px;width:fit-content;" data-sc-href="contact_email">&#9993; Prefer email? info@twiztedjourneys.org</a>
-          <a href="https://www.facebook.com/groups/560290368564902/" class="btn btn-secondary" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;width:fit-content;" data-sc-href="social_facebook">Join the Facebook Community Group</a>
-        </div>
-      </div>
+  <section aria-label="Facebook community" style="padding:56px 0;">
+    <div class="container" style="text-align:center;">
+      <a href="https://www.facebook.com/groups/560290368564902/" class="btn btn-secondary" target="_blank" rel="noopener" data-sc-href="social_facebook">Join the Facebook Community Group</a>
     </div>
   </section>
 
