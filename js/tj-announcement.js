@@ -6,10 +6,6 @@
  *   <script src="js/tj-public-config.js"></script>
  *   <script src="js/tj-announcement.js"></script>
  *
- * The banner reads announcement_text, announcement_active, announcement_type,
- * and announcement_link from the Supabase site_content table.
- * Tonya controls all of these from the admin panel (admin/content.html).
- *
  * No banner element is needed in the HTML — this script injects it.
  */
 
@@ -99,72 +95,26 @@
     injectBanner();
   }
 
-  // Load and render announcement
+  // Load and render the current site-wide announcement
   function loadAnnouncement() {
-    var cfg = window.TJ_PUBLIC_CONFIG;
-    if (!cfg || !cfg.supabaseUrl || cfg.supabaseUrl.includes('SUPABASE')) return;
+    var text = 'November 7, 2026 — Be the Light: Honoring our soldiers and their family and friends whose lives have been touched by suicide.';
+    bar.className = 'ann-event';
 
-    try {
-      var db = supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
-      db.from('site_content')
-        .select('key,value')
-        .in('key', ['announcement_text', 'announcement_active', 'announcement_type', 'announcement_link'])
-        .then(function(res) {
-          if (!res.data) return;
-          var kv = {};
-          res.data.forEach(function(r) { kv[r.key] = r.value; });
+    var closeBtn = document.createElement('button');
+    closeBtn.id = 'tj-ann-close';
+    closeBtn.setAttribute('aria-label', 'Dismiss announcement');
+    closeBtn.textContent = '✕';
+    closeBtn.onclick = function() { bar.style.display = 'none'; };
 
-          if (kv.announcement_active !== 'true') return;
-          var text = (kv.announcement_text || '').trim();
-          if (!text) return;
-
-          var type = kv.announcement_type || 'event';
-          var link = kv.announcement_link || '';
-
-          bar.className = 'ann-' + type;
-
-          // Close button
-          var closeBtn = document.createElement('button');
-          closeBtn.id = 'tj-ann-close';
-          closeBtn.setAttribute('aria-label', 'Dismiss announcement');
-          closeBtn.textContent = '✕';
-          closeBtn.onclick = function() { bar.style.display = 'none'; };
-
-          // Content — wrap in <a> if link provided
-          var content = link
-            ? '<a href="' + esc(link) + '" target="_blank" rel="noopener">' + esc(text) + '</a>'
-            : esc(text);
-
-          bar.innerHTML = content;
-          bar.appendChild(closeBtn);
-          bar.style.display = 'block';
-        })
-        .catch(function() { /* silent — don't break the page */ });
-    } catch(e) {
-      // Supabase not available or error — silent
-    }
+    bar.textContent = text;
+    bar.appendChild(closeBtn);
+    bar.style.display = 'block';
   }
 
-  function esc(s) {
-    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  // Wait for both DOM and supabase to be ready
+  // Wait for the DOM to be ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof supabase !== 'undefined') {
-        loadAnnouncement();
-      } else {
-        // supabase CDN may still be loading
-        window.addEventListener('load', loadAnnouncement);
-      }
-    });
+    document.addEventListener('DOMContentLoaded', loadAnnouncement);
   } else {
-    if (typeof supabase !== 'undefined') {
-      loadAnnouncement();
-    } else {
-      window.addEventListener('load', loadAnnouncement);
-    }
+    loadAnnouncement();
   }
 })();
-
