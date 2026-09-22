@@ -134,8 +134,71 @@
       left: 2px;
       top: 0.75em;
     }
+    .ff-signup {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: clamp(24px, 5vw, 40px);
+      border: 1px solid rgba(86,224,210,0.28);
+      border-radius: 16px;
+      background: rgba(15,16,31,0.82);
+    }
+    .ff-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .ff-field { margin-bottom: 16px; }
+    .ff-field label,
+    .ff-field legend {
+      display: block;
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-bottom: 7px;
+    }
+    .ff-field input,
+    .ff-field select,
+    .ff-field textarea {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      background: var(--midnight-3, #1a1a28);
+      color: var(--white);
+      font: inherit;
+      box-sizing: border-box;
+    }
+    .ff-field textarea { min-height: 96px; resize: vertical; }
+    .ff-radio-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+    }
+    .ff-radio-row label,
+    .ff-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      color: var(--muted);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .ff-radio-row input,
+    .ff-consent input { width: auto; margin-top: 4px; accent-color: var(--purple); }
+    .ff-form-note { color: var(--muted); font-size: 0.85rem; line-height: 1.6; margin: 0 0 20px; }
+    .ff-form-success {
+      display: none;
+      padding: 16px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(86,224,210,0.35);
+      border-radius: 8px;
+      background: rgba(86,224,210,0.08);
+      color: var(--teal);
+      font-weight: 700;
+    }
     @media (max-width: 720px) {
       .ff-support-grid { grid-template-columns: 1fr; }
+      .ff-form-grid { grid-template-columns: 1fr; gap: 0; }
       .ff-hero { background-attachment: scroll; }
       .ff-cta-row .btn { width: 100%; text-align: center; justify-content: center; }
     }
@@ -187,10 +250,9 @@
         <p class="section-label">Recurring Virtual Program</p>
         <h1>Finding <em>Forward</em></h1>
         <p class="ff-subtitle">The Virtual Journey</p>
-        <p>Finding Forward is a recurring virtual Twizted Journeys program for people looking for connection, remembrance, support, and a place to keep moving after hard seasons.</p>
+        <p>Finding Forward is brought to you by Twizted Journeys. This peer support group meets weekly through Zoom. If you find yourself on a Twizted journey as a suicide loss survivor, please join us. Our program brings people together through connection, remembrance, understanding, and support. If you would like to know more, please click the link below.</p>
         <div class="ff-cta-row">
-          <a href="https://us06web.zoom.us/j/83871164350?pwd=8ooTY1c64RHoK2s9vjXM2d32TYlsYj.1" class="btn btn-primary" target="_blank" rel="noopener">Join Finding Forward on Zoom</a>
-          <a href="https://us06web.zoom.us/meeting/tZclcOipqD8pH9QM9iai9UFgiN1SddOT07xj/ics?icsToken=DFkSEA83dIGFKBByiwAALAAAAJZ21u0De9betrMbrSu2hNPry9CItOA5MnqnQSQqBE1WLH1Izr3iP03eoAlSEotw0_VkK6dbkz_D86JWOzAwMDAwMg&amp;meetingMasterEventId=CbG2kDyZRca8bw5Vv2dgGg" class="btn btn-secondary">Add Weekly Meetings to Calendar</a>
+          <a href="#finding-forward-signup" class="btn btn-primary">Join the Finding Forward List</a>
         </div>
       </div>
     </div>
@@ -214,6 +276,84 @@
           <strong>Begins September 1, 2026</strong>
           <span>First listed meeting for the recurring series</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="finding-forward-signup" aria-labelledby="finding-forward-signup-heading" style="padding:72px 0;">
+    <div class="container">
+      <div class="ff-signup">
+        <p class="section-label">Finding Forward List</p>
+        <h2 class="section-title" id="finding-forward-signup-heading">Request the <em>Zoom Link</em></h2>
+        <p class="section-intro" style="margin-bottom:24px;">Complete this form to join the Finding Forward contact list. Meeting information and the Zoom link will be sent to the email address you provide.</p>
+        <div class="ff-form-success" id="ff-form-success" role="status">Thank you. Your information was submitted for the Finding Forward list.</div>
+
+        <form action="https://formsubmit.co/info@twiztedjourneys.org" method="POST">
+          <input type="hidden" name="_subject" value="Finding Forward List">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://twiztedjourneys.org/finding-forward.html?submitted=true#finding-forward-signup">
+
+          <div class="ff-form-grid">
+            <div class="ff-field">
+              <label for="ff-name">Name *</label>
+              <input id="ff-name" name="Name" type="text" autocomplete="name" required>
+            </div>
+            <div class="ff-field">
+              <label for="ff-email">Email *</label>
+              <input id="ff-email" name="Email" type="email" autocomplete="email" required>
+            </div>
+            <div class="ff-field">
+              <label for="ff-age">Age range *</label>
+              <select id="ff-age" name="Age range" required>
+                <option value="">Select one</option>
+                <option>Under 18</option>
+                <option>18–24</option>
+                <option>25–34</option>
+                <option>35–44</option>
+                <option>45–54</option>
+                <option>55–64</option>
+                <option>65 or older</option>
+                <option>Prefer not to answer</option>
+              </select>
+            </div>
+            <div class="ff-field">
+              <label for="ff-phone">Phone number (optional)</label>
+              <input id="ff-phone" name="Phone" type="tel" autocomplete="tel">
+            </div>
+          </div>
+
+          <fieldset class="ff-field" style="border:0;padding:0;">
+            <legend>Are you a suicide loss survivor? *</legend>
+            <div class="ff-radio-row">
+              <label><input type="radio" name="Suicide loss survivor" value="Yes" required> Yes</label>
+              <label><input type="radio" name="Suicide loss survivor" value="No"> No</label>
+              <label><input type="radio" name="Suicide loss survivor" value="Prefer not to answer"> Prefer not to answer</label>
+            </div>
+          </fieldset>
+
+          <div class="ff-field">
+            <label for="ff-loss">Whom have you lost? (optional)</label>
+            <textarea id="ff-loss" name="Whom have you lost" placeholder="Share only what you are comfortable sharing."></textarea>
+          </div>
+
+          <fieldset class="ff-field" style="border:0;padding:0;">
+            <legend>Are you interested in our Finding Forward Zoom meeting? *</legend>
+            <div class="ff-radio-row">
+              <label><input type="radio" name="Interested in Finding Forward Zoom" value="Yes" required> Yes</label>
+              <label><input type="radio" name="Interested in Finding Forward Zoom" value="Maybe — please send more information"> Maybe—send more information</label>
+              <label><input type="radio" name="Interested in Finding Forward Zoom" value="No"> No</label>
+            </div>
+          </fieldset>
+
+          <label class="ff-consent" style="margin-bottom:18px;">
+            <input type="checkbox" name="Permission to contact" value="Yes" required>
+            <span>I give Twizted Journeys permission to contact me by email about Finding Forward and send me the Zoom link. *</span>
+          </label>
+
+          <p class="ff-form-note">Your address is not requested. Please do not include private medical information. Finding Forward is peer support and is not therapy or emergency care.</p>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Submit for the Finding Forward List</button>
+        </form>
       </div>
     </div>
   </section>
@@ -313,5 +453,11 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/tj-public-config.js"></script>
 <script src="js/tj-announcement.js"></script>
+<script>
+  if (new URLSearchParams(window.location.search).get('submitted') === 'true') {
+    var successMessage = document.getElementById('ff-form-success');
+    if (successMessage) successMessage.style.display = 'block';
+  }
+</script>
 </body>
 </html>
