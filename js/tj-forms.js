@@ -77,10 +77,13 @@
     const btn  = form.querySelector('[type=submit]');
     setLoading(btn, true);
 
+    const choice = form.querySelector('[name=submission_choice]:checked')?.value || 'Name and death year';
+    const deathYear = form.querySelector('[name=death_year]')?.value?.trim() || '';
+    const story = form.querySelector('[name=message]')?.value?.trim() || '';
     const payload = {
       name:           form.querySelector('[name=name]')?.value?.trim() || '',
       email:          form.querySelector('[name=email]')?.value?.trim() || '',
-      message:        form.querySelector('[name=message]')?.value?.trim() || '',
+      message:        'Submission choice: ' + choice + '\nDeath year: ' + deathYear + (story ? '\n\nStory:\n' + story : ''),
       loved_one_name: form.querySelector('[name=loved_one_name]')?.value?.trim() || null,
       status:         'pending',
       source:         'website-form'
