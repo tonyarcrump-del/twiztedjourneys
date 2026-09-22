@@ -289,11 +289,23 @@
         <p class="section-label">Submissions</p>
         <h2 class="section-title" id="add-name-heading">Add Your Loved One</h2>
         <p style="color:var(--muted);margin-bottom:28px;line-height:1.75;">
-          Submit your loved one&rsquo;s name to be added to our memorial list. Include any details you&rsquo;d like
-          shared &mdash; or just their name. We will treat every submission with care.
+          Choose to add their name and death year to our memorial list, or add their name, death year, and story.
+          We will treat every submission with care.
         </p>
         <div class="card--calm">
-          <form onsubmit="handleMemorialSubmit(event)"-honeypot="bot-field"><div class="form-field">
+          <form onsubmit="handleMemorialSubmit(event)">
+            <div class="form-field">
+              <label>What would you like to add? *</label>
+              <label style="display:flex;align-items:center;gap:10px;margin:10px 0;color:var(--white);">
+                <input type="radio" name="submission_choice" value="Name and death year" required style="width:auto;">
+                Name and death year
+              </label>
+              <label style="display:flex;align-items:center;gap:10px;margin:10px 0 18px;color:var(--white);">
+                <input type="radio" name="submission_choice" value="Name, death year, and story" required style="width:auto;">
+                Name, death year, and story
+              </label>
+            </div>
+            <div class="form-field">
               <label>Your Name *</label>
               <input type="text" name="name" required>
             </div>
@@ -302,13 +314,21 @@
               <input type="email" name="email" required>
             </div>
             <div class="form-field">
-              <label>Loved One&rsquo;s Name &amp; Any Message</label>
-              <textarea name="message" rows="5" placeholder="Their name, dates, and anything you'd like us to know..."></textarea>
+              <label>Loved One&rsquo;s Name *</label>
+              <input type="text" name="loved_one_name" required>
+            </div>
+            <div class="form-field">
+              <label>Death Year *</label>
+              <input type="text" name="death_year" inputmode="numeric" maxlength="4" placeholder="YYYY" required>
+            </div>
+            <div class="form-field">
+              <label>Their Story <span style="color:var(--muted);">(optional)</span></label>
+              <textarea name="message" rows="7" placeholder="Share their journey, memories, and the moments that made them who they were..."></textarea>
             </div>
             <div style="background:rgba(86,224,210,0.06);border:1px solid rgba(86,224,210,0.2);border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:0.85rem;color:var(--teal);">
               Your submission will be reviewed before it is added. We handle every name with reverence.
             </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;">Submit Their Name &#128337;</button>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Submit Their Memorial &#128337;</button>
           </form>
         </div>
       </div>
