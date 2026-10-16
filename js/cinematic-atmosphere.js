@@ -23,6 +23,12 @@
   const WHITE  = { r: 248, g: 251, b: 255 };
 
   const SPARK_COLORS = [TEAL, PURPLE, CYAN, WHITE, TEAL, TEAL, CYAN];
+  /* Veterans event theme: when css/veterans-theme.css is linked on the page,
+     sparkles and ribbons glow red / white / blue alongside the brand purple. */
+  if (document.querySelector('link[href*="veterans-theme.css"]')) {
+    TEAL.r = 255; TEAL.g = 59;  TEAL.b = 78;   /* neon red  */
+    CYAN.r = 61;  CYAN.g = 123; CYAN.b = 255;  /* neon blue */
+  }
 
   /* -- Utility -------------------------------------------------- */
   function rand(min, max) { return min + Math.random() * (max - min); }

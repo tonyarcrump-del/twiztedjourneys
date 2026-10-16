@@ -1,0 +1,273 @@
+/* ═══════════════════════════════════════════════════════════════
+   Twizted Journeys — "Neon Salute" Veterans Event Theme
+   Red, white & blue neon alongside the Twizted purple + teal.
+
+   HOW TO TURN IT OFF: remove (or comment out) this line from each page's <head>:
+     <link rel="stylesheet" href="css/veterans-theme.css" />
+   Nothing else on the site depends on this file.
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+:root {
+  --vet-red:        #FF3B4E;
+  --vet-red-deep:   #D7263D;
+  --vet-blue:       #3D7BFF;
+  --vet-blue-deep:  #1F4FD6;
+  --vet-white:      #FFFFFF;
+  --vet-stripe:     linear-gradient(90deg, var(--vet-red) 0 33.3%, #fff 33.3% 66.6%, var(--vet-blue) 66.6%);
+  --vet-neon-line:  linear-gradient(90deg, var(--vet-red), var(--purple), var(--vet-blue));
+  --glow-red:       0 0 14px rgba(255,59,78,0.55), inset 0 0 10px rgba(255,59,78,0.30);
+  --glow-blue:      0 0 14px rgba(61,123,255,0.55), inset 0 0 10px rgba(61,123,255,0.30);
+  --glow-white:     0 0 12px rgba(255,255,255,0.35), inset 0 0 8px rgba(255,255,255,0.15);
+  --border:         rgba(61,123,255,0.28);
+  --card-border:    rgba(61,123,255,0.20);
+}
+
+/* ── Background: faint "neon wall" grid ────────────────────────── */
+body {
+  background-color: #07070B;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 39px, rgba(255,255,255,0.025) 39px 41px),
+    repeating-linear-gradient(90deg, transparent 0 88px, rgba(255,255,255,0.02) 88px 90px);
+}
+
+/* ── Navigation ────────────────────────────────────────────────── */
+.site-nav {
+  border-bottom: 2px solid transparent;
+  border-image: var(--vet-neon-line) 1;
+  box-shadow: 0 2px 18px rgba(255,59,78,0.12), 0 6px 26px rgba(61,123,255,0.10);
+}
+.nav-links a:hover,
+.nav-links a.active,
+.nav-more-toggle:hover,
+.nav-more-toggle.active,
+.nav-more details[open] > .nav-more-toggle {
+  color: #fff;
+  background: rgba(255,59,78,0.10);
+  text-shadow: 0 0 10px rgba(255,59,78,0.75);
+}
+.nav-more-toggle::after { color: var(--vet-red); }
+.nav-donate,
+.nav-links a.nav-donate {
+  background: rgba(255,59,78,0.10) !important;
+  border: 2px solid var(--vet-red) !important;
+  box-shadow: var(--glow-red) !important;
+  color: #fff !important;
+  text-shadow: none !important;
+}
+.nav-donate:hover,
+.nav-links a.nav-donate:hover {
+  background: rgba(255,59,78,0.22) !important;
+}
+
+/* ── Buttons: neon-sign outlines ───────────────────────────────── */
+.btn-primary {
+  background: rgba(255,59,78,0.10);
+  color: #fff;
+  border: 2px solid var(--vet-red);
+  box-shadow: var(--glow-red);
+}
+.btn-primary:hover {
+  background: rgba(255,59,78,0.22);
+  color: #fff;
+  box-shadow: 0 0 24px rgba(255,59,78,0.7), inset 0 0 12px rgba(255,59,78,0.35);
+}
+.btn-primary:focus-visible { outline-color: #fff; }
+
+.btn-secondary {
+  color: #fff;
+  border: 2px solid var(--vet-blue);
+  box-shadow: var(--glow-blue);
+}
+.btn-secondary:hover {
+  background: rgba(61,123,255,0.16);
+  color: #fff;
+  border-color: var(--vet-blue);
+  box-shadow: 0 0 24px rgba(61,123,255,0.7), inset 0 0 12px rgba(61,123,255,0.35);
+}
+
+.btn-ghost {
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.75);
+  box-shadow: var(--glow-white);
+}
+.btn-ghost:hover {
+  border-color: #fff;
+  background: rgba(255,255,255,0.08);
+}
+
+/* ── Headlines ─────────────────────────────────────────────────── */
+.home-hero-panel h1,
+.hero-tagline h1,
+.hero-page h1 {
+  font-family: 'Permanent Marker', var(--font-main);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: #fff;
+  text-shadow: 0 0 6px rgba(255,255,255,0.55), 0 0 22px rgba(255,255,255,0.25), 0 6px 26px rgba(0,0,0,0.6);
+}
+.home-hero-panel h1 em,
+.hero-tagline h1 em,
+.hero-page h1 em {
+  font-style: normal;
+  background: none;
+  -webkit-text-fill-color: #e3ecff;
+  color: #e3ecff;
+  text-shadow: 0 0 6px var(--vet-blue), 0 0 18px var(--vet-blue), 0 0 38px var(--vet-blue-deep);
+}
+.section-title em {
+  color: #ffe3e6;
+  text-shadow: 0 0 6px var(--vet-red), 0 0 16px var(--vet-red);
+}
+
+/* Small uppercase labels get a red neon star */
+.section-label,
+.home-hero-eyebrow,
+.home-card-kicker {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(61,123,255,0.85);
+}
+.section-label::before,
+.home-hero-eyebrow::before {
+  content: "\2605";
+  color: var(--vet-red);
+  text-shadow: 0 0 8px var(--vet-red);
+  margin-right: 8px;
+}
+
+/* ── Hero: red/blue glow, neon stars + neon flag wave ──────────── */
+.hero-page::after {
+  background:
+    radial-gradient(ellipse 50% 36% at 12% 22%, rgba(255,59,78,0.20) 0%, transparent 65%),
+    radial-gradient(ellipse 46% 34% at 86% 18%, rgba(61,123,255,0.24) 0%, transparent 62%),
+    radial-gradient(ellipse 40% 30% at 55% 70%, rgba(138,43,239,0.16) 0%, transparent 58%);
+}
+.hero-page .hero-page__inner::after {
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,59,78,0.8) 1px, transparent 1px),
+    radial-gradient(circle, rgba(61,123,255,0.8) 1px, transparent 1px);
+}
+.hero-page::before,
+.hero-beams::before {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='g' x='-10%25' y='-50%25' width='120%25' height='200%25'%3E%3CfeGaussianBlur stdDeviation='4' result='b'/%3E%3CfeMerge%3E%3CfeMergeNode in='b'/%3E%3CfeMergeNode in='b'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cg fill='none' stroke-linecap='round' filter='url(%23g)'%3E%3Cpath d='M-10,40 C200,0 300,90 520,50 S860,10 1000,60 S1300,90 1450,30' stroke='%23FF3B4E' stroke-width='3'/%3E%3Cpath d='M-10,60 C200,20 300,110 520,70 S860,30 1000,80 S1300,110 1450,50' stroke='%23FFFFFF' stroke-width='2.5'/%3E%3Cpath d='M-10,80 C200,40 300,130 520,90 S860,50 1000,100 S1300,130 1450,70' stroke='%233D7BFF' stroke-width='3'/%3E%3C/g%3E%3C/svg%3E") bottom center / 100% 110px no-repeat,
+    linear-gradient(180deg, rgba(7,7,11,0.40) 0%, rgba(7,7,11,0.74) 55%, rgba(7,7,11,0.95) 100%),
+    linear-gradient(90deg, rgba(255,59,78,0.12) 0%, transparent 40%, transparent 60%, rgba(61,123,255,0.12) 100%);
+}
+
+/* Homepage hero panel + buttons */
+.home-hero-panel {
+  border: 1.5px solid rgba(61,123,255,0.55);
+  background: linear-gradient(135deg, rgba(8,10,24,0.82), rgba(18,10,30,0.74));
+  box-shadow: 0 24px 70px rgba(0,0,0,0.45), 0 0 30px rgba(61,123,255,0.18), inset 0 0 18px rgba(61,123,255,0.08);
+}
+.home-hero-panel::before,
+.home-hero-panel::after {
+  content: "";
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.home-hero-panel::before {
+  top: -22px; left: -22px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3Cfilter id='g'%3E%3CfeGaussianBlur stdDeviation='3' result='b'/%3E%3CfeMerge%3E%3CfeMergeNode in='b'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cpolygon points='50,8 60,38 92,38 66,57 76,88 50,69 24,88 34,57 8,38 40,38' fill='none' stroke='%23FF3B4E' stroke-width='4' stroke-linejoin='round' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+.home-hero-panel::after {
+  bottom: -22px; right: -22px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3Cfilter id='g'%3E%3CfeGaussianBlur stdDeviation='3' result='b'/%3E%3CfeMerge%3E%3CfeMergeNode in='b'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Cpolygon points='50,8 60,38 92,38 66,57 76,88 50,69 24,88 34,57 8,38 40,38' fill='none' stroke='%233D7BFF' stroke-width='4' stroke-linejoin='round' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+.home-hero-heartline { text-shadow: 0 0 10px rgba(255,255,255,0.35), 0 4px 18px rgba(0,0,0,0.5); }
+.home-hero-donate {
+  border: 2px solid var(--vet-red);
+  background: rgba(255,59,78,0.14);
+  box-shadow: var(--glow-red);
+}
+.home-hero-donate:hover {
+  border-color: var(--vet-red);
+  box-shadow: 0 0 26px rgba(255,59,78,0.75), inset 0 0 12px rgba(255,59,78,0.35);
+}
+.home-campaign-pill { border-color: rgba(255,255,255,0.35); }
+.home-campaign-pill strong { color: #ffd0d5; text-shadow: 0 0 8px rgba(255,59,78,0.6); }
+.home-campaign-pill:hover { border-color: var(--vet-blue); }
+
+/* ── Cards: rotating red / white / blue neon edges ─────────────── */
+.card,
+.home-live-card,
+.home-path-card,
+.home-snapshot-card {
+  border: 1.5px solid rgba(61,123,255,0.45);
+  box-shadow: 0 0 18px rgba(61,123,255,0.14), 0 16px 38px rgba(0,0,0,0.26);
+}
+.card:nth-child(3n+1),
+.home-live-card:nth-child(3n+1),
+.home-path-card:nth-child(3n+1),
+.home-snapshot-card:nth-child(3n+1) {
+  border-color: rgba(255,59,78,0.55);
+  box-shadow: 0 0 18px rgba(255,59,78,0.16), 0 16px 38px rgba(0,0,0,0.26);
+}
+.card:nth-child(3n+2),
+.home-live-card:nth-child(3n+2),
+.home-path-card:nth-child(3n+2),
+.home-snapshot-card:nth-child(3n+2) {
+  border-color: rgba(255,255,255,0.40);
+  box-shadow: 0 0 16px rgba(255,255,255,0.10), 0 16px 38px rgba(0,0,0,0.26);
+}
+.card:hover,
+.home-live-card:hover,
+.home-path-card:hover,
+.home-snapshot-card:hover {
+  border-color: var(--vet-red) !important;
+  box-shadow: 0 0 26px rgba(255,59,78,0.35), 0 18px 44px rgba(0,0,0,0.3) !important;
+}
+.home-card-arrow { color: #fff; text-shadow: 0 0 8px rgba(255,59,78,0.8); }
+.home-card-thumb { border-color: rgba(255,255,255,0.25); }
+.home-card-symbol {
+  background: linear-gradient(135deg, rgba(255,59,78,0.25), rgba(61,123,255,0.30));
+  border-color: rgba(255,255,255,0.25);
+}
+
+/* ── Section seams: thin neon flag stripe ──────────────────────── */
+.home-action-section,
+.section--calm { border-top: 0; position: relative; }
+.home-action-section::before,
+.section--calm::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 3px;
+  background: var(--vet-stripe);
+  box-shadow: 0 0 12px rgba(255,59,78,0.35), 0 0 12px rgba(61,123,255,0.35);
+  opacity: 0.9;
+}
+
+/* ── Footer ────────────────────────────────────────────────────── */
+.site-footer {
+  position: relative;
+  border-top: 0;
+}
+.site-footer::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 4px;
+  background: var(--vet-stripe);
+  box-shadow: 0 0 14px rgba(255,59,78,0.35), 0 0 14px rgba(61,123,255,0.35);
+}
+.footer-col h3 { color: #fff; text-shadow: 0 0 8px rgba(61,123,255,0.7); }
+.footer-col ul li a:hover { color: #fff; text-shadow: 0 0 8px rgba(255,59,78,0.8); }
+
+/* ── Links ─────────────────────────────────────────────────────── */
+a:hover { color: #fff; }
+
+/* ── Motion & mobile safety ────────────────────────────────────── */
+@media (max-width: 640px) {
+  .home-hero-panel::before,
+  .home-hero-panel::after { width: 38px; height: 38px; }
+  .home-hero-panel::before { top: -14px; left: -10px; }
+  .home-hero-panel::after { bottom: -14px; right: -10px; }
+}
