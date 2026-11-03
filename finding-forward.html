@@ -278,13 +278,14 @@
       <div class="ff-signup">
         <p class="section-label">Finding Forward List</p>
         <h2 class="section-title" id="finding-forward-signup-heading">Request the <em>Zoom Link</em></h2>
-        <p class="section-intro" style="margin-bottom:24px;">Complete this form to join the Finding Forward contact list. Meeting information and the Zoom link will be sent to the email address you provide.</p>
+        <p class="section-intro" style="margin-bottom:24px;">Share your name and email to request the Finding Forward Zoom link. Twizted Journeys will email you meeting information.</p>
         <div class="ff-form-success" id="ff-form-success" role="status">Thank you. Your information was submitted for the Finding Forward list.</div>
 
         <form action="https://formsubmit.co/info@twiztedjourneys.org" method="POST">
           <input type="hidden" name="_subject" value="Finding Forward List">
           <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_captcha" value="true">
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
           <input type="hidden" name="_next" value="https://twiztedjourneys.org/finding-forward.html?submitted=true#finding-forward-signup">
 
           <div class="ff-form-grid">
@@ -294,57 +295,16 @@
             </div>
             <div class="ff-field">
               <label for="ff-email">Email *</label>
-              <input id="ff-email" name="Email" type="email" autocomplete="email" required>
-            </div>
-            <div class="ff-field">
-              <label for="ff-age">Age range *</label>
-              <select id="ff-age" name="Age range" required>
-                <option value="">Select one</option>
-                <option>Under 18</option>
-                <option>18–24</option>
-                <option>25–34</option>
-                <option>35–44</option>
-                <option>45–54</option>
-                <option>55–64</option>
-                <option>65 or older</option>
-                <option>Prefer not to answer</option>
-              </select>
-            </div>
-            <div class="ff-field">
-              <label for="ff-phone">Phone number (optional)</label>
-              <input id="ff-phone" name="Phone" type="tel" autocomplete="tel">
+              <input id="ff-email" name="email" type="email" autocomplete="email" required>
             </div>
           </div>
-
-          <fieldset class="ff-field" style="border:0;padding:0;">
-            <legend>Are you a suicide loss survivor? *</legend>
-            <div class="ff-radio-row">
-              <label><input type="radio" name="Suicide loss survivor" value="Yes" required> Yes</label>
-              <label><input type="radio" name="Suicide loss survivor" value="No"> No</label>
-              <label><input type="radio" name="Suicide loss survivor" value="Prefer not to answer"> Prefer not to answer</label>
-            </div>
-          </fieldset>
-
-          <div class="ff-field">
-            <label for="ff-loss">Whom have you lost? (optional)</label>
-            <textarea id="ff-loss" name="Whom have you lost" placeholder="Share only what you are comfortable sharing."></textarea>
-          </div>
-
-          <fieldset class="ff-field" style="border:0;padding:0;">
-            <legend>Are you interested in our Finding Forward Zoom meeting? *</legend>
-            <div class="ff-radio-row">
-              <label><input type="radio" name="Interested in Finding Forward Zoom" value="Yes" required> Yes</label>
-              <label><input type="radio" name="Interested in Finding Forward Zoom" value="Maybe — please send more information"> Maybe—send more information</label>
-              <label><input type="radio" name="Interested in Finding Forward Zoom" value="No"> No</label>
-            </div>
-          </fieldset>
 
           <label class="ff-consent" style="margin-bottom:18px;">
             <input type="checkbox" name="Permission to contact" value="Yes" required>
             <span>I give Twizted Journeys permission to contact me by email about Finding Forward and send me the Zoom link. *</span>
           </label>
 
-          <p class="ff-form-note">Your address is not requested. Please do not include private medical information. Finding Forward is peer support and is not therapy or emergency care.</p>
+          <p class="ff-form-note">We only request your name and email to respond about Finding Forward. Submissions are processed by FormSubmit and emailed to Twizted Journeys; FormSubmit says it retains submissions for 30 days. Please do not share medical details or personal loss histories in this form. To ask about your information, email info@twiztedjourneys.org. Finding Forward is peer support, not therapy or emergency care.</p>
           <button type="submit" class="btn btn-primary" style="width:100%;">Submit for the Finding Forward List</button>
         </form>
       </div>
