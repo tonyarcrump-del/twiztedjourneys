@@ -396,6 +396,17 @@
       padding: 8px 12px;
     }
     .merch-section-heading { scroll-margin-top: 88px; }
+    .btl-shirt-previews {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .btl-shirt-previews img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: contain;
+      background: #fff;
+    }
     .back-to-gallery {
       margin-top: 10px;
       font-size: 0.82rem;
@@ -471,8 +482,8 @@
           <h1>Wear the <em>Message</em></h1>
           <p>Every purchase supports mental health awareness, suicide prevention, and community outreach. Handmade with intention &mdash; each piece carries a story.</p>
           <div style="display:flex;gap:12px;flex-wrap:wrap;">
-            <a href="#merch-shop" class="btn btn-primary">Shop Our Store &rarr;</a>
-            <a href="/be-the-light-shirt.html" class="btn btn-secondary">Be the Light Memorial T-Shirt</a>
+            <a href="#merch-gallery" class="btn btn-primary">Shop Collections &rarr;</a>
+            <a href="/be-the-light-shirt.html" class="btn btn-secondary">Order the Be the Light Shirt</a>
             <a href="#merch-order"
                class="btn btn-secondary"
                data-merch-order-button
@@ -513,8 +524,11 @@
           </div>
         </div>
 
-        <a href="#merch-shop"
-           class="btn btn-primary">Shop Our Store &rarr;</a>
+        <a href="#merch-order" class="btn btn-primary"
+           data-merch-order-button
+           data-order-code="CHARM-12MM"
+           data-order-name="12mm Stainless Steel Semicolon Charm"
+           data-order-price="1 for $5 &middot; 3 for $12 &middot; 10 for $30">Order Semicolon Charm</a>
         <p style="margin-top:16px;font-size:0.88rem;color:var(--muted);">
           Full store: <a href="merch.html">twiztedjourneys.org/merch</a>
         </p>
@@ -568,27 +582,46 @@
         <article class="merch-gallery-card" role="listitem">
           <img class="merch-gallery-thumb" src="images/light-up-night-shirt-back.jpg" alt="Light Up the Night Memorial Shirt preview image" loading="lazy">
           <h3>Apparel</h3>
-          <p>The Light Up the Night Memorial Shirt, remembering lives lost to suicide.</p>
+          <p>Shop the Be the Light and Light Up the Night memorial shirts.</p>
           <a href="#apparel-collection" class="btn btn-secondary">View Collection</a>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ── Apparel: Light Up the Night Memorial Shirt ────────────────────── -->
   <section id="apparel-collection" class="tt-section" aria-labelledby="apparel-heading">
     <div class="container">
-
       <div class="tt-heading-block">
         <p class="section-label">Apparel</p>
-        <h2 id="apparel-heading" class="merch-section-heading">Light Up the Night <em>Memorial Shirt</em></h2>
+        <h2 id="apparel-heading" class="merch-section-heading">Memorial <em>Shirts</em></h2>
+        <p class="back-to-gallery"><a href="#merch-gallery">Back to merch gallery &uarr;</a></p>
+      </div>
+
+      <article class="lun-shirt" aria-labelledby="btl-shirt-heading">
+        <div class="lun-shirt-gallery btl-shirt-previews">
+          <img class="lun-shirt-frame" src="images/be-the-light-shirt-front.jpg"
+               alt="Front of the Be the Light shirt with the words Fallen, Never Forgotten" loading="lazy">
+          <img class="lun-shirt-frame" src="images/be-the-light-shirt-back.jpg"
+               alt="Back of the Be the Light shirt with 67 military memorial names" loading="lazy">
+        </div>
+        <div class="lun-shirt-info">
+          <h3 id="btl-shirt-heading">Be the Light Military Memorial Shirt</h3>
+          <p class="lun-shirt-desc">Honors 67 military lives lost to suicide. Sizes S&ndash;XL are $30. Sizes 2X&ndash;4X are $35.</p>
+          <p class="lun-size-note">Shipping is calculated at PayPal checkout based on your state and the number of shirts you order.</p>
+          <div class="lun-shirt-actions">
+            <a href="/be-the-light-shirt.html" class="btn btn-primary">Choose Size and Order</a>
+          </div>
+        </div>
+      </article>
+
+      <div class="tt-heading-block">
+        <h3>Light Up the Night <em>Memorial Shirt</em></h3>
         <p class="tt-intro">Remembering Lives Lost to Suicide</p>
         <p class="tt-mission-note">
           Proceeds help support Twizted Journeys&rsquo; mission of spreading awareness, compassion,
           comfort, resources, tools, and education for mental health awareness, suicide prevention,
           and suicide loss survivors.
         </p>
-        <p class="back-to-gallery"><a href="#merch-gallery">Back to merch gallery &uarr;</a></p>
       </div>
 
       <div class="lun-shirt" data-lun-shirt-widget>
@@ -672,7 +705,7 @@
           and suicide loss survivors.
         </p>
         <p style="font-size:0.82rem;color:var(--muted);margin-top:10px;">
-          Order availability may vary. Submit your order details and Tonya will have the item, contact, and shipping information needed for follow-up.
+          Select a pin and enter your order details to continue to Stripe Checkout.
         </p>
         <p class="back-to-gallery"><a href="#merch-gallery">Back to merch gallery &uarr;</a></p>
       </div>
