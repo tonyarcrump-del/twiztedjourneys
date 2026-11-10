@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="See the Be the Light military memorial T-shirt and order from Twizted Journeys.">
+  <meta name="description" content="Shop the Be the Light military memorial T-shirt from Twizted Journeys.">
   <link rel="canonical" href="https://twiztedjourneys.org/be-the-light-shirt.html">
   <title>Be the Light Memorial T-Shirt | Twizted Journeys</title>
+  <script defer src="https://www.paypalobjects.com/ncp/cart/cart.js" data-merchant-id="PAYPAL_MERCHANT_ID"></script>
   <style>
     :root { color-scheme: dark; background: #181323; color: #fbf8f6; font-family: system-ui, sans-serif; }
     * { box-sizing: border-box; }
@@ -14,7 +15,8 @@
     header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; padding-block: 1.35rem; border-bottom: 1px solid #554860; }
     a { color: #84e6df; text-underline-offset: .25em; }
     a:focus-visible { outline: 3px solid #f1adff; outline-offset: 5px; }
-    header a:first-child { font-weight: 750; }
+    header > a { font-weight: 750; }
+    .shop-nav { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; }
     main { padding-block: clamp(1.7rem, 5vw, 4rem); }
     .product { display: grid; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
     .kicker { color: #84e6df; font-size: .86rem; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; margin: 0; }
@@ -24,7 +26,7 @@
     .prices { margin-block: 1.4rem; padding: .6rem 0; border-block: 1px solid #554860; max-width: 22rem; }
     .prices div { display: flex; justify-content: space-between; padding: .4rem 0; }
     .prices dd { font-weight: 750; }
-    .order { display: inline-block; padding: .85rem 1.2rem; border-radius: .4rem; background: #84e6df; color: #181323; font-weight: 750; text-decoration: none; }
+    .checkout { max-width: 22rem; }
     .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem; }
     figure { margin: 0; text-align: center; }
     figure a { display: block; background: #fff; border-radius: .4rem; padding: .35rem; }
@@ -36,7 +38,10 @@
 <body>
   <header>
     <a href="/">Twizted Journeys</a>
-    <a href="/merch.html">Twizted Treasures</a>
+    <nav class="shop-nav" aria-label="Shop">
+      <a href="/merch.html">Twizted Treasures</a>
+      <paypal-cart-button data-id="pp-view-cart"></paypal-cart-button>
+    </nav>
   </header>
   <main>
     <div class="product">
@@ -48,8 +53,12 @@
           <div><dt>S–XL</dt><dd>$30</dd></div>
           <div><dt>2X–4X</dt><dd>$35</dd></div>
         </dl>
-        <a class="order" href="mailto:twiztedjourneys@gmail.com?subject=Be%20the%20Light%20T-shirt%20order&amp;body=Shirt%20size%3A%20%0D%0AQuantity%3A%20">Order by email</a>
-        <p class="details">Email your shirt size and quantity to <a href="mailto:twiztedjourneys@gmail.com">twiztedjourneys@gmail.com</a>. We’ll confirm the order details by email.</p>
+        <div class="checkout">
+          <p class="details">Choose your size and quantity below. To order multiple sizes, add each size to your cart before checking out.</p>
+          <paypal-add-to-cart-button data-id="PAYPAL_SHIRT_BUTTON_ID"></paypal-add-to-cart-button>
+          <p id="checkout-error" role="status" hidden>Checkout couldn’t load. Please refresh the page and try again.</p>
+          <noscript><p>Enable JavaScript to use the shopping cart.</p></noscript>
+        </div>
       </section>
       <div class="gallery" aria-label="Shirt previews">
         <figure>
@@ -63,5 +72,16 @@
       </div>
     </div>
   </main>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const shirtButton = document.querySelector("paypal-add-to-cart-button");
+      try {
+        window.cartPaypal.Cart({ id: "pp-view-cart" });
+        window.cartPaypal.AddToCart({ id: shirtButton.dataset.id });
+      } catch {
+        document.getElementById("checkout-error").hidden = false;
+      }
+    });
+  </script>
 </body>
 </html>
