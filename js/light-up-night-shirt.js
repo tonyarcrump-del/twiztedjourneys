@@ -41,8 +41,8 @@
 
     var button = root.querySelector("[data-lun-order-button]");
     if (button) {
-      button.dataset.orderCode = PRODUCT.code;
-      button.dataset.orderName = PRODUCT.name + " — Size " + size;
+      button.dataset.orderCode = root.dataset.shirtCode || PRODUCT.code;
+      button.dataset.orderName = (root.dataset.shirtName || PRODUCT.name) + " — Size " + size;
       button.dataset.orderPrice = priceLabel;
     }
   }

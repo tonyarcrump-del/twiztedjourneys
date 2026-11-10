@@ -657,6 +657,32 @@
   </section>
 
   <!-- â”€â”€ Twizted Treasure Charm Collection â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <section id="be-the-light-card" class="tt-section" data-be-the-light-card hidden aria-labelledby="be-the-light-card-heading">
+    <div class="container" data-lun-shirt-widget data-shirt-code="BTL-SHIRT" data-shirt-name="Be the Light Memorial T-Shirt">
+      <h2 id="be-the-light-card-heading" class="merch-section-heading">Be the Light Memorial T-Shirt</h2>
+      <p class="tt-intro">Choose a size for card checkout. Ground shipping depends on the destination and quantity.</p>
+      <div class="lun-shirt-size-row">
+        <label for="btl-card-size">Size</label>
+        <select id="btl-card-size" class="lun-size-select" data-lun-size-select>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+          <option value="2X">2X</option>
+          <option value="3X">3X</option>
+          <option value="4X">4X</option>
+        </select>
+        <span class="lun-shirt-price" data-lun-price-display>$30</span>
+      </div>
+      <div class="lun-shirt-actions">
+        <a href="#merch-order" class="btn btn-primary" data-merch-order-button data-lun-order-button
+           data-order-code="BTL-SHIRT" data-order-name="Be the Light Memorial T-Shirt &mdash; Size S"
+           data-order-price="$30">Order with card</a>
+        <a href="/be-the-light-shirt.html" class="btn btn-secondary">View shirt and PayPal cart</a>
+      </div>
+    </div>
+  </section>
+
   <section id="twizted-treasure-collection" class="tt-section"
            aria-labelledby="tt-collection-heading">
     <div class="container">
@@ -1776,7 +1802,7 @@
           and suicide loss survivors.
         </p>
         <p style="font-size:0.82rem;color:var(--muted);margin-top:10px;">
-          Submit your order details first. Payment remains pending until the official merch payment link is ready.
+          Enter your order details, then choose an available payment method.
         </p>
         <p class="back-to-gallery"><a href="#merch-gallery">Back to merch gallery &uarr;</a></p>
       </div>
@@ -1941,7 +1967,8 @@
           </div>
           <div class="merch-order-field merch-order-field--full">
             <label for="merch-order-shipping">Shipping address</label>
-            <textarea id="merch-order-shipping" name="shipping_address" autocomplete="shipping street-address" required></textarea>
+            <textarea id="merch-order-shipping" name="shipping_address" autocomplete="shipping street-address" aria-describedby="merch-shipping-hint" required></textarea>
+            <small id="merch-shipping-hint" hidden>For this shirt, put the city, two-letter state abbreviation, and ZIP code on the last line.</small>
           </div>
           <div class="merch-order-field merch-order-field--full">
             <label for="merch-order-notes">Notes/details</label>
@@ -1951,7 +1978,7 @@
 
         <div id="merch-order-message" class="merch-order-message"></div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;">
-          <button type="submit" class="btn btn-primary">Save &amp; Pay &rarr;</button>
+          <button type="submit" class="btn btn-primary">Pay by card</button>
           <button type="button" class="btn btn-secondary" onclick="closeMerchOrderModal()">Cancel</button>
         </div>
       </form>
@@ -2415,8 +2442,9 @@ function tcEscHandler(e) { if (e.key === 'Escape') tcCloseModal(); }
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/tj-public-config.js"></script>
-  <script src="js/merch-orders.js"></script>
-  <script src="js/light-up-night-shirt.js"></script>
+  <script src="js/merch-payment-options.js"></script>
+  <script src="js/merch-orders.js?v=20261110-checkout"></script>
+  <script src="js/light-up-night-shirt.js?v=20261110-checkout"></script>
   <script src="js/tj-announcement.js"></script>
 </body>
 </html>

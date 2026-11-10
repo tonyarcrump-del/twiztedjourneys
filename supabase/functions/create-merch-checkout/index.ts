@@ -18,6 +18,7 @@
 
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@14.21.0?target=deno&no-check";
+import { finishPaypalCheckout, isMerchOrderId, paypalAvailable, readMerchOrder, startPaypalCheckout } from "./paypal.ts";
 
 // ── Allowed origins ───────────────────────────────────────────────────────────
 const ALLOWED_ORIGINS = [
@@ -32,7 +33,7 @@ function corsHeaders(origin: string | null): Record<string, string> {
     origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
   return {
     "Access-Control-Allow-Origin": allowed,
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Authorization, apikey",
   };
 }
@@ -79,8 +80,6 @@ const CHARM_12MM_BUNDLE_PRICES: Record<number, number> = {
 const FIXED_ITEMS: Record<string, number> = {
   JB7:  3299, // $32.99
   BEAR: 1999, // $19.99
-  UT4:   999, // $9.99
-  VDD2: 1799, // $17.99
   BRACELETS: 200, // $2.00
   SKULL: 1999, // $19.99
   SF1: 699, // $6.99
@@ -127,6 +126,25 @@ const LUN_SHIRT_SIZE_PRICES: Record<string, number> = {
   "4X": 3500,
 };
 
+// Match the Be the Light rates already active in the PayPal cart.
+const BE_THE_LIGHT_SHIPPING = [
+  { states: "IL IN KY OH", cents: [1070, 1270, 1315, 1445, 1620] },
+  { states: "DC DE IA MD MI MO NC PA SC TN VA WI WV", cents: [1110, 1350, 1420, 1565, 1790] },
+  { states: "AL AR CT GA KS LA MA ME MN MS NE NH NJ NY OK RI SD VT", cents: [1170, 1485, 1570, 1780, 2085] },
+  { states: "CO FL ND NM TX WY", cents: [1210, 1585, 1720, 1970, 2395] },
+  { states: "AZ ID MT UT", cents: [1270, 1720, 1970, 2230, 2765] },
+  { states: "AK CA HI NV OR WA", cents: [1365, 1980, 2315, 2565, 3200] },
+];
+
+function getBeTheLightShipping(address: string, quantity: number): number | undefined {
+  const lastLine = address.trim().split(/\r?\n/).at(-1) ?? "";
+  const match = lastLine.match(/\b([A-Z]{2})[ ,]+\d{5}(?:-\d{4})?$/i);
+  const state = match?.[1].toUpperCase();
+  const region = state && BE_THE_LIGHT_SHIPPING.find((entry) => entry.states.split(" ").includes(state));
+  const tier = quantity === 1 ? 0 : quantity <= 3 ? 1 : quantity === 4 ? 2 : quantity <= 6 ? 3 : 4;
+  return region ? region.cents[tier] : undefined;
+}
+
 // Price-coming-soon items: save inquiry, skip Stripe
 const INQUIRY_ITEMS = new Set<string>([]);
 
@@ -135,7 +153,7 @@ function lookupItem(itemCode: string): CatalogEntry | null {
   if (BUNDLE_ITEMS.has(code))        return { kind: "bundle" };
   if (code === "CHARM-12MM")         return { kind: "charm-bundle" };
   if (HAT_PIN_ITEMS.has(code))       return { kind: "hat-pin" };
-  if (code === "LUN-SHIRT")          return { kind: "shirt" };
+  if (code === "LUN-SHIRT" || code === "BTL-SHIRT") return { kind: "shirt" };
   if (FIXED_ITEMS[code] !== undefined) return { kind: "fixed", cents: FIXED_ITEMS[code] };
   if (INQUIRY_ITEMS.has(code))       return { kind: "inquiry" };
   return null; // unknown item
@@ -186,6 +204,9 @@ interface CheckoutRequest {
   item_name:      string;
   quantity:       number;
   customer_email: string;
+  provider?:      "stripe" | "paypal";
+  action?:        "capture_paypal";
+  paypal_order_id?: string;
   // The following are accepted for logging/debugging but NEVER used for pricing.
   price_label?:   string;
   amount_cents?:  number;
@@ -213,6 +234,11 @@ serve(async (req: Request) => {
     return new Response(null, { status: 204, headers: cors });
   }
 
+  if (req.method === "GET") {
+    const card = Boolean(Deno.env.get("STRIPE_SECRET_KEY") && Deno.env.get("SUPABASE_SERVICE_ROLE_KEY"));
+    return json({ paypal: paypalAvailable(), be_the_light_card: card }, 200, cors);
+  }
+
   if (req.method !== "POST") {
     return json({ error: "Method not allowed" }, 405, cors);
   }
@@ -225,11 +251,50 @@ serve(async (req: Request) => {
     return json({ error: "Invalid JSON body" }, 400, cors);
   }
 
-  const { order_id, item_code, item_name, quantity, customer_email } = body;
+  if (!body || typeof body !== "object") return json({ error: "Invalid checkout request" }, 400, cors);
+  const { order_id } = body;
+  if (body.action === "capture_paypal") {
+    if (!paypalAvailable()) return json({ error: "PayPal checkout is unavailable." }, 503, cors);
+    if (!isMerchOrderId(order_id) || typeof body.paypal_order_id !== "string" ||
+        !/^[A-Z0-9]{10,30}$/.test(body.paypal_order_id)) {
+      return json({ error: "Invalid payment reference." }, 400, cors);
+    }
+    try {
+      const status = await finishPaypalCheckout(order_id, body.paypal_order_id);
+      return json({ status }, status === "unknown_order" ? 404 : 200, cors);
+    } catch (error) {
+      console.warn("Merch PayPal confirmation failed:", error instanceof Error ? error.message : error);
+      return json({ error: "Payment confirmation is temporarily unavailable." }, 502, cors);
+    }
+  }
+  let { item_code, item_name, quantity, customer_email } = body;
+  const provider = body.provider ?? "stripe";
+  if (provider !== "stripe" && provider !== "paypal") {
+    return json({ error: "Invalid payment method." }, 400, cors);
+  }
 
   // ── Validate required fields ────────────────────────────────────────────────
   if (!order_id || typeof order_id !== "string" || !order_id.trim()) {
     return json({ error: "Missing required field: order_id" }, 400, cors);
+  }
+
+  const baseUrl = origin && ALLOWED_ORIGINS.includes(origin) ? origin : "https://twiztedjourneys.org";
+  const isBeTheLight = typeof item_code === "string" && item_code.trim().toUpperCase() === "BTL-SHIRT";
+  let savedOrder;
+  if (provider === "paypal" || isBeTheLight) {
+    if (provider === "paypal" && !paypalAvailable()) {
+      return json({ error: "PayPal checkout is unavailable. You can pay by card." }, 503, cors);
+    }
+    if (!isMerchOrderId(order_id)) return json({ error: "Invalid order reference." }, 400, cors);
+    try {
+      savedOrder = await readMerchOrder(order_id);
+    } catch {
+      return json({ error: "Could not load the saved order." }, 502, cors);
+    }
+    if (!savedOrder || savedOrder.payment_status !== "pending" || savedOrder.item_code !== item_code) {
+      return json({ error: "This order is unavailable for payment." }, 409, cors);
+    }
+    ({ item_code, item_name, quantity, customer_email } = savedOrder);
   }
 
   if (!item_code || typeof item_code !== "string" || !item_code.trim()) {
@@ -279,8 +344,7 @@ serve(async (req: Request) => {
 
   const shirtSize = catalogEntry.kind === "shirt" ? getLunShirtSize(item_name) : null;
   if (catalogEntry.kind === "shirt" && !shirtSize) {
-    console.warn("Invalid LUN-SHIRT size:", { item_code, item_name });
-    return json({ error: "Invalid or missing shirt size for LUN-SHIRT" }, 400, cors);
+    return json({ error: "Invalid or missing shirt size." }, 400, cors);
   }
 
   if (
@@ -312,6 +376,21 @@ serve(async (req: Request) => {
     );
   }
 
+  if (provider === "paypal" && savedOrder) {
+    if (isBeTheLight) return json({ error: "Use the PayPal cart on the Be the Light shirt page." }, 400, cors);
+    try {
+      return json({ checkout_url: await startPaypalCheckout(savedOrder, amountCents, baseUrl) }, 200, cors);
+    } catch (error) {
+      console.warn("Merch PayPal order failed:", error instanceof Error ? error.message : error);
+      return json({ error: "PayPal could not open checkout. Please try again." }, 502, cors);
+    }
+  }
+
+  const shippingCents = isBeTheLight ? getBeTheLightShipping(savedOrder!.shipping_address, quantity) : 0;
+  if (shippingCents === undefined) {
+    return json({ error: "Use a U.S. shipping address ending with city, state abbreviation, and ZIP code." }, 400, cors);
+  }
+
   // ── Init Stripe ─────────────────────────────────────────────────────────────
   const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
   if (!stripeKey) {
@@ -329,23 +408,17 @@ serve(async (req: Request) => {
   });
 
   // ── Build redirect URLs ──────────────────────────────────────────────────────
-  const baseUrl =
-    origin && ALLOWED_ORIGINS.includes(origin)
-      ? origin
-      : "https://twiztedjourneys.org";
-
   const successUrl = `${baseUrl}/merch-payment-success.html` +
     `?order_id=${encodeURIComponent(order_id.trim())}` +
     `&session_id={CHECKOUT_SESSION_ID}`;
 
-  const cancelUrl = `${baseUrl}/merch.html?order_cancelled=1`;
+  const cancelUrl = `${baseUrl}/merch.html?order_cancelled=1${isBeTheLight ? "#be-the-light-card" : ""}`;
 
   // ── Create Stripe Checkout Session ──────────────────────────────────────────
   let session: Stripe.Checkout.Session;
   try {
     session = await stripe.checkout.sessions.create({
       mode: "payment",
-      payment_method_types: ["card"],
       customer_email: customer_email?.trim() || undefined,
       line_items: [
         {
@@ -361,6 +434,14 @@ serve(async (req: Request) => {
           },
           quantity: 1, // amountCents already incorporates quantity math
         },
+        ...(shippingCents ? [{
+          price_data: {
+            currency: "usd",
+            unit_amount: shippingCents,
+            product_data: { name: "Ground shipping" },
+          },
+          quantity: 1,
+        }] : []),
       ],
       metadata: {
         order_id:   order_id.trim(),

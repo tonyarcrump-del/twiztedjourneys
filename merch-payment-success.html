@@ -104,16 +104,17 @@
   <section class="success-section" aria-labelledby="success-heading">
     <div class="container">
       <div class="success-card">
-        <div class="success-icon" aria-hidden="true">&#10003;</div>
-        <h1>Payment <em>Received!</em></h1>
-        <p>
+        <div class="success-icon" id="payment-checkmark" aria-hidden="true">&#10003;</div>
+        <h1 id="success-heading">Payment <em>Received!</em></h1>
+        <p id="payment-message" aria-live="polite">
           Thank you for your purchase and for supporting Twizted Journeys.
           Your payment has been processed and your order is confirmed.
         </p>
-        <p>
+        <p id="payment-receipt">
           Tonya will be in touch about shipping and any order details.
           Check your email for a receipt from Stripe.
         </p>
+        <p id="paypal-retry-block" hidden><button type="button" id="paypal-retry" class="btn btn-secondary">Check payment again</button></p>
         <div class="order-id-note" id="order-ref-block" aria-live="polite">
           <!-- Order ID injected by script -->
         </div>
@@ -156,6 +157,8 @@
 </footer>
 
 <script src="js/main.js?v=20260614-merchfix"></script>
+<script src="js/tj-public-config.js"></script>
+<script src="js/merch-payment-options.js"></script>
 <script>
   // Show order reference from URL param
   (function () {
@@ -171,6 +174,50 @@
         ? parts.join(" · ")
         : "Keep this page URL as your order reference.";
     }
+    if (params.get("provider") !== "paypal") return;
+    var checkmark = document.getElementById("payment-checkmark");
+    var heading = document.getElementById("success-heading");
+    var message = document.getElementById("payment-message");
+    var receipt = document.getElementById("payment-receipt");
+    var retryBlock = document.getElementById("paypal-retry-block");
+    var token = params.get("token");
+    checkmark.hidden = true;
+    receipt.hidden = true;
+
+    async function confirmPayPal() {
+      heading.textContent = "Checking your PayPal payment";
+      message.textContent = "Please keep this page open while we confirm your order.";
+      retryBlock.hidden = true;
+      try {
+        if (!token || !orderId || !window.TJ_MERCH_CHECKOUT) throw new Error("Missing payment reference");
+        var response = await window.TJ_MERCH_CHECKOUT.request({
+          action: "capture_paypal", order_id: orderId, paypal_order_id: token
+        });
+        var result = await response.json();
+        if (!response.ok) throw new Error("Payment confirmation failed");
+        if (result.status === "paid") {
+          heading.textContent = "Payment received";
+          message.textContent = "Thank you for supporting Twizted Journeys. Your order is confirmed.";
+          receipt.textContent = "Check your email for your PayPal receipt.";
+          receipt.hidden = false;
+          checkmark.hidden = false;
+          return;
+        }
+        if (result.status === "pending") {
+          heading.textContent = "PayPal payment pending";
+          message.textContent = "PayPal is still processing your payment. You can check it again here.";
+        } else {
+          heading.textContent = "Payment status unavailable";
+          message.textContent = "Check your PayPal activity before placing another order.";
+        }
+      } catch {
+        heading.textContent = "Payment status unavailable";
+        message.textContent = "Try checking again or contact us with your order ID.";
+      }
+      retryBlock.hidden = false;
+    }
+    document.getElementById("paypal-retry").addEventListener("click", confirmPayPal);
+    confirmPayPal();
   })();
 </script>
 </body>

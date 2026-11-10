@@ -57,6 +57,7 @@
           <p class="details">Choose your size and quantity below. To order multiple sizes, add each size to your cart before checking out.</p>
           <p class="details">Ground shipping to the 50 U.S. states and D.C. is based on your state and the number of shirts in your cart.</p>
           <paypal-add-to-cart-button data-id="WEZVM7TWAN26L"></paypal-add-to-cart-button>
+          <p data-be-the-light-card hidden><a href="/merch.html#be-the-light-card">Pay by card through Stripe</a></p>
           <p id="checkout-error" role="status" hidden>Checkout couldn’t load. Please refresh the page and try again.</p>
           <noscript><p>Enable JavaScript to use the shopping cart.</p></noscript>
         </div>
@@ -73,6 +74,8 @@
       </div>
     </div>
   </main>
+  <script src="/js/tj-public-config.js"></script>
+  <script src="/js/merch-payment-options.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const shirtButton = document.querySelector("paypal-add-to-cart-button");

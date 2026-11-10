@@ -213,13 +213,14 @@
   window.openMerchOrderModal = function (item) {
     var modal = document.getElementById("merch-order-modal");
     var form  = document.getElementById("merch-order-form");
-    if (!modal || !form) return;
+    if (!modal || !form || form._checkoutInProgress) return;
 
     item = item || { code: "Merch", name: "Twizted Journeys merch item", price: "Price pending" };
 
     closeDetailModals();
     clearMessage();
     form.reset();
+    form._savedMerchOrder = null;
 
     document.getElementById("merch-order-item-code").value   = item.code;
     document.getElementById("merch-order-item-name").value   = item.name;
@@ -229,6 +230,12 @@
     document.getElementById("merch-order-summary-name").textContent  = item.name;
     document.getElementById("merch-order-summary-code").textContent  = "Item: " + item.code;
     document.getElementById("merch-order-summary-price").textContent = item.price ? " | " + item.price : "";
+    var paypalButton = form.querySelector("[value=paypal]");
+    if (paypalButton) {
+      paypalButton.style.display = item.code === "BTL-SHIRT" ? "none" : "";
+    }
+    var shippingHint = document.getElementById("merch-shipping-hint");
+    if (shippingHint) shippingHint.hidden = item.code !== "BTL-SHIRT";
 
     // Show or hide price note based on whether we can calculate amount
     updatePriceNote(item.price, 1, item.code);
@@ -245,6 +252,8 @@
 
   window.closeMerchOrderModal = function () {
     var modal = document.getElementById("merch-order-modal");
+    var form = document.getElementById("merch-order-form");
+    if (form && form._checkoutInProgress) return;
     if (modal) modal.classList.remove("is-open");
     document.body.style.overflow = "";
   };
@@ -255,7 +264,7 @@
     if (!noteEl) return;
     var cents = calcAmountCents(priceLabel, quantity, itemCode);
     if (cents !== null) {
-      noteEl.textContent = "Calculated total: " + formatCents(cents);
+      noteEl.textContent = (itemCode === "BTL-SHIRT" ? "Item subtotal: " : "Calculated total: ") + formatCents(cents);
       noteEl.style.display = "";
     } else {
       noteEl.textContent = "";
@@ -304,12 +313,31 @@
   document.addEventListener("DOMContentLoaded", function () {
     var form = document.getElementById("merch-order-form");
     if (!form) return;
+    var checkout = window.TJ_MERCH_CHECKOUT;
+    var cardButton = form.querySelector("[type=submit]");
+    if (checkout && checkout.options) {
+      checkout.options.then(function (options) {
+        if (options.paypal !== true) return;
+        var paypalButton = document.createElement("button");
+        paypalButton.type = "submit";
+        paypalButton.value = "paypal";
+        paypalButton.className = "btn btn-secondary";
+        paypalButton.textContent = "Pay with PayPal";
+        if (form.elements.item_code.value === "BTL-SHIRT") paypalButton.style.display = "none";
+        paypalButton.disabled = Boolean(form._checkoutInProgress);
+        cardButton.after(paypalButton);
+      });
+    }
 
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
+      if (form._checkoutInProgress) return;
 
-      var btn = form.querySelector("[type=submit]");
-      btn.disabled = true;
+      var btn = e.submitter || cardButton;
+      var provider = btn.value === "paypal" ? "paypal" : "stripe";
+      var submitButtons = form.querySelectorAll("[type=submit]");
+      form._checkoutInProgress = true;
+      submitButtons.forEach(function (button) { button.disabled = true; });
       btn.dataset.original = btn.dataset.original || btn.textContent;
       btn.textContent = "Saving\u2026";
       clearMessage();
@@ -332,10 +360,17 @@
           setMessage("error", invalidQuantityMessage);
           return;
         }
+        if (!Number.isInteger(quantity) || quantity < 1 || quantity > 99) {
+          setMessage("error", "Enter a quantity between 1 and 99.");
+          return;
+        }
+        var address = form.elements.shipping_address.value.trim();
+        if (itemCode === "BTL-SHIRT" && !/\b[A-Z]{2}[ ,]+\d{5}(?:-\d{4})?$/i.test(address)) {
+          setMessage("error", "End the shipping address with city, two-letter state abbreviation, and ZIP code.");
+          return;
+        }
 
-        orderId = generateOrderId();
         payload = {
-          id:               orderId,
           item_code:        itemCode,
           item_name:        form.elements.item_name.value.trim(),
           price_label:      priceLabel,
@@ -343,16 +378,24 @@
           customer_name:    form.elements.customer_name.value.trim(),
           customer_email:   form.elements.customer_email.value.trim(),
           customer_phone:   form.elements.customer_phone.value.trim() || null,
-          shipping_address: form.elements.shipping_address.value.trim(),
+          shipping_address: address,
           notes:            form.elements.notes.value.trim() || null,
           payment_status:   "pending",
           order_status:     "new",
           source:           "merch-page"
         };
 
-        // Step 1: Save order to Supabase (always happens first)
-        btn.textContent = "Saving order\u2026";
-        await insertToSupabase(ORDER_TABLE, payload);
+        // A payment handoff can be retried without saving a second copy of the order.
+        var fingerprint = JSON.stringify(payload);
+        var previous = form._savedMerchOrder;
+        if (previous && previous.fingerprint === fingerprint) {
+          orderId = previous.id;
+        } else {
+          orderId = generateOrderId();
+          btn.textContent = "Saving order\u2026";
+          await insertToSupabase(ORDER_TABLE, Object.assign({ id: orderId }, payload));
+          form._savedMerchOrder = { id: orderId, fingerprint: fingerprint };
+        }
         orderSaved = true;
         console.log("Merch order saved, id:", orderId);
 
@@ -391,6 +434,7 @@
           },
           body: JSON.stringify({
             order_id:       orderId,
+            provider:       provider,
             item_code:      payload.item_code,
             item_name:      payload.item_name,
             quantity:       quantity,
@@ -432,7 +476,7 @@
           throw new Error("No checkout URL returned from payment system");
         }
 
-        // Step 4: Redirect to Stripe Checkout
+        // Step 4: Redirect to the selected payment provider.
         window.location.assign(checkoutData.checkout_url);
 
       } catch (err) {
@@ -447,7 +491,7 @@
           // Order was saved but payment redirect failed — order is NOT lost
           setMessage("error",
             "<strong>Your order was saved</strong> (order ID: " + orderId + ") but the " +
-            "payment redirect encountered an issue. Please contact " +
+            "payment page could not open. Try again or contact " +
             "<a href=\"mailto:info@twiztedjourneys.org\">info@twiztedjourneys.org</a> " +
             "and reference your order ID so Tonya can follow up with payment instructions."
           );
@@ -458,7 +502,8 @@
           );
         }
       } finally {
-        btn.disabled = false;
+        form._checkoutInProgress = false;
+        form.querySelectorAll("[type=submit]").forEach(function (button) { button.disabled = false; });
         btn.textContent = btn.dataset.original;
       }
     });
