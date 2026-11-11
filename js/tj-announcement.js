@@ -97,7 +97,7 @@
 
   // Load and render the current site-wide announcement
   function loadAnnouncement() {
-    var text = 'November 7, 2026 — Be the Light: Honoring our soldiers and their family and friends whose lives have been touched by suicide.';
+    var text = 'Thank you to everyone who attended our Twizted Journeys events in 2026. We’re grateful you showed up for one another.';
     bar.className = 'ann-event';
 
     var closeBtn = document.createElement('button');
